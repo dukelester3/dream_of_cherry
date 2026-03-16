@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 11:40:24 PM
+// Generated: 3/16/2026, 11:42:24 PM
 
 const siteData = {
   "about": {
@@ -844,8 +844,8 @@ const siteData = {
       "titleJa": "東京の女性、好評｜デートの感想",
       "titleZh": "東京的小姐好評｜約完心得",
       "titleEn": "Tokyo Women: Good Reviews | Post-Meeting Experience",
-      "excerpt": "",
-      "excerptZh": "",
+      "excerpt": "皆様から繰り返しいただいた、揺るぎないご支持とご評価のフィードバックに、心より感謝申し上げます。",
+      "excerptZh": "一次次的堅定和認可 謝謝你們給的回饋",
       "contentJa": "皆様から繰り返しいただいた、揺るぎないご支持とご評価のフィードバックに、心より感謝申し上げます。",
       "contentZh": "一次次的堅定和認可 謝謝你們給的回饋",
       "contentEn": "Your repeated affirmation and recognition. Thank you for your feedback.",
