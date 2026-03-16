@@ -35,6 +35,7 @@
         <button class="admin-nav-btn" data-tab="reviews">💬 客評管理</button>
         <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
         <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
+        <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
       </nav>
       <div class="admin-sidebar-footer">
         <a href="../" class="admin-back-link">← 返回網站</a>
@@ -88,6 +89,19 @@
             </thead>
             <tbody id="diary-tbody"></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- SETTINGS TAB -->
+      <div class="admin-tab hidden" id="tab-settings">
+        <div class="tab-header"><h1>設定</h1></div>
+        <div class="export-section">
+          <div class="form-group">
+            <label>ImgBB API Key（圖片上傳用）</label>
+            <input type="password" id="imgbb-key" placeholder="至 imgbb.com 免費取得 API Key">
+            <p class="form-hint">用於後台上傳照片。免費註冊 <a href="https://api.imgbb.com/" target="_blank">imgbb.com</a> 取得 Key，取得後貼上並儲存。</p>
+          </div>
+          <button type="button" class="btn-admin-primary" id="save-imgbb-btn">儲存 API Key</button>
         </div>
       </div>
 

@@ -2,6 +2,7 @@
 const ADMIN_PASSWORD = '@fan123456F'; // Change this!
 const STORAGE_KEY = 'yuyu_admin_data';
 const AUTH_KEY = 'yuyu_admin_auth';
+const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
 
 // ── State ──
 let adminData = null;
@@ -72,14 +73,28 @@ function saveData() {
 }
 
 // ── Tabs ──
+function saveImgbbKey() {
+  const key = document.getElementById('imgbb-key')?.value?.trim();
+  if (key) {
+    localStorage.setItem(IMGBB_KEY_STORAGE, key);
+    alert('API Key 已儲存');
+  } else {
+    localStorage.removeItem(IMGBB_KEY_STORAGE);
+    alert('已清除 API Key');
+  }
+}
+
 function setupTabs() {
   document.querySelectorAll('.admin-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
       document.querySelectorAll('.admin-tab').forEach(t => t.classList.add('hidden'));
       btn.classList.add('active');
-      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
-      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      const tabEl = document.getElementById('tab-' + btn.dataset.tab);
+      if (tabEl) {
+        tabEl.classList.remove('hidden');
+        tabEl.classList.add('active');
+      }
     });
   });
 
@@ -87,6 +102,9 @@ function setupTabs() {
   document.getElementById('add-review-btn').addEventListener('click', () => openModal('review', null));
   document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
   document.getElementById('export-btn').addEventListener('click', generateExport);
+  document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
+  const imgbbInput = document.getElementById('imgbb-key');
+  if (imgbbInput) imgbbInput.value = localStorage.getItem(IMGBB_KEY_STORAGE) || '';
   document.getElementById('copy-export-btn').addEventListener('click', () => {
     const ta = document.getElementById('export-textarea');
     ta.select(); document.execCommand('copy');
@@ -162,6 +180,49 @@ function setupModals() {
   document.getElementById('admin-modal-overlay').addEventListener('click', closeModal);
   document.getElementById('modal-cancel').addEventListener('click', closeModal);
   document.getElementById('modal-save').addEventListener('click', saveModal);
+  document.getElementById('admin-modal-body').addEventListener('click', async (e) => {
+    const btn = e.target.closest('.img-upload-btn');
+    if (!btn) return;
+    const targetId = btn.dataset.target;
+    const fileInput = document.getElementById(targetId + '-file') || document.getElementById('f-' + (targetId === 'f-image' ? 'image' : 'thumbnail') + '-file');
+    const urlInput = document.getElementById(targetId);
+    if (!fileInput || !urlInput) return;
+    const file = fileInput.files[0];
+    if (!file) {
+      fileInput.click();
+      return;
+    }
+    const key = localStorage.getItem(IMGBB_KEY_STORAGE);
+    if (!key) {
+      alert('請先至「設定」分頁填入 ImgBB API Key');
+      return;
+    }
+    btn.disabled = true;
+    btn.textContent = '上傳中...';
+    try {
+      const fd = new FormData();
+      fd.append('key', key);
+      fd.append('image', file);
+      const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
+      const json = await res.json();
+      if (json.data?.url) {
+        urlInput.value = json.data.url;
+        fileInput.value = '';
+      } else {
+        alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤'));
+      }
+    } catch (err) {
+      alert('上傳失敗：' + err.message);
+    }
+    btn.disabled = false;
+    btn.textContent = '選擇上傳';
+  });
+  document.getElementById('admin-modal-body').addEventListener('change', (e) => {
+    if (e.target.matches('.img-file-input') && e.target.files[0]) {
+      const btn = e.target.closest('.img-upload-row')?.querySelector('.img-upload-btn');
+      if (btn) btn.click();
+    }
+  });
 }
 
 function openModal(type, id) {
@@ -200,7 +261,14 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>類型標籤(日，逗號分隔)</label><input id="f-types" value="${item?.types?.join(',')||''}"></div>
       <div class="form-group"><label>類型標籤(中，逗號分隔)</label><input id="f-typesZh" value="${item?.typesZh?.join(',')||''}"></div>
-      <div class="form-group"><label>圖片 URL</label><input id="f-image" value="${item?.image||''}"></div>
+      <div class="form-group">
+        <label>圖片 URL</label>
+        <div class="img-upload-row">
+          <input id="f-image" value="${item?.image||''}" class="img-url-input">
+          <input type="file" id="f-image-file" accept="image/*" class="img-file-input">
+          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-image">選擇上傳</button>
+        </div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label>顯示順序</label><input id="f-order" type="number" value="${item?.order||99}"></div>
         <div class="form-group"><label>狀態</label><select id="f-active"><option value="true" ${item?.active!==false?'selected':''}>顯示</option><option value="false" ${item?.active===false?'selected':''}>隱藏</option></select></div>
@@ -241,7 +309,14 @@ function openModal(type, id) {
         <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
       </div>
-      <div class="form-group"><label>縮圖 URL</label><input id="f-thumbnail" value="${item?.thumbnail||''}"></div>
+      <div class="form-group">
+        <label>縮圖 URL</label>
+        <div class="img-upload-row">
+          <input id="f-thumbnail" value="${item?.thumbnail||''}" class="img-url-input">
+          <input type="file" id="f-thumbnail-file" accept="image/*" class="img-file-input">
+          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-thumbnail">選擇上傳</button>
+        </div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label>身高(選填)</label><input id="f-sh" type="number" value="${stats.height||''}"></div>
         <div class="form-group"><label>罩杯(選填)</label><input id="f-sc" value="${stats.cup||''}"></div>
