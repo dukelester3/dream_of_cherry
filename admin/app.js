@@ -105,7 +105,7 @@ function showDashboard() {
 
 // ── Data ──
 const DEFAULT_ABOUT = {
-  photos: ['./picture/yuyu-1.jpg', './picture/yuyu-2.jpg', './picture/yuyu-3.jpg', './picture/yuyu-4.jpg'],
+  photos: ['https://i.ibb.co/d0jHqV4k/yuyu-1.jpg', 'https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg', 'https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg', 'https://i.ibb.co/bTkVcn3/S-28147830-0.jpg'],
   p1Ja: 'はじめまして、ゆうゆうと申します。台湾出身です。',
   p1Zh: '大家好～我是悠悠，來自台灣！',
   p1En: "Hello! I'm Yuuyuu from Taiwan.",
