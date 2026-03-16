@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 11:25:28 PM
+// Generated: 3/16/2026, 11:30:15 PM
 
 const siteData = {
   "about": {
@@ -836,6 +836,23 @@ const siteData = {
       "date": "2024.10.25",
       "category": "日記",
       "thumbnail": "./diary/89088e858960699637383db0c53f80289922c0d4.31.9.9.3.jpeg",
+      "stats": null,
+      "published": true
+    },
+    {
+      "id": 33,
+      "titleJa": "東京の女性は好評｜会ってみた感想",
+      "titleZh": "東京的小姐好評｜約完心得",
+      "titleEn": "Tokyo Ladies: Positive Reviews | Post-Appointment Experience",
+      "excerpt": "",
+      "excerptZh": "",
+      "contentJa": "皆様からいただく、その都度の確かなご支持とご評価、そしてフィードバックに心より感謝申し上げます。",
+      "contentZh": "一次次的堅定和認可 謝謝你們給的回饋",
+      "contentEn": "Consistent affirmation and recognition. Thank you for your feedback.",
+      "category": "客戶反饋",
+      "date": "2026.03.15",
+      "thumbnail": "https://i.ibb.co/YTNP8mJ6/message-Image-1773672161311.jpg",
+      "image": "https://i.ibb.co/YTNP8mJ6/message-Image-1773672161311.jpg",
       "stats": null,
       "published": true
     }
