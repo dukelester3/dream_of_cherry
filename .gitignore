@@ -20,3 +20,8 @@ node_modules/
 .idea/
 *.swp
 *.swo
+
+# 敏感設定
+.env
+.env.local
+*.secret

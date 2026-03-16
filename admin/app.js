@@ -1,5 +1,5 @@
 // ===== Admin Panel App =====
-const ADMIN_PASSWORD = '@fan123456F'; // Change this!
+const ADMIN_PASSWORD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
 const STORAGE_KEY = 'yuyu_admin_data';
 const AUTH_KEY = 'yuyu_admin_auth';
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';

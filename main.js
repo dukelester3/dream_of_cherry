@@ -20,7 +20,7 @@ document.getElementById('sidebar-theme-toggle')?.addEventListener('click', () =>
 });
 
 // ── Admin Login (點擊右上角 夜桜の夢 開啟) ──
-const ADMIN_PASSWORD = '@fan123456F';
+const ADMIN_PASSWORD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
 const ADMIN_AUTH_KEY = 'yuyu_admin_auth';
 
 function openAdminLoginModal() {
