@@ -42,8 +42,8 @@
         <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
       </nav>
       <div class="admin-sidebar-footer">
-        <a href="../?preview=1" class="admin-back-link" title="即時預覽後台修改的內容">👁 預覽首頁</a>
-        <a href="../" class="admin-back-link">← 返回網站</a>
+        <a href="../?preview=1" class="admin-back-link" title="即時看後台修改的內容">← 返回網站（預覽）</a>
+        <a href="../" class="admin-back-link" title="正式發布的版本">正式網站</a>
         <button id="logout-btn" class="admin-logout">登出</button>
       </div>
     </aside>
@@ -101,7 +101,7 @@
       <div class="admin-tab hidden" id="tab-about">
         <div class="tab-header"><h1>個人簡介</h1></div>
         <div class="export-section">
-          <p class="export-desc">編輯首頁「關於悠悠」區塊的照片與文字。修改後請至「匯出資料」生成 data.js 並替換網站檔案。</p>
+          <p class="export-desc">編輯首頁「關於悠悠」區塊的照片與文字。儲存後點左側「返回網站（預覽）」即時查看；正式發布請至「匯出資料」生成 data.js 並推送到 GitHub。</p>
           <button type="button" class="btn-admin-primary" id="edit-about-btn">編輯個人簡介</button>
         </div>
       </div>
@@ -122,6 +122,16 @@
             <p class="form-hint">用於日記／客評編輯時一鍵翻譯。專案 <code>gen-lang-client-0879457781</code>。免費額度：約 250 次/日。</p>
           </div>
           <button type="button" class="btn-admin-primary" id="save-gemini-btn">儲存 Gemini Key</button>
+          <div class="form-group" style="margin-top:24px">
+            <label>GitHub Token（一鍵發布用）</label>
+            <input type="password" id="github-token" placeholder="Personal Access Token，需 repo 權限">
+            <p class="form-hint">用於後台「發布到 GitHub」一鍵更新 data.js。至 <a href="https://github.com/settings/tokens" target="_blank">GitHub Settings → Tokens</a> 建立，勾選 <code>repo</code> 權限。</p>
+          </div>
+          <div class="form-group">
+            <label>GitHub 倉庫（owner/repo）</label>
+            <input type="text" id="github-repo" placeholder="dukelester3/dream_of_cherry">
+          </div>
+          <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
         </div>
       </div>
 
@@ -129,12 +139,15 @@
       <div class="admin-tab hidden" id="tab-export">
         <div class="tab-header"><h1>匯出資料</h1></div>
         <div class="export-section">
-          <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案，複製後替換網站根目錄的 data.js 即可更新網站。<br>💡 修改後可點左側「預覽首頁」即時看變更；正式發布需匯出並推送到 GitHub。</p>
-          <button class="btn-admin-primary" id="export-btn">生成 data.js</button>
+          <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案。設定 GitHub Token 後可一鍵發布；或複製後手動替換並推送。</p>
+          <div class="export-actions" style="margin-bottom:16px">
+            <button class="btn-admin-primary" id="publish-github-btn">🚀 發布到 GitHub</button>
+            <button class="btn-admin-secondary" id="export-btn">生成 data.js（手動複製）</button>
+          </div>
           <div class="export-output hidden" id="export-output">
             <div class="export-actions">
               <button class="btn-admin-secondary" id="copy-export-btn">複製全部</button>
-              <span class="export-hint">複製後貼上到 /yuyu/data.js</span>
+              <span class="export-hint">複製後替換專案根目錄的 data.js</span>
             </div>
             <textarea id="export-textarea" readonly></textarea>
           </div>

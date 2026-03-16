@@ -6,6 +6,8 @@ const AUTH_KEY = 'yuyu_admin_auth';
 function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
 const GEMINI_KEY_STORAGE = 'yuyu_gemini_key';
+const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
+const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
 
 // ── State ──
 let adminData = null;
@@ -138,6 +140,72 @@ function saveGeminiKey() {
   }
 }
 
+function saveGitHubSettings() {
+  const token = document.getElementById('github-token')?.value?.trim();
+  const repo = document.getElementById('github-repo')?.value?.trim() || 'dukelester3/dream_of_cherry';
+  if (token) {
+    localStorage.setItem(GITHUB_TOKEN_STORAGE, token);
+    localStorage.setItem(GITHUB_REPO_STORAGE, repo);
+    alert('GitHub 設定已儲存');
+  } else {
+    localStorage.removeItem(GITHUB_TOKEN_STORAGE);
+    alert('已清除 GitHub Token');
+  }
+}
+
+async function publishToGitHub() {
+  const token = localStorage.getItem(GITHUB_TOKEN_STORAGE);
+  const repo = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
+  if (!token) {
+    alert('請先至「設定」分頁填入 GitHub Token');
+    return;
+  }
+  const [owner, repoName] = repo.split('/').map(s => s.trim());
+  if (!owner || !repoName) {
+    alert('請設定正確的倉庫格式：owner/repo');
+    return;
+  }
+  const content = `// ===== 夜桜の夢 — Site Content Database =====
+// Generated: ${new Date().toLocaleString()}
+
+const siteData = ${JSON.stringify(adminData, null, 2)};
+
+if (typeof module !== 'undefined') module.exports = siteData;`;
+  const contentBase64 = btoa(unescape(encodeURIComponent(content)));
+  const btn = document.getElementById('publish-github-btn');
+  const origText = btn?.textContent;
+  if (btn) { btn.disabled = true; btn.textContent = '發布中...'; }
+  try {
+    const getRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/data.js`, {
+      headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}` }
+    });
+    let sha = null;
+    if (getRes.ok) {
+      const getJson = await getRes.json();
+      sha = getJson.sha;
+    } else if (getRes.status !== 404) {
+      const err = await getRes.json();
+      throw new Error(err.message || '取得檔案失敗');
+    }
+    const body = { message: 'Update data.js from admin', content: contentBase64 };
+    if (sha) body.sha = sha;
+    const putRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/data.js`, {
+      method: 'PUT',
+      headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (!putRes.ok) {
+      const err = await putRes.json();
+      throw new Error(err.message || '發布失敗');
+    }
+    alert('發布成功！約 1–2 分鐘後網站會更新。');
+  } catch (err) {
+    alert('發布失敗：' + (err.message || err));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = origText || '🚀 發布到 GitHub'; }
+  }
+}
+
 function setupTabs() {
   document.querySelectorAll('.admin-nav-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -159,10 +227,16 @@ function setupTabs() {
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
   document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
+  document.getElementById('save-github-btn')?.addEventListener('click', saveGitHubSettings);
+  document.getElementById('publish-github-btn')?.addEventListener('click', publishToGitHub);
   const imgbbInput = document.getElementById('imgbb-key');
   if (imgbbInput) imgbbInput.value = localStorage.getItem(IMGBB_KEY_STORAGE) || '';
   const geminiInput = document.getElementById('gemini-key');
   if (geminiInput) geminiInput.value = localStorage.getItem(GEMINI_KEY_STORAGE) || (typeof GEMINI_API_KEY !== 'undefined' ? GEMINI_API_KEY : '');
+  const githubTokenInput = document.getElementById('github-token');
+  if (githubTokenInput) githubTokenInput.value = localStorage.getItem(GITHUB_TOKEN_STORAGE) || '';
+  const githubRepoInput = document.getElementById('github-repo');
+  if (githubRepoInput) githubRepoInput.value = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
   document.getElementById('copy-export-btn').addEventListener('click', () => {
     const ta = document.getElementById('export-textarea');
     ta.select(); document.execCommand('copy');
