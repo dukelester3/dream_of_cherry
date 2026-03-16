@@ -105,6 +105,12 @@
             <p class="form-hint">用於後台上傳照片。免費註冊 <a href="https://api.imgbb.com/" target="_blank">imgbb.com</a> 取得 Key，取得後貼上並儲存。</p>
           </div>
           <button type="button" class="btn-admin-primary" id="save-imgbb-btn">儲存 API Key</button>
+          <div class="form-group" style="margin-top:24px">
+            <label>Gemini API Key（一鍵翻譯用）</label>
+            <input type="password" id="gemini-key" placeholder="至 aistudio.google.com 免費取得">
+            <p class="form-hint">用於日記／客評編輯時一鍵翻譯。專案 <code>gen-lang-client-0879457781</code>。免費額度：約 250 次/日。</p>
+          </div>
+          <button type="button" class="btn-admin-primary" id="save-gemini-btn">儲存 Gemini Key</button>
         </div>
       </div>
 
@@ -143,6 +149,7 @@
   </div>
 
   <script src="../config.js"></script>
+  <script src="gemini-translate.js"></script>
   <script src="../data.js"></script>
   <script src="app.js"></script>
   <script>

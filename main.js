@@ -1,5 +1,6 @@
 // ── Theme (Dark / Light) ──
 const THEME_KEY = 'yuyu-theme';
+let currentOpenDiaryId = null;
 
 function setTheme(theme) {
   const next = theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
@@ -82,7 +83,7 @@ document.getElementById('admin-pwd-toggle')?.addEventListener('click', () => {
 // ── Language Switch ──
 const allLangButtons = document.querySelectorAll('[data-lang]');
 
-function setLanguage(lang) {
+function setLanguage(lang, rerender) {
   if (typeof translations === 'undefined') return;
   document.documentElement.lang = lang === 'zh' ? 'zh-TW' : lang;
   document.body.classList.remove('lang-ja', 'lang-zh', 'lang-en');
@@ -103,10 +104,18 @@ function setLanguage(lang) {
   });
 
   localStorage.setItem('yuyu-lang', lang);
+
+  // 僅在用戶點擊切換語言時重新渲染（init 時不呼叫，避免 currentDiaryCat 未定義）
+  if (rerender && typeof renderGallery === 'function') {
+    renderGallery(lang);
+    renderReviews(lang);
+    renderDiary(lang);
+    if (currentOpenDiaryId) openDiaryModal(currentOpenDiaryId, lang);
+  }
 }
 
 allLangButtons.forEach(btn => {
-  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang, true));
 });
 
 // 語言優先順序：URL 參數 > 已儲存 > 瀏覽器語言 > 預設日文（永不預設英文）
@@ -121,7 +130,7 @@ function getInitialLang() {
   return 'ja'; // 預設日文
 }
 const savedLang = getInitialLang();
-setLanguage(savedLang);
+setLanguage(savedLang, false);
 
 // ── Sidebar ──
 const hamburgerBtn = document.getElementById('nav-hamburger-btn');
@@ -201,7 +210,7 @@ function renderGallery(lang) {
     const statAge = lang === 'ja' ? '年齡' : lang === 'zh' ? '年齡' : 'Age';
     const statCup = lang === 'ja' ? 'カップ数' : lang === 'zh' ? '罩杯' : 'Cup';
     const statWeight = lang === 'ja' ? '体重' : lang === 'zh' ? '體重' : 'Weight';
-    const ageUnit = lang === 'en' ? 'yo' : '歲';
+    const ageUnit = lang === 'ja' ? '歳' : lang === 'zh' ? '歲' : 'yo';
     return `<div class="gallery-card">
       <div class="card-img-wrap">
         <img src="${resolveImgUrl(g.image)}" alt="${name}" loading="lazy">
@@ -212,7 +221,7 @@ function renderGallery(lang) {
         <div class="card-stats card-stats-extracted">
           <div class="stat-line"><span class="stat-label">${statHeight}</span> ${g.height}cm</div>
           <div class="stat-line"><span class="stat-label">${statAge}</span> ${g.age}${ageUnit}</div>
-          <div class="stat-line"><span class="stat-label">${statCup}</span> ${g.cup}${lang === 'en' ? ' cup' : '罩杯'}</div>
+          <div class="stat-line"><span class="stat-label">${statCup}</span> ${g.cup}${lang === 'ja' ? 'カップ' : lang === 'zh' ? '罩杯' : ' cup'}</div>
           <div class="stat-line"><span class="stat-label">${statWeight}</span> ${g.weight}kg</div>
         </div>
         <div class="card-tags">${types.map(t => `<span class="ctag">${t}</span>`).join('')}</div>
@@ -227,8 +236,8 @@ function renderReviews(lang) {
   if (!grid || typeof siteData === 'undefined') return;
   const reviews = siteData.reviews.filter(r => r.featured);
   grid.innerHTML = reviews.map(r => {
-    const title = lang === 'zh' ? r.titleZh : lang === 'en' ? r.titleEn : r.titleJa;
-    const content = lang === 'zh' ? r.contentZh : lang === 'en' ? r.contentEn : r.contentJa;
+    const title = (lang === 'zh' ? r.titleZh : lang === 'en' ? r.titleEn : r.titleJa) || r.titleJa;
+    const content = (lang === 'zh' ? r.contentZh : lang === 'en' ? r.contentEn : r.contentJa) || r.contentJa;
     const imgHtml = r.image ? `<div class="review-img-wrap"><img src="${resolveImgUrl(r.image)}" alt="${title}" loading="lazy"></div>` : '';
     return `<blockquote class="review-card">
       ${imgHtml}
@@ -243,6 +252,12 @@ function renderReviews(lang) {
 const DIARY_PER_PAGE = 9;
 let currentDiaryCat = 'all';
 let currentDiaryPage = 1;
+
+const CAT_TO_I18N = { '出勤情報': 'diary.cat.checkin', '客戶反饋': 'diary.cat.feedback', '日記': 'diary.cat.diary', 'お知らせ': 'diary.cat.news' };
+function getDiaryCatLabel(cat, lang) {
+  const key = CAT_TO_I18N[cat];
+  return (key && typeof translations !== 'undefined' && translations[lang]?.[key]) ? translations[lang][key] : cat;
+}
 
 function renderDiary(lang, cat, page) {
   const grid = document.getElementById('diary-grid');
@@ -259,12 +274,14 @@ function renderDiary(lang, cat, page) {
 
   const readmore = (translations[lang] && translations[lang]['diary.readmore']) || '続きを読む →';
   grid.innerHTML = posts.map(p => {
-    const title = lang === 'zh' ? p.titleZh : lang === 'en' ? p.titleEn : p.titleJa;
-    const excerpt = lang === 'zh' ? p.excerptZh : lang === 'en' ? (p.excerptEn || p.excerpt) : p.excerpt;
+    const title = (lang === 'zh' ? p.titleZh : lang === 'en' ? p.titleEn : p.titleJa) || p.titleJa;
+    const excerpt = (lang === 'zh' ? p.excerptZh : lang === 'en' ? (p.excerptEn || p.excerpt) : (p.excerptJa || p.excerpt)) || p.excerpt;
+    const cupUnit = lang === 'ja' ? 'カップ' : lang === 'zh' ? '罩杯' : ' cup';
+    const ageUnit = lang === 'ja' ? '歳' : lang === 'zh' ? '歲' : 'yo';
     const statsHtml = p.stats ? `<div class="diary-stats">
       ${p.stats.height ? `<span>${p.stats.height}cm</span>` : ''}
-      ${p.stats.cup ? `<span>${p.stats.cup}罩杯</span>` : ''}
-      ${p.stats.age ? `<span>${p.stats.age}歲</span>` : ''}
+      ${p.stats.cup ? `<span>${p.stats.cup}${cupUnit}</span>` : ''}
+      ${p.stats.age ? `<span>${p.stats.age}${ageUnit}</span>` : ''}
       ${p.stats.weight ? `<span>${p.stats.weight}kg</span>` : ''}
     </div>` : '';
     return `<article class="diary-card" data-id="${p.id}">
@@ -272,7 +289,7 @@ function renderDiary(lang, cat, page) {
       <div class="diary-body">
         <div class="diary-meta">
           <span class="diary-date">${p.date}</span>
-          <span class="diary-cat">${p.category}</span>
+          <span class="diary-cat">${getDiaryCatLabel(p.category, lang)}</span>
         </div>
         <h3 class="diary-title">${title}</h3>
         ${statsHtml}
@@ -323,12 +340,15 @@ function renderDiary(lang, cat, page) {
 function openDiaryModal(id, lang) {
   const post = siteData.diary.find(p => p.id === id);
   if (!post) return;
-  const title = lang === 'zh' ? post.titleZh : lang === 'en' ? post.titleEn : post.titleJa;
-  const content = lang === 'zh' ? post.contentZh : lang === 'en' ? post.contentEn : post.contentJa;
+  currentOpenDiaryId = id;
+  const title = (lang === 'zh' ? post.titleZh : lang === 'en' ? post.titleEn : post.titleJa) || post.titleJa;
+  const content = (lang === 'zh' ? post.contentZh : lang === 'en' ? post.contentEn : post.contentJa) || post.contentJa;
+  const modalCupUnit = lang === 'ja' ? 'カップ' : lang === 'zh' ? '罩杯' : ' cup';
+  const modalAgeUnit = lang === 'ja' ? '歳' : lang === 'zh' ? '歲' : 'yo';
   const statsHtml = post.stats ? `<div class="diary-modal-stats">
     ${post.stats.height ? `<span>📏 ${post.stats.height}cm</span>` : ''}
-    ${post.stats.cup ? `<span>💝 ${post.stats.cup}罩杯</span>` : ''}
-    ${post.stats.age ? `<span>🎂 ${post.stats.age}歲</span>` : ''}
+    ${post.stats.cup ? `<span>💝 ${post.stats.cup}${modalCupUnit}</span>` : ''}
+    ${post.stats.age ? `<span>🎂 ${post.stats.age}${modalAgeUnit}</span>` : ''}
     ${post.stats.weight ? `<span>⚖️ ${post.stats.weight}kg</span>` : ''}
   </div>` : '';
 
@@ -336,7 +356,7 @@ function openDiaryModal(id, lang) {
   document.getElementById('diary-modal-body').innerHTML = `
     ${modalImg ? `<img src="${resolveImgUrl(modalImg)}" class="diary-modal-img" alt="${title}">` : ''}
     <div class="diary-modal-header">
-      <div class="diary-meta"><span class="diary-date">${post.date}</span><span class="diary-cat">${post.category}</span></div>
+      <div class="diary-meta"><span class="diary-date">${post.date}</span><span class="diary-cat">${getDiaryCatLabel(post.category, lang)}</span></div>
       <h2>${title}</h2>
       ${statsHtml}
     </div>
@@ -350,6 +370,7 @@ document.getElementById('diary-modal-close')?.addEventListener('click', closeDia
 document.getElementById('diary-modal-overlay')?.addEventListener('click', closeDiaryModal);
 
 function closeDiaryModal() {
+  currentOpenDiaryId = null;
   document.getElementById('diary-modal')?.classList.remove('open');
   document.body.style.overflow = '';
 }
@@ -360,21 +381,6 @@ document.querySelectorAll('.diary-filter-btn').forEach(btn => {
     btn.classList.add('active');
     const lang = localStorage.getItem('yuyu-lang') || 'ja';
     renderDiary(lang, btn.dataset.cat, 1);
-  });
-});
-
-// ── Override setLanguage to also re-render dynamic content ──
-const _origSetLanguage = setLanguage;
-// patch: re-render after language switch
-const _origLangButtons = document.querySelectorAll('[data-lang]');
-_origLangButtons.forEach(btn => {
-  btn.addEventListener('click', () => {
-    const lang = btn.dataset.lang;
-    setTimeout(() => {
-      renderGallery(lang);
-      renderReviews(lang);
-      renderDiary(lang);
-    }, 0);
   });
 });
 

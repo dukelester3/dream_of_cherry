@@ -4,6 +4,7 @@ const ADMIN_PWD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHA
 const STORAGE_KEY = 'yuyu_admin_data';
 const AUTH_KEY = 'yuyu_admin_auth';
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
+const GEMINI_KEY_STORAGE = 'yuyu_gemini_key';
 
 // ── State ──
 let adminData = null;
@@ -105,10 +106,21 @@ function saveImgbbKey() {
   const key = document.getElementById('imgbb-key')?.value?.trim();
   if (key) {
     localStorage.setItem(IMGBB_KEY_STORAGE, key);
-    alert('API Key 已儲存');
+    alert('ImgBB API Key 已儲存');
   } else {
     localStorage.removeItem(IMGBB_KEY_STORAGE);
-    alert('已清除 API Key');
+    alert('已清除 ImgBB API Key');
+  }
+}
+
+function saveGeminiKey() {
+  const key = document.getElementById('gemini-key')?.value?.trim();
+  if (key) {
+    localStorage.setItem(GEMINI_KEY_STORAGE, key);
+    alert('Gemini API Key 已儲存');
+  } else {
+    localStorage.removeItem(GEMINI_KEY_STORAGE);
+    alert('已清除 Gemini API Key');
   }
 }
 
@@ -131,8 +143,11 @@ function setupTabs() {
   document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
+  document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
   const imgbbInput = document.getElementById('imgbb-key');
   if (imgbbInput) imgbbInput.value = localStorage.getItem(IMGBB_KEY_STORAGE) || '';
+  const geminiInput = document.getElementById('gemini-key');
+  if (geminiInput) geminiInput.value = localStorage.getItem(GEMINI_KEY_STORAGE) || (typeof GEMINI_API_KEY !== 'undefined' ? GEMINI_API_KEY : '');
   document.getElementById('copy-export-btn').addEventListener('click', () => {
     const ta = document.getElementById('export-textarea');
     ta.select(); document.execCommand('copy');
@@ -334,11 +349,11 @@ function openModal(type, id) {
     title.textContent = id ? '編輯客評' : '新增客評';
     body.innerHTML = `
       <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
-      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
-      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
+      <div class="form-group"><label>標題(中)</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-titleJa" data-target="f-titleZh">Gemini</button></div></div>
+      <div class="form-group"><label>標題(英)</label><div class="input-row"><input id="f-titleEn" value="${item?.titleEn||''}"><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-titleJa" data-target="f-titleEn">Gemini</button></div></div>
       <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa">${item?.contentJa||''}</textarea></div>
-      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
-      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
+      <div class="form-group"><label>內容(中)</label><div class="input-row"><textarea id="f-contentZh">${item?.contentZh||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-contentJa" data-target="f-contentZh">Gemini</button></div></div>
+      <div class="form-group"><label>內容(英)</label><div class="input-row"><textarea id="f-contentEn">${item?.contentEn||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-contentJa" data-target="f-contentEn">Gemini</button></div></div>
       <div class="form-group">
         <label>照片（選填）</label>
         <div class="img-upload-box" data-target="f-review-image">
@@ -364,13 +379,13 @@ function openModal(type, id) {
     const stats = item?.stats || {};
     body.innerHTML = `
       <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
-      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
-      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
+      <div class="form-group"><label>標題(中)</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-titleJa" data-target="f-titleZh">Gemini</button></div></div>
+      <div class="form-group"><label>標題(英)</label><div class="input-row"><input id="f-titleEn" value="${item?.titleEn||''}"><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-titleJa" data-target="f-titleEn">Gemini</button></div></div>
       <div class="form-group"><label>摘要(日)</label><input id="f-excerpt" value="${item?.excerpt||''}"></div>
-      <div class="form-group"><label>摘要(中)</label><input id="f-excerptZh" value="${item?.excerptZh||''}"></div>
+      <div class="form-group"><label>摘要(中)</label><div class="input-row"><input id="f-excerptZh" value="${item?.excerptZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-excerpt" data-target="f-excerptZh">Gemini</button></div></div>
       <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:100px">${item?.contentJa||''}</textarea></div>
-      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea></div>
-      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea></div>
+      <div class="form-group"><label>內容(中)</label><div class="input-row"><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-contentJa" data-target="f-contentZh">Gemini</button></div></div>
+      <div class="form-group"><label>內容(英)</label><div class="input-row"><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-contentJa" data-target="f-contentEn">Gemini</button></div></div>
       <div class="form-row">
         <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
@@ -412,6 +427,7 @@ function openModal(type, id) {
   }
 
   modal.classList.remove('hidden');
+  setupTranslateButtons();
   document.querySelectorAll('.img-upload-box').forEach(box => {
     const targetId = box.dataset.target;
     const urlInput = document.getElementById(targetId);
@@ -436,6 +452,31 @@ function openModal(type, id) {
       previewEl.appendChild(img);
       previewEl.appendChild(changeBtn);
     }
+  });
+}
+
+function setupTranslateButtons() {
+  document.querySelectorAll('.btn-translate').forEach(btn => {
+    btn.onclick = async function() {
+      const sourceId = this.dataset.source;
+      const targetId = this.dataset.target;
+      const from = this.dataset.from;
+      const to = this.dataset.to;
+      const sourceEl = document.getElementById(sourceId);
+      const targetEl = document.getElementById(targetId);
+      if (!sourceEl || !targetEl || typeof translateWithGemini !== 'function') return;
+      const text = sourceEl.value?.trim();
+      if (!text) { alert('請先填寫來源欄位'); return; }
+      btn.disabled = true;
+      btn.textContent = '翻譯中...';
+      try {
+        targetEl.value = await translateWithGemini(text, from, to);
+      } catch (e) {
+        alert('翻譯失敗：' + (e.message || e));
+      }
+      btn.disabled = false;
+      btn.textContent = 'Gemini';
+    };
   });
 }
 
