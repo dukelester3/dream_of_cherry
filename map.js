@@ -8,28 +8,42 @@
       return;
     }
 
-    // Center on Tokyo, zoom to show Kanto region
+    const tokyo = [35.68, 139.75];
+    const osaka = [34.69, 135.50];
+
     const map = L.map('japan-map', {
       scrollWheelZoom: false,
       zoomControl: true
-    }).setView([35.68, 139.75], 10);
+    });
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
       maxZoom: 19
     }).addTo(map);
 
-    // Tokyo 23 wards approximate center - circle to indicate service area
-    L.circle([35.68, 139.75], {
-      radius: 12000,
+    // Fit bounds to show both Tokyo and Osaka
+    map.fitBounds([tokyo, osaka], { padding: [40, 40], maxZoom: 6 });
+
+    // Tokyo service area circle
+    L.circle(tokyo, {
+      radius: 15000,
       color: '#c9a227',
       fillColor: '#c9a227',
-      fillOpacity: 0.15,
+      fillOpacity: 0.2,
+      weight: 2
+    }).addTo(map);
+
+    // Osaka service area circle
+    L.circle(osaka, {
+      radius: 15000,
+      color: '#c9a227',
+      fillColor: '#c9a227',
+      fillOpacity: 0.2,
       weight: 2
     }).addTo(map);
 
     // Marker for Tokyo
-    L.marker([35.68, 139.75], {
+    L.marker(tokyo, {
       icon: L.divIcon({
         className: 'japan-map-marker',
         html: '<span class="map-pin">東京</span>',
@@ -38,7 +52,16 @@
       })
     }).addTo(map);
 
-    // Add zoom control to bottom-right
+    // Marker for Osaka
+    L.marker(osaka, {
+      icon: L.divIcon({
+        className: 'japan-map-marker',
+        html: '<span class="map-pin">大阪</span>',
+        iconSize: [40, 40],
+        iconAnchor: [20, 40]
+      })
+    }).addTo(map);
+
     map.zoomControl.setPosition('bottomright');
   }
 

@@ -21,6 +21,7 @@
     </button>
     <div class="nav-center">
       <a href="#services" class="nav-center-link" data-i18n="nav.services">サービス紹介</a>
+      <a href="#pricing" class="nav-center-link" data-i18n="nav.pricing">收費</a>
       <a href="#booking" class="nav-center-link" data-i18n="nav.booking">予約流れ</a>
       <a href="#gallery" class="nav-center-link" data-i18n="nav.girls">人気出勤</a>
       <a href="#reviews" class="nav-center-link" data-i18n="nav.reviews">口コミ</a>
@@ -67,6 +68,7 @@
     <button type="button" class="sidebar-logo sidebar-logo-btn" id="sidebar-admin-login-trigger" title="後台登入">夜桜の夢</button>
     <ul class="sidebar-nav">
       <li><a href="#services" data-i18n="nav.services">サービス紹介</a></li>
+      <li><a href="#pricing" data-i18n="nav.pricing">收費</a></li>
       <li><a href="#booking" data-i18n="nav.booking">予約流れ</a></li>
       <li><a href="#gallery" data-i18n="nav.girls">人気出勤</a></li>
       <li><a href="#diary" data-i18n="diary.title">日記・出勤情報</a></li>
@@ -95,6 +97,7 @@
       <div class="hero-tab-strip">
         <a href="#gallery" class="hero-tab-btn active" data-i18n="nav.girls">人気出勤 ↗</a>
         <a href="#services" class="hero-tab-btn" data-i18n="nav.services">サービス紹介 ↗</a>
+        <a href="#pricing" class="hero-tab-btn" data-i18n="nav.pricing">收費 ↗</a>
         <a href="#reviews" class="hero-tab-btn" data-i18n="nav.reviews">口コミ ↗</a>
       </div>
     </div>
@@ -207,16 +210,74 @@
         </div>
         <div class="service-card service-card-area">
           <h3 data-i18n="services.area.title">サービスエリア</h3>
+          <p class="area-intro" data-i18n="pricing.area.intro">服務地區分成大阪與東京兩區</p>
           <div class="area-map-wrap">
-            <div id="japan-map" class="japan-map" aria-label="日本地図・東京服務地區"></div>
+            <div id="japan-map" class="japan-map" aria-label="日本地図・東京・大阪服務地區"></div>
           </div>
-          <div class="area-tags" data-i18n-area="true">
-            <span class="area-tag" data-area="shinjuku">新宿区</span><span class="area-tag" data-area="toshima">豊島区</span><span class="area-tag" data-area="chuo">中央区</span>
-            <span class="area-tag" data-area="minato">港区</span><span class="area-tag" data-area="taito">台東区</span><span class="area-tag" data-area="sumida">墨田区</span>
-            <span class="area-tag" data-area="meguro">目黒区</span><span class="area-tag" data-area="shinagawa">品川区</span><span class="area-tag" data-area="shibuya">渋谷区</span>
-            <span class="area-tag" data-area="nakano">中野区</span><span class="area-tag" data-area="adachi">足立区</span><span class="area-tag" data-area="bunkyo">文京区</span>
-            <span class="area-tag" data-area="chiyoda">千代田区</span><span class="area-tag" data-area="kita">北区</span><span class="area-tag" data-area="koto">江東区</span>
-            <span class="area-tag" data-area="arakawa">荒川区</span>
+          <div class="area-groups">
+            <div class="area-group">
+              <span class="area-group-label" data-i18n="area.region.osaka">大阪</span>
+              <div class="area-tags" data-i18n-area="true">
+                <span class="area-tag" data-area="konohana">此花区</span><span class="area-tag" data-area="minato">港区</span><span class="area-tag" data-area="taisho">大正区</span><span class="area-tag" data-area="nishi">西区</span>
+                <span class="area-tag" data-area="abeno">阿倍野区</span><span class="area-tag" data-area="fukushima">福島区</span><span class="area-tag" data-area="naniwa">浪速区</span><span class="area-tag" data-area="tennoji">天王寺区</span>
+                <span class="area-tag" data-area="ikuno">生野区</span><span class="area-tag" data-area="kita">北区</span><span class="area-tag" data-area="chuo">中央区</span><span class="area-tag" data-area="higashinari">東成区</span>
+                <span class="area-tag" data-area="miyakojima">都島区</span><span class="area-tag" data-area="joto">城東区</span><span class="area-tag" data-area="nishiyodogawa">西淀川区</span><span class="area-tag" data-area="yodogawa">淀川区</span>
+                <span class="area-tag" data-area="higashiyodogawa">東淀川区</span><span class="area-tag" data-area="asahi">旭区</span><span class="area-tag" data-area="tsurumi">鶴見区</span><span class="area-tag" data-area="suminoe">住之江区</span>
+                <span class="area-tag" data-area="sumiyoshi">住吉区</span><span class="area-tag" data-area="higashisumiyoshi">東住吉区</span><span class="area-tag" data-area="hirano">平野区</span><span class="area-tag" data-area="higashiosaka">東大阪市</span>
+              </div>
+            </div>
+            <div class="area-group">
+              <span class="area-group-label" data-i18n="area.region.tokyo">東京</span>
+              <div class="area-tags" data-i18n-area="true">
+                <span class="area-tag" data-area="shinjuku">新宿区</span><span class="area-tag" data-area="nakano">中野区</span><span class="area-tag" data-area="chiyoda">千代田区</span><span class="area-tag" data-area="chuo">中央区</span>
+                <span class="area-tag" data-area="koto">江東区</span><span class="area-tag" data-area="shibuya">渋谷区</span><span class="area-tag" data-area="minato">港区</span><span class="area-tag" data-area="meguro">目黒区</span>
+                <span class="area-tag" data-area="shinagawa">品川区</span><span class="area-tag" data-area="toshima">豊島区</span><span class="area-tag" data-area="bunkyo">文京区</span><span class="area-tag" data-area="taito">台東区</span>
+                <span class="area-tag" data-area="sumida">墨田区</span><span class="area-tag" data-area="arakawa">荒川区</span><span class="area-tag" data-area="kita">北区</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING (收費) -->
+  <section class="pricing-section" id="pricing">
+    <div class="container">
+      <span class="section-label" data-i18n="pricing.label">Pricing</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="pricing.title">收費方式</span></div>
+      <div class="pricing-tabs">
+        <button class="pricing-tab active" data-city="osaka" data-i18n="pricing.osaka">大阪收費</button>
+        <button class="pricing-tab" data-city="tokyo" data-i18n="pricing.tokyo">東京收費</button>
+      </div>
+      <div class="pricing-panels">
+        <div class="pricing-panel active" id="pricing-osaka">
+          <div class="pricing-tiers">
+            <div class="pricing-tier tier-s"><span class="tier-icon">🥉</span><span class="tier-name" data-i18n="pricing.tier.s">S基本消費</span><span class="tier-price">35,000 <span data-i18n="pricing.yen">日圓</span></span><span class="tier-note" data-i18n="pricing.osaka.transport">【交通費額外算】</span></div>
+            <div class="pricing-tier tier-ss"><span class="tier-icon">🥈</span><span class="tier-name" data-i18n="pricing.tier.ss">SS中等消費</span><span class="tier-price">45,000～60,000 <span data-i18n="pricing.yen">日圓</span></span></div>
+            <div class="pricing-tier tier-sss"><span class="tier-icon">🥇</span><span class="tier-name" data-i18n="pricing.tier.sss">SSS高級消費</span><span class="tier-price">65,000～85,000 <span data-i18n="pricing.yen">日圓</span></span></div>
+            <div class="pricing-tier tier-svip"><span class="tier-icon">💎</span><span class="tier-name" data-i18n="pricing.tier.svip">SVIP 高端消費</span><span class="tier-price">90,000 <span data-i18n="pricing.yen">日圓</span> <span data-i18n="pricing.above">以上不等</span></span></div>
+          </div>
+          <div class="pricing-meta">
+            <p><strong data-i18n="pricing.time.title">⏱️ 服務時間</strong><br><span data-i18n="pricing.time.content">60 分鐘起，可依序延長：120 / 180 / 240 / 300 / 360 ...分鐘。另有包夜服務（價位另算）。</span></p>
+            <p><strong data-i18n="pricing.payment.title">⭐收費方式⭐</strong><br><span data-i18n="pricing.payment.content">所有安排皆為 見面滿意後，現金（日圓）支付。若不滿意，可更換或放棄，只需支付 5000-8000 日圓交通費和拒絕費。</span></p>
+            <p><strong data-i18n="pricing.osaka.areas">大阪配送範圍區域</strong><br><span data-i18n="pricing.osaka.areas.list">此花區｜港區｜大正區｜西區｜阿倍野區｜福島區｜浪速區｜天王寺區｜生野區｜北區｜中央區｜東成區｜都島區｜城東區｜西淀川區｜淀川區｜東淀川區｜旭區｜鶴見區｜住之江區｜住吉區｜東住吉區｜平野區｜東大阪市</span></p>
+            <p class="pricing-note" data-i18n="pricing.delivery.note">🚗 酒店只要在派送地區內都可派送 超出不派送!!!</p>
+          </div>
+        </div>
+        <div class="pricing-panel" id="pricing-tokyo">
+          <div class="pricing-tiers">
+            <div class="pricing-tier tier-s"><span class="tier-icon">🥉</span><span class="tier-name" data-i18n="pricing.tier.s">S基本消費</span><span class="tier-price">30,000 <span data-i18n="pricing.yen">日圓</span></span><span class="tier-note" data-i18n="pricing.tokyo.transport">【交通費額外算】</span></div>
+            <div class="pricing-tier tier-ss"><span class="tier-icon">🥈</span><span class="tier-name" data-i18n="pricing.tier.ss">SS中等消費</span><span class="tier-price">40,000～60,000 <span data-i18n="pricing.yen">日圓</span></span></div>
+            <div class="pricing-tier tier-sss"><span class="tier-icon">🥇</span><span class="tier-name" data-i18n="pricing.tier.sss">SSS高級消費</span><span class="tier-price">70,000～80,000 <span data-i18n="pricing.yen">日圓</span></span></div>
+            <div class="pricing-tier tier-svip"><span class="tier-icon">💎</span><span class="tier-name" data-i18n="pricing.tier.svip">SVIP 高端消費</span><span class="tier-price">90,000 <span data-i18n="pricing.yen">日圓</span> <span data-i18n="pricing.above">以上不等</span></span></div>
+          </div>
+          <div class="pricing-meta">
+            <p><strong data-i18n="pricing.time.title">⏱️ 服務時間</strong><br><span data-i18n="pricing.time.content">60 分鐘起，可依序延長：120 / 180 / 240 / 300 / 360 ...分鐘。另有包夜服務（價位另算）。</span></p>
+            <p><strong data-i18n="pricing.payment.title">⭐收費方式⭐</strong><br><span data-i18n="pricing.payment.content.tokyo">所有安排皆為 見面滿意後，現金（日圓）支付。若不滿意，可更換或放棄，只需支付 5,000 日圓交通費。</span></p>
+            <p class="pricing-transport" data-i18n="pricing.tokyo.transport.fee">交通費統一 3,000 日圓</p>
+            <p><strong data-i18n="pricing.tokyo.areas">東京配送範圍區域</strong><br><span data-i18n="pricing.tokyo.areas.list">新宿區｜中野區｜千代田區｜中央區｜江東區｜渋谷區｜港區｜目黒區｜品川區｜豊島區｜文京區｜台東區｜墨田區｜荒川區｜北區</span></p>
+            <p class="pricing-note" data-i18n="pricing.delivery.note">🚗 酒店只要在派送地區內都可派送 超出不派送!!!</p>
           </div>
         </div>
       </div>
@@ -329,6 +390,7 @@
           <h4 data-i18n="footer.nav">Navigation</h4>
           <ul>
             <li><a href="#services" data-i18n="nav.services">サービス紹介</a></li>
+            <li><a href="#pricing" data-i18n="nav.pricing">收費</a></li>
             <li><a href="#gallery" data-i18n="nav.girls">人気出勤</a></li>
             <li><a href="#booking" data-i18n="nav.booking">予約流れ</a></li>
             <li><a href="#reviews" data-i18n="nav.reviews">口コミ</a></li>

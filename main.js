@@ -155,6 +155,17 @@ sidebar?.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', closeSidebar);
 });
 
+// ── Pricing Tab Switcher ──
+document.querySelectorAll('.pricing-tab')?.forEach(tab => {
+  tab.addEventListener('click', () => {
+    const city = tab.getAttribute('data-city');
+    document.querySelectorAll('.pricing-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    document.getElementById('pricing-' + city)?.classList.add('active');
+  });
+});
+
 // ── Gallery / News Tab Switcher ──
 document.querySelectorAll('.section-tab')?.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -169,7 +180,7 @@ document.querySelectorAll('.section-tab')?.forEach(tab => {
 });
 
 // ── Scroll Spy ──
-const spySections = ['services', 'booking', 'gallery', 'reviews'];
+const spySections = ['services', 'pricing', 'booking', 'gallery', 'reviews'];
 const navLinks = document.querySelectorAll('.nav-center-link');
 
 const spyObserver = new IntersectionObserver(entries => {
