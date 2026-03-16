@@ -1,0 +1,17 @@
+# 系統檔案
+.DS_Store
+Thumbs.db
+
+# 參考／設計文件（不需部署）
+Refer/
+aicoworkdoc/
+
+# 原始參考網頁（內容已整合至 data.js，不需上傳）
+人氣 – 夜桜の夢.html
+New Articles List _ Night Cherry Blossom Dream Tokyo Outbound TGtk6659 - Rakuten Blog.html
+
+# 編輯器
+.vscode/
+.idea/
+*.swp
+*.swo

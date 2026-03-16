@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>後台管理 — 夜桜の夢</title>
+  <link rel="stylesheet" href="admin.css">
+</head>
+<body class="login-page" id="app-body">
+
+  <!-- LOGIN -->
+  <div id="login-screen" class="login-screen">
+    <div class="login-box">
+      <div id="load-error-msg" class="load-error-msg hidden"></div>
+      <div class="login-logo">夜桜の夢</div>
+      <div class="login-sub">後台管理系統</div>
+      <div class="form-group">
+        <label>密碼</label>
+        <input type="password" id="login-pwd" placeholder="請輸入密碼" autocomplete="current-password">
+      </div>
+      <button type="button" class="btn-admin-primary" id="login-btn">登入</button>
+      <div class="login-error" id="login-error"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD -->
+  <div id="dashboard" class="dashboard hidden">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <span class="admin-brand-name">夜桜の夢</span>
+        <span class="admin-brand-sub">後台管理</span>
+      </div>
+      <nav class="admin-nav">
+        <button class="admin-nav-btn active" data-tab="girls">👩 女孩管理</button>
+        <button class="admin-nav-btn" data-tab="reviews">💬 客評管理</button>
+        <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
+        <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
+      </nav>
+      <div class="admin-sidebar-footer">
+        <a href="../" class="admin-back-link">← 返回網站</a>
+        <button id="logout-btn" class="admin-logout">登出</button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <!-- GIRLS TAB -->
+      <div class="admin-tab active" id="tab-girls">
+        <div class="tab-header">
+          <h1>女孩管理</h1>
+          <button class="btn-admin-primary" id="add-girl-btn">+ 新增女孩</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="girls-table">
+            <thead>
+              <tr><th>順序</th><th>圖片</th><th>姓名</th><th>身高</th><th>年齡</th><th>罩杯</th><th>體重</th><th>徽章</th><th>狀態</th><th>操作</th></tr>
+            </thead>
+            <tbody id="girls-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- REVIEWS TAB -->
+      <div class="admin-tab hidden" id="tab-reviews">
+        <div class="tab-header">
+          <h1>客評管理</h1>
+          <button class="btn-admin-primary" id="add-review-btn">+ 新增客評</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="reviews-table">
+            <thead>
+              <tr><th>標題</th><th>女孩</th><th>日期</th><th>精選</th><th>操作</th></tr>
+            </thead>
+            <tbody id="reviews-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- DIARY TAB -->
+      <div class="admin-tab hidden" id="tab-diary">
+        <div class="tab-header">
+          <h1>日記管理</h1>
+          <button class="btn-admin-primary" id="add-diary-btn">+ 新增日記</button>
+        </div>
+        <div class="admin-table-wrap">
+          <table class="admin-table" id="diary-table">
+            <thead>
+              <tr><th>縮圖</th><th>標題</th><th>分類</th><th>日期</th><th>狀態</th><th>操作</th></tr>
+            </thead>
+            <tbody id="diary-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- EXPORT TAB -->
+      <div class="admin-tab hidden" id="tab-export">
+        <div class="tab-header"><h1>匯出資料</h1></div>
+        <div class="export-section">
+          <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案，複製後替換網站根目錄的 data.js 即可更新網站。</p>
+          <button class="btn-admin-primary" id="export-btn">生成 data.js</button>
+          <div class="export-output hidden" id="export-output">
+            <div class="export-actions">
+              <button class="btn-admin-secondary" id="copy-export-btn">複製全部</button>
+              <span class="export-hint">複製後貼上到 /yuyu/data.js</span>
+            </div>
+            <textarea id="export-textarea" readonly></textarea>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- MODAL -->
+  <div class="admin-modal hidden" id="admin-modal">
+    <div class="admin-modal-overlay" id="admin-modal-overlay"></div>
+    <div class="admin-modal-box">
+      <div class="admin-modal-header">
+        <h2 id="modal-title">編輯</h2>
+        <button class="admin-modal-close" id="admin-modal-close">✕</button>
+      </div>
+      <div class="admin-modal-body" id="admin-modal-body"></div>
+      <div class="admin-modal-footer">
+        <button class="btn-admin-secondary" id="modal-cancel">取消</button>
+        <button class="btn-admin-primary" id="modal-save">儲存</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="../data.js"></script>
+  <script src="app.js"></script>
+  <script>
+    (function() {
+      if (typeof siteData === 'undefined') {
+        var el = document.getElementById('load-error-msg');
+        if (el) {
+          el.classList.remove('hidden');
+          el.innerHTML = '⚠️ 無法載入資料。請在專案根目錄執行 <code>npx serve .</code> 或 <code>python -m http.server 8080</code>，然後從 <a href="../">首頁</a> 進入後台。';
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

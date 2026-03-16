@@ -1,0 +1,383 @@
+// ===== Admin Panel App =====
+const ADMIN_PASSWORD = '@fan123456F'; // Change this!
+const STORAGE_KEY = 'yuyu_admin_data';
+const AUTH_KEY = 'yuyu_admin_auth';
+
+// ── State ──
+let adminData = null;
+let currentTab = 'girls';
+let editingId = null;
+let editingType = null;
+
+// ── Auth ──
+function checkAuth() {
+  return sessionStorage.getItem(AUTH_KEY) === 'true';
+}
+
+function init() {
+  if (checkAuth()) {
+    showDashboard();
+  }
+
+  document.getElementById('login-btn').addEventListener('click', doLogin);
+  document.getElementById('login-pwd').addEventListener('keypress', e => {
+    if (e.key === 'Enter') doLogin();
+  });
+  document.getElementById('logout-btn').addEventListener('click', logout);
+}
+
+function doLogin() {
+  const pwd = document.getElementById('login-pwd').value;
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem(AUTH_KEY, 'true');
+    document.getElementById('login-error').textContent = '';
+    showDashboard();
+  } else {
+    document.getElementById('login-error').textContent = '密碼錯誤，請重試';
+    document.getElementById('login-pwd').value = '';
+  }
+}
+
+function logout() {
+  sessionStorage.removeItem(AUTH_KEY);
+  document.getElementById('dashboard').classList.add('hidden');
+  document.getElementById('login-screen').classList.remove('hidden');
+  document.body.className = 'login-page';
+}
+
+function showDashboard() {
+  document.getElementById('login-screen').classList.add('hidden');
+  document.getElementById('dashboard').classList.remove('hidden');
+  document.body.className = '';
+  loadData();
+  setupTabs();
+  setupModals();
+  renderAll();
+}
+
+// ── Data ──
+function loadData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved) {
+    adminData = JSON.parse(saved);
+  } else if (typeof siteData !== 'undefined') {
+    adminData = JSON.parse(JSON.stringify(siteData));
+  } else {
+    adminData = { girls: [], reviews: [], diary: [] };
+  }
+}
+
+function saveData() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(adminData));
+}
+
+// ── Tabs ──
+function setupTabs() {
+  document.querySelectorAll('.admin-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.admin-nav-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.admin-tab').forEach(t => t.classList.add('hidden'));
+      btn.classList.add('active');
+      document.getElementById('tab-' + btn.dataset.tab).classList.remove('hidden');
+      document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  document.getElementById('add-girl-btn').addEventListener('click', () => openModal('girl', null));
+  document.getElementById('add-review-btn').addEventListener('click', () => openModal('review', null));
+  document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
+  document.getElementById('export-btn').addEventListener('click', generateExport);
+  document.getElementById('copy-export-btn').addEventListener('click', () => {
+    const ta = document.getElementById('export-textarea');
+    ta.select(); document.execCommand('copy');
+    document.getElementById('copy-export-btn').textContent = '已複製 ✓';
+    setTimeout(() => document.getElementById('copy-export-btn').textContent = '複製全部', 2000);
+  });
+}
+
+// ── Render Tables ──
+function renderAll() {
+  renderGirlsTable();
+  renderReviewsTable();
+  renderDiaryTable();
+}
+
+function renderGirlsTable() {
+  const tbody = document.getElementById('girls-tbody');
+  tbody.innerHTML = [...adminData.girls].sort((a,b) => a.order - b.order).map(g => `
+    <tr>
+      <td>${g.order}</td>
+      <td><img src="${g.image}" class="admin-thumb" onerror="this.style.display='none'"></td>
+      <td><strong>${g.name}</strong><br><small style="color:#8a7a68">${g.nameZh} / ${g.nameEn}</small></td>
+      <td>${g.height}cm</td>
+      <td>${g.age}歲</td>
+      <td>${g.cup}罩杯</td>
+      <td>${g.weight}kg</td>
+      <td><span class="status-badge status-active">${g.badge}</span></td>
+      <td><span class="status-badge ${g.active ? 'status-active' : 'status-inactive'}">${g.active ? '顯示' : '隱藏'}</span></td>
+      <td class="action-btns">
+        <button class="btn-edit" onclick="openModal('girl', ${g.id})">編輯</button>
+        <button class="btn-danger" onclick="deleteItem('girl', ${g.id})">刪除</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderReviewsTable() {
+  const tbody = document.getElementById('reviews-tbody');
+  tbody.innerHTML = [...adminData.reviews].sort((a,b) => b.date.localeCompare(a.date)).map(r => `
+    <tr>
+      <td>${r.titleZh}</td>
+      <td>${r.girlName}</td>
+      <td>${r.date}</td>
+      <td>${r.featured ? '<span class="featured-badge">精選</span>' : '-'}</td>
+      <td class="action-btns">
+        <button class="btn-edit" onclick="openModal('review', ${r.id})">編輯</button>
+        <button class="btn-danger" onclick="deleteItem('review', ${r.id})">刪除</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderDiaryTable() {
+  const tbody = document.getElementById('diary-tbody');
+  tbody.innerHTML = [...adminData.diary].sort((a,b) => b.date.localeCompare(a.date)).map(d => `
+    <tr>
+      <td>${d.thumbnail ? `<img src="${d.thumbnail}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
+      <td><strong>${d.titleZh}</strong></td>
+      <td>${d.category}</td>
+      <td>${d.date}</td>
+      <td><span class="status-badge ${d.published ? 'status-active' : 'status-inactive'}">${d.published ? '發布' : '草稿'}</span></td>
+      <td class="action-btns">
+        <button class="btn-edit" onclick="openModal('diary', ${d.id})">編輯</button>
+        <button class="btn-danger" onclick="deleteItem('diary', ${d.id})">刪除</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ── Modal ──
+function setupModals() {
+  document.getElementById('admin-modal-close').addEventListener('click', closeModal);
+  document.getElementById('admin-modal-overlay').addEventListener('click', closeModal);
+  document.getElementById('modal-cancel').addEventListener('click', closeModal);
+  document.getElementById('modal-save').addEventListener('click', saveModal);
+}
+
+function openModal(type, id) {
+  editingType = type;
+  editingId = id;
+  const modal = document.getElementById('admin-modal');
+  const body = document.getElementById('admin-modal-body');
+  const title = document.getElementById('modal-title');
+
+  let item = null;
+  if (id !== null) {
+    if (type === 'girl') item = adminData.girls.find(g => g.id === id);
+    if (type === 'review') item = adminData.reviews.find(r => r.id === id);
+    if (type === 'diary') item = adminData.diary.find(d => d.id === id);
+  }
+
+  if (type === 'girl') {
+    title.textContent = id ? '編輯女孩' : '新增女孩';
+    body.innerHTML = `
+      <div class="form-row">
+        <div class="form-group"><label>日文名</label><input id="f-name" value="${item?.name||''}"></div>
+        <div class="form-group"><label>中文名</label><input id="f-nameZh" value="${item?.nameZh||''}"></div>
+      </div>
+      <div class="form-group"><label>英文名</label><input id="f-nameEn" value="${item?.nameEn||''}"></div>
+      <div class="form-row">
+        <div class="form-group"><label>身高(cm)</label><input id="f-height" type="number" value="${item?.height||160}"></div>
+        <div class="form-group"><label>年齡</label><input id="f-age" type="number" value="${item?.age||22}"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>罩杯</label><input id="f-cup" value="${item?.cup||'C'}"></div>
+        <div class="form-group"><label>體重(kg)</label><input id="f-weight" type="number" value="${item?.weight||45}"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>徽章(日)</label><input id="f-badge" value="${item?.badge||'NEW'}"></div>
+        <div class="form-group"><label>徽章(中)</label><input id="f-badgeZh" value="${item?.badgeZh||'新人'}"></div>
+      </div>
+      <div class="form-group"><label>類型標籤(日，逗號分隔)</label><input id="f-types" value="${item?.types?.join(',')||''}"></div>
+      <div class="form-group"><label>類型標籤(中，逗號分隔)</label><input id="f-typesZh" value="${item?.typesZh?.join(',')||''}"></div>
+      <div class="form-group"><label>圖片 URL</label><input id="f-image" value="${item?.image||''}"></div>
+      <div class="form-row">
+        <div class="form-group"><label>顯示順序</label><input id="f-order" type="number" value="${item?.order||99}"></div>
+        <div class="form-group"><label>狀態</label><select id="f-active"><option value="true" ${item?.active!==false?'selected':''}>顯示</option><option value="false" ${item?.active===false?'selected':''}>隱藏</option></select></div>
+      </div>
+    `;
+  }
+
+  if (type === 'review') {
+    title.textContent = id ? '編輯客評' : '新增客評';
+    body.innerHTML = `
+      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
+      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
+      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa">${item?.contentJa||''}</textarea></div>
+      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>女孩姓名</label><input id="f-girlName" value="${item?.girlName||''}"></div>
+        <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
+      </div>
+      <div class="form-group"><label>精選顯示</label><select id="f-featured"><option value="true" ${item?.featured?'selected':''}>是</option><option value="false" ${!item?.featured?'selected':''}>否</option></select></div>
+    `;
+  }
+
+  if (type === 'diary') {
+    title.textContent = id ? '編輯日記' : '新增日記';
+    const stats = item?.stats || {};
+    body.innerHTML = `
+      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
+      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
+      <div class="form-group"><label>摘要(日)</label><input id="f-excerpt" value="${item?.excerpt||''}"></div>
+      <div class="form-group"><label>摘要(中)</label><input id="f-excerptZh" value="${item?.excerptZh||''}"></div>
+      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:100px">${item?.contentJa||''}</textarea></div>
+      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea></div>
+      <div class="form-row">
+        <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
+        <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
+      </div>
+      <div class="form-group"><label>縮圖 URL</label><input id="f-thumbnail" value="${item?.thumbnail||''}"></div>
+      <div class="form-row">
+        <div class="form-group"><label>身高(選填)</label><input id="f-sh" type="number" value="${stats.height||''}"></div>
+        <div class="form-group"><label>罩杯(選填)</label><input id="f-sc" value="${stats.cup||''}"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>年齡(選填)</label><input id="f-sa" type="number" value="${stats.age||''}"></div>
+        <div class="form-group"><label>體重(選填)</label><input id="f-sw" type="number" value="${stats.weight||''}"></div>
+      </div>
+      <div class="form-group"><label>狀態</label><select id="f-published"><option value="true" ${item?.published!==false?'selected':''}>發布</option><option value="false" ${item?.published===false?'selected':''}>草稿</option></select></div>
+    `;
+  }
+
+  modal.classList.remove('hidden');
+}
+
+function closeModal() {
+  document.getElementById('admin-modal').classList.add('hidden');
+  editingId = null; editingType = null;
+}
+
+function saveModal() {
+  if (editingType === 'girl') saveGirl();
+  if (editingType === 'review') saveReview();
+  if (editingType === 'diary') saveDiary();
+  saveData();
+  renderAll();
+  closeModal();
+}
+
+function saveGirl() {
+  const types = document.getElementById('f-types').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const typesZh = document.getElementById('f-typesZh').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const data = {
+    name: document.getElementById('f-name').value,
+    nameZh: document.getElementById('f-nameZh').value,
+    nameEn: document.getElementById('f-nameEn').value,
+    height: parseInt(document.getElementById('f-height').value),
+    age: parseInt(document.getElementById('f-age').value),
+    cup: document.getElementById('f-cup').value,
+    weight: parseInt(document.getElementById('f-weight').value),
+    badge: document.getElementById('f-badge').value,
+    badgeZh: document.getElementById('f-badgeZh').value,
+    badgeEn: document.getElementById('f-badge').value,
+    types, typesZh,
+    typesEn: types,
+    image: document.getElementById('f-image').value,
+    order: parseInt(document.getElementById('f-order').value),
+    active: document.getElementById('f-active').value === 'true'
+  };
+  if (editingId) {
+    const idx = adminData.girls.findIndex(g => g.id === editingId);
+    adminData.girls[idx] = { ...adminData.girls[idx], ...data };
+  } else {
+    const maxId = adminData.girls.reduce((m,g) => Math.max(m, g.id), 0);
+    adminData.girls.push({ id: maxId + 1, ...data });
+  }
+}
+
+function saveReview() {
+  const data = {
+    titleJa: document.getElementById('f-titleJa').value,
+    titleZh: document.getElementById('f-titleZh').value,
+    titleEn: document.getElementById('f-titleEn').value,
+    contentJa: document.getElementById('f-contentJa').value,
+    contentZh: document.getElementById('f-contentZh').value,
+    contentEn: document.getElementById('f-contentEn').value,
+    girlName: document.getElementById('f-girlName').value,
+    date: document.getElementById('f-date').value,
+    featured: document.getElementById('f-featured').value === 'true',
+    rating: 5
+  };
+  if (editingId) {
+    const idx = adminData.reviews.findIndex(r => r.id === editingId);
+    adminData.reviews[idx] = { ...adminData.reviews[idx], ...data };
+  } else {
+    const maxId = adminData.reviews.reduce((m,r) => Math.max(m, r.id), 0);
+    adminData.reviews.push({ id: maxId + 1, ...data });
+  }
+}
+
+function saveDiary() {
+  const sh = document.getElementById('f-sh').value;
+  const sc = document.getElementById('f-sc').value;
+  const sa = document.getElementById('f-sa').value;
+  const sw = document.getElementById('f-sw').value;
+  const stats = (sh||sc||sa||sw) ? {
+    height: sh ? parseInt(sh) : undefined,
+    cup: sc || undefined,
+    age: sa ? parseInt(sa) : undefined,
+    weight: sw ? parseInt(sw) : undefined
+  } : null;
+  const data = {
+    titleJa: document.getElementById('f-titleJa').value,
+    titleZh: document.getElementById('f-titleZh').value,
+    titleEn: document.getElementById('f-titleEn').value,
+    excerpt: document.getElementById('f-excerpt').value,
+    excerptZh: document.getElementById('f-excerptZh').value,
+    contentJa: document.getElementById('f-contentJa').value,
+    contentZh: document.getElementById('f-contentZh').value,
+    contentEn: document.getElementById('f-contentEn').value,
+    category: document.getElementById('f-category').value,
+    date: document.getElementById('f-date').value,
+    thumbnail: document.getElementById('f-thumbnail').value,
+    stats,
+    published: document.getElementById('f-published').value === 'true'
+  };
+  if (editingId) {
+    const idx = adminData.diary.findIndex(d => d.id === editingId);
+    adminData.diary[idx] = { ...adminData.diary[idx], ...data };
+  } else {
+    const maxId = adminData.diary.reduce((m,d) => Math.max(m, d.id), 0);
+    adminData.diary.push({ id: maxId + 1, ...data });
+  }
+}
+
+function deleteItem(type, id) {
+  if (!confirm('確定要刪除？')) return;
+  if (type === 'girl') adminData.girls = adminData.girls.filter(g => g.id !== id);
+  if (type === 'review') adminData.reviews = adminData.reviews.filter(r => r.id !== id);
+  if (type === 'diary') adminData.diary = adminData.diary.filter(d => d.id !== id);
+  saveData();
+  renderAll();
+}
+
+// ── Export ──
+function generateExport() {
+  const output = `// ===== 夜桜の夢 — Site Content Database =====
+// Generated: ${new Date().toLocaleString()}
+
+const siteData = ${JSON.stringify(adminData, null, 2)};
+
+if (typeof module !== 'undefined') module.exports = siteData;`;
+
+  document.getElementById('export-textarea').value = output;
+  document.getElementById('export-output').classList.remove('hidden');
+}
+
+// ── Start ──
+init();

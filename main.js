@@ -1,0 +1,345 @@
+// ── Theme (Dark / Light) ──
+const THEME_KEY = 'yuyu-theme';
+
+function setTheme(theme) {
+  const next = theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem(THEME_KEY, next);
+}
+
+function initTheme() {
+  const saved = localStorage.getItem(THEME_KEY);
+  document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+}
+
+initTheme();
+document.getElementById('theme-toggle')?.addEventListener('click', () => setTheme());
+document.getElementById('sidebar-theme-toggle')?.addEventListener('click', () => {
+  setTheme();
+  closeSidebar();
+});
+
+// ── Admin Login (點擊右上角 夜桜の夢 開啟) ──
+const ADMIN_PASSWORD = '@fan123456F';
+const ADMIN_AUTH_KEY = 'yuyu_admin_auth';
+
+function openAdminLoginModal() {
+  document.getElementById('admin-login-modal')?.classList.add('open');
+  document.getElementById('admin-login-pwd')?.focus();
+  document.body.style.overflow = 'hidden';
+}
+function closeAdminLoginModal() {
+  document.getElementById('admin-login-modal')?.classList.remove('open');
+  const pwdEl = document.getElementById('admin-login-pwd');
+  const errEl = document.getElementById('admin-login-error');
+  if (pwdEl) pwdEl.value = '';
+  if (errEl) errEl.textContent = '';
+  document.body.style.overflow = '';
+}
+function doAdminLogin() {
+  const pwd = document.getElementById('admin-login-pwd')?.value;
+  const errEl = document.getElementById('admin-login-error');
+  if (pwd === ADMIN_PASSWORD) {
+    sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
+    closeAdminLoginModal();
+    window.location.href = 'admin/';
+  } else {
+    errEl.textContent = '密碼錯誤，請重試';
+    document.getElementById('admin-login-pwd').value = '';
+  }
+}
+
+document.getElementById('admin-login-trigger')?.addEventListener('click', (e) => { e.preventDefault(); openAdminLoginModal(); });
+document.getElementById('sidebar-admin-login-trigger')?.addEventListener('click', (e) => {
+  e.preventDefault();
+  openAdminLoginModal();
+  closeSidebar();
+});
+document.getElementById('admin-login-overlay')?.addEventListener('click', closeAdminLoginModal);
+document.getElementById('admin-login-close')?.addEventListener('click', closeAdminLoginModal);
+document.getElementById('admin-login-btn')?.addEventListener('click', doAdminLogin);
+document.getElementById('admin-login-pwd')?.addEventListener('keypress', (e) => {
+  if (e.key === 'Enter') doAdminLogin();
+});
+
+// ── Language Switch ──
+const allLangButtons = document.querySelectorAll('[data-lang]');
+
+function setLanguage(lang) {
+  document.documentElement.lang = lang === 'zh' ? 'zh-TW' : lang;
+  document.body.classList.remove('lang-ja', 'lang-zh', 'lang-en');
+  document.body.classList.add('lang-' + lang);
+
+  allLangButtons.forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.lang === lang);
+  });
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+  });
+
+  document.querySelectorAll('.area-tag[data-area]').forEach(el => {
+    const key = 'area.' + el.getAttribute('data-area');
+    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+  });
+
+  localStorage.setItem('yuyu-lang', lang);
+}
+
+allLangButtons.forEach(btn => {
+  btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+});
+
+const savedLang = localStorage.getItem('yuyu-lang') || 'ja';
+setLanguage(savedLang);
+
+// ── Sidebar ──
+const hamburgerBtn = document.getElementById('nav-hamburger-btn');
+const sidebar = document.getElementById('sidebar');
+const sidebarOverlay = document.getElementById('sidebar-overlay');
+const sidebarClose = document.getElementById('sidebar-close');
+
+function openSidebar() {
+  sidebar.classList.add('open');
+  sidebarOverlay.classList.add('open');
+}
+function closeSidebar() {
+  sidebar.classList.remove('open');
+  sidebarOverlay.classList.remove('open');
+}
+
+hamburgerBtn.addEventListener('click', openSidebar);
+sidebarClose.addEventListener('click', closeSidebar);
+sidebarOverlay.addEventListener('click', closeSidebar);
+
+sidebar.querySelectorAll('a').forEach(a => {
+  a.addEventListener('click', closeSidebar);
+});
+
+// ── Gallery / News Tab Switcher ──
+document.querySelectorAll('.section-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    const targetId = tab.getAttribute('data-tab');
+
+    document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+
+    tab.classList.add('active');
+    document.getElementById(targetId)?.classList.add('active');
+  });
+});
+
+// ── Scroll Spy ──
+const spySections = ['services', 'booking', 'gallery', 'reviews'];
+const navLinks = document.querySelectorAll('.nav-center-link');
+
+const spyObserver = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+      });
+    }
+  });
+}, { rootMargin: '-40% 0px -50% 0px' });
+
+spySections.forEach(id => {
+  const el = document.getElementById(id);
+  if (el) spyObserver.observe(el);
+});
+
+// ── Render Gallery from siteData ──
+function renderGallery(lang) {
+  const grid = document.getElementById('gallery-grid-dynamic');
+  if (!grid || typeof siteData === 'undefined') return;
+  const girls = siteData.girls.filter(g => g.active).sort((a,b) => a.order - b.order);
+  grid.innerHTML = girls.map(g => {
+    const name = lang === 'zh' ? g.nameZh : lang === 'en' ? g.nameEn : g.name;
+    const badge = lang === 'zh' ? g.badgeZh : lang === 'en' ? g.badgeEn : g.badge;
+    const types = lang === 'zh' ? g.typesZh : lang === 'en' ? g.typesEn : g.types;
+    const statHeight = lang === 'ja' ? '身長' : lang === 'zh' ? '身高' : 'Height';
+    const statAge = lang === 'ja' ? '年齡' : lang === 'zh' ? '年齡' : 'Age';
+    const statCup = lang === 'ja' ? 'カップ数' : lang === 'zh' ? '罩杯' : 'Cup';
+    const statWeight = lang === 'ja' ? '体重' : lang === 'zh' ? '體重' : 'Weight';
+    const ageUnit = lang === 'en' ? 'yo' : '歲';
+    return `<div class="gallery-card">
+      <div class="card-img-wrap">
+        <img src="${g.image}" alt="${name}" loading="lazy">
+        <span class="card-badge">${badge}</span>
+      </div>
+      <div class="card-info">
+        <div class="card-name">${name}</div>
+        <div class="card-stats card-stats-extracted">
+          <div class="stat-line"><span class="stat-label">${statHeight}</span> ${g.height}cm</div>
+          <div class="stat-line"><span class="stat-label">${statAge}</span> ${g.age}${ageUnit}</div>
+          <div class="stat-line"><span class="stat-label">${statCup}</span> ${g.cup}${lang === 'en' ? ' cup' : '罩杯'}</div>
+          <div class="stat-line"><span class="stat-label">${statWeight}</span> ${g.weight}kg</div>
+        </div>
+        <div class="card-tags">${types.map(t => `<span class="ctag">${t}</span>`).join('')}</div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ── Render Reviews from siteData ──
+function renderReviews(lang) {
+  const grid = document.getElementById('reviews-grid-dynamic');
+  if (!grid || typeof siteData === 'undefined') return;
+  const reviews = siteData.reviews.filter(r => r.featured);
+  grid.innerHTML = reviews.map(r => {
+    const title = lang === 'zh' ? r.titleZh : lang === 'en' ? r.titleEn : r.titleJa;
+    const content = lang === 'zh' ? r.contentZh : lang === 'en' ? r.contentEn : r.contentJa;
+    return `<blockquote class="review-card">
+      <div class="review-title">${title}</div>
+      <p>${content}</p>
+      <div class="review-meta"><span class="review-girl">${r.girlName}</span><span class="review-date">${r.date}</span></div>
+    </blockquote>`;
+  }).join('');
+}
+
+// ── Render Diary from siteData ──
+const DIARY_PER_PAGE = 9;
+let currentDiaryCat = 'all';
+let currentDiaryPage = 1;
+
+function renderDiary(lang, cat, page) {
+  const grid = document.getElementById('diary-grid');
+  const paginationEl = document.getElementById('diary-pagination');
+  if (!grid || typeof siteData === 'undefined') return;
+  currentDiaryCat = cat || currentDiaryCat;
+  currentDiaryPage = (page !== undefined && page !== null) ? page : currentDiaryPage;
+  const allPosts = siteData.diary
+    .filter(d => d.published && (currentDiaryCat === 'all' || d.category === currentDiaryCat))
+    .sort((a,b) => b.date.localeCompare(a.date));
+  const totalPages = Math.ceil(allPosts.length / DIARY_PER_PAGE);
+  const start = (currentDiaryPage - 1) * DIARY_PER_PAGE;
+  const posts = allPosts.slice(start, start + DIARY_PER_PAGE);
+
+  const readmore = (translations[lang] && translations[lang]['diary.readmore']) || '続きを読む →';
+  grid.innerHTML = posts.map(p => {
+    const title = lang === 'zh' ? p.titleZh : lang === 'en' ? p.titleEn : p.titleJa;
+    const excerpt = lang === 'zh' ? p.excerptZh : lang === 'en' ? (p.excerptEn || p.excerpt) : p.excerpt;
+    const statsHtml = p.stats ? `<div class="diary-stats">
+      ${p.stats.height ? `<span>${p.stats.height}cm</span>` : ''}
+      ${p.stats.cup ? `<span>${p.stats.cup}罩杯</span>` : ''}
+      ${p.stats.age ? `<span>${p.stats.age}歲</span>` : ''}
+      ${p.stats.weight ? `<span>${p.stats.weight}kg</span>` : ''}
+    </div>` : '';
+    return `<article class="diary-card" data-id="${p.id}">
+      ${p.thumbnail ? `<div class="diary-thumb"><img src="${p.thumbnail}" alt="${title}" loading="lazy"></div>` : ''}
+      <div class="diary-body">
+        <div class="diary-meta">
+          <span class="diary-date">${p.date}</span>
+          <span class="diary-cat">${p.category}</span>
+        </div>
+        <h3 class="diary-title">${title}</h3>
+        ${statsHtml}
+        <p class="diary-excerpt">${excerpt}</p>
+        <button class="diary-readmore" data-id="${p.id}">${readmore}</button>
+      </div>
+    </article>`;
+  }).join('');
+
+  // Pagination（所有分類都顯示子分頁，含單頁時）
+  if (paginationEl) {
+    if (allPosts.length === 0) {
+      paginationEl.innerHTML = '';
+      paginationEl.classList.remove('visible');
+    } else {
+      paginationEl.classList.add('visible');
+      const prevLabel = lang === 'zh' ? '上一頁' : lang === 'en' ? 'Prev' : '前へ';
+      const nextLabel = lang === 'zh' ? '下一頁' : lang === 'en' ? 'Next' : '次へ';
+      let html = '';
+      if (currentDiaryPage > 1) {
+        html += `<button type="button" class="diary-page-btn diary-page-prev" data-page="${currentDiaryPage - 1}" aria-label="${prevLabel}">${prevLabel}</button>`;
+      }
+      html += '<span class="diary-page-numbers">';
+      for (let i = 1; i <= totalPages; i++) {
+        const active = i === currentDiaryPage ? ' active' : '';
+        html += `<button type="button" class="diary-page-btn diary-page-num${active}" data-page="${i}">${i}</button>`;
+      }
+      html += '</span>';
+      if (currentDiaryPage < totalPages) {
+        html += `<button type="button" class="diary-page-btn diary-page-next" data-page="${currentDiaryPage + 1}" aria-label="${nextLabel}">${nextLabel}</button>`;
+      }
+      paginationEl.innerHTML = html;
+      paginationEl.querySelectorAll('.diary-page-btn[data-page]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          renderDiary(lang, currentDiaryCat, parseInt(btn.dataset.page));
+          document.getElementById('diary')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      });
+    }
+  }
+
+  // attach click events
+  grid.querySelectorAll('.diary-readmore').forEach(btn => {
+    btn.addEventListener('click', () => openDiaryModal(parseInt(btn.dataset.id), lang));
+  });
+}
+
+function openDiaryModal(id, lang) {
+  const post = siteData.diary.find(p => p.id === id);
+  if (!post) return;
+  const title = lang === 'zh' ? post.titleZh : lang === 'en' ? post.titleEn : post.titleJa;
+  const content = lang === 'zh' ? post.contentZh : lang === 'en' ? post.contentEn : post.contentJa;
+  const statsHtml = post.stats ? `<div class="diary-modal-stats">
+    ${post.stats.height ? `<span>📏 ${post.stats.height}cm</span>` : ''}
+    ${post.stats.cup ? `<span>💝 ${post.stats.cup}罩杯</span>` : ''}
+    ${post.stats.age ? `<span>🎂 ${post.stats.age}歲</span>` : ''}
+    ${post.stats.weight ? `<span>⚖️ ${post.stats.weight}kg</span>` : ''}
+  </div>` : '';
+
+  document.getElementById('diary-modal-body').innerHTML = `
+    ${post.thumbnail ? `<img src="${post.thumbnail}" class="diary-modal-img" alt="${title}">` : ''}
+    <div class="diary-modal-header">
+      <div class="diary-meta"><span class="diary-date">${post.date}</span><span class="diary-cat">${post.category}</span></div>
+      <h2>${title}</h2>
+      ${statsHtml}
+    </div>
+    <div class="diary-modal-text">${content.replace(/\n/g, '<br>')}</div>
+  `;
+  document.getElementById('diary-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('diary-modal-close')?.addEventListener('click', closeDiaryModal);
+document.getElementById('diary-modal-overlay')?.addEventListener('click', closeDiaryModal);
+
+function closeDiaryModal() {
+  document.getElementById('diary-modal')?.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.querySelectorAll('.diary-filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.diary-filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const lang = localStorage.getItem('yuyu-lang') || 'ja';
+    renderDiary(lang, btn.dataset.cat, 1);
+  });
+});
+
+// ── Override setLanguage to also re-render dynamic content ──
+const _origSetLanguage = setLanguage;
+// patch: re-render after language switch
+const _origLangButtons = document.querySelectorAll('[data-lang]');
+_origLangButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    const lang = btn.dataset.lang;
+    setTimeout(() => {
+      renderGallery(lang);
+      renderReviews(lang);
+      renderDiary(lang);
+    }, 0);
+  });
+});
+
+// ── Initial Render ──
+(function initDynamicContent() {
+  const lang = localStorage.getItem('yuyu-lang') || 'ja';
+  renderGallery(lang);
+  renderReviews(lang);
+  renderDiary(lang);
+})();

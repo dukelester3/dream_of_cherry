@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <base href="./">
+  <meta name="description" content="夜桜の夢 - 日本発・完全予約制の高級出張サービス。">
+  <title>夜桜の夢 – 東京出張サービス</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Courier+Prime:wght@400;700&family=Noto+Serif+JP:wght@300;400;500;600;700&family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+</head>
+<body>
+
+  <!-- SITE NAV -->
+  <nav class="site-nav">
+    <button class="nav-hamburger-btn" id="nav-hamburger-btn" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-center">
+      <a href="#services" class="nav-center-link" data-i18n="nav.services">サービス紹介</a>
+      <a href="#booking" class="nav-center-link" data-i18n="nav.booking">予約流れ</a>
+      <a href="#gallery" class="nav-center-link" data-i18n="nav.girls">人気出勤</a>
+      <a href="#reviews" class="nav-center-link" data-i18n="nav.reviews">口コミ</a>
+    </div>
+    <div class="nav-right">
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切換深色/淺色模式" title="切換深色/淺色模式">
+        <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+        <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
+      </button>
+      <div class="nav-lang">
+        <button data-lang="ja" class="active">JP</button>
+        <button data-lang="zh">ZH</button>
+        <button data-lang="en">EN</button>
+      </div>
+      <button type="button" class="nav-brand nav-brand-btn" id="admin-login-trigger" title="後台登入">夜桜の夢</button>
+    </div>
+  </nav>
+
+  <!-- ADMIN LOGIN MODAL -->
+  <div class="admin-login-modal" id="admin-login-modal">
+    <div class="admin-login-overlay" id="admin-login-overlay"></div>
+    <div class="admin-login-box">
+      <button type="button" class="admin-login-close" id="admin-login-close">✕</button>
+      <div class="admin-login-logo">夜桜の夢</div>
+      <div class="admin-login-sub">後台登入</div>
+      <div class="form-group">
+        <label>密碼</label>
+        <input type="password" id="admin-login-pwd" placeholder="請輸入密碼" autocomplete="current-password">
+      </div>
+      <button type="button" class="btn-admin-login" id="admin-login-btn">登入</button>
+      <div class="admin-login-error" id="admin-login-error"></div>
+    </div>
+  </div>
+
+  <!-- SIDEBAR OVERLAY -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <button class="sidebar-close" id="sidebar-close">✕</button>
+    <button type="button" class="sidebar-logo sidebar-logo-btn" id="sidebar-admin-login-trigger" title="後台登入">夜桜の夢</button>
+    <ul class="sidebar-nav">
+      <li><a href="#services" data-i18n="nav.services">サービス紹介</a></li>
+      <li><a href="#booking" data-i18n="nav.booking">予約流れ</a></li>
+      <li><a href="#gallery" data-i18n="nav.girls">人気出勤</a></li>
+      <li><a href="#diary" data-i18n="diary.title">日記・出勤情報</a></li>
+      <li><a href="#reviews" data-i18n="nav.reviews">口コミ</a></li>
+    </ul>
+    <button class="theme-toggle sidebar-theme-toggle" id="sidebar-theme-toggle" type="button" aria-label="切換深色/淺色模式">
+      <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
+      <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
+    </button>
+    <div class="sidebar-lang">
+      <button data-lang="ja" class="active">JP</button>
+      <button data-lang="zh">ZH</button>
+      <button data-lang="en">EN</button>
+    </div>
+    <div class="sidebar-contacts">
+      <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="sidebar-contact-btn sc-line">LINE</a>
+      <a href="https://t.me/ty556k" target="_blank" rel="noopener" class="sidebar-contact-btn sc-tg">Telegram</a>
+      <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="sidebar-contact-btn sc-gleezy">Gleezy</a>
+    </div>
+  </aside>
+
+  <!-- HERO: Split Layout -->
+  <header class="hero">
+    <div class="hero-img-side">
+      <img src="./picture/首頁大圖.png" alt="夜桜の夢" loading="eager">
+      <div class="hero-tab-strip">
+        <a href="#gallery" class="hero-tab-btn active" data-i18n="nav.girls">人気出勤 ↗</a>
+        <a href="#services" class="hero-tab-btn" data-i18n="nav.services">サービス紹介 ↗</a>
+        <a href="#reviews" class="hero-tab-btn" data-i18n="nav.reviews">口コミ ↗</a>
+      </div>
+    </div>
+    <div class="hero-text-side">
+      <span class="section-label" data-i18n="hero.label">日本 · 完全予約制</span>
+      <h1 class="hero-title" data-i18n="hero.title">夜桜の夢</h1>
+      <p class="hero-subtitle" data-i18n="hero.subtitle">日本発・完全予約制の高級出張サービスです</p>
+      <p class="hero-desc" data-i18n="hero.desc">毎日100人以上の厳選美女が待機中。清楚系、巨乳、美脚、AV経験者、素人系など多彩なタイプをご用意。ホテル・ご自宅・滞在先への出張に対応。</p>
+      <div class="hero-cta">
+        <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" class="btn btn-primary">LINE</a>
+        <a href="https://gleezy.net/qyitqw" target="_blank" class="btn btn-secondary">Gleezy</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="trust-inner">
+      <div class="trust-item">
+        <span class="trust-mark">✓</span>
+        <span data-i18n="trust.photo">100%本人確約・写真と本人の一致を厳守</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-mark">✓</span>
+        <span data-i18n="trust.delivery">完全出張型・指定場所へ直接お伺い</span>
+      </div>
+      <div class="trust-item">
+        <span class="trust-mark">85%</span>
+        <span data-i18n="trust.repeat">リピーター率85%突破</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="container">
+      <div class="features-grid">
+        <div class="feature-item">
+          <span class="feature-icon">✦</span>
+          <div class="feature-title" data-i18n="why.variety">多彩なラインナップ</div>
+          <div class="feature-desc" data-i18n="why.variety.desc">清楚系からセクシー系まで、豊富なタイプの女の子をご用意。</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">◈</span>
+          <div class="feature-title" data-i18n="why.custom">カスタマイズ可能</div>
+          <div class="feature-desc" data-i18n="why.custom.desc">お客様のご希望や好みに合わせた柔軟な対応が可能です。</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">⬡</span>
+          <div class="feature-title" data-i18n="why.privacy">徹底したプライバシー保護</div>
+          <div class="feature-desc" data-i18n="why.privacy.desc">個人情報は厳重に管理。安心してご利用いただけます。</div>
+        </div>
+        <div class="feature-item">
+          <span class="feature-icon">◇</span>
+          <div class="feature-title" data-i18n="why.quality">厳選された美女＆高品質</div>
+          <div class="feature-desc" data-i18n="why.quality.desc">ルックス・接客ともにハイレベルな女性のみを採用。</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-img-side">
+          <div class="about-collage">
+            <div class="about-collage-col about-collage-left">
+              <div class="about-photo about-photo-small-top">
+                <img src="./picture/yuyu-1.jpg" alt="悠悠生活照 1" loading="lazy">
+              </div>
+              <div class="about-photo about-photo-tall">
+                <img src="./picture/yuyu-3.jpg" alt="悠悠生活照 3" loading="lazy">
+              </div>
+            </div>
+            <div class="about-collage-col about-collage-right">
+              <div class="about-photo about-photo-large">
+                <img src="./picture/yuyu-2.jpg" alt="悠悠生活照 2" loading="lazy">
+              </div>
+              <div class="about-photo about-photo-small-bottom">
+                <img src="./picture/yuyu-4.jpg" alt="悠悠生活照 4" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text-side">
+          <span class="section-label" data-i18n="about.label">Profile</span>
+          <h2 class="section-title" style="text-align:left; margin-bottom:24px;" data-i18n="about.title">私について</h2>
+          <p data-i18n="about.p1">はじめまして、ゆうゆうと申します。台湾出身です。昔から日本の文化や礼儀作法に憧れていて、卒業を機に、ついに夢だった日本での生活をスタートさせました。</p>
+          <p data-i18n="about.p2">友人の紹介でこのお仕事を始めましたが、日本語はまだ勉強中です。翻訳アプリにも助けてもらいながら、一生懸命がんばっています。もし表現に不自然なところがあったら、やさしく教えてくれるとうれしいです。</p>
+          <a href="https://t.me/ty556k" target="_blank" class="link-more" data-i18n="about.more">もっと見る →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="services" id="services">
+    <div class="container">
+      <span class="section-label" data-i18n="services.label">Services</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="services.title">サービス紹介</span></div>
+      <div class="services-grid">
+        <div class="service-card">
+          <h3 data-i18n="services.hours.title">営業時間</h3>
+          <p data-i18n="services.hours.content">11:00〜翌2:00（日本時間）。ご予約はお早めに。事前予約でお客様にぴったりの女性をご案内。</p>
+        </div>
+        <div class="service-card">
+          <h3 data-i18n="services.content.title">サービス内容</h3>
+          <p data-i18n="services.content.list">ゴムありプレイ、密着プレイ＆中出し対応（希望者のみ）、写真撮影（要相談）、フレンチキス＆69、混浴＆全身リップ、クンニほか</p>
+        </div>
+        <div class="service-card service-card-area">
+          <h3 data-i18n="services.area.title">サービスエリア</h3>
+          <div class="area-map-wrap">
+            <div id="japan-map" class="japan-map" aria-label="日本地図・東京服務地區"></div>
+          </div>
+          <div class="area-tags" data-i18n-area="true">
+            <span class="area-tag" data-area="shinjuku">新宿区</span><span class="area-tag" data-area="toshima">豊島区</span><span class="area-tag" data-area="chuo">中央区</span>
+            <span class="area-tag" data-area="minato">港区</span><span class="area-tag" data-area="taito">台東区</span><span class="area-tag" data-area="sumida">墨田区</span>
+            <span class="area-tag" data-area="meguro">目黒区</span><span class="area-tag" data-area="shinagawa">品川区</span><span class="area-tag" data-area="shibuya">渋谷区</span>
+            <span class="area-tag" data-area="nakano">中野区</span><span class="area-tag" data-area="adachi">足立区</span><span class="area-tag" data-area="bunkyo">文京区</span>
+            <span class="area-tag" data-area="chiyoda">千代田区</span><span class="area-tag" data-area="kita">北区</span><span class="area-tag" data-area="koto">江東区</span>
+            <span class="area-tag" data-area="arakawa">荒川区</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY (熱門出勤) -->
+  <section class="gallery-section hot" id="gallery">
+    <div class="container">
+      <span class="section-label" data-i18n="gallery.label">Lineup</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="gallery.title">人気出勤</span></div>
+      <div class="gallery-grid hot" id="gallery-grid-dynamic"></div>
+      <p class="gallery-cta" data-i18n="gallery.cta">更多美女請透過 LINE / Telegram 詢問</p>
+    </div>
+  </section>
+
+  <!-- DIARY (日記・出勤情報) -->
+  <section class="diary-section" id="diary">
+    <div class="container">
+      <span class="section-label" data-i18n="diary.label">Diary</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="diary.title">日記・出勤情報</span></div>
+
+      <div class="diary-filter">
+        <button class="diary-filter-btn active" data-cat="all" data-i18n="diary.all">すべて</button>
+        <button class="diary-filter-btn" data-cat="出勤情報" data-i18n="diary.cat.checkin">出勤情報</button>
+        <button class="diary-filter-btn feedback" data-cat="客戶反饋" data-i18n="diary.cat.feedback">客戶反饋</button>
+        <button class="diary-filter-btn" data-cat="日記" data-i18n="diary.cat.diary">日記</button>
+        <button class="diary-filter-btn" data-cat="お知らせ" data-i18n="diary.cat.news">お知らせ</button>
+      </div>
+
+      <div class="diary-grid" id="diary-grid">
+        <!-- Rendered by main.js from siteData.diary -->
+      </div>
+      <nav class="diary-pagination" id="diary-pagination" aria-label="日記分頁">
+        <!-- Rendered by main.js when > 9 items -->
+      </nav>
+
+      <div class="diary-modal" id="diary-modal">
+        <div class="diary-modal-overlay" id="diary-modal-overlay"></div>
+        <div class="diary-modal-content">
+          <button class="diary-modal-close" id="diary-modal-close">✕</button>
+          <div class="diary-modal-body" id="diary-modal-body"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING -->
+  <section class="booking-flow" id="booking">
+    <div class="container">
+      <span class="section-label" data-i18n="booking.label">How to Book</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="booking.title">予約流れ</span></div>
+      <div class="steps">
+        <div class="step"><span class="step-num">1</span><span data-i18n="booking.step1">ご利用エリアを教えてください</span></div>
+        <div class="step"><span class="step-num">2</span><span data-i18n="booking.step2">ご予算と希望タイプをお知らせください</span></div>
+        <div class="step"><span class="step-num">3</span><span data-i18n="booking.step3">ホテル名・住所・部屋番号・予約名を教えてください</span></div>
+        <div class="step"><span class="step-num">4</span><span data-i18n="booking.step4">カードキー必要／ロビーお迎えの場合は服装とあわせてご連絡</span></div>
+        <div class="step"><span class="step-num">5</span><span data-i18n="booking.step5">ご予約は3〜4時間前までに。無断キャンセル・遅刻はご遠慮ください</span></div>
+      </div>
+      <p class="booking-note" data-i18n="booking.note">※只收日币・現場給现金・不轉賬・不匯款・不點數</p>
+    </div>
+  </section>
+
+  <!-- REVIEWS (售後客評) -->
+  <section class="reviews feedback" id="reviews">
+    <div class="container">
+      <span class="section-label" data-i18n="reviews.label">售後客評</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="reviews.title">口コミ</span></div>
+      <div class="reviews-grid feedback" id="reviews-grid-dynamic"></div>
+      <p class="reviews-cta">
+        <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" data-i18n="reviews.feedback">期待您的回饋，點擊加入悠悠</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- WARNING -->
+  <section class="warning">
+    <div class="container">
+      <div class="warning-inner">
+        <div>
+          <h3 data-i18n="warning.title">⚠ 關於偷拍</h3>
+          <p data-i18n="warning.content">偷偷拍攝會讓女孩很受傷，日本法律對這方面非常嚴格。萬一被發現可能要支付50萬日元罰款，還會影響您以後的預約資格。只要提前溝通，很多小姐姐都會給出讓您滿意的方案～</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="container">
+      <span class="section-label" style="color: var(--gold);" data-i18n="cta.label">Contact</span>
+      <h2 data-i18n="cta.title">ご予約はこちら</h2>
+      <div class="cta-buttons">
+        <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" class="btn btn-primary btn-lg">LINE</a>
+        <a href="https://t.me/ty556k" target="_blank" class="btn btn-secondary btn-lg">Telegram</a>
+        <a href="https://gleezy.net/qyitqw" target="_blank" class="btn btn-outline btn-lg">Gleezy</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <span class="footer-brand">夜桜の夢</span>
+          <p class="footer-tagline" data-i18n="hero.desc">毎日100人以上の厳選美女が待機中。清楚系、巨乳、美脚、AV経験者、素人系など多彩なタイプをご用意。</p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.nav">Navigation</h4>
+          <ul>
+            <li><a href="#services" data-i18n="nav.services">サービス紹介</a></li>
+            <li><a href="#gallery" data-i18n="nav.girls">人気出勤</a></li>
+            <li><a href="#booking" data-i18n="nav.booking">予約流れ</a></li>
+            <li><a href="#reviews" data-i18n="nav.reviews">口コミ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.contact">Contact</h4>
+          <p>
+            <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" style="color: #06c755; text-decoration: none;">LINE</a><br>
+            <a href="https://t.me/ty556k" target="_blank" style="color: #229ed9; text-decoration: none;">Telegram</a><br>
+            <a href="https://gleezy.net/qyitqw" target="_blank" style="color: #f5c518; text-decoration: none;">Gleezy</a>
+          </p>
+        </div>
+        <div class="footer-col">
+          <h4 data-i18n="footer.hours">営業時間</h4>
+          <p data-i18n="services.hours.content">11:00〜翌2:00（日本時間）</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 夜桜の夢 All Rights Reserved.</span>
+        <span data-i18n="footer.cash">※ 現場現金払いのみ</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- FLOAT BAR -->
+  <div class="float-bar">
+    <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="float-btn float-line">
+      <span class="float-icon">💬</span>
+      <span class="float-label">LINE</span>
+    </a>
+    <a href="https://t.me/ty556k" target="_blank" rel="noopener" class="float-btn float-tg">
+      <span class="float-icon">✈️</span>
+      <span class="float-label">Telegram</span>
+    </a>
+    <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="float-btn float-gleezy">
+      <span class="float-icon">⭐</span>
+      <span class="float-label">Gleezy</span>
+    </a>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="i18n.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+  <script src="main.js"></script>
+  <script src="map.js"></script>
+</body>
+</html>

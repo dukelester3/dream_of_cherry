@@ -1,0 +1,9 @@
+{
+  "name": "yuyu",
+  "version": "1.0.0",
+  "description": "夜桜の夢 - 東京出張サービス",
+  "scripts": {
+    "start": "npx serve . -p 3000",
+    "serve": "npx serve . -p 3000"
+  }
+}
