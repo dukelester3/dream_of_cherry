@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/17/2026, 12:01:20 AM
+// Generated: 3/17/2026, 12:03:24 AM
 
 const siteData = {
   "about": {
@@ -32,20 +32,20 @@ const siteData = {
       "weight": 46,
       "badge": "人気No.1",
       "badgeZh": "人氣No.1",
-      "badgeEn": "Top Pick",
+      "badgeEn": "人気No.1",
       "types": [
         "清楚系",
         "AV経験"
       ],
       "typesZh": [
-        "清楚系",
+        "清純型",
         "AV經驗"
       ],
       "typesEn": [
         "Innocent",
         "AV Exp."
       ],
-      "image": "./hot/17f2f4e84b7f492c06cf061445a01bf2.jpg",
+      "image": "https://i.ibb.co/kYc0Wz3/17f2f4e84b7f492c06cf061445a01bf2.jpg",
       "active": true,
       "order": 1
     },
@@ -62,18 +62,18 @@ const siteData = {
       "badgeZh": "新人",
       "badgeEn": "NEW",
       "types": [
-        "セクシー系",
-        "素人系"
+        "素人系",
+        "セクシー系"
       ],
       "typesZh": [
-        "性感系",
-        "素人系"
+        "素人型",
+        "性感型"
       ],
       "typesEn": [
-        "Sexy",
-        "Amateur"
+        "Amateur",
+        "Sexy"
       ],
-      "image": "./hot/18dcf2d6221cd5af79077be6eecfa091.jpg",
+      "image": "https://i.ibb.co/GQWK9kNm/18dcf2d6221cd5af79077be6eecfa091.jpg",
       "active": true,
       "order": 2
     },
@@ -88,20 +88,17 @@ const siteData = {
       "weight": 46,
       "badge": "リピ率高",
       "badgeZh": "回頭客高",
-      "badgeEn": "High Repeat",
+      "badgeEn": "リピ率高",
       "types": [
-        "巨乳系",
-        "混浴OK"
+        "巨乳系"
       ],
       "typesZh": [
-        "巨乳系",
-        "混浴OK"
+        "巨乳型"
       ],
       "typesEn": [
-        "Busty",
-        "Bath OK"
+        "Busty"
       ],
-      "image": "./hot/6197ad6dd36a271ce1386ab0346970b3.jpg",
+      "image": "https://i.ibb.co/CpnHymZ8/6197ad6dd36a271ce1386ab0346970b3.jpg",
       "active": true,
       "order": 3
     },
