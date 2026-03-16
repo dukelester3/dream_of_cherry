@@ -91,7 +91,18 @@ allLangButtons.forEach(btn => {
   btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
 });
 
-const savedLang = localStorage.getItem('yuyu-lang') || 'ja';
+// 語言優先順序：URL 參數 > 已儲存 > 瀏覽器語言 > 預設日文（永不預設英文）
+function getInitialLang() {
+  const urlLang = new URLSearchParams(location.search).get('lang');
+  if (urlLang === 'ja' || urlLang === 'zh' || urlLang === 'en') return urlLang;
+  const saved = localStorage.getItem('yuyu-lang');
+  if (saved) return saved;
+  const browser = (navigator.language || navigator.userLanguage || '').toLowerCase();
+  if (browser.startsWith('zh')) return 'zh';
+  if (browser.startsWith('ja')) return 'ja';
+  return 'ja'; // 預設日文
+}
+const savedLang = getInitialLang();
 setLanguage(savedLang);
 
 // ── Sidebar ──
