@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 10:17:17 PM
+// Generated: 3/16/2026, 10:23:59 PM
 
 const siteData = {
   "about": {
@@ -136,40 +136,40 @@ const siteData = {
     {
       "id": 5,
       "name": "サキちゃん",
-      "nameZh": "小沙希",
+      "nameZh": "優葉",
       "nameEn": "Saki",
-      "height": 164,
-      "age": 28,
-      "cup": "D",
-      "weight": 45,
+      "height": 165,
+      "age": 26,
+      "cup": "H",
+      "weight": 50,
       "badge": "HOT",
       "badgeZh": "HOT",
       "badgeEn": "HOT",
       "types": [
         "セクシー系",
-        "美脚"
+        "氣質"
       ],
       "typesZh": [
         "性感系",
-        "美腿"
+        "氣質"
       ],
       "typesEn": [
-        "Sexy",
-        "Slim Legs"
+        "セクシー系",
+        "氣質"
       ],
-      "image": "./hot/ab95b6e1a8cedc7d89115af5d542530c.jpg",
+      "image": "https://i.ibb.co/TMqrCjR7/message-Image-1773668984270.jpg",
       "active": true,
       "order": 5
     },
     {
       "id": 6,
       "name": "ハナちゃん",
-      "nameZh": "小花",
+      "nameZh": "樂樂",
       "nameEn": "Hana",
-      "height": 161,
-      "age": 25,
+      "height": 160,
+      "age": 22,
       "cup": "E",
-      "weight": 49,
+      "weight": 48,
       "badge": "NEW",
       "badgeZh": "新人",
       "badgeEn": "NEW",
@@ -182,10 +182,10 @@ const siteData = {
         "巨乳系"
       ],
       "typesEn": [
-        "Amateur",
-        "Busty"
+        "素人系",
+        "巨乳系"
       ],
-      "image": "./hot/c7b341fb2d673dd400faa11e24107700.jpg",
+      "image": "https://i.ibb.co/mCxQYncm/message-Image-1773669115468.jpg",
       "active": true,
       "order": 6
     }
