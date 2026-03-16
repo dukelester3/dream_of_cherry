@@ -6,6 +6,21 @@ const AUTH_KEY = 'yuyu_admin_auth';
 function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
 const GEMINI_KEY_STORAGE = 'yuyu_gemini_key';
+const GIRL_TYPE_OPTIONS = [
+  { ja: '可愛系', zh: '可愛型', en: 'Cute' },
+  { ja: '優雅系', zh: '優雅型', en: 'Elegant' },
+  { ja: '若妻系', zh: '少婦型', en: 'Young Mature' },
+  { ja: '人妻系', zh: '人妻型', en: 'Mature' },
+  { ja: '学生系', zh: '學生型', en: 'Student' },
+  { ja: '美脚系', zh: '美足型', en: 'Slim Legs' },
+  { ja: '巨乳系', zh: '巨乳型', en: 'Busty' },
+  { ja: '貧乳系', zh: '貧乳型', en: 'Petite' },
+  { ja: '清楚系', zh: '清純型', en: 'Innocent' },
+  { ja: '素人系', zh: '素人型', en: 'Amateur' },
+  { ja: '高級系', zh: '高級型', en: 'Premium' },
+  { ja: 'セクシー系', zh: '性感型', en: 'Sexy' },
+  { ja: 'AV経験', zh: 'AV經驗', en: 'AV Exp.' }
+];
 const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
 
@@ -465,8 +480,15 @@ function openModal(type, id) {
         <div class="form-group"><label>徽章(日)</label><input id="f-badge" value="${item?.badge||'NEW'}"></div>
         <div class="form-group"><label>徽章(中)</label><input id="f-badgeZh" value="${item?.badgeZh||'新人'}"></div>
       </div>
-      <div class="form-group"><label>類型標籤(日，逗號分隔)</label><input id="f-types" value="${item?.types?.join(',')||''}"></div>
-      <div class="form-group"><label>類型標籤(中，逗號分隔)</label><input id="f-typesZh" value="${item?.typesZh?.join(',')||''}"></div>
+      <div class="form-group">
+        <label>類型標籤（可多選）</label>
+        <div class="type-checkbox-group">
+          ${GIRL_TYPE_OPTIONS.map((opt, i) => {
+            const checked = item?.types?.includes(opt.ja) || item?.typesZh?.includes(opt.zh);
+            return `<label class="type-checkbox"><input type="checkbox" name="f-type" value="${i}" data-ja="${escapeHtml(opt.ja)}" data-zh="${escapeHtml(opt.zh)}" data-en="${escapeHtml(opt.en)}" ${checked?'checked':''}><span>${opt.zh}</span></label>`;
+          }).join('')}
+        </div>
+      </div>
       <div class="form-group">
         <label>照片</label>
         <div class="img-upload-box" data-target="f-image">
@@ -573,14 +595,14 @@ function openModal(type, id) {
     title.textContent = id ? '編輯日記' : '新增日記';
     const stats = item?.stats || {};
     body.innerHTML = `
-      <div class="form-group"><label>標題(日)</label><div class="input-row"><input id="f-titleJa" value="${item?.titleJa||''}" style="flex:1"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn">一鍵翻譯</button></div></div>
-      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
-      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
-      <div class="form-group"><label>摘要(日)</label><input id="f-excerpt" value="${item?.excerpt||''}"></div>
-      <div class="form-group"><label>摘要(中)</label><input id="f-excerptZh" value="${item?.excerptZh||''}"></div>
-      <div class="form-group"><label>內容(日)</label><div class="input-row"><textarea id="f-contentJa" style="min-height:100px;flex:1">${item?.contentJa||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn">一鍵翻譯</button></div></div>
-      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea></div>
-      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea></div>
+      <div class="form-group"><label>標題(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}" style="flex:1" placeholder="例：本日出勤"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}" placeholder="翻譯後自動填入"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}" placeholder="翻譯後自動填入"></div>
+      <div class="form-group"><label>摘要(中)</label><input id="f-excerptZh" value="${item?.excerptZh||''}" placeholder="選填"></div>
+      <div class="form-group"><label>摘要(日)</label><input id="f-excerpt" value="${item?.excerpt||item?.excerptJa||''}" placeholder="選填"></div>
+      <div class="form-group"><label>內容(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><textarea id="f-contentZh" style="min-height:100px;flex:1" placeholder="輸入中文內容">${item?.contentZh||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:100px" placeholder="翻譯後自動填入">${item?.contentJa||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px" placeholder="翻譯後自動填入">${item?.contentEn||''}</textarea></div>
       <div class="form-row">
         <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
@@ -677,15 +699,17 @@ function setupTranslateButtons() {
     btn.onclick = async function() {
       const jaId = this.dataset.ja, zhId = this.dataset.zh, enId = this.dataset.en;
       const jaOnly = this.dataset.jaOnly === 'true';
+      const zhOnly = this.dataset.zhOnly === 'true';
       const jaEl = document.getElementById(jaId), zhEl = document.getElementById(zhId), enEl = document.getElementById(enId);
       if (!jaEl || !zhEl || !enEl || typeof translateWithGemini !== 'function') return;
       const ja = jaEl.value?.trim(), zh = zhEl.value?.trim(), en = enEl.value?.trim();
       let sourceLang, sourceText;
-      if (jaOnly && ja) { sourceLang = 'ja'; sourceText = ja; }
+      if (zhOnly && zh) { sourceLang = 'zh'; sourceText = zh; }
+      else if (jaOnly && ja) { sourceLang = 'ja'; sourceText = ja; }
       else if (ja) { sourceLang = 'ja'; sourceText = ja; }
       else if (zh && !jaOnly) { sourceLang = 'zh'; sourceText = zh; }
       else if (en && !jaOnly) { sourceLang = 'en'; sourceText = en; }
-      else { alert(jaOnly ? '請先填寫日文名' : '請先填寫日、中、英其中一種'); return; }
+      else { alert(zhOnly ? '請先填寫中文' : jaOnly ? '請先填寫日文名' : '請先填寫日、中、英其中一種'); return; }
       btn.disabled = true;
       btn.textContent = '翻譯中...';
       try {
@@ -719,8 +743,12 @@ function saveModal() {
 }
 
 function saveGirl() {
-  const types = document.getElementById('f-types').value.split(',').map(s=>s.trim()).filter(Boolean);
-  const typesZh = document.getElementById('f-typesZh').value.split(',').map(s=>s.trim()).filter(Boolean);
+  const types = [], typesZh = [], typesEn = [];
+  document.querySelectorAll('input[name="f-type"]:checked').forEach(cb => {
+    types.push(cb.dataset.ja);
+    typesZh.push(cb.dataset.zh);
+    typesEn.push(cb.dataset.en);
+  });
   const data = {
     name: document.getElementById('f-name').value,
     nameZh: document.getElementById('f-nameZh').value,
@@ -732,8 +760,7 @@ function saveGirl() {
     badge: document.getElementById('f-badge').value,
     badgeZh: document.getElementById('f-badgeZh').value,
     badgeEn: document.getElementById('f-badge').value,
-    types, typesZh,
-    typesEn: types,
+    types, typesZh, typesEn,
     image: document.getElementById('f-image').value,
     order: parseInt(document.getElementById('f-order').value),
     active: document.getElementById('f-active').value === 'true'
