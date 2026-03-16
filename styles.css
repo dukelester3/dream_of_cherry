@@ -1347,6 +1347,7 @@ section { padding: 96px 0; }
   overflow: hidden;
   transition: max-height var(--transition), opacity var(--transition);
 }
+.video-float:hover .video-float-links,
 .video-float.expanded .video-float-links {
   max-height: 140px;
   opacity: 1;

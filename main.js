@@ -156,7 +156,7 @@ sidebar?.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', closeSidebar);
 });
 
-// ── Video Float Character (點擊展開聯絡連結) ──
+// ── Video Float Character (桌面 hover 顯示；手機點擊切換) ──
 document.getElementById('video-float-trigger')?.addEventListener('click', () => {
   document.getElementById('video-float')?.classList.toggle('expanded');
 });
