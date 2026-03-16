@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 10:35:24 PM
+// Generated: 3/16/2026, 10:57:28 PM
 
 const siteData = {
   "about": {
@@ -478,7 +478,7 @@ const siteData = {
       "excerptZh": "3月限定優惠！首次折扣進行中。",
       "date": "2026.03.15",
       "category": "お知らせ",
-      "thumbnail": null,
+      "thumbnail": "https://i.ibb.co/LDz4kjy2/da3e46587b5effc2cb326e6c7af65a5e91787d0f33c2b3e547f286e653464814.png",
       "stats": null,
       "published": true
     },
