@@ -20,7 +20,8 @@ document.getElementById('sidebar-theme-toggle')?.addEventListener('click', () =>
 });
 
 // ── Admin Login (點擊右上角 夜桜の夢 開啟) ──
-const ADMIN_PASSWORD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
+// config.js 已宣告 ADMIN_PASSWORD，此處僅讀取
+const ADMIN_PWD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
 const ADMIN_AUTH_KEY = 'yuyu_admin_auth';
 
 function openAdminLoginModal() {
@@ -39,7 +40,7 @@ function closeAdminLoginModal() {
 function doAdminLogin() {
   const pwd = document.getElementById('admin-login-pwd')?.value;
   const errEl = document.getElementById('admin-login-error');
-  if (pwd === ADMIN_PASSWORD) {
+  if (pwd === ADMIN_PWD) {
     sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
     closeAdminLoginModal();
     window.location.href = 'admin/';
@@ -66,6 +67,7 @@ document.getElementById('admin-login-pwd')?.addEventListener('keypress', (e) => 
 const allLangButtons = document.querySelectorAll('[data-lang]');
 
 function setLanguage(lang) {
+  if (typeof translations === 'undefined') return;
   document.documentElement.lang = lang === 'zh' ? 'zh-TW' : lang;
   document.body.classList.remove('lang-ja', 'lang-zh', 'lang-en');
   document.body.classList.add('lang-' + lang);
@@ -120,16 +122,16 @@ function closeSidebar() {
   sidebarOverlay.classList.remove('open');
 }
 
-hamburgerBtn.addEventListener('click', openSidebar);
-sidebarClose.addEventListener('click', closeSidebar);
-sidebarOverlay.addEventListener('click', closeSidebar);
+hamburgerBtn?.addEventListener('click', openSidebar);
+sidebarClose?.addEventListener('click', closeSidebar);
+sidebarOverlay?.addEventListener('click', closeSidebar);
 
-sidebar.querySelectorAll('a').forEach(a => {
+sidebar?.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', closeSidebar);
 });
 
 // ── Gallery / News Tab Switcher ──
-document.querySelectorAll('.section-tab').forEach(tab => {
+document.querySelectorAll('.section-tab')?.forEach(tab => {
   tab.addEventListener('click', () => {
     const targetId = tab.getAttribute('data-tab');
 
@@ -362,8 +364,12 @@ _origLangButtons.forEach(btn => {
 
 // ── Initial Render ──
 (function initDynamicContent() {
-  const lang = localStorage.getItem('yuyu-lang') || 'ja';
-  renderGallery(lang);
-  renderReviews(lang);
-  renderDiary(lang);
+  try {
+    const lang = localStorage.getItem('yuyu-lang') || 'ja';
+    renderGallery(lang);
+    renderReviews(lang);
+    renderDiary(lang);
+  } catch (e) {
+    console.error('initDynamicContent:', e);
+  }
 })();

@@ -2,7 +2,11 @@
 (function() {
   function initMap() {
     const el = document.getElementById('japan-map');
-    if (!el || typeof L === 'undefined') return;
+    if (!el) return;
+    if (typeof L === 'undefined') {
+      setTimeout(initMap, 100);
+      return;
+    }
 
     // Center on Tokyo, zoom to show Kanto region
     const map = L.map('japan-map', {
