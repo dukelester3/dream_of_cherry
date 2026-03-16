@@ -1,10 +1,10 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 11:42:24 PM
+// Generated: 3/17/2026, 12:01:20 AM
 
 const siteData = {
   "about": {
     "photos": [
-      "./picture/yuyu-1.jpg",
+      "https://i.ibb.co/d0jHqV4k/yuyu-1.jpg",
       "https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg",
       "https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg",
       "https://i.ibb.co/bTkVcn3/S-28147830-0.jpg"
