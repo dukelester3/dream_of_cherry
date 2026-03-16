@@ -110,6 +110,7 @@ function setLanguage(lang, rerender) {
     renderGallery(lang);
     renderReviews(lang);
     renderDiary(lang);
+    renderAbout(lang);
     if (currentOpenDiaryId) openDiaryModal(currentOpenDiaryId, lang);
   }
 }
@@ -155,6 +156,11 @@ sidebar?.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', closeSidebar);
 });
 
+// ── Video Float Character (點擊展開聯絡連結) ──
+document.getElementById('video-float-trigger')?.addEventListener('click', () => {
+  document.getElementById('video-float')?.classList.toggle('expanded');
+});
+
 // ── Pricing Tab Switcher ──
 document.querySelectorAll('.pricing-tab')?.forEach(tab => {
   tab.addEventListener('click', () => {
@@ -197,6 +203,23 @@ spySections.forEach(id => {
   const el = document.getElementById(id);
   if (el) spyObserver.observe(el);
 });
+
+// ── Render About from siteData ──
+function renderAbout(lang) {
+  if (typeof siteData === 'undefined' || !siteData.about) return;
+  const a = siteData.about;
+  const photos = a.photos || [];
+  const order = [0, 2, 1, 3];
+  order.forEach((photoIdx, domIdx) => {
+    const img = document.getElementById('about-img-' + domIdx);
+    const url = photos[photoIdx];
+    if (img && url) img.src = resolveImgUrl(url);
+  });
+  const p1 = lang === 'zh' ? a.p1Zh : lang === 'en' ? a.p1En : a.p1Ja;
+  const p2 = lang === 'zh' ? a.p2Zh : lang === 'en' ? a.p2En : a.p2Ja;
+  if (document.getElementById('about-p1') && p1) document.getElementById('about-p1').textContent = p1;
+  if (document.getElementById('about-p2') && p2) document.getElementById('about-p2').textContent = p2;
+}
 
 // ── 圖片路徑解析（確保 GitHub Pages 正確載入）──
 function resolveImgUrl(url) {
@@ -402,6 +425,7 @@ document.querySelectorAll('.diary-filter-btn').forEach(btn => {
     renderGallery(lang);
     renderReviews(lang);
     renderDiary(lang);
+    renderAbout(lang);
   } catch (e) {
     console.error('initDynamicContent:', e);
   }

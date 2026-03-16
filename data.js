@@ -3,6 +3,21 @@
 
 const siteData = {
 
+  // ── ABOUT (個人簡介) ── 後台可編輯照片與文字
+  about: {
+    photos: ['./picture/yuyu-1.jpg', './picture/yuyu-2.jpg', './picture/yuyu-3.jpg', './picture/yuyu-4.jpg'],
+    p1Ja: 'はじめまして、ゆうゆうと申します。台湾出身です。昔から日本の文化や礼儀作法に憧れていて、卒業を機に、ついに夢だった日本での生活をスタートさせました。',
+    p1Zh: '大家好～我是悠悠，來自台灣！從小就被日本的文化與禮儀深深吸引，畢業後終於實現夢想來到日本生活。',
+    p1En: "Hello! I'm Yuuyuu from Taiwan. I've always been fascinated by Japanese culture and etiquette. After graduation, I finally made my dream come true and started living in Japan.",
+    p2Ja: '友人の紹介でこのお仕事を始めましたが、日本語はまだ勉強中です。翻訳アプリにも助けてもらいながら、一生懸命がんばっています。もし表現に不自然なところがあったら、やさしく教えてくれるとうれしいです。',
+    p2Zh: '目前通過朋友介紹從事這份工作，雖然日語還在努力學習中（暫時需要翻譯軟體幫忙）。如果有任何表達不夠準確的地方，還請大家多多包涵指教～',
+    p2En: "I started this work through a friend's introduction. I'm still learning Japanese (with help from translation apps). If my expression sounds unnatural, please kindly correct me!",
+    moreJa: 'もっと見る →',
+    moreZh: '更多介紹 →',
+    moreEn: 'Learn more →',
+    linkUrl: 'https://t.me/ty556k'
+  },
+
   // ── GIRLS (熱門出勤) ── 依 tk6659.canva.site 與 yu5560.com 網頁順序
   // Canva 資料順序：①161/24/E/46 ②162/25/D/47 ③160/23/E/46 ④164/24/G/48 ⑤164/28/D/45 ⑥161/25/E/49
   // 照片依 yu5560 桜ガール順序

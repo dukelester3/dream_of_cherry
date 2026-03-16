@@ -37,6 +37,7 @@
         <button class="admin-nav-btn active" data-tab="girls">👩 女孩管理</button>
         <button class="admin-nav-btn" data-tab="reviews">💬 客評管理</button>
         <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
+        <button class="admin-nav-btn" data-tab="about">👤 個人簡介</button>
         <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
         <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
       </nav>
@@ -92,6 +93,15 @@
             </thead>
             <tbody id="diary-tbody"></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- ABOUT TAB -->
+      <div class="admin-tab hidden" id="tab-about">
+        <div class="tab-header"><h1>個人簡介</h1></div>
+        <div class="export-section">
+          <p class="export-desc">編輯首頁「關於悠悠」區塊的照片與文字。修改後請至「匯出資料」生成 data.js 並替換網站檔案。</p>
+          <button type="button" class="btn-admin-primary" id="edit-about-btn">編輯個人簡介</button>
         </div>
       </div>
 

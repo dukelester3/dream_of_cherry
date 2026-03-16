@@ -3,6 +3,7 @@
 const ADMIN_PWD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
 const STORAGE_KEY = 'yuyu_admin_data';
 const AUTH_KEY = 'yuyu_admin_auth';
+function escapeHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
 const GEMINI_KEY_STORAGE = 'yuyu_gemini_key';
 
@@ -86,6 +87,18 @@ function showDashboard() {
 }
 
 // ── Data ──
+const DEFAULT_ABOUT = {
+  photos: ['./picture/yuyu-1.jpg', './picture/yuyu-2.jpg', './picture/yuyu-3.jpg', './picture/yuyu-4.jpg'],
+  p1Ja: 'はじめまして、ゆうゆうと申します。台湾出身です。',
+  p1Zh: '大家好～我是悠悠，來自台灣！',
+  p1En: "Hello! I'm Yuuyuu from Taiwan.",
+  p2Ja: '友人の紹介でこのお仕事を始めました。',
+  p2Zh: '目前通過朋友介紹從事這份工作。',
+  p2En: "I started this work through a friend's introduction.",
+  moreJa: 'もっと見る →', moreZh: '更多介紹 →', moreEn: 'Learn more →',
+  linkUrl: 'https://t.me/ty556k'
+};
+
 function loadData() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -95,6 +108,7 @@ function loadData() {
   } else {
     adminData = { girls: [], reviews: [], diary: [] };
   }
+  if (!adminData.about) adminData.about = (siteData?.about ? { ...siteData.about } : { ...DEFAULT_ABOUT });
 }
 
 function saveData() {
@@ -141,6 +155,7 @@ function setupTabs() {
   document.getElementById('add-girl-btn').addEventListener('click', () => openModal('girl', null));
   document.getElementById('add-review-btn').addEventListener('click', () => openModal('review', null));
   document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
+  document.getElementById('edit-about-btn')?.addEventListener('click', () => openModal('about', 0));
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
   document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
@@ -374,6 +389,59 @@ function openModal(type, id) {
     `;
   }
 
+  if (type === 'about') {
+    title.textContent = '編輯個人簡介';
+    const a = adminData.about || DEFAULT_ABOUT;
+    const photos = a.photos || [...DEFAULT_ABOUT.photos];
+    const ph = (i) => (photos[i] || '').replace(/"/g, '&quot;');
+    body.innerHTML = `
+      <div class="form-group"><label>照片 1（左上小圖）</label>
+        <div class="img-upload-box" data-target="f-about-photo-0">
+          <label class="img-upload-area" for="f-about-photo-0-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
+          <input type="file" id="f-about-photo-0-file" accept="image/*" class="img-file-input">
+          <div class="img-upload-preview" id="f-about-photo-0-preview"></div>
+          <input id="f-about-photo-0" value="${ph(0)}" class="img-url-input" placeholder="網址">
+        </div>
+      </div>
+      <div class="form-group"><label>照片 2（右大圖）</label>
+        <div class="img-upload-box" data-target="f-about-photo-1">
+          <label class="img-upload-area" for="f-about-photo-1-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
+          <input type="file" id="f-about-photo-1-file" accept="image/*" class="img-file-input">
+          <div class="img-upload-preview" id="f-about-photo-1-preview"></div>
+          <input id="f-about-photo-1" value="${ph(1)}" class="img-url-input" placeholder="網址">
+        </div>
+      </div>
+      <div class="form-group"><label>照片 3（左長圖）</label>
+        <div class="img-upload-box" data-target="f-about-photo-2">
+          <label class="img-upload-area" for="f-about-photo-2-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
+          <input type="file" id="f-about-photo-2-file" accept="image/*" class="img-file-input">
+          <div class="img-upload-preview" id="f-about-photo-2-preview"></div>
+          <input id="f-about-photo-2" value="${ph(2)}" class="img-url-input" placeholder="網址">
+        </div>
+      </div>
+      <div class="form-group"><label>照片 4（右下小圖）</label>
+        <div class="img-upload-box" data-target="f-about-photo-3">
+          <label class="img-upload-area" for="f-about-photo-3-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
+          <input type="file" id="f-about-photo-3-file" accept="image/*" class="img-file-input">
+          <div class="img-upload-preview" id="f-about-photo-3-preview"></div>
+          <input id="f-about-photo-3" value="${ph(3)}" class="img-url-input" placeholder="網址">
+        </div>
+      </div>
+      <div class="form-group"><label>第一段(日)</label><textarea id="f-about-p1Ja" style="min-height:60px">${escapeHtml(a.p1Ja||'')}</textarea></div>
+      <div class="form-group"><label>第一段(中)</label><div class="input-row"><textarea id="f-about-p1Zh" style="min-height:60px">${escapeHtml(a.p1Zh||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-about-p1Ja" data-target="f-about-p1Zh">Gemini</button></div></div>
+      <div class="form-group"><label>第一段(英)</label><div class="input-row"><textarea id="f-about-p1En" style="min-height:60px">${escapeHtml(a.p1En||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-about-p1Ja" data-target="f-about-p1En">Gemini</button></div></div>
+      <div class="form-group"><label>第二段(日)</label><textarea id="f-about-p2Ja" style="min-height:60px">${escapeHtml(a.p2Ja||'')}</textarea></div>
+      <div class="form-group"><label>第二段(中)</label><div class="input-row"><textarea id="f-about-p2Zh" style="min-height:60px">${escapeHtml(a.p2Zh||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-about-p2Ja" data-target="f-about-p2Zh">Gemini</button></div></div>
+      <div class="form-group"><label>第二段(英)</label><div class="input-row"><textarea id="f-about-p2En" style="min-height:60px">${escapeHtml(a.p2En||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-about-p2Ja" data-target="f-about-p2En">Gemini</button></div></div>
+      <div class="form-row">
+        <div class="form-group"><label>連結文字(日)</label><input id="f-about-moreJa" value="${(a.moreJa||'').replace(/"/g,'&quot;')}"></div>
+        <div class="form-group"><label>連結文字(中)</label><input id="f-about-moreZh" value="${(a.moreZh||'').replace(/"/g,'&quot;')}"></div>
+      </div>
+      <div class="form-group"><label>連結文字(英)</label><input id="f-about-moreEn" value="${(a.moreEn||'').replace(/"/g,'&quot;')}"></div>
+      <div class="form-group"><label>連結網址</label><input id="f-about-linkUrl" value="${(a.linkUrl||'').replace(/"/g,'&quot;')}" placeholder="https://t.me/..."></div>
+    `;
+  }
+
   if (type === 'diary') {
     title.textContent = id ? '編輯日記' : '新增日記';
     const stats = item?.stats || {};
@@ -489,6 +557,7 @@ function saveModal() {
   if (editingType === 'girl') saveGirl();
   if (editingType === 'review') saveReview();
   if (editingType === 'diary') saveDiary();
+  if (editingType === 'about') saveAbout();
   saveData();
   renderAll();
   closeModal();
@@ -581,6 +650,27 @@ function saveDiary() {
     const maxId = adminData.diary.reduce((m,d) => Math.max(m, d.id), 0);
     adminData.diary.push({ id: maxId + 1, ...data });
   }
+}
+
+function saveAbout() {
+  adminData.about = {
+    photos: [
+      document.getElementById('f-about-photo-0')?.value?.trim() || '',
+      document.getElementById('f-about-photo-1')?.value?.trim() || '',
+      document.getElementById('f-about-photo-2')?.value?.trim() || '',
+      document.getElementById('f-about-photo-3')?.value?.trim() || ''
+    ],
+    p1Ja: document.getElementById('f-about-p1Ja')?.value?.trim() || '',
+    p1Zh: document.getElementById('f-about-p1Zh')?.value?.trim() || '',
+    p1En: document.getElementById('f-about-p1En')?.value?.trim() || '',
+    p2Ja: document.getElementById('f-about-p2Ja')?.value?.trim() || '',
+    p2Zh: document.getElementById('f-about-p2Zh')?.value?.trim() || '',
+    p2En: document.getElementById('f-about-p2En')?.value?.trim() || '',
+    moreJa: document.getElementById('f-about-moreJa')?.value?.trim() || 'もっと見る →',
+    moreZh: document.getElementById('f-about-moreZh')?.value?.trim() || '更多介紹 →',
+    moreEn: document.getElementById('f-about-moreEn')?.value?.trim() || 'Learn more →',
+    linkUrl: document.getElementById('f-about-linkUrl')?.value?.trim() || 'https://t.me/ty556k'
+  };
 }
 
 function deleteItem(type, id) {
