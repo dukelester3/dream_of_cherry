@@ -33,17 +33,20 @@ function closeAdminLoginModal() {
   document.getElementById('admin-login-modal')?.classList.remove('open');
   const pwdEl = document.getElementById('admin-login-pwd');
   const errEl = document.getElementById('admin-login-error');
-  if (pwdEl) pwdEl.value = '';
+  const toggleBtn = document.getElementById('admin-pwd-toggle');
+  if (pwdEl) { pwdEl.value = ''; pwdEl.type = 'password'; }
   if (errEl) errEl.textContent = '';
+  if (toggleBtn) { toggleBtn.textContent = '顯示'; toggleBtn.title = toggleBtn.ariaLabel = '顯示密碼'; }
   document.body.style.overflow = '';
 }
 function doAdminLogin() {
   const pwd = document.getElementById('admin-login-pwd')?.value;
   const errEl = document.getElementById('admin-login-error');
   if (pwd === ADMIN_PWD) {
-    sessionStorage.setItem(ADMIN_AUTH_KEY, 'true');
+    const token = Math.random().toString(36).slice(2) + Date.now().toString(36);
+    localStorage.setItem('yuyu_auth_token', token);
     closeAdminLoginModal();
-    window.location.href = 'admin/';
+    window.location.href = 'admin/?_auth=' + encodeURIComponent(token);
   } else {
     errEl.textContent = '密碼錯誤，請重試';
     document.getElementById('admin-login-pwd').value = '';
@@ -61,6 +64,19 @@ document.getElementById('admin-login-close')?.addEventListener('click', closeAdm
 document.getElementById('admin-login-btn')?.addEventListener('click', doAdminLogin);
 document.getElementById('admin-login-pwd')?.addEventListener('keypress', (e) => {
   if (e.key === 'Enter') doAdminLogin();
+});
+document.getElementById('admin-pwd-toggle')?.addEventListener('click', () => {
+  const input = document.getElementById('admin-login-pwd');
+  const btn = document.getElementById('admin-pwd-toggle');
+  if (input.type === 'password') {
+    input.type = 'text';
+    btn.textContent = '隱藏';
+    btn.title = btn.ariaLabel = '隱藏密碼';
+  } else {
+    input.type = 'password';
+    btn.textContent = '顯示';
+    btn.title = btn.ariaLabel = '顯示密碼';
+  }
 });
 
 // ── Language Switch ──

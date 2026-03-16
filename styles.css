@@ -1436,6 +1436,19 @@ section { padding: 96px 0; }
 .admin-login-box .form-group input:focus {
   border-color: var(--gold);
 }
+.admin-login-box .pwd-input-wrap {
+  position: relative; display: block;
+}
+.admin-login-box .pwd-input-wrap input {
+  padding-right: 56px;
+}
+.admin-login-box .pwd-toggle {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  padding: 4px 10px; font-size: 0.75rem; color: var(--muted);
+  background: transparent; border: none; cursor: pointer;
+  transition: color 0.2s;
+}
+.admin-login-box .pwd-toggle:hover { color: var(--gold); }
 .btn-admin-login {
   width: 100%; padding: 12px 24px;
   background: var(--gold); color: var(--bg-dark);

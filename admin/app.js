@@ -1,5 +1,6 @@
 // ===== Admin Panel App =====
-const ADMIN_PASSWORD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
+// config.js 已宣告 ADMIN_PASSWORD，此處僅讀取
+const ADMIN_PWD = (typeof ADMIN_PASSWORD !== 'undefined' ? ADMIN_PASSWORD : 'CHANGE_ME');
 const STORAGE_KEY = 'yuyu_admin_data';
 const AUTH_KEY = 'yuyu_admin_auth';
 const IMGBB_KEY_STORAGE = 'yuyu_imgbb_key';
@@ -10,13 +11,27 @@ let currentTab = 'girls';
 let editingId = null;
 let editingType = null;
 
-// ── Auth ──
+// ── Auth ──（首頁登入後帶 ?_auth=token 跳轉，驗證後免二次輸入）
 function checkAuth() {
-  return sessionStorage.getItem(AUTH_KEY) === 'true';
+  return localStorage.getItem(AUTH_KEY) === 'true';
+}
+
+function consumeAuthToken() {
+  const params = new URLSearchParams(location.search);
+  const token = params.get('_auth');
+  if (token && localStorage.getItem('yuyu_auth_token') === token) {
+    localStorage.removeItem('yuyu_auth_token');
+    localStorage.setItem(AUTH_KEY, 'true');
+    if (window.history.replaceState) {
+      window.history.replaceState({}, '', location.pathname + location.hash);
+    }
+    return true;
+  }
+  return false;
 }
 
 function init() {
-  if (checkAuth()) {
+  if (consumeAuthToken() || checkAuth()) {
     showDashboard();
   }
 
@@ -25,12 +40,25 @@ function init() {
     if (e.key === 'Enter') doLogin();
   });
   document.getElementById('logout-btn').addEventListener('click', logout);
+  document.getElementById('login-pwd-toggle')?.addEventListener('click', () => {
+    const input = document.getElementById('login-pwd');
+    const btn = document.getElementById('login-pwd-toggle');
+    if (input.type === 'password') {
+      input.type = 'text';
+      btn.textContent = '隱藏';
+      btn.title = btn.ariaLabel = '隱藏密碼';
+    } else {
+      input.type = 'password';
+      btn.textContent = '顯示';
+      btn.title = btn.ariaLabel = '顯示密碼';
+    }
+  });
 }
 
 function doLogin() {
   const pwd = document.getElementById('login-pwd').value;
-  if (pwd === ADMIN_PASSWORD) {
-    sessionStorage.setItem(AUTH_KEY, 'true');
+  if (pwd === ADMIN_PWD) {
+    localStorage.setItem(AUTH_KEY, 'true');
     document.getElementById('login-error').textContent = '';
     showDashboard();
   } else {
@@ -40,7 +68,7 @@ function doLogin() {
 }
 
 function logout() {
-  sessionStorage.removeItem(AUTH_KEY);
+  localStorage.removeItem(AUTH_KEY);
   document.getElementById('dashboard').classList.add('hidden');
   document.getElementById('login-screen').classList.remove('hidden');
   document.body.className = 'login-page';

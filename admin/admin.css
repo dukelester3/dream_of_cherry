@@ -37,6 +37,15 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: var(--admin-gold); }
 .form-group textarea { resize: vertical; min-height: 80px; line-height: 1.6; }
+.pwd-input-wrap { position: relative; display: block; }
+.pwd-input-wrap input { padding-right: 56px; }
+.pwd-toggle {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  padding: 4px 10px; font-size: 0.75rem; color: var(--admin-muted);
+  background: transparent; border: none; cursor: pointer;
+  transition: color 0.2s;
+}
+.pwd-toggle:hover { color: var(--admin-gold); }
 .form-hint { font-size: 0.8rem; color: var(--admin-muted); margin-top: 6px; line-height: 1.5; }
 .form-hint a { color: var(--admin-gold); }
 

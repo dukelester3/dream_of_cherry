@@ -16,7 +16,10 @@
       <div class="login-sub">後台管理系統</div>
       <div class="form-group">
         <label>密碼</label>
-        <input type="password" id="login-pwd" placeholder="請輸入密碼" autocomplete="current-password">
+        <div class="pwd-input-wrap">
+          <input type="password" id="login-pwd" placeholder="請輸入密碼" autocomplete="current-password">
+          <button type="button" class="pwd-toggle" id="login-pwd-toggle" title="顯示密碼" aria-label="顯示密碼">顯示</button>
+        </div>
       </div>
       <button type="button" class="btn-admin-primary" id="login-btn">登入</button>
       <div class="login-error" id="login-error"></div>
