@@ -717,7 +717,8 @@ function setupTranslateButtons() {
         if (sourceLang !== 'ja') targets.push({ to: 'ja', el: jaEl });
         if (sourceLang !== 'zh') targets.push({ to: 'zh', el: zhEl });
         if (sourceLang !== 'en') targets.push({ to: 'en', el: enEl });
-        await Promise.all(targets.map(t => translateWithGemini(sourceText, sourceLang, t.to).then(r => { t.el.value = r; })));
+        const isName = jaOnly && jaId === 'f-name';
+        await Promise.all(targets.map(t => translateWithGemini(sourceText, sourceLang, t.to, { isName }).then(r => { t.el.value = r; })));
       } catch (e) {
         alert('翻譯失敗：' + (e.message || e));
       }
