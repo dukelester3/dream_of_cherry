@@ -6,9 +6,14 @@ Thumbs.db
 Refer/
 aicoworkdoc/
 
-# 原始參考網頁（內容已整合至 data.js，不需上傳）
+# 原始參考網頁與匯出資料夾（內容已整合至 attendance/、diary/，不需上傳）
 人氣 – 夜桜の夢.html
+人氣 – 夜桜の夢_files/
 New Articles List _ Night Cherry Blossom Dream Tokyo Outbound TGtk6659 - Rakuten Blog.html
+New Articles List _ Night Cherry Blossom Dream Tokyo Outbound TGtk6659 - Rakuten Blog_files/
+
+# 依賴
+node_modules/
 
 # 編輯器
 .vscode/

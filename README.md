@@ -85,8 +85,8 @@ yuyu/
 ├── hot/                # 人気出勤圖片
 ├── feedback/           # 客戶反饋圖片
 ├── picture/            # 關於我們、Hero 圖片
-├── 人氣 – 夜桜の夢_files/      # 出勤資訊圖片
-└── New Articles List _ ... _files/  # 日記縮圖
+├── attendance/         # 出勤資訊縮圖
+└── diary/              # 日記縮圖
 ```
 
 ---

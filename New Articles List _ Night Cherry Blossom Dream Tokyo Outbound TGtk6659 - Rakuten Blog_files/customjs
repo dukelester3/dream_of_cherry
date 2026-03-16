@@ -1,4 +1,0 @@
-var script = document.createElement('script');
-var head = document.head || document.getElementsByTagName('head')[0];
-script.src = '//jp.rakuten-static.com/1/grp/banner/js/cmo_dynamic_scid_webcx.js';
-head.appendChild(script);
