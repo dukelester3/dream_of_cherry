@@ -160,6 +160,16 @@ spySections.forEach(id => {
   if (el) spyObserver.observe(el);
 });
 
+// ── 圖片路徑解析（確保 GitHub Pages 正確載入）──
+function resolveImgUrl(url) {
+  if (!url) return '';
+  if (url.startsWith('http')) return url;
+  const base = location.pathname.includes('dream_of_cherry')
+    ? location.origin + '/dream_of_cherry/'
+    : location.origin + '/';
+  return base + (url.startsWith('./') ? url.slice(2) : url);
+}
+
 // ── Render Gallery from siteData ──
 function renderGallery(lang) {
   const grid = document.getElementById('gallery-grid-dynamic');
@@ -176,7 +186,7 @@ function renderGallery(lang) {
     const ageUnit = lang === 'en' ? 'yo' : '歲';
     return `<div class="gallery-card">
       <div class="card-img-wrap">
-        <img src="${g.image}" alt="${name}" loading="lazy">
+        <img src="${resolveImgUrl(g.image)}" alt="${name}" loading="lazy">
         <span class="card-badge">${badge}</span>
       </div>
       <div class="card-info">
@@ -201,7 +211,7 @@ function renderReviews(lang) {
   grid.innerHTML = reviews.map(r => {
     const title = lang === 'zh' ? r.titleZh : lang === 'en' ? r.titleEn : r.titleJa;
     const content = lang === 'zh' ? r.contentZh : lang === 'en' ? r.contentEn : r.contentJa;
-    const imgHtml = r.image ? `<div class="review-img-wrap"><img src="${r.image}" alt="${title}" loading="lazy"></div>` : '';
+    const imgHtml = r.image ? `<div class="review-img-wrap"><img src="${resolveImgUrl(r.image)}" alt="${title}" loading="lazy"></div>` : '';
     return `<blockquote class="review-card">
       ${imgHtml}
       <div class="review-title">${title}</div>
@@ -240,7 +250,7 @@ function renderDiary(lang, cat, page) {
       ${p.stats.weight ? `<span>${p.stats.weight}kg</span>` : ''}
     </div>` : '';
     return `<article class="diary-card" data-id="${p.id}">
-      ${p.thumbnail ? `<div class="diary-thumb"><img src="${p.thumbnail}" alt="${title}" loading="lazy"></div>` : ''}
+      ${p.thumbnail ? `<div class="diary-thumb"><img src="${resolveImgUrl(p.thumbnail)}" alt="${title}" loading="lazy"></div>` : ''}
       <div class="diary-body">
         <div class="diary-meta">
           <span class="diary-date">${p.date}</span>
@@ -306,7 +316,7 @@ function openDiaryModal(id, lang) {
 
   const modalImg = post.image || post.thumbnail;
   document.getElementById('diary-modal-body').innerHTML = `
-    ${modalImg ? `<img src="${modalImg}" class="diary-modal-img" alt="${title}">` : ''}
+    ${modalImg ? `<img src="${resolveImgUrl(modalImg)}" class="diary-modal-img" alt="${title}">` : ''}
     <div class="diary-modal-header">
       <div class="diary-meta"><span class="diary-date">${post.date}</span><span class="diary-cat">${post.category}</span></div>
       <h2>${title}</h2>
