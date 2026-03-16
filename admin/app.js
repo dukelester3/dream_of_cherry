@@ -250,10 +250,44 @@ function setupModals() {
     if (!urlInput || !box) return;
     const file = fileInput.files[0];
     const key = localStorage.getItem(IMGBB_KEY_STORAGE);
+
+    function setPreviewAndUrl(url) {
+      urlInput.value = url;
+      if (previewEl) {
+        previewEl.innerHTML = `<img src="${url}" alt="預覽"><button type="button" class="img-change-btn">更換圖片</button>`;
+        previewEl.querySelector('.img-change-btn').onclick = () => {
+          urlInput.value = '';
+          previewEl.innerHTML = '';
+          if (area) area.style.display = '';
+          fileInput.value = '';
+        };
+      }
+      fileInput.value = '';
+    }
+
     if (!key) {
-      alert('請先至「設定」分頁填入 ImgBB API Key');
+      const useBase64 = confirm('尚未設定 ImgBB API Key。\n\n可選：\n• 按「確定」→ 使用 Base64 嵌入（無需 API，但會讓 data.js 變大）\n• 按「取消」→ 請至「設定」分頁填入 ImgBB Key，或直接貼上圖片網址\n\n取得免費 Key：https://api.imgbb.com/');
+      if (!useBase64) {
+        if (area) area.style.display = '';
+        return;
+      }
+      if (area) area.style.display = 'none';
+      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中...</div>';
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = reader.result;
+        if (dataUrl.length > 800000) {
+          if (previewEl) previewEl.innerHTML = '';
+          if (area) area.style.display = '';
+          alert('圖片過大，Base64 會讓 data.js 過大。建議：\n1. 壓縮圖片後再試\n2. 至「設定」填寫 ImgBB API Key 上傳');
+          return;
+        }
+        setPreviewAndUrl(dataUrl);
+      };
+      reader.readAsDataURL(file);
       return;
     }
+
     if (area) area.style.display = 'none';
     if (previewEl) previewEl.innerHTML = '<div class="img-uploading">上傳中...</div>';
     try {
@@ -263,26 +297,16 @@ function setupModals() {
       const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
       const json = await res.json();
       if (json.data?.url) {
-        urlInput.value = json.data.url;
-        if (previewEl) {
-          previewEl.innerHTML = `<img src="${json.data.url}" alt="預覽"><button type="button" class="img-change-btn">更換圖片</button>`;
-          previewEl.querySelector('.img-change-btn').onclick = () => {
-            urlInput.value = '';
-            previewEl.innerHTML = '';
-            if (area) area.style.display = '';
-            fileInput.value = '';
-          };
-        }
-        fileInput.value = '';
+        setPreviewAndUrl(json.data.url);
       } else {
         if (area) area.style.display = '';
         if (previewEl) previewEl.innerHTML = '';
-        alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤'));
+        alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤') + '\n\n也可直接貼上圖片網址（從 imgur、imgbb 等複製）');
       }
     } catch (err) {
       if (area) area.style.display = '';
       if (previewEl) previewEl.innerHTML = '';
-      alert('上傳失敗：' + err.message);
+      alert('上傳失敗：' + err.message + '\n\n若為 CORS 或網路問題，可改用 Base64：先刪除 ImgBB Key 後再上傳，或直接貼上圖片網址');
     }
   });
   document.getElementById('admin-modal-body').addEventListener('dragover', (e) => {
