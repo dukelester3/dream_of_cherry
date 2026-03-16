@@ -512,12 +512,12 @@ function openModal(type, id) {
   if (type === 'review') {
     title.textContent = id ? '編輯客評' : '新增客評';
     body.innerHTML = `
-      <div class="form-group"><label>標題(日)</label><div class="input-row"><input id="f-titleJa" value="${item?.titleJa||''}" style="flex:1"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn">一鍵翻譯</button></div></div>
-      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
-      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
-      <div class="form-group"><label>內容(日)</label><div class="input-row"><textarea id="f-contentJa" style="flex:1;min-height:80px">${item?.contentJa||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn">一鍵翻譯</button></div></div>
-      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
-      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
+      <div class="form-group"><label>標題(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}" style="flex:1" placeholder="例：服務很好"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}" placeholder="翻譯後自動填入"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}" placeholder="翻譯後自動填入"></div>
+      <div class="form-group"><label>內容(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><textarea id="f-contentZh" style="min-height:80px;flex:1" placeholder="輸入中文內容">${item?.contentZh||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentJa||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentEn||''}</textarea></div>
       <div class="form-group">
         <label>照片（選填）</label>
         <div class="img-upload-box" data-target="f-review-image">
