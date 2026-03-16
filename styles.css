@@ -908,6 +908,12 @@ section { padding: 96px 0; }
   background: var(--border);
   border: 1px solid var(--border);
 }
+.review-card { position: relative; }
+.review-img-wrap {
+  width: 100%; aspect-ratio: 16/10; overflow: hidden; border-radius: 8px; margin-bottom: 12px;
+  background: var(--bg-muted);
+}
+.review-img-wrap img { width: 100%; height: 100%; object-fit: cover; }
 .review-card {
   background: var(--bg-card);
   padding: 36px 32px;

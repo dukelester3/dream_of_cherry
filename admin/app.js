@@ -145,6 +145,7 @@ function renderReviewsTable() {
   const tbody = document.getElementById('reviews-tbody');
   tbody.innerHTML = [...adminData.reviews].sort((a,b) => b.date.localeCompare(a.date)).map(r => `
     <tr>
+      <td>${r.image ? `<img src="${r.image}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
       <td>${r.titleZh}</td>
       <td>${r.girlName}</td>
       <td>${r.date}</td>
@@ -285,6 +286,14 @@ function openModal(type, id) {
       <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa">${item?.contentJa||''}</textarea></div>
       <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
       <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
+      <div class="form-group">
+        <label>圖片 URL（選填）</label>
+        <div class="img-upload-row">
+          <input id="f-review-image" value="${item?.image||''}" class="img-url-input">
+          <input type="file" id="f-review-image-file" accept="image/*" class="img-file-input">
+          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-review-image">選擇上傳</button>
+        </div>
+      </div>
       <div class="form-row">
         <div class="form-group"><label>女孩姓名</label><input id="f-girlName" value="${item?.girlName||''}"></div>
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
@@ -310,11 +319,19 @@ function openModal(type, id) {
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
       </div>
       <div class="form-group">
-        <label>縮圖 URL</label>
+        <label>縮圖 URL（列表卡片用）</label>
         <div class="img-upload-row">
           <input id="f-thumbnail" value="${item?.thumbnail||''}" class="img-url-input">
           <input type="file" id="f-thumbnail-file" accept="image/*" class="img-file-input">
           <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-thumbnail">選擇上傳</button>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>內容圖片 URL（選填，彈窗大圖用）</label>
+        <div class="img-upload-row">
+          <input id="f-diary-image" value="${item?.image||''}" class="img-url-input">
+          <input type="file" id="f-diary-image-file" accept="image/*" class="img-file-input">
+          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-diary-image">選擇上傳</button>
         </div>
       </div>
       <div class="form-row">
@@ -376,6 +393,7 @@ function saveGirl() {
 }
 
 function saveReview() {
+  const imgEl = document.getElementById('f-review-image');
   const data = {
     titleJa: document.getElementById('f-titleJa').value,
     titleZh: document.getElementById('f-titleZh').value,
@@ -388,6 +406,7 @@ function saveReview() {
     featured: document.getElementById('f-featured').value === 'true',
     rating: 5
   };
+  if (imgEl?.value) data.image = imgEl.value;
   if (editingId) {
     const idx = adminData.reviews.findIndex(r => r.id === editingId);
     adminData.reviews[idx] = { ...adminData.reviews[idx], ...data };
@@ -420,6 +439,7 @@ function saveDiary() {
     category: document.getElementById('f-category').value,
     date: document.getElementById('f-date').value,
     thumbnail: document.getElementById('f-thumbnail').value,
+    image: document.getElementById('f-diary-image')?.value || undefined,
     stats,
     published: document.getElementById('f-published').value === 'true'
   };

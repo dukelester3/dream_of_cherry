@@ -201,7 +201,9 @@ function renderReviews(lang) {
   grid.innerHTML = reviews.map(r => {
     const title = lang === 'zh' ? r.titleZh : lang === 'en' ? r.titleEn : r.titleJa;
     const content = lang === 'zh' ? r.contentZh : lang === 'en' ? r.contentEn : r.contentJa;
+    const imgHtml = r.image ? `<div class="review-img-wrap"><img src="${r.image}" alt="${title}" loading="lazy"></div>` : '';
     return `<blockquote class="review-card">
+      ${imgHtml}
       <div class="review-title">${title}</div>
       <p>${content}</p>
       <div class="review-meta"><span class="review-girl">${r.girlName}</span><span class="review-date">${r.date}</span></div>
@@ -302,8 +304,9 @@ function openDiaryModal(id, lang) {
     ${post.stats.weight ? `<span>⚖️ ${post.stats.weight}kg</span>` : ''}
   </div>` : '';
 
+  const modalImg = post.image || post.thumbnail;
   document.getElementById('diary-modal-body').innerHTML = `
-    ${post.thumbnail ? `<img src="${post.thumbnail}" class="diary-modal-img" alt="${title}">` : ''}
+    ${modalImg ? `<img src="${modalImg}" class="diary-modal-img" alt="${title}">` : ''}
     <div class="diary-modal-header">
       <div class="diary-meta"><span class="diary-date">${post.date}</span><span class="diary-cat">${post.category}</span></div>
       <h2>${title}</h2>
