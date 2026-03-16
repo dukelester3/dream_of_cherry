@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 11:39:06 PM
+// Generated: 3/16/2026, 11:40:24 PM
 
 const siteData = {
   "about": {
@@ -589,13 +589,13 @@ const siteData = {
       "titleJa": "東京のお客様の声｜最高の体験",
       "titleZh": "東京的小姐好評｜頂級體驗",
       "titleEn": "Tokyo Reviews - Top Experience",
-      "contentJa": "最高でした！4月に写真送ります。\n\n今日また次のご予約をいただけて本当に嬉しい\nもっと素敵な『初体験』をお届けします\n予約成立\n\n（ありがとう、日本以上の体験をお約束します）\n\n4月4日",
-      "contentZh": "頂級了！我4月會發圖片。\n\n真的超級開心今天能再次收到你們下次的訂單\n期待你們會感受到更棒的『初次體驗』\n訂單成功\n\n(謝謝你們，保證會讓你們有一個比日本更佳的體驗)\nPS: 讓照片出現是我們小姐姐想讓您想像一個更美好的體驗。\n\n4月4日",
-      "contentEn": "Top tier! I'll send photos in April.\n\nSo happy to receive your next order again today. Hope you'll enjoy an even better 'first experience'. Order successful.\n\n(Thank you, we guarantee you'll have a better experience than Japan!)\n\nApril 4",
+      "contentJa": "最高です！3月に写真をアップします。\n\n本日、皆様からの次回のご注文を再びいただけて、心より嬉しく思います。\n皆様に、さらに素晴らしい「初めての体験」をしていただけることを楽しみにしております。\nご注文完了\n\n(皆様、ありがとうございます。日本以上の素晴らしい体験を必ずお約束いたします。)\n追伸：写真をお見せするのは、弊社の女性スタッフ",
+      "contentZh": "頂級了！我3月會發圖片。\n\n真的超級開心今天能再次收到你們下次的訂單\n期待你們會感受到更棒的『初次體驗』\n訂單成功\n\n(謝謝你們，保證會讓你們有一個比日本更佳的體驗)\nPS: 讓照片出現是我們小姐姐想讓您想像一個更美好的體驗。",
+      "contentEn": "Top-notch! I'll post pictures in March.\nWe are absolutely thrilled to receive your next order again today!\nWe hope you will experience an even better 'first-time experience'.\nOrder successful.\n(Thank you, we guarantee you'll have an even better experience than in Japan.)\nPS: Our staff member wanted the photos to appear to help you envision an even more wonderful experience.",
       "excerpt": "頂級了！真的超級開心今天能再次收到你們下次的訂單。期待更棒的初次體驗。",
       "excerptJa": "最高！また次のご予約いただけて本当に嬉しい。もっと素敵な初体験をお届けします。",
       "excerptZh": "頂級了！真的超級開心今天能再次收到你們下次的訂單。期待更棒的初次體驗。",
-      "date": "2026.04.04",
+      "date": "2026.03.15",
       "category": "客戶反饋",
       "thumbnail": "./feedback/e35aa753e659c440a6e76d8320a786bb.jpg",
       "stats": null,
