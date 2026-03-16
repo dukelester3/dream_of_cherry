@@ -5,7 +5,7 @@
     return localStorage.getItem('yuyu_gemini_key') || (typeof GEMINI_API_KEY !== 'undefined' ? GEMINI_API_KEY : '');
   }
   // 每次呼叫時讀取，以支援後台設定
-  const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent';
+  const API_URL = 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent';
 
   window.translateWithGemini = async function(text, fromLang, toLang) {
     const key = getApiKey();
