@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/16/2026, 11:24:04 PM
+// Generated: 3/16/2026, 11:25:28 PM
 
 const siteData = {
   "about": {
@@ -136,8 +136,8 @@ const siteData = {
     {
       "id": 5,
       "name": "ゆうは",
-      "nameZh": "優夜",
-      "nameEn": "Yuwa",
+      "nameZh": "優葉",
+      "nameEn": "yuuha",
       "height": 165,
       "age": 26,
       "cup": "H",
@@ -167,8 +167,8 @@ const siteData = {
     {
       "id": 6,
       "name": "らくらく",
-      "nameZh": "楽楽",
-      "nameEn": "Lele",
+      "nameZh": "楽々",
+      "nameEn": "rakuraku",
       "height": 160,
       "age": 22,
       "cup": "E",
