@@ -301,7 +301,12 @@ function setupModals() {
       } else {
         if (area) area.style.display = '';
         if (previewEl) previewEl.innerHTML = '';
-        alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤') + '\n\n也可直接貼上圖片網址（從 imgur、imgbb 等複製）');
+        const errMsg = json.error?.message || json.status || '未知錯誤';
+        let hint = '\n\n也可直接貼上圖片網址（從 imgur、imgbb 等複製）';
+        if (errMsg.includes('Invalid API') || errMsg.includes('Invalid key')) {
+          hint = '\n\n請至「設定」檢查 ImgBB Key：\n• 至 https://api.imgbb.com/ 免費申請\n• 確認 Key 完整複製、無多餘空格\n• 或清空 Key 後再上傳，改用 Base64 嵌入（無需 API）';
+        }
+        alert('上傳失敗：' + errMsg + hint);
       }
     } catch (err) {
       if (area) area.style.display = '';

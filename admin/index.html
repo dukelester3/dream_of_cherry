@@ -42,6 +42,7 @@
         <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
       </nav>
       <div class="admin-sidebar-footer">
+        <a href="../?preview=1" class="admin-back-link" title="即時預覽後台修改的內容">👁 預覽首頁</a>
         <a href="../" class="admin-back-link">← 返回網站</a>
         <button id="logout-btn" class="admin-logout">登出</button>
       </div>
@@ -128,7 +129,7 @@
       <div class="admin-tab hidden" id="tab-export">
         <div class="tab-header"><h1>匯出資料</h1></div>
         <div class="export-section">
-          <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案，複製後替換網站根目錄的 data.js 即可更新網站。</p>
+          <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案，複製後替換網站根目錄的 data.js 即可更新網站。<br>💡 修改後可點左側「預覽首頁」即時看變更；正式發布需匯出並推送到 GitHub。</p>
           <button class="btn-admin-primary" id="export-btn">生成 data.js</button>
           <div class="export-output hidden" id="export-output">
             <div class="export-actions">

@@ -1,3 +1,17 @@
+// ── Preview：後台儲存後用 ?preview=1 可即時看變更 ──
+(function() {
+  const params = new URLSearchParams(location.search);
+  if (params.get('preview') === '1' && typeof siteData !== 'undefined') {
+    const saved = localStorage.getItem('yuyu_admin_data');
+    if (saved) {
+      try {
+        const data = JSON.parse(saved);
+        Object.assign(siteData, data);
+      } catch (e) {}
+    }
+  }
+})();
+
 // ── Theme (Dark / Light) ──
 const THEME_KEY = 'yuyu-theme';
 let currentOpenDiaryId = null;
