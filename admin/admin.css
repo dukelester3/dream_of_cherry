@@ -48,13 +48,16 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 .pwd-toggle:hover { color: var(--admin-gold); }
 .input-row { display: flex; gap: 8px; align-items: flex-start; }
 .input-row input, .input-row textarea { flex: 1; }
-.btn-translate {
+.btn-translate,
+.btn-translate-all {
   flex-shrink: 0; padding: 6px 12px; font-size: 0.72rem;
   background: var(--admin-gold); color: white; border: none;
   cursor: pointer; border-radius: 4px; white-space: nowrap;
 }
-.btn-translate:hover:not(:disabled) { opacity: 0.9; }
-.btn-translate:disabled { opacity: 0.6; cursor: not-allowed; }
+.btn-translate:hover:not(:disabled),
+.btn-translate-all:hover:not(:disabled) { opacity: 0.9; }
+.btn-translate:disabled,
+.btn-translate-all:disabled { opacity: 0.6; cursor: not-allowed; }
 .form-hint { font-size: 0.8rem; color: var(--admin-muted); margin-top: 6px; line-height: 1.5; }
 .form-hint a { color: var(--admin-gold); }
 

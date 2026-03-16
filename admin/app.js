@@ -198,7 +198,25 @@ if (typeof module !== 'undefined') module.exports = siteData;`;
       const err = await putRes.json();
       throw new Error(err.message || '發布失敗');
     }
-    alert('發布成功！約 1–2 分鐘後網站會更新。');
+    try {
+      const ver = Date.now();
+      const idxRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/index.html`, {
+        headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}` }
+      });
+      if (idxRes.ok) {
+        const idxJson = await idxRes.json();
+        let idxContent = decodeURIComponent(escape(atob(idxJson.content.replace(/\n/g, ''))));
+        idxContent = idxContent.replace(/data\.js\?v=\d+/g, 'data.js?v=' + ver).replace(/src="data\.js"/g, 'src="data.js?v=' + ver + '"');
+        const idxBody = { message: 'Bump data.js cache', content: btoa(unescape(encodeURIComponent(idxContent))), sha: idxJson.sha };
+        await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/index.html`, {
+          method: 'PUT', headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
+          body: JSON.stringify(idxBody)
+        });
+      }
+    } catch (e) {
+      console.warn('Index cache bump failed:', e);
+    }
+    alert('發布成功！約 1–2 分鐘後網站會更新。\n\n若無痕模式仍顯示舊內容，請強制重新整理（Ctrl+Shift+R）。');
   } catch (err) {
     alert('發布失敗：' + (err.message || err));
   } finally {
@@ -424,11 +442,15 @@ function openModal(type, id) {
   if (type === 'girl') {
     title.textContent = id ? '編輯女孩' : '新增女孩';
     body.innerHTML = `
-      <div class="form-row">
-        <div class="form-group"><label>日文名</label><input id="f-name" value="${item?.name||''}"></div>
-        <div class="form-group"><label>中文名</label><input id="f-nameZh" value="${item?.nameZh||''}"></div>
+      <div class="form-group">
+        <label>姓名（日/中/英）</label>
+        <div class="input-row" style="align-items:flex-start;flex-wrap:wrap">
+          <div style="flex:1;min-width:120px"><input id="f-name" value="${item?.name||''}" placeholder="日文名"></div>
+          <div style="flex:1;min-width:120px"><input id="f-nameZh" value="${item?.nameZh||''}" placeholder="中文名"></div>
+          <div style="flex:1;min-width:120px"><input id="f-nameEn" value="${item?.nameEn||''}" placeholder="英文名"></div>
+          <button type="button" class="btn-translate-all" data-ja="f-name" data-zh="f-nameZh" data-en="f-nameEn">一鍵翻譯</button>
+        </div>
       </div>
-      <div class="form-group"><label>英文名</label><input id="f-nameEn" value="${item?.nameEn||''}"></div>
       <div class="form-row">
         <div class="form-group"><label>身高(cm)</label><input id="f-height" type="number" value="${item?.height||160}"></div>
         <div class="form-group"><label>年齡</label><input id="f-age" type="number" value="${item?.age||22}"></div>
@@ -466,12 +488,12 @@ function openModal(type, id) {
   if (type === 'review') {
     title.textContent = id ? '編輯客評' : '新增客評';
     body.innerHTML = `
-      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
-      <div class="form-group"><label>標題(中)</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-titleJa" data-target="f-titleZh">Gemini</button></div></div>
-      <div class="form-group"><label>標題(英)</label><div class="input-row"><input id="f-titleEn" value="${item?.titleEn||''}"><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-titleJa" data-target="f-titleEn">Gemini</button></div></div>
-      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa">${item?.contentJa||''}</textarea></div>
-      <div class="form-group"><label>內容(中)</label><div class="input-row"><textarea id="f-contentZh">${item?.contentZh||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-contentJa" data-target="f-contentZh">Gemini</button></div></div>
-      <div class="form-group"><label>內容(英)</label><div class="input-row"><textarea id="f-contentEn">${item?.contentEn||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-contentJa" data-target="f-contentEn">Gemini</button></div></div>
+      <div class="form-group"><label>標題(日)</label><div class="input-row"><input id="f-titleJa" value="${item?.titleJa||''}" style="flex:1"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
+      <div class="form-group"><label>內容(日)</label><div class="input-row"><textarea id="f-contentJa" style="flex:1;min-height:80px">${item?.contentJa||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
       <div class="form-group">
         <label>照片（選填）</label>
         <div class="img-upload-box" data-target="f-review-image">
@@ -530,12 +552,12 @@ function openModal(type, id) {
           <input id="f-about-photo-3" value="${ph(3)}" class="img-url-input" placeholder="網址">
         </div>
       </div>
-      <div class="form-group"><label>第一段(日)</label><textarea id="f-about-p1Ja" style="min-height:60px">${escapeHtml(a.p1Ja||'')}</textarea></div>
-      <div class="form-group"><label>第一段(中)</label><div class="input-row"><textarea id="f-about-p1Zh" style="min-height:60px">${escapeHtml(a.p1Zh||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-about-p1Ja" data-target="f-about-p1Zh">Gemini</button></div></div>
-      <div class="form-group"><label>第一段(英)</label><div class="input-row"><textarea id="f-about-p1En" style="min-height:60px">${escapeHtml(a.p1En||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-about-p1Ja" data-target="f-about-p1En">Gemini</button></div></div>
-      <div class="form-group"><label>第二段(日)</label><textarea id="f-about-p2Ja" style="min-height:60px">${escapeHtml(a.p2Ja||'')}</textarea></div>
-      <div class="form-group"><label>第二段(中)</label><div class="input-row"><textarea id="f-about-p2Zh" style="min-height:60px">${escapeHtml(a.p2Zh||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-about-p2Ja" data-target="f-about-p2Zh">Gemini</button></div></div>
-      <div class="form-group"><label>第二段(英)</label><div class="input-row"><textarea id="f-about-p2En" style="min-height:60px">${escapeHtml(a.p2En||'')}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-about-p2Ja" data-target="f-about-p2En">Gemini</button></div></div>
+      <div class="form-group"><label>第一段(日)</label><div class="input-row"><textarea id="f-about-p1Ja" style="min-height:60px;flex:1">${escapeHtml(a.p1Ja||'')}</textarea><button type="button" class="btn-translate-all" data-ja="f-about-p1Ja" data-zh="f-about-p1Zh" data-en="f-about-p1En">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>第一段(中)</label><textarea id="f-about-p1Zh" style="min-height:60px">${escapeHtml(a.p1Zh||'')}</textarea></div>
+      <div class="form-group"><label>第一段(英)</label><textarea id="f-about-p1En" style="min-height:60px">${escapeHtml(a.p1En||'')}</textarea></div>
+      <div class="form-group"><label>第二段(日)</label><div class="input-row"><textarea id="f-about-p2Ja" style="min-height:60px;flex:1">${escapeHtml(a.p2Ja||'')}</textarea><button type="button" class="btn-translate-all" data-ja="f-about-p2Ja" data-zh="f-about-p2Zh" data-en="f-about-p2En">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>第二段(中)</label><textarea id="f-about-p2Zh" style="min-height:60px">${escapeHtml(a.p2Zh||'')}</textarea></div>
+      <div class="form-group"><label>第二段(英)</label><textarea id="f-about-p2En" style="min-height:60px">${escapeHtml(a.p2En||'')}</textarea></div>
       <div class="form-row">
         <div class="form-group"><label>連結文字(日)</label><input id="f-about-moreJa" value="${(a.moreJa||'').replace(/"/g,'&quot;')}"></div>
         <div class="form-group"><label>連結文字(中)</label><input id="f-about-moreZh" value="${(a.moreZh||'').replace(/"/g,'&quot;')}"></div>
@@ -549,14 +571,14 @@ function openModal(type, id) {
     title.textContent = id ? '編輯日記' : '新增日記';
     const stats = item?.stats || {};
     body.innerHTML = `
-      <div class="form-group"><label>標題(日)</label><input id="f-titleJa" value="${item?.titleJa||''}"></div>
-      <div class="form-group"><label>標題(中)</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-titleJa" data-target="f-titleZh">Gemini</button></div></div>
-      <div class="form-group"><label>標題(英)</label><div class="input-row"><input id="f-titleEn" value="${item?.titleEn||''}"><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-titleJa" data-target="f-titleEn">Gemini</button></div></div>
+      <div class="form-group"><label>標題(日)</label><div class="input-row"><input id="f-titleJa" value="${item?.titleJa||''}" style="flex:1"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>標題(中)</label><input id="f-titleZh" value="${item?.titleZh||''}"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-titleEn" value="${item?.titleEn||''}"></div>
       <div class="form-group"><label>摘要(日)</label><input id="f-excerpt" value="${item?.excerpt||''}"></div>
-      <div class="form-group"><label>摘要(中)</label><div class="input-row"><input id="f-excerptZh" value="${item?.excerptZh||''}"><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-excerpt" data-target="f-excerptZh">Gemini</button></div></div>
-      <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:100px">${item?.contentJa||''}</textarea></div>
-      <div class="form-group"><label>內容(中)</label><div class="input-row"><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="zh" data-source="f-contentJa" data-target="f-contentZh">Gemini</button></div></div>
-      <div class="form-group"><label>內容(英)</label><div class="input-row"><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea><button type="button" class="btn-translate" data-from="ja" data-to="en" data-source="f-contentJa" data-target="f-contentEn">Gemini</button></div></div>
+      <div class="form-group"><label>摘要(中)</label><input id="f-excerptZh" value="${item?.excerptZh||''}"></div>
+      <div class="form-group"><label>內容(日)</label><div class="input-row"><textarea id="f-contentJa" style="min-height:100px;flex:1">${item?.contentJa||''}</textarea><button type="button" class="btn-translate-all" data-ja="f-contentJa" data-zh="f-contentZh" data-en="f-contentEn">一鍵翻譯</button></div></div>
+      <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh" style="min-height:100px">${item?.contentZh||''}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px">${item?.contentEn||''}</textarea></div>
       <div class="form-row">
         <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
@@ -647,6 +669,32 @@ function setupTranslateButtons() {
       }
       btn.disabled = false;
       btn.textContent = 'Gemini';
+    };
+  });
+  document.querySelectorAll('.btn-translate-all').forEach(btn => {
+    btn.onclick = async function() {
+      const jaId = this.dataset.ja, zhId = this.dataset.zh, enId = this.dataset.en;
+      const jaEl = document.getElementById(jaId), zhEl = document.getElementById(zhId), enEl = document.getElementById(enId);
+      if (!jaEl || !zhEl || !enEl || typeof translateWithGemini !== 'function') return;
+      const ja = jaEl.value?.trim(), zh = zhEl.value?.trim(), en = enEl.value?.trim();
+      let sourceLang, sourceText;
+      if (ja) { sourceLang = 'ja'; sourceText = ja; }
+      else if (zh) { sourceLang = 'zh'; sourceText = zh; }
+      else if (en) { sourceLang = 'en'; sourceText = en; }
+      else { alert('請先填寫日、中、英其中一種'); return; }
+      btn.disabled = true;
+      btn.textContent = '翻譯中...';
+      try {
+        const targets = [];
+        if (sourceLang !== 'ja') targets.push({ to: 'ja', el: jaEl });
+        if (sourceLang !== 'zh') targets.push({ to: 'zh', el: zhEl });
+        if (sourceLang !== 'en') targets.push({ to: 'en', el: enEl });
+        await Promise.all(targets.map(t => translateWithGemini(sourceText, sourceLang, t.to).then(r => { t.el.value = r; })));
+      } catch (e) {
+        alert('翻譯失敗：' + (e.message || e));
+      }
+      btn.disabled = false;
+      btn.textContent = '一鍵翻譯';
     };
   });
 }
