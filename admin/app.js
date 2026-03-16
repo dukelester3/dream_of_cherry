@@ -443,13 +443,15 @@ function openModal(type, id) {
     title.textContent = id ? '編輯女孩' : '新增女孩';
     body.innerHTML = `
       <div class="form-group">
-        <label>姓名（日/中/英）</label>
-        <div class="input-row" style="align-items:flex-start;flex-wrap:wrap">
-          <div style="flex:1;min-width:120px"><input id="f-name" value="${item?.name||''}" placeholder="日文名"></div>
-          <div style="flex:1;min-width:120px"><input id="f-nameZh" value="${item?.nameZh||''}" placeholder="中文名"></div>
-          <div style="flex:1;min-width:120px"><input id="f-nameEn" value="${item?.nameEn||''}" placeholder="英文名"></div>
-          <button type="button" class="btn-translate-all" data-ja="f-name" data-zh="f-nameZh" data-en="f-nameEn">一鍵翻譯</button>
+        <label>日文名（必填，填寫後點「翻譯」自動產生中英文）</label>
+        <div class="input-row">
+          <input id="f-name" value="${item?.name||''}" placeholder="例：アイちゃん">
+          <button type="button" class="btn-translate-all" data-ja="f-name" data-zh="f-nameZh" data-en="f-nameEn" data-ja-only="true">翻譯到中英</button>
         </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><label>中文名</label><input id="f-nameZh" value="${item?.nameZh||''}" placeholder="翻譯後自動填入"></div>
+        <div class="form-group"><label>英文名</label><input id="f-nameEn" value="${item?.nameEn||''}" placeholder="翻譯後自動填入"></div>
       </div>
       <div class="form-row">
         <div class="form-group"><label>身高(cm)</label><input id="f-height" type="number" value="${item?.height||160}"></div>
@@ -674,14 +676,16 @@ function setupTranslateButtons() {
   document.querySelectorAll('.btn-translate-all').forEach(btn => {
     btn.onclick = async function() {
       const jaId = this.dataset.ja, zhId = this.dataset.zh, enId = this.dataset.en;
+      const jaOnly = this.dataset.jaOnly === 'true';
       const jaEl = document.getElementById(jaId), zhEl = document.getElementById(zhId), enEl = document.getElementById(enId);
       if (!jaEl || !zhEl || !enEl || typeof translateWithGemini !== 'function') return;
       const ja = jaEl.value?.trim(), zh = zhEl.value?.trim(), en = enEl.value?.trim();
       let sourceLang, sourceText;
-      if (ja) { sourceLang = 'ja'; sourceText = ja; }
-      else if (zh) { sourceLang = 'zh'; sourceText = zh; }
-      else if (en) { sourceLang = 'en'; sourceText = en; }
-      else { alert('請先填寫日、中、英其中一種'); return; }
+      if (jaOnly && ja) { sourceLang = 'ja'; sourceText = ja; }
+      else if (ja) { sourceLang = 'ja'; sourceText = ja; }
+      else if (zh && !jaOnly) { sourceLang = 'zh'; sourceText = zh; }
+      else if (en && !jaOnly) { sourceLang = 'en'; sourceText = en; }
+      else { alert(jaOnly ? '請先填寫日文名' : '請先填寫日、中、英其中一種'); return; }
       btn.disabled = true;
       btn.textContent = '翻譯中...';
       try {
