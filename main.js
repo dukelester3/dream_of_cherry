@@ -24,7 +24,7 @@ function setTheme(theme) {
 
 function initTheme() {
   const saved = localStorage.getItem(THEME_KEY);
-  document.documentElement.setAttribute('data-theme', saved === 'dark' ? 'dark' : 'light');
+  document.documentElement.setAttribute('data-theme', saved === 'light' ? 'light' : 'dark');
 }
 
 initTheme();
