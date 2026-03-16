@@ -181,25 +181,23 @@ function setupModals() {
   document.getElementById('admin-modal-overlay').addEventListener('click', closeModal);
   document.getElementById('modal-cancel').addEventListener('click', closeModal);
   document.getElementById('modal-save').addEventListener('click', saveModal);
-  document.getElementById('admin-modal-body').addEventListener('click', async (e) => {
-    const btn = e.target.closest('.img-upload-btn');
-    if (!btn) return;
-    const targetId = btn.dataset.target;
-    const fileInput = document.getElementById(targetId + '-file') || document.getElementById('f-' + (targetId === 'f-image' ? 'image' : 'thumbnail') + '-file');
+  document.getElementById('admin-modal-body').addEventListener('change', async (e) => {
+    const fileInput = e.target;
+    if (!fileInput.matches('.img-file-input') || !fileInput.files[0]) return;
+    const box = fileInput.closest('.img-upload-box');
+    const targetId = box?.dataset.target;
     const urlInput = document.getElementById(targetId);
-    if (!fileInput || !urlInput) return;
+    const previewEl = document.getElementById(targetId + '-preview');
+    const area = box?.querySelector('.img-upload-area');
+    if (!urlInput || !box) return;
     const file = fileInput.files[0];
-    if (!file) {
-      fileInput.click();
-      return;
-    }
     const key = localStorage.getItem(IMGBB_KEY_STORAGE);
     if (!key) {
       alert('請先至「設定」分頁填入 ImgBB API Key');
       return;
     }
-    btn.disabled = true;
-    btn.textContent = '上傳中...';
+    if (area) area.style.display = 'none';
+    if (previewEl) previewEl.innerHTML = '<div class="img-uploading">上傳中...</div>';
     try {
       const fd = new FormData();
       fd.append('key', key);
@@ -208,20 +206,42 @@ function setupModals() {
       const json = await res.json();
       if (json.data?.url) {
         urlInput.value = json.data.url;
+        if (previewEl) {
+          previewEl.innerHTML = `<img src="${json.data.url}" alt="預覽"><button type="button" class="img-change-btn">更換圖片</button>`;
+          previewEl.querySelector('.img-change-btn').onclick = () => {
+            urlInput.value = '';
+            previewEl.innerHTML = '';
+            if (area) area.style.display = '';
+            fileInput.value = '';
+          };
+        }
         fileInput.value = '';
       } else {
+        if (area) area.style.display = '';
+        if (previewEl) previewEl.innerHTML = '';
         alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤'));
       }
     } catch (err) {
+      if (area) area.style.display = '';
+      if (previewEl) previewEl.innerHTML = '';
       alert('上傳失敗：' + err.message);
     }
-    btn.disabled = false;
-    btn.textContent = '選擇上傳';
   });
-  document.getElementById('admin-modal-body').addEventListener('change', (e) => {
-    if (e.target.matches('.img-file-input') && e.target.files[0]) {
-      const btn = e.target.closest('.img-upload-row')?.querySelector('.img-upload-btn');
-      if (btn) btn.click();
+  document.getElementById('admin-modal-body').addEventListener('dragover', (e) => {
+    if (e.target.closest('.img-upload-area')) e.preventDefault();
+  });
+  document.getElementById('admin-modal-body').addEventListener('drop', (e) => {
+    const area = e.target.closest('.img-upload-area');
+    if (!area) return;
+    e.preventDefault();
+    const file = e.dataTransfer?.files[0];
+    if (!file || !file.type.startsWith('image/')) return;
+    const fileInput = document.getElementById(area.getAttribute('for'));
+    if (fileInput) {
+      const dt = new DataTransfer();
+      dt.items.add(file);
+      fileInput.files = dt.files;
+      fileInput.dispatchEvent(new Event('change'));
     }
   });
 }
@@ -263,11 +283,16 @@ function openModal(type, id) {
       <div class="form-group"><label>類型標籤(日，逗號分隔)</label><input id="f-types" value="${item?.types?.join(',')||''}"></div>
       <div class="form-group"><label>類型標籤(中，逗號分隔)</label><input id="f-typesZh" value="${item?.typesZh?.join(',')||''}"></div>
       <div class="form-group">
-        <label>圖片 URL</label>
-        <div class="img-upload-row">
-          <input id="f-image" value="${item?.image||''}" class="img-url-input">
+        <label>照片</label>
+        <div class="img-upload-box" data-target="f-image">
+          <label class="img-upload-area" for="f-image-file">
+            <span class="img-upload-icon">📷</span>
+            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
+            <span class="img-upload-hint">支援 JPG、PNG</span>
+          </label>
           <input type="file" id="f-image-file" accept="image/*" class="img-file-input">
-          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-image">選擇上傳</button>
+          <div class="img-upload-preview" id="f-image-preview"></div>
+          <input id="f-image" value="${item?.image||''}" class="img-url-input" placeholder="上傳後自動填入網址，或手動貼上">
         </div>
       </div>
       <div class="form-row">
@@ -287,11 +312,15 @@ function openModal(type, id) {
       <div class="form-group"><label>內容(中)</label><textarea id="f-contentZh">${item?.contentZh||''}</textarea></div>
       <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn">${item?.contentEn||''}</textarea></div>
       <div class="form-group">
-        <label>圖片 URL（選填）</label>
-        <div class="img-upload-row">
-          <input id="f-review-image" value="${item?.image||''}" class="img-url-input">
+        <label>照片（選填）</label>
+        <div class="img-upload-box" data-target="f-review-image">
+          <label class="img-upload-area" for="f-review-image-file">
+            <span class="img-upload-icon">📷</span>
+            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
+          </label>
           <input type="file" id="f-review-image-file" accept="image/*" class="img-file-input">
-          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-review-image">選擇上傳</button>
+          <div class="img-upload-preview" id="f-review-image-preview"></div>
+          <input id="f-review-image" value="${item?.image||''}" class="img-url-input" placeholder="上傳後自動填入">
         </div>
       </div>
       <div class="form-row">
@@ -319,19 +348,27 @@ function openModal(type, id) {
         <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
       </div>
       <div class="form-group">
-        <label>縮圖 URL（列表卡片用）</label>
-        <div class="img-upload-row">
-          <input id="f-thumbnail" value="${item?.thumbnail||''}" class="img-url-input">
+        <label>縮圖（列表卡片用）</label>
+        <div class="img-upload-box" data-target="f-thumbnail">
+          <label class="img-upload-area" for="f-thumbnail-file">
+            <span class="img-upload-icon">📷</span>
+            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
+          </label>
           <input type="file" id="f-thumbnail-file" accept="image/*" class="img-file-input">
-          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-thumbnail">選擇上傳</button>
+          <div class="img-upload-preview" id="f-thumbnail-preview"></div>
+          <input id="f-thumbnail" value="${item?.thumbnail||''}" class="img-url-input" placeholder="上傳後自動填入">
         </div>
       </div>
       <div class="form-group">
-        <label>內容圖片 URL（選填，彈窗大圖用）</label>
-        <div class="img-upload-row">
-          <input id="f-diary-image" value="${item?.image||''}" class="img-url-input">
+        <label>內容圖片（選填，彈窗大圖用）</label>
+        <div class="img-upload-box" data-target="f-diary-image">
+          <label class="img-upload-area" for="f-diary-image-file">
+            <span class="img-upload-icon">📷</span>
+            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
+          </label>
           <input type="file" id="f-diary-image-file" accept="image/*" class="img-file-input">
-          <button type="button" class="btn-admin-secondary img-upload-btn" data-target="f-diary-image">選擇上傳</button>
+          <div class="img-upload-preview" id="f-diary-image-preview"></div>
+          <input id="f-diary-image" value="${item?.image||''}" class="img-url-input" placeholder="上傳後自動填入">
         </div>
       </div>
       <div class="form-row">
@@ -347,6 +384,31 @@ function openModal(type, id) {
   }
 
   modal.classList.remove('hidden');
+  document.querySelectorAll('.img-upload-box').forEach(box => {
+    const targetId = box.dataset.target;
+    const urlInput = document.getElementById(targetId);
+    const previewEl = document.getElementById(targetId + '-preview');
+    const area = box.querySelector('.img-upload-area');
+    if (urlInput?.value && previewEl && area) {
+      area.style.display = 'none';
+      const img = document.createElement('img');
+      img.src = urlInput.value;
+      img.alt = '預覽';
+      img.onerror = () => { previewEl.innerHTML = ''; area.style.display = ''; };
+      const changeBtn = document.createElement('button');
+      changeBtn.type = 'button';
+      changeBtn.className = 'img-change-btn';
+      changeBtn.textContent = '更換圖片';
+      changeBtn.onclick = () => {
+        urlInput.value = '';
+        previewEl.innerHTML = '';
+        area.style.display = '';
+      };
+      previewEl.innerHTML = '';
+      previewEl.appendChild(img);
+      previewEl.appendChild(changeBtn);
+    }
+  });
 }
 
 function closeModal() {
