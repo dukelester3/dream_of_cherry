@@ -732,7 +732,7 @@ section { padding: 96px 0; }
 
 .card-img-wrap {
   position: relative;
-  aspect-ratio: 3/4;
+  aspect-ratio: 2/3;
   overflow: hidden;
   background: var(--bg-card);
 }
@@ -1151,7 +1151,7 @@ section { padding: 96px 0; }
 .diary-card:hover { background: var(--bg); }
 
 .diary-thumb {
-  aspect-ratio: 16/9;
+  aspect-ratio: 2/3;
   overflow: hidden;
 }
 .diary-thumb img {
@@ -1263,7 +1263,7 @@ section { padding: 96px 0; }
 }
 .diary-modal-close:hover { color: var(--text); }
 .diary-modal-img {
-  width: 100%; aspect-ratio: 16/9;
+  width: 100%; aspect-ratio: 2/3;
   object-fit: cover; object-position: top;
   display: block;
 }
