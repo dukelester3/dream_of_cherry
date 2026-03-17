@@ -23,6 +23,43 @@ const GIRL_TYPE_OPTIONS = [
 ];
 const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
+const WATERMARK_LOGO = '../logo/219bad78b70c898504edc05741715f5a4a3a265a6d979ac1ffb25a35746aeb4d.png';
+
+// ── 浮水印：上傳前將 logo 疊加到圖片 ──
+async function addWatermark(file) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    const objectUrl = URL.createObjectURL(file);
+    img.onload = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = img.width;
+      canvas.height = img.height;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0);
+      const logoImg = new Image();
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.onload = () => {
+        const logoW = Math.max(img.width * 0.15, 60);
+        const logoH = (logoImg.height / logoImg.width) * logoW;
+        const pad = Math.max(img.width * 0.02, 10);
+        const x = img.width - logoW - pad;
+        const y = img.height - logoH - pad;
+        ctx.globalAlpha = 0.6;
+        ctx.drawImage(logoImg, x, y, logoW, logoH);
+        ctx.globalAlpha = 1;
+        canvas.toBlob(blob => {
+          URL.revokeObjectURL(objectUrl);
+          if (blob) resolve(new File([blob], file.name, { type: file.type }));
+          else resolve(file);
+        }, file.type || 'image/jpeg', 0.92);
+      };
+      logoImg.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
+      logoImg.src = WATERMARK_LOGO;
+    };
+    img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
+    img.src = objectUrl;
+  });
+}
 
 // ── State ──
 let adminData = null;
@@ -365,7 +402,7 @@ function setupModals() {
         previewEl.querySelector('.img-change-btn').onclick = () => {
           urlInput.value = '';
           previewEl.innerHTML = '';
-          if (area) area.style.display = '';
+          if (area) area.style.display = 'flex';
           fileInput.value = '';
         };
       }
@@ -379,28 +416,37 @@ function setupModals() {
         return;
       }
       if (area) area.style.display = 'none';
-      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中...</div>';
-      const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result;
-        if (dataUrl.length > 800000) {
-          if (previewEl) previewEl.innerHTML = '';
-          if (area) area.style.display = '';
-          alert('圖片過大，Base64 會讓 data.js 過大。建議：\n1. 壓縮圖片後再試\n2. 至「設定」填寫 ImgBB API Key 上傳');
-          return;
-        }
-        setPreviewAndUrl(dataUrl);
-      };
-      reader.readAsDataURL(file);
+      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
+      try {
+        const watermarked = await addWatermark(file);
+        const reader = new FileReader();
+        reader.onload = () => {
+          const dataUrl = reader.result;
+          if (dataUrl.length > 800000) {
+            if (previewEl) previewEl.innerHTML = '';
+            if (area) area.style.display = '';
+            alert('圖片過大，Base64 會讓 data.js 變大。建議：\n1. 壓縮圖片後再試\n2. 至「設定」填寫 ImgBB API Key 上傳');
+            return;
+          }
+          setPreviewAndUrl(dataUrl);
+        };
+        reader.readAsDataURL(watermarked);
+      } catch (e) {
+        if (area) area.style.display = '';
+        if (previewEl) previewEl.innerHTML = '';
+        alert('浮水印處理失敗：' + (e.message || e));
+      }
       return;
     }
 
     if (area) area.style.display = 'none';
-    if (previewEl) previewEl.innerHTML = '<div class="img-uploading">上傳中...</div>';
+    if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
     try {
+      const watermarked = await addWatermark(file);
+      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">上傳中...</div>';
       const fd = new FormData();
       fd.append('key', key);
-      fd.append('image', file);
+      fd.append('image', watermarked);
       const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
       const json = await res.json();
       if (json.data?.url) {
@@ -650,12 +696,13 @@ function openModal(type, id) {
     const urlInput = document.getElementById(targetId);
     const previewEl = document.getElementById(targetId + '-preview');
     const area = box.querySelector('.img-upload-area');
+    const fileInput = box.querySelector('.img-file-input');
     if (urlInput?.value && previewEl && area) {
       area.style.display = 'none';
       const img = document.createElement('img');
       img.src = urlInput.value;
       img.alt = '預覽';
-      img.onerror = () => { previewEl.innerHTML = ''; area.style.display = ''; };
+      img.onerror = () => { previewEl.innerHTML = ''; area.style.display = 'flex'; if (fileInput) fileInput.value = ''; };
       const changeBtn = document.createElement('button');
       changeBtn.type = 'button';
       changeBtn.className = 'img-change-btn';
@@ -663,7 +710,8 @@ function openModal(type, id) {
       changeBtn.onclick = () => {
         urlInput.value = '';
         previewEl.innerHTML = '';
-        area.style.display = '';
+        area.style.display = 'flex';
+        if (fileInput) fileInput.value = '';
       };
       previewEl.innerHTML = '';
       previewEl.appendChild(img);
