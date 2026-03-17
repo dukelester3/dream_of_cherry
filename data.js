@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/18 上午1:45:09
+// Generated: 2026/3/18 上午1:59:48
 
 const siteData = {
   "about": {
@@ -1094,6 +1094,52 @@ const siteData = {
         "cup": "E",
         "age": 22,
         "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 47,
+      "titleJa": "番号7110",
+      "titleZh": "番號7110",
+      "titleEn": "Item number 7110",
+      "excerpt": "🇯🇵| 店長のおすすめ 長期割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "Manager's Recommendation: Long-term discount (including transportation fees)",
+      "contentJa": "🇯🇵| 店長推薦 長時間割引あり（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "Manager's Recommendation: Long-term discounts available (including transportation fees)",
+      "category": "出勤情報",
+      "date": "",
+      "thumbnail": "https://i.ibb.co/svK3WdW5/photo-2025-09-18-12-36-04.jpg",
+      "image": "https://i.ibb.co/9HDRLTW0/photo-2025-09-18-12-36-05.jpg",
+      "stats": {
+        "height": 164,
+        "cup": "E",
+        "age": 25,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 48,
+      "titleJa": "番号7111",
+      "titleZh": "番號7111",
+      "titleEn": "Number 7111",
+      "excerpt": "店長のおすすめ 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount available (transportation fee included).",
+      "contentJa": "🇯🇵| 店長推薦！長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
+      "category": "出勤情報",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/qMx3mf6T/photo-2025-09-18-12-37-33.jpg",
+      "image": "https://i.ibb.co/5W4Hdgst/photo-2025-09-18-12-37-34.jpg",
+      "stats": {
+        "height": 150,
+        "cup": "D",
+        "age": 21,
+        "weight": 46
       },
       "published": true
     }
