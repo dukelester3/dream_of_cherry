@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/17 下午11:28:09
+// Generated: 3/17/2026, 10:54:27 PM
 
 const siteData = {
   "about": {
@@ -857,7 +857,7 @@ const siteData = {
       "titleJa": "番号7100",
       "titleZh": "番號7100",
       "titleEn": "Serial number 7100",
-      "excerpt": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerpt": "店長のおすすめ 長時間割引（交通費込み）",
       "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "contentJa": "🇯🇵| 店長のおすすめ\n長時間割引あり（交通費込み）",
       "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
@@ -872,7 +872,8 @@ const siteData = {
         "age": 25,
         "weight": 46
       },
-      "published": true
+      "published": true,
+      "excerptEn": "Store Manager's Recommendation: Long-term discounts available (including transportation fees)"
     },
     {
       "id": 36,
