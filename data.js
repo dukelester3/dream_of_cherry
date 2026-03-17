@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/18 上午12:05:32
+// Generated: 2026/3/18 上午1:17:20
 
 const siteData = {
   "about": {
@@ -920,6 +920,23 @@ const siteData = {
       },
       "published": true,
       "excerptEn": "🇯🇵| Store Manager's Recommendation: Long-term discounts available (including transportation fees)"
+    },
+    {
+      "id": 39,
+      "titleJa": "パートの女の子とフルタイムの女の子のサービスの違い",
+      "titleZh": "兼職女孩和全職女孩服務區別",
+      "titleEn": "Difference between part-time girl and full-time girl services",
+      "excerpt": "当店の子たちは短期のアルバイトがほとんどであるため、長く働いているプロの子たちとは少し異なる場合がございます。",
+      "excerptZh": "由於本店的女孩大多是短期兼職，她們可能與那些長期工作的專業女孩有些差異。",
+      "excerptEn": "Since most of the girls at our establishment are short-term part-timers, they may differ somewhat from long-term professional girls.",
+      "contentJa": "当店の女の子はほとんどが短期のアルバイトであるため、長期で働くプロの女の子とは少し異なる点があるかもしれません。\n\nもし、お客様が女の子との面会中やサービス中に、何かご期待に沿わない点があった場合、サービス内容に関する問題でも、お客様が不快に感じた点でも、必ずすぐに私にお伝えください！\n\n私は常にオンラインで対応しております",
+      "contentZh": "由於本店的女孩大多是短期兼職，她們可能與那些長期工作的專業女孩有些差異。\n\n如果在您與女孩見面或服務過程中，發現有任何不符合您預期的情況，無論是服務過程中的問題還是您不舒服的地方，請一定要第一時間告訴我！\n\n我會隨時在線，並優先處理您的需求。\n我並不希望您默默忍受，也不希望您認為這是無所謂的事。\n任何不舒服的地方，無論是情緒還是服務問題，都可以隨時告訴我。\n\n每一次的放縱或容忍，可能會變成無數次的不愉快。\n對於來到本店的每一位客人，我從不僅僅視作顧客，我會把您視作遠道而來的朋友來對待。\n也正因如此，我希望您能在放鬆的過程中，沒有任何壓力，並且享受每一刻的愉悅。\n\n本店一直秉持著讓每一位來到這裡的客人都能開心地度過，並快樂地結束每一次的服務過程。\n\n我也深感謝那些一直支持我、信任我的朋友們，因為有你們的支持，這一切才有了更深的意義。❤️🥰",
+      "contentEn": "As most of the girls at our establishment are short-term part-timers, they might differ somewhat from professional girls who work long-term.\n\nIf, during your meeting with a girl or the service, you find anything that doesn't meet your expectations, whether it's an issue with the service itself or something that makes you uncomfortable, please make sure to tell me immediately!\n\nI will be online at all times and will prioritize addressing your needs.\nI don't want you to silently endure it, nor do I want you to think it's insignificant.\nAny discomfort, whether emotional or a service issue, you can always tell me.\n\nEvery instance of letting things slide or tolerating something could turn into countless unpleasant experiences.\nFor every guest who comes to our establishment, I don't just see them as customers; I treat you as a friend who has traveled a long way.\nPrecisely because of this, I hope you can relax without any pressure and enjoy every moment of pleasure.\n\nOur establishment has always strived to ensure that every guest who comes here has a happy time and happily concludes each service.\n\nI am also deeply grateful to my friends who have always supported and trusted me, because with your support, all of this gains deeper meaning. ❤️🥰",
+      "category": "日記",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/93TNsb19/photo-2025-09-18-01-22-16.jpg",
+      "stats": null,
+      "published": true
     }
   ]
 };
