@@ -238,7 +238,7 @@ function renderAbout(lang) {
 // ── 圖片路徑解析（確保 GitHub Pages 正確載入）──
 function resolveImgUrl(url) {
   if (!url) return '';
-  if (url.startsWith('http')) return url;
+  if (url.startsWith('http') || url.startsWith('data:')) return url;
   const base = location.pathname.includes('dream_of_cherry')
     ? location.origin + '/dream_of_cherry/'
     : location.origin + '/';

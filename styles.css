@@ -44,6 +44,22 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
+/* 右上角固定 Logo（隨滾動可見）*/
+.site-corner-logo {
+  position: fixed;
+  top: 72px;
+  right: 20px;
+  z-index: 100;
+  width: 288px;
+  height: auto;
+  pointer-events: none;
+}
+.site-corner-logo img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 body {
   font-family: var(--font-jp);
   font-size: 17px;

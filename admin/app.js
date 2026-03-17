@@ -23,7 +23,7 @@ const GIRL_TYPE_OPTIONS = [
 ];
 const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
-const WATERMARK_LOGO = '../logo/logo.png';
+const WATERMARK_LOGO = '../logo/logo-trimmed.png';
 
 // ── 浮水印：上傳前將 logo 疊加到圖片 ──
 async function addWatermark(file) {
@@ -39,12 +39,21 @@ async function addWatermark(file) {
       const logoImg = new Image();
       logoImg.crossOrigin = 'anonymous';
       logoImg.onload = () => {
-        const logoW = Math.max(img.width * 0.15, 60);
-        const logoH = (logoImg.height / logoImg.width) * logoW;
-        const pad = Math.max(img.width * 0.02, 10);
-        const x = img.width - logoW - pad;
+        const cellW = img.width / 4;
+        const cellH = img.height / 4;
+        let logoW, logoH;
+        if (logoImg.width / logoImg.height >= cellW / cellH) {
+          logoW = cellW;
+          logoH = (logoImg.height / logoImg.width) * logoW;
+        } else {
+          logoH = cellH;
+          logoW = (logoImg.width / logoImg.height) * logoH;
+        }
+        const pad = 4;
+        const leftOffset = img.width * 0.08;
+        const x = img.width - logoW - pad - leftOffset;
         const y = img.height - logoH - pad;
-        ctx.globalAlpha = 0.6;
+        ctx.globalAlpha = 1;
         ctx.drawImage(logoImg, x, y, logoW, logoH);
         ctx.globalAlpha = 1;
         canvas.toBlob(blob => {
@@ -312,6 +321,87 @@ function setupTabs() {
     ta.select(); document.execCommand('copy');
     document.getElementById('copy-export-btn').textContent = '已複製 ✓';
     setTimeout(() => document.getElementById('copy-export-btn').textContent = '複製全部', 2000);
+  });
+  setupWatermarkTool();
+}
+
+// ── 浮水印工具：上傳 → 加水印 → 下載 ──
+function setupWatermarkTool() {
+  const zone = document.getElementById('watermark-upload-zone');
+  const fileInput = document.getElementById('watermark-file-input');
+  const resultEl = document.getElementById('watermark-result');
+  const previewImg = document.getElementById('watermark-preview-img');
+  const downloadBtn = document.getElementById('watermark-download-btn');
+  const resetBtn = document.getElementById('watermark-reset-btn');
+  if (!zone || !fileInput || !resultEl) return;
+
+  let watermarkedFile = null;
+
+  function processFile(file) {
+    if (!file || !file.type.startsWith('image/')) return;
+    zone.classList.add('processing');
+    zone.querySelector('.img-upload-text').textContent = '處理中（加浮水印）...';
+    addWatermark(file).then((out) => {
+      watermarkedFile = out;
+      const url = URL.createObjectURL(out);
+      previewImg.src = url;
+      zone.classList.add('hidden');
+      zone.classList.remove('processing');
+      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此';
+      resultEl.classList.remove('hidden');
+    }).catch((err) => {
+      zone.classList.remove('processing');
+      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此';
+      alert('浮水印處理失敗：' + (err.message || err));
+    });
+  }
+
+  zone.addEventListener('click', () => fileInput.click());
+  zone.addEventListener('dragover', (e) => { e.preventDefault(); zone.style.borderColor = 'var(--admin-gold)'; });
+  zone.addEventListener('dragleave', () => { zone.style.borderColor = ''; });
+  zone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    zone.style.borderColor = '';
+    const f = e.dataTransfer?.files[0];
+    if (f && f.type.startsWith('image/')) processFile(f);
+  });
+  fileInput.addEventListener('change', (e) => {
+    const f = e.target.files[0];
+    if (f) processFile(f);
+    e.target.value = '';
+  });
+
+  downloadBtn?.addEventListener('click', () => {
+    if (!watermarkedFile) return;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(watermarkedFile);
+    a.download = 'watermarked-' + watermarkedFile.name;
+    a.click();
+    URL.revokeObjectURL(a.href);
+  });
+
+  resetBtn?.addEventListener('click', () => {
+    if (previewImg.src) URL.revokeObjectURL(previewImg.src);
+    previewImg.src = '';
+    watermarkedFile = null;
+    resultEl.classList.add('hidden');
+    zone.classList.remove('hidden');
+    fileInput.value = '';
+  });
+
+  const lightbox = document.getElementById('watermark-lightbox');
+  const lightboxImg = document.getElementById('watermark-lightbox-img');
+  previewImg?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (previewImg.src) {
+      lightboxImg.src = previewImg.src;
+      lightbox?.classList.add('open');
+    }
+  });
+  lightbox?.addEventListener('click', () => lightbox.classList.remove('open'));
+  lightboxImg?.addEventListener('click', (e) => e.stopPropagation());
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') lightbox?.classList.remove('open');
   });
 }
 

@@ -4,6 +4,10 @@
   "description": "夜桜の夢 - 東京出張サービス",
   "scripts": {
     "start": "npx serve . -p 3000",
-    "serve": "npx serve . -p 3000"
+    "serve": "npx serve . -p 3000",
+    "trim-logo": "node scripts/trim-logo.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5"
   }
 }

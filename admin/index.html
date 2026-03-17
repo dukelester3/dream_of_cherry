@@ -39,6 +39,7 @@
         <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
         <button class="admin-nav-btn" data-tab="about">👤 個人簡介</button>
         <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
+        <button class="admin-nav-btn" data-tab="watermark">🖼️ 浮水印工具</button>
         <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
       </nav>
       <div class="admin-sidebar-footer">
@@ -132,6 +133,33 @@
             <input type="text" id="github-repo" placeholder="dukelester3/dream_of_cherry">
           </div>
           <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
+        </div>
+      </div>
+
+      <!-- WATERMARK TOOL TAB -->
+      <div class="admin-tab hidden" id="tab-watermark">
+        <div class="tab-header"><h1>浮水印工具</h1></div>
+        <div class="export-section">
+          <p class="export-desc">上傳圖片後自動加上浮水印，可下載使用。與女孩/客評/日記上傳時使用的浮水印相同（不透明、右下角略偏左、較小）。</p>
+          <div class="watermark-tool-area">
+            <div class="watermark-upload-zone" id="watermark-upload-zone">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">點擊或拖曳圖片到此</span>
+              <span class="img-upload-hint">支援 JPG、PNG 等</span>
+              <input type="file" id="watermark-file-input" class="img-file-input" accept="image/*">
+            </div>
+            <div class="watermark-result hidden" id="watermark-result">
+              <div class="watermark-preview-wrap">
+                <img id="watermark-preview-img" src="" alt="浮水印預覽" title="點擊放大">
+              </div>
+              <p class="watermark-zoom-hint">點擊圖片可放大</p>
+              <button type="button" class="btn-admin-primary" id="watermark-download-btn">⬇ 下載加浮水印圖片</button>
+              <button type="button" class="btn-admin-secondary" id="watermark-reset-btn">重新選擇</button>
+            </div>
+          </div>
+          <div id="watermark-lightbox" class="watermark-lightbox">
+            <img id="watermark-lightbox-img" src="" alt="放大預覽">
+          </div>
         </div>
       </div>
 
