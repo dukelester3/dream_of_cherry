@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/18 上午1:23:27
+// Generated: 2026/3/18 上午1:39:50
 
 const siteData = {
   "about": {
@@ -958,6 +958,75 @@ const siteData = {
         "cup": "E",
         "age": 24,
         "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 41,
+      "titleJa": "番号7104",
+      "titleZh": "番號7104",
+      "titleEn": "Part No. 7104",
+      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fees)",
+      "contentJa": "🇯🇵| 店長推薦\n長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discounts (including transportation fees)",
+      "category": "出勤情報",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/SwKzFgws/photo-2025-09-18-12-14-52-2.jpg",
+      "image": "https://i.ibb.co/fzT7n0fx/photo-2025-09-18-12-14-52.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "F",
+        "age": 25,
+        "weight": 55
+      },
+      "published": true
+    },
+    {
+      "id": 42,
+      "titleJa": "番号7105",
+      "titleZh": "番號7105",
+      "titleEn": "Number 7105",
+      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Shop Manager's Recommendation: Long-term discount available (transportation included)",
+      "contentJa": "🇯🇵| 店長推薦\n長期間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discount available (transportation included)",
+      "category": "出勤情報",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/8LXF5QtV/photo-2025-09-18-12-18-45-2.jpg",
+      "image": "https://i.ibb.co/cc5ByvsX/photo-2025-09-18-12-18-45.jpg",
+      "stats": {
+        "height": 156,
+        "cup": "F",
+        "age": 48,
+        "weight": 22
+      },
+      "published": true
+    },
+    {
+      "id": 43,
+      "titleJa": "番号7106",
+      "titleZh": "番號7106",
+      "titleEn": "Number 7106",
+      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
+      "contentJa": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discounts available (including transportation costs)",
+      "category": "出勤情報",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/Zp63Ptr1/photo-2025-09-18-12-22-23.jpg",
+      "image": "https://i.ibb.co/1G6dL7Vy/photo-2025-09-18-12-22-23-2.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "E",
+        "age": 21,
+        "weight": 45
       },
       "published": true
     }
