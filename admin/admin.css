@@ -84,7 +84,7 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 .img-upload-hint { font-size: 0.78rem; color: var(--admin-muted); }
 .img-file-input { width: 0; height: 0; opacity: 0; position: absolute; }
 .img-upload-preview {
-  margin-top: 12px; border-radius: 8px; overflow: hidden; max-height: 160px;
+  margin-top: 12px; border-radius: 8px; overflow: visible;
   background: var(--admin-border);
 }
 .img-upload-preview img { width: 100%; height: auto; max-height: 160px; object-fit: contain; display: block; }
@@ -96,6 +96,8 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
   border-radius: 4px; transition: all 0.2s;
 }
 .img-change-btn:hover { border-color: var(--admin-gold); color: var(--admin-gold); }
+.img-change-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.img-watermark-hint { margin: 6px 0 0; font-size: 0.78rem; color: var(--admin-gold); }
 .img-upload-box .img-url-input { margin-top: 12px; width: 100%; }
 .login-error { margin-top: 12px; color: var(--admin-danger); font-size: 0.82rem; text-align: center; min-height: 20px; }
 .load-error-msg {

@@ -23,7 +23,7 @@ const GIRL_TYPE_OPTIONS = [
 ];
 const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
-const WATERMARK_LOGO = '../logo/219bad78b70c898504edc05741715f5a4a3a265a6d979ac1ffb25a35746aeb4d.png';
+const WATERMARK_LOGO = '../logo/logo.png';
 
 // ── 浮水印：上傳前將 logo 疊加到圖片 ──
 async function addWatermark(file) {
@@ -395,10 +395,11 @@ function setupModals() {
     const file = fileInput.files[0];
     const key = localStorage.getItem(IMGBB_KEY_STORAGE);
 
-    function setPreviewAndUrl(url) {
+    function setPreviewAndUrl(url, showWatermarkHint) {
       urlInput.value = url;
       if (previewEl) {
-        previewEl.innerHTML = `<img src="${url}" alt="預覽"><button type="button" class="img-change-btn">更換圖片</button>`;
+        const hint = showWatermarkHint ? '<p class="img-watermark-hint">✓ 已加浮水印</p>' : '';
+        previewEl.innerHTML = `<img src="${url}" alt="預覽">${hint}<button type="button" class="img-change-btn">更換圖片</button>`;
         previewEl.querySelector('.img-change-btn').onclick = () => {
           urlInput.value = '';
           previewEl.innerHTML = '';
@@ -419,8 +420,11 @@ function setupModals() {
       if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
       try {
         const watermarked = await addWatermark(file);
+        const previewUrl = URL.createObjectURL(watermarked);
+        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 處理中...</p>`;
         const reader = new FileReader();
         reader.onload = () => {
+          URL.revokeObjectURL(previewUrl);
           const dataUrl = reader.result;
           if (dataUrl.length > 800000) {
             if (previewEl) previewEl.innerHTML = '';
@@ -428,7 +432,7 @@ function setupModals() {
             alert('圖片過大，Base64 會讓 data.js 變大。建議：\n1. 壓縮圖片後再試\n2. 至「設定」填寫 ImgBB API Key 上傳');
             return;
           }
-          setPreviewAndUrl(dataUrl);
+          setPreviewAndUrl(dataUrl, true);
         };
         reader.readAsDataURL(watermarked);
       } catch (e) {
@@ -443,14 +447,18 @@ function setupModals() {
     if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
     try {
       const watermarked = await addWatermark(file);
-      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">上傳中...</div>';
+      const previewUrl = URL.createObjectURL(watermarked);
+      if (previewEl) {
+        previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><button type="button" class="img-change-btn" disabled>上傳中</button>`;
+      }
       const fd = new FormData();
       fd.append('key', key);
       fd.append('image', watermarked);
       const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
       const json = await res.json();
+      URL.revokeObjectURL(previewUrl);
       if (json.data?.url) {
-        setPreviewAndUrl(json.data.url);
+        setPreviewAndUrl(json.data.url, true);
       } else {
         if (area) area.style.display = '';
         if (previewEl) previewEl.innerHTML = '';
