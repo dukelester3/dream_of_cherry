@@ -486,6 +486,7 @@ function setupTabs() {
       if (tabEl) {
         tabEl.classList.remove('hidden');
         tabEl.classList.add('active');
+        if (btn.dataset.tab === 'export') updateStorageUsage();
       }
     });
   });
@@ -1295,6 +1296,70 @@ function deleteItem(type, id) {
 }
 
 // ── Export ──
+function formatBytes(bytes) {
+  if (bytes < 1024) return bytes + ' B';
+  if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(1) + ' KB';
+  return (bytes / (1024 * 1024)).toFixed(2) + ' MB';
+}
+
+const GITHUB_REPO_LIMIT_MB = 1024;
+
+async function updateStorageUsage() {
+  const el = document.getElementById('storage-usage');
+  if (!el) return;
+  const output = `// ===== 夜桜の夢 — Site Content Database =====
+// Generated: ${new Date().toLocaleString()}
+
+const siteData = ${JSON.stringify(adminData, null, 2)};
+
+if (typeof module !== 'undefined') module.exports = siteData;`;
+  const sizeBytes = new Blob([output]).size;
+  const dataStr = JSON.stringify(adminData);
+  const base64Matches = dataStr.match(/data:image[^"]+/g) || [];
+  const base64Count = base64Matches.length;
+  const base64Size = base64Matches.reduce((sum, m) => sum + m.length, 0);
+  const girls = (adminData.girls || []).length;
+  const reviews = (adminData.reviews || []).length;
+  const diary = (adminData.diary || []).length;
+  const warn = sizeBytes > 5 * 1024 * 1024 ? ' ⚠️ 超過 5MB，建議將 Base64 圖片改為 ImgBB 上傳' : (sizeBytes > 1024 * 1024 ? ' ⚠️ 超過 1MB' : '');
+
+  el.innerHTML = `<div class="storage-usage-inner">
+    <strong>data.js 預估大小：</strong> ${formatBytes(sizeBytes)}${warn}<br>
+    <span class="storage-detail">女孩 ${girls} 則 · 客評 ${reviews} 則 · 日記 ${diary} 則${base64Count ? ` · Base64 圖片 ${base64Count} 張（${formatBytes(base64Size)}）` : ''}</span>
+    <br><span class="storage-detail">取得剩餘空間中…</span>
+  </div>`;
+
+  let remainingHtml = '';
+  const token = localStorage.getItem(GITHUB_TOKEN_STORAGE);
+  const repo = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
+  if (token && repo) {
+    try {
+      const res = await fetch(`https://api.github.com/repos/${repo}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const usedKB = data.size || 0;
+        const usedMB = usedKB / 1024;
+        const remainingMB = Math.max(0, GITHUB_REPO_LIMIT_MB - usedMB);
+        remainingHtml = `<br><strong>剩餘空間：</strong> 約 ${remainingMB.toFixed(1)} MB（倉庫已使用約 ${usedMB.toFixed(1)} MB / ${GITHUB_REPO_LIMIT_MB} MB 限制）`;
+      } else {
+        remainingHtml = '<br><span class="storage-detail">無法取得倉庫大小（請檢查 Token 權限）</span>';
+      }
+    } catch (e) {
+      remainingHtml = '<br><span class="storage-detail">無法取得倉庫大小（請檢查網路或 Token）</span>';
+    }
+  } else {
+    remainingHtml = '<br><span class="storage-detail">設定 GitHub Token 與倉庫後可顯示剩餘空間</span>';
+  }
+
+  el.innerHTML = `<div class="storage-usage-inner">
+    <strong>data.js 預估大小：</strong> ${formatBytes(sizeBytes)}${warn}<br>
+    <span class="storage-detail">女孩 ${girls} 則 · 客評 ${reviews} 則 · 日記 ${diary} 則${base64Count ? ` · Base64 圖片 ${base64Count} 張（${formatBytes(base64Size)}）` : ''}</span>
+    ${remainingHtml}
+  </div>`;
+}
+
 function generateExport() {
   const output = `// ===== 夜桜の夢 — Site Content Database =====
 // Generated: ${new Date().toLocaleString()}
@@ -1305,6 +1370,7 @@ if (typeof module !== 'undefined') module.exports = siteData;`;
 
   document.getElementById('export-textarea').value = output;
   document.getElementById('export-output').classList.remove('hidden');
+  updateStorageUsage();
 }
 
 // ── Start ──
