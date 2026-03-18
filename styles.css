@@ -44,11 +44,11 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* 右上角固定 Logo（隨滾動可見，與下方內容區塊右邊距一致）*/
+/* 右上角固定 Logo（隨滾動可見，與右下角影片右邊距一致）*/
 .site-corner-logo {
   position: fixed;
   top: 72px;
-  right: max(32px, calc((100vw - 1160px) / 2 + 32px));
+  right: 20px;
   z-index: 100;
   width: 72px;
   max-width: 15vw;
@@ -65,7 +65,7 @@ html { scroll-behavior: smooth; }
 @media (max-width: 640px) {
   .site-corner-logo {
     top: 60px;
-    right: 32px;
+    right: 16px;
     width: 35px;
     max-width: 12vw;
   }
