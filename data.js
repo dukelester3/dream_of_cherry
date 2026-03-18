@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/19 上午2:04:43
+// Generated: 2026/3/19 上午2:13:41
 
 const siteData = {
   "about": {
@@ -1172,7 +1172,7 @@ const siteData = {
       "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "contentEn": "🇯🇵| Manager's Recommendation: Long-term discount (transportation fee included)",
       "category": "出勤情報",
-      "date": "3.19",
+      "date": "2026.3.19",
       "thumbnail": "https://i.ibb.co/8LD5BLbN/photo-2025-09-19-12-59-02-2.jpg",
       "image": "https://i.ibb.co/8LD5BLbN/photo-2025-09-19-12-59-02-2.jpg",
       "stats": {
