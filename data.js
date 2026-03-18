@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/18 上午2:04:01
+// Generated: 2026/3/18 下午5:17:12
 
 const siteData = {
   "about": {
@@ -1141,6 +1141,23 @@ const siteData = {
         "age": 21,
         "weight": 46
       },
+      "published": true
+    },
+    {
+      "id": 49,
+      "titleJa": "📢 ちょっとしたお知らせ",
+      "titleZh": "📢 小提醒公告",
+      "titleEn": "Friendly Reminder",
+      "excerpt": "当店に短期アルバイトに来る女の子は、ほとんどが本業を持っています。",
+      "excerptZh": "來本店短期兼職的女孩，大多數都有自己的正職工作。",
+      "excerptEn": "Most girls working short-term part-time at our store also have full-time jobs.",
+      "contentJa": "お客様各位\n\n短期アルバイトの女性スタッフのプライバシーと安全を守るため、サービス中に万が一、女性の顔を認識してしまったり、個人情報に触れることがあった場合でも、どうか心に留めておき、ご本人に直接尋ねたり、話題にしたりすることは固くお控えください。\n\n当店で短期アルバイトとして働く女性のほとんどは、",
+      "contentZh": "親愛的各位兄弟：\n為了保護短期兼職女孩的隱私與安全，若在服務過程中不小心滑到女孩的臉，或發現女孩的相關資訊，請您默默享受即可，請勿主動詢問或提及。\n\n來本店短期兼職的女孩，大多數都有自己的正職工作。\n\n因此，我們特別希望大家能共同維護她們的隱私。\n也因為如此，您才能在這裡享受到來自各行各業、不同職業女孩所帶來的優質服務💕\n感謝您的理解與配合，讓我們一起創造安心、愉快的體驗！🥰",
+      "contentEn": "Dear gentlemen,\nTo protect the privacy and safety of our short-term part-time girls, if you accidentally catch a glimpse of a girl's face during the service, or discover any information about her, please simply enjoy the experience silently, and do not actively ask or mention it.\n\nMost of the girls who work part-time here have their own full-time jobs.\n\nTherefore, we especially hope that everyone can jointly uphold their privacy.\nIt is precisely for this reason that you can enjoy the high-quality service provided by girls from all walks of life and diverse professions.\nThank you for your understanding and cooperation, and let us work together to create a safe and pleasant experience!",
+      "category": "日記",
+      "date": "2026.3.18",
+      "thumbnail": "https://i.ibb.co/BKzmSXyX/photo-2026-03-18-16-56-45.jpg",
+      "stats": null,
       "published": true
     }
   ]
