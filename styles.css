@@ -44,13 +44,14 @@
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 
-/* 右上角固定 Logo（隨滾動可見）*/
+/* 右上角固定 Logo（隨滾動可見，使用 logo-trimmed 無留白緊貼右側）*/
 .site-corner-logo {
   position: fixed;
   top: 72px;
-  right: 20px;
+  right: 0;
   z-index: 100;
   width: 288px;
+  max-width: 45vw;
   height: auto;
   pointer-events: none;
 }
@@ -58,6 +59,16 @@ html { scroll-behavior: smooth; }
   width: 100%;
   height: auto;
   display: block;
+  object-fit: contain;
+  object-position: right top;
+}
+@media (max-width: 640px) {
+  .site-corner-logo {
+    top: 60px;
+    right: 4px;
+    width: 140px;
+    max-width: 38vw;
+  }
 }
 
 body {

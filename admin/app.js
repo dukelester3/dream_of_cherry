@@ -147,6 +147,9 @@ function showDashboard() {
   setupTabs();
   setupModals();
   renderAll();
+  if (localStorage.getItem(GITHUB_TOKEN_STORAGE)) {
+    loadFromGitHub({ silent: true });
+  }
 }
 
 // ── Data ──
@@ -176,6 +179,74 @@ function loadData() {
 
 function saveData() {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(adminData));
+}
+
+function getTodayDateStr() {
+  const d = new Date();
+  return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()}`;
+}
+
+function getNowStr() {
+  const d = new Date();
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+}
+
+function getDiarySortKey(d) {
+  return d.createdAt || (d.date ? d.date + ' 00:00:00' : '');
+}
+
+function extractBangouFromTitle(title) {
+  if (!title || typeof title !== 'string') return null;
+  const m = title.match(/番[号號](\d+)/);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function getUsedBangouList(excludeDiaryId) {
+  return (adminData.diary || [])
+    .filter(d => d.category === '出勤情報' && d.id !== excludeDiaryId)
+    .map(d => extractBangouFromTitle(d.titleZh) || extractBangouFromTitle(d.titleJa))
+    .filter(n => n != null);
+}
+
+function getNextBangou(excludeDiaryId) {
+  const used = getUsedBangouList(excludeDiaryId);
+  const max = used.length ? Math.max(...used) : 7099;
+  return max + 1;
+}
+
+function setupDiaryFormHelpers(editingId) {
+  const catEl = document.getElementById('f-category');
+  const titleZhEl = document.getElementById('f-titleZh');
+  const titleJaEl = document.getElementById('f-titleJa');
+  const titleEnEl = document.getElementById('f-titleEn');
+  if (!catEl || !titleZhEl) return;
+
+  function fillNextBangou() {
+    const next = getNextBangou(editingId);
+    titleZhEl.value = '番號' + next;
+    titleJaEl.value = '番号' + next;
+    if (titleEnEl) titleEnEl.value = 'No. ' + next;
+  }
+
+  if (catEl.value === '出勤情報' && !titleZhEl.value.trim()) fillNextBangou();
+
+  catEl.addEventListener('change', () => {
+    if (catEl.value === '出勤情報' && !titleZhEl.value.trim()) fillNextBangou();
+  });
+
+  function checkDuplicateBangou() {
+    if (catEl.value !== '出勤情報') return;
+    const num = extractBangouFromTitle(titleZhEl.value) || extractBangouFromTitle(titleJaEl.value);
+    if (num == null) return;
+    const used = getUsedBangouList(editingId);
+    if (used.includes(num)) {
+      alert('該番號已被使用過，請更換其他番號。');
+    }
+  }
+
+  titleZhEl.addEventListener('blur', checkDuplicateBangou);
+  titleJaEl.addEventListener('blur', checkDuplicateBangou);
 }
 
 // ── Tabs ──
@@ -217,16 +288,29 @@ function saveGitHubSettings() {
 // ── 合併本地與遠端資料，避免多人編輯互相覆蓋 ──
 function mergeDataLocalWithRemote(local, remote) {
   if (!remote || typeof remote !== 'object') return local;
-  const merged = { ...local };
+  return mergeTwoData(local, remote);
+}
+
+// ── 合併兩份完整資料（用於合併匯入）──
+function mergeTwoData(dataA, dataB) {
+  if (!dataA || !dataB) return dataA || dataB;
+  const merged = { ...dataA };
   for (const key of ['girls', 'reviews', 'diary']) {
-    if (!Array.isArray(local[key]) || !Array.isArray(remote[key])) continue;
+    const arrA = dataA[key];
+    const arrB = dataB[key];
+    if (!Array.isArray(arrA) && !Array.isArray(arrB)) continue;
     const map = new Map();
-    remote[key].forEach(item => map.set(item.id, { ...item }));
-    local[key].forEach(item => map.set(item.id, { ...item }));
+    (arrB || []).forEach(item => map.set(item.id, { ...item }));
+    (arrA || []).forEach(item => map.set(item.id, { ...item }));
     let arr = Array.from(map.values());
     if (key === 'girls') arr.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-    else if (key === 'diary' || key === 'reviews') arr.sort((a, b) => (b.id || 0) - (a.id || 0));
+    else if (key === 'diary') arr.sort((a, b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a)));
+    else if (key === 'reviews') arr.sort((a, b) => (b.id || 0) - (a.id || 0));
     merged[key] = arr;
+  }
+  if (dataB.about) {
+    const photoSet = new Set([...(dataA.about?.photos || []), ...(dataB.about?.photos || [])]);
+    merged.about = { ...dataA.about, ...dataB.about, photos: [...photoSet] };
   }
   return merged;
 }
@@ -240,16 +324,17 @@ function parseDataJsContent(decoded) {
   }
 }
 
-async function loadFromGitHub() {
+async function loadFromGitHub(opts = {}) {
+  const silent = opts.silent === true;
   const token = localStorage.getItem(GITHUB_TOKEN_STORAGE);
   const repo = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
   if (!token) {
-    alert('請先至「設定」分頁填入 GitHub Token');
+    if (!silent) alert('請先至「設定」分頁填入 GitHub Token');
     return;
   }
   const [owner, repoName] = repo.split('/').map(s => s.trim());
   if (!owner || !repoName) {
-    alert('請設定正確的倉庫格式：owner/repo');
+    if (!silent) alert('請設定正確的倉庫格式：owner/repo');
     return;
   }
   const btn = document.getElementById('reload-from-github-btn');
@@ -268,9 +353,10 @@ async function loadFromGitHub() {
     if (!adminData.about && typeof siteData !== 'undefined') adminData.about = { ...siteData.about };
     saveData();
     renderAll();
-    alert('已從 GitHub 載入最新資料');
+    if (!silent) alert('已從 GitHub 載入最新資料');
   } catch (err) {
-    alert('載入失敗：' + (err.message || err));
+    if (!silent) alert('載入失敗：' + (err.message || err));
+    else console.warn('自動從 GitHub 載入失敗:', err.message);
   } finally {
     if (btn) { btn.disabled = false; btn.textContent = origText || '📥 從 GitHub 載入最新'; }
   }
@@ -391,6 +477,34 @@ function setupTabs() {
     if (confirm('將清除後台快取，從 data.js 重新載入最新資料。未儲存的編輯會遺失，確定嗎？')) {
       localStorage.removeItem(STORAGE_KEY);
       location.reload();
+    }
+  });
+  document.getElementById('merge-import-btn')?.addEventListener('click', () => {
+    const ta = document.getElementById('merge-input');
+    const resultEl = document.getElementById('merge-result');
+    const raw = ta?.value?.trim();
+    if (!raw) {
+      resultEl.textContent = '請先貼上 data.js 內容';
+      return;
+    }
+    try {
+      const other = parseDataJsContent(raw);
+      if (!other || !other.diary) {
+        resultEl.textContent = '無法解析，請確認貼上的是完整的 data.js';
+        return;
+      }
+      const beforeDiary = (adminData.diary || []).length;
+      const beforeIds = new Set((adminData.diary || []).map(d => d.id));
+      adminData = mergeTwoData(adminData, other);
+      saveData();
+      renderAll();
+      const afterDiary = (adminData.diary || []).length;
+      const added = afterDiary - beforeDiary;
+      const newIds = (adminData.diary || []).filter(d => !beforeIds.has(d.id)).map(d => d.id);
+      resultEl.textContent = `合併完成！日記 ${beforeDiary} → ${afterDiary}（新增 ${added} 則，id: ${newIds.join(', ') || '-'}）`;
+      ta.value = '';
+    } catch (e) {
+      resultEl.textContent = '合併失敗：' + (e.message || e);
     }
   });
   const imgbbInput = document.getElementById('imgbb-key');
@@ -537,12 +651,12 @@ function renderReviewsTable() {
 
 function renderDiaryTable() {
   const tbody = document.getElementById('diary-tbody');
-  tbody.innerHTML = [...adminData.diary].sort((a,b) => b.date.localeCompare(a.date)).map(d => `
+  tbody.innerHTML = [...adminData.diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => `
     <tr>
       <td>${d.thumbnail ? `<img src="${d.thumbnail}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
       <td><strong>${d.titleZh}</strong></td>
       <td>${d.category}</td>
-      <td>${d.date}</td>
+      <td>${d.createdAt || d.date}</td>
       <td><span class="status-badge ${d.published ? 'status-active' : 'status-inactive'}">${d.published ? '發布' : '草稿'}</span></td>
       <td class="action-btns">
         <button class="btn-edit" onclick="openModal('diary', ${d.id})">編輯</button>
@@ -835,7 +949,7 @@ function openModal(type, id) {
       <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:100px" placeholder="翻譯後自動填入">${item?.contentEn||''}</textarea></div>
       <div class="form-row">
         <div class="form-group"><label>分類</label><select id="f-category"><option ${item?.category==='出勤情報'?'selected':''}>出勤情報</option><option ${item?.category==='客戶反饋'?'selected':''}>客戶反饋</option><option ${item?.category==='日記'?'selected':''}>日記</option><option ${item?.category==='お知らせ'?'selected':''}>お知らせ</option></select></div>
-        <div class="form-group"><label>日期(YYYY.MM.DD)</label><input id="f-date" value="${item?.date||''}"></div>
+        <div class="form-group"><label>建立時間(YYYY.M.D HH:mm:ss)</label><input id="f-date" value="${item?.createdAt||item?.date||getNowStr()}" placeholder="例：2026.3.18 17:30:45"></div>
       </div>
       <div class="form-group">
         <label>縮圖（列表卡片用）</label>
@@ -875,6 +989,7 @@ function openModal(type, id) {
 
   modal.classList.remove('hidden');
   setupTranslateButtons();
+  if (type === 'diary') setupDiaryFormHelpers(id);
   document.querySelectorAll('.img-upload-box').forEach(box => {
     const targetId = box.dataset.target;
     const urlInput = document.getElementById(targetId);
@@ -1032,6 +1147,19 @@ function saveReview() {
 }
 
 function saveDiary() {
+  const category = document.getElementById('f-category')?.value;
+  const titleZh = document.getElementById('f-titleZh')?.value || '';
+  const titleJa = document.getElementById('f-titleJa')?.value || '';
+  if (category === '出勤情報') {
+    const num = extractBangouFromTitle(titleZh) || extractBangouFromTitle(titleJa);
+    if (num != null) {
+      const used = getUsedBangouList(editingId);
+      if (used.includes(num)) {
+        alert('該番號已被使用過，請更換其他番號。');
+        return;
+      }
+    }
+  }
   const sh = document.getElementById('f-sh').value;
   const sc = document.getElementById('f-sc').value;
   const sa = document.getElementById('f-sa').value;
@@ -1053,7 +1181,8 @@ function saveDiary() {
     contentZh: document.getElementById('f-contentZh').value,
     contentEn: document.getElementById('f-contentEn').value,
     category: document.getElementById('f-category').value,
-    date: document.getElementById('f-date').value,
+    date: (() => { const v = document.getElementById('f-date').value; return v ? v.split(' ')[0] : ''; })(),
+    createdAt: document.getElementById('f-date').value || (editingId ? undefined : getNowStr()),
     thumbnail: document.getElementById('f-thumbnail').value,
     image: document.getElementById('f-diary-image')?.value || undefined,
     stats,
