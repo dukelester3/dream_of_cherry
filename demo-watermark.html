@@ -43,7 +43,9 @@
   </div>
   <div class="spec">
     <strong>浮水印設定：</strong><br>
-    • 位置：右下角<br>
+    • 先裁切為 2:3（與 Gallery、日記顯示比例一致），再上浮水印<br>
+    • 裁切邏輯：橫圖裁左右置中、直圖裁下方保留上方<br>
+    • 浮水印位置：右下角<br>
     • 大小：約 1/16 面積，略偏左<br>
     • 透明度：100%（不透明）<br>
     • Logo 路徑：<code>logo/logo-trimmed.png</code>（已裁切空白）
@@ -100,21 +102,44 @@
       }
     };
 
+    const CROP_ASPECT = 2 / 3;
     async function addWatermark(file) {
       return new Promise((resolve) => {
         const img = new Image();
         const objectUrl = URL.createObjectURL(file);
         img.onload = () => {
+          const imgRatio = img.width / img.height;
+          let outW, outH, sx, sy, sw, sh;
+          if (imgRatio > CROP_ASPECT) {
+            outH = img.height;
+            outW = Math.round(img.height * CROP_ASPECT);
+            sx = Math.round((img.width - outW) / 2);
+            sy = 0;
+            sw = outW;
+            sh = img.height;
+          } else if (imgRatio < CROP_ASPECT) {
+            outW = img.width;
+            outH = Math.round(img.width / CROP_ASPECT);
+            sx = sy = 0;
+            sw = img.width;
+            sh = outH;
+          } else {
+            outW = img.width;
+            outH = img.height;
+            sx = sy = 0;
+            sw = img.width;
+            sh = img.height;
+          }
           const canvas = document.createElement('canvas');
-          canvas.width = img.width;
-          canvas.height = img.height;
+          canvas.width = outW;
+          canvas.height = outH;
           const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0);
+          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
           const logoImg = new Image();
           logoImg.crossOrigin = 'anonymous';
           logoImg.onload = () => {
-            const cellW = img.width / 4;
-            const cellH = img.height / 4;
+            const cellW = outW / 4;
+            const cellH = outH / 4;
             let logoW, logoH;
             if (logoImg.width / logoImg.height >= cellW / cellH) {
               logoW = cellW;
@@ -124,9 +149,9 @@
               logoW = (logoImg.width / logoImg.height) * logoH;
             }
             const pad = 4;
-            const leftOffset = img.width * 0.08;
-            const x = img.width - logoW - pad - leftOffset;
-            const y = img.height - logoH - pad;
+            const leftOffset = outW * 0.08;
+            const x = outW - logoW - pad - leftOffset;
+            const y = outH - logoH - pad;
             ctx.globalAlpha = 1;
             ctx.drawImage(logoImg, x, y, logoW, logoH);
             ctx.globalAlpha = 1;

@@ -333,8 +333,16 @@ function renderDiary(lang, cat, page) {
       ${p.stats.age ? `<span>${p.stats.age}${ageUnit}</span>` : ''}
       ${p.stats.weight ? `<span>${p.stats.weight}kg</span>` : ''}
     </div>` : '';
+    const imgs = p.images?.length ? p.images : [p.thumbnail, p.image].filter(Boolean);
+    const thumbHtml = imgs.length >= 2
+      ? `<div class="diary-thumb diary-thumb-carousel diary-thumb-n${imgs.length}">
+          ${imgs.map(url => `<img src="${resolveImgUrl(url)}" alt="${title}" class="diary-thumb-img" loading="lazy">`).join('')}
+        </div>`
+      : imgs.length === 1
+        ? `<div class="diary-thumb"><img src="${resolveImgUrl(imgs[0])}" alt="${title}" loading="lazy"></div>`
+        : '';
     return `<article class="diary-card" data-id="${p.id}">
-      ${p.thumbnail ? `<div class="diary-thumb"><img src="${resolveImgUrl(p.thumbnail)}" alt="${title}" loading="lazy"></div>` : ''}
+      ${thumbHtml}
       <div class="diary-body">
         <div class="diary-meta">
           <span class="diary-date">${p.createdAt || p.date}</span>
@@ -401,9 +409,12 @@ function openDiaryModal(id, lang) {
     ${post.stats.weight ? `<span>⚖️ ${post.stats.weight}kg</span>` : ''}
   </div>` : '';
 
-  const modalImg = post.image || post.thumbnail;
+  const modalImgs = post.images?.length ? post.images : [post.image, post.thumbnail].filter(Boolean);
+  const modalImgHtml = modalImgs.length
+    ? modalImgs.map((url, i) => `<img src="${resolveImgUrl(url)}" class="diary-modal-img" alt="${title}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')
+    : '';
   document.getElementById('diary-modal-body').innerHTML = `
-    ${modalImg ? `<img src="${resolveImgUrl(modalImg)}" class="diary-modal-img" alt="${title}">` : ''}
+    ${modalImgHtml ? `<div class="diary-modal-imgs">${modalImgHtml}</div>` : ''}
     <div class="diary-modal-header">
       <div class="diary-meta"><span class="diary-date">${post.createdAt || post.date}</span><span class="diary-cat">${getDiaryCatLabel(post.category, lang)}</span></div>
       <h2>${title}</h2>

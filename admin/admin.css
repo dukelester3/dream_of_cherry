@@ -72,6 +72,7 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 
 /* 圖片上傳區塊（一般使用者易懂） */
 .img-upload-box { margin-top: 8px; }
+.diary-images-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 8px; }
 .img-upload-area {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 8px; padding: 24px 16px;

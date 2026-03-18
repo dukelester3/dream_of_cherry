@@ -25,22 +25,49 @@ const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
 const WATERMARK_LOGO = '../logo/logo-trimmed.png';
 
-// ── 浮水印：上傳前將 logo 疊加到圖片 ──
+// ── 裁切 + 浮水印：先裁成 2:3（top center）再疊 logo，確保顯示時浮水印不被裁掉 ──
+const CROP_ASPECT = 2 / 3; // 與 Gallery、日記顯示比例一致
+
 async function addWatermark(file) {
   return new Promise((resolve) => {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
     img.onload = () => {
+      const imgRatio = img.width / img.height;
+      let outW, outH, sx, sy, sw, sh;
+      if (imgRatio > CROP_ASPECT) {
+        // 橫圖：裁左右，保留上方置中
+        outH = img.height;
+        outW = Math.round(img.height * CROP_ASPECT);
+        sx = Math.round((img.width - outW) / 2);
+        sy = 0;
+        sw = outW;
+        sh = img.height;
+      } else if (imgRatio < CROP_ASPECT) {
+        // 直圖：裁下方，保留上方
+        outW = img.width;
+        outH = Math.round(img.width / CROP_ASPECT);
+        sx = 0;
+        sy = 0;
+        sw = img.width;
+        sh = outH;
+      } else {
+        outW = img.width;
+        outH = img.height;
+        sx = sy = 0;
+        sw = img.width;
+        sh = img.height;
+      }
       const canvas = document.createElement('canvas');
-      canvas.width = img.width;
-      canvas.height = img.height;
+      canvas.width = outW;
+      canvas.height = outH;
       const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
       const logoImg = new Image();
       logoImg.crossOrigin = 'anonymous';
       logoImg.onload = () => {
-        const cellW = img.width / 4;
-        const cellH = img.height / 4;
+        const cellW = outW / 4;
+        const cellH = outH / 4;
         let logoW, logoH;
         if (logoImg.width / logoImg.height >= cellW / cellH) {
           logoW = cellW;
@@ -50,9 +77,9 @@ async function addWatermark(file) {
           logoW = (logoImg.width / logoImg.height) * logoH;
         }
         const pad = 4;
-        const leftOffset = img.width * 0.08;
-        const x = img.width - logoW - pad - leftOffset;
-        const y = img.height - logoH - pad;
+        const leftOffset = outW * 0.08;
+        const x = outW - logoW - pad - leftOffset;
+        const y = outH - logoH - pad;
         ctx.globalAlpha = 1;
         ctx.drawImage(logoImg, x, y, logoW, logoH);
         ctx.globalAlpha = 1;
@@ -651,9 +678,11 @@ function renderReviewsTable() {
 
 function renderDiaryTable() {
   const tbody = document.getElementById('diary-tbody');
-  tbody.innerHTML = [...adminData.diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => `
+  tbody.innerHTML = [...adminData.diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => {
+    const thumb = d.images?.[0] ?? d.thumbnail;
+    return `
     <tr>
-      <td>${d.thumbnail ? `<img src="${d.thumbnail}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
+      <td>${thumb ? `<img src="${thumb}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
       <td><strong>${d.titleZh}</strong></td>
       <td>${d.category}</td>
       <td>${d.createdAt || d.date}</td>
@@ -663,7 +692,8 @@ function renderDiaryTable() {
         <button class="btn-danger" onclick="deleteItem('diary', ${d.id})">刪除</button>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 // ── Modal ──
@@ -952,27 +982,35 @@ function openModal(type, id) {
         <div class="form-group"><label>建立時間(YYYY.M.D HH:mm:ss)</label><input id="f-date" value="${item?.createdAt||item?.date||getNowStr()}" placeholder="例：2026.3.18 17:30:45"></div>
       </div>
       <div class="form-group">
-        <label>縮圖（列表卡片用）</label>
-        <div class="img-upload-box" data-target="f-thumbnail">
-          <label class="img-upload-area" for="f-thumbnail-file">
-            <span class="img-upload-icon">📷</span>
-            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
-          </label>
-          <input type="file" id="f-thumbnail-file" accept="image/*" class="img-file-input">
-          <div class="img-upload-preview" id="f-thumbnail-preview"></div>
-          <input id="f-thumbnail" value="${item?.thumbnail||''}" class="img-url-input" placeholder="上傳後自動填入">
-        </div>
-      </div>
-      <div class="form-group">
-        <label>內容圖片（選填，彈窗大圖用）</label>
-        <div class="img-upload-box" data-target="f-diary-image">
-          <label class="img-upload-area" for="f-diary-image-file">
-            <span class="img-upload-icon">📷</span>
-            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
-          </label>
-          <input type="file" id="f-diary-image-file" accept="image/*" class="img-file-input">
-          <div class="img-upload-preview" id="f-diary-image-preview"></div>
-          <input id="f-diary-image" value="${item?.image||''}" class="img-url-input" placeholder="上傳後自動填入">
+        <label>圖片（選填，最多 3 張，列表卡片會動態切換顯示）</label>
+        <div class="diary-images-row">
+          <div class="img-upload-box" data-target="f-diary-images-0">
+            <label class="img-upload-area" for="f-diary-images-0-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 1</span>
+            </label>
+            <input type="file" id="f-diary-images-0-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-diary-images-0-preview"></div>
+            <input id="f-diary-images-0" value="${(item?.images?.[0] ?? item?.thumbnail ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
+          <div class="img-upload-box" data-target="f-diary-images-1">
+            <label class="img-upload-area" for="f-diary-images-1-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 2</span>
+            </label>
+            <input type="file" id="f-diary-images-1-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-diary-images-1-preview"></div>
+            <input id="f-diary-images-1" value="${(item?.images?.[1] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
+          <div class="img-upload-box" data-target="f-diary-images-2">
+            <label class="img-upload-area" for="f-diary-images-2-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 3</span>
+            </label>
+            <input type="file" id="f-diary-images-2-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-diary-images-2-preview"></div>
+            <input id="f-diary-images-2" value="${(item?.images?.[2] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
         </div>
       </div>
       <div class="form-row">
@@ -1170,6 +1208,9 @@ function saveDiary() {
     age: sa ? parseInt(sa) : undefined,
     weight: sw ? parseInt(sw) : undefined
   } : null;
+  const images = [0, 1, 2]
+    .map(i => document.getElementById(`f-diary-images-${i}`)?.value?.trim() || '')
+    .filter(Boolean);
   const data = {
     titleJa: document.getElementById('f-titleJa').value,
     titleZh: document.getElementById('f-titleZh').value,
@@ -1183,8 +1224,8 @@ function saveDiary() {
     category: document.getElementById('f-category').value,
     date: (() => { const v = document.getElementById('f-date').value; return v ? v.split(' ')[0] : ''; })(),
     createdAt: document.getElementById('f-date').value || (editingId ? undefined : getNowStr()),
-    thumbnail: document.getElementById('f-thumbnail').value,
-    image: document.getElementById('f-diary-image')?.value || undefined,
+    images: images.length ? images : undefined,
+    thumbnail: images[0] || undefined,
     stats,
     published: document.getElementById('f-published').value === 'true'
   };
