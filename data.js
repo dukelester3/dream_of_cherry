@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/18 下午5:17:12
+// Generated: 3/18/2026, 8:36:38 PM
 
 const siteData = {
   "about": {
@@ -45,7 +45,7 @@ const siteData = {
         "Innocent",
         "AV Exp."
       ],
-      "image": "https://i.ibb.co/kYc0Wz3/17f2f4e84b7f492c06cf061445a01bf2.jpg",
+      "image": "https://i.ibb.co/h1FYdgGZ/17f2f4e84b7f492c06cf061445a01bf2.jpg",
       "active": true,
       "order": 1
     },
@@ -73,7 +73,7 @@ const siteData = {
         "Amateur",
         "Sexy"
       ],
-      "image": "https://i.ibb.co/GQWK9kNm/18dcf2d6221cd5af79077be6eecfa091.jpg",
+      "image": "https://i.ibb.co/0RdtfnvR/18dcf2d6221cd5af79077be6eecfa091.jpg",
       "active": true,
       "order": 2
     },
@@ -98,7 +98,7 @@ const siteData = {
       "typesEn": [
         "Busty"
       ],
-      "image": "https://i.ibb.co/CpnHymZ8/6197ad6dd36a271ce1386ab0346970b3.jpg",
+      "image": "https://i.ibb.co/Dgj0KHSm/6197ad6dd36a271ce1386ab0346970b3.jpg",
       "active": true,
       "order": 3
     },
@@ -126,7 +126,7 @@ const siteData = {
         "Cute",
         "Innocent"
       ],
-      "image": "https://i.ibb.co/B8rMxj9/S-28147862.jpg",
+      "image": "https://i.ibb.co/4nxnGLLr/S-28147862.jpg",
       "active": true,
       "order": 4
     },
@@ -157,7 +157,7 @@ const siteData = {
         "Premium",
         "Sexy"
       ],
-      "image": "https://i.ibb.co/TMqrCjR7/message-Image-1773668984270.jpg",
+      "image": "https://i.ibb.co/Wv0sLBR9/message-Image-1773668984270.jpg",
       "active": true,
       "order": 5
     },
@@ -185,7 +185,7 @@ const siteData = {
         "Busty",
         "Amateur"
       ],
-      "image": "https://i.ibb.co/mCxQYncm/message-Image-1773669115468.jpg",
+      "image": "https://i.ibb.co/6cKbhKX9/message-Image-1773669115468.jpg",
       "active": true,
       "order": 6
     }
@@ -857,7 +857,7 @@ const siteData = {
       "titleJa": "番号7100",
       "titleZh": "番號7100",
       "titleEn": "Serial number 7100",
-      "excerpt": "店長推薦 長時間割引（交通費込み）",
+      "excerpt": "店長のおすすめ 長時間割引（交通費込み）",
       "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "contentJa": "🇯🇵| 店長のおすすめ\n長時間割引あり（交通費込み）",
       "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
@@ -873,14 +873,14 @@ const siteData = {
         "weight": 46
       },
       "published": true,
-      "excerptEn": "Store Manager's Recommendation: Long-term discounts available (including transportation fees)."
+      "excerptEn": "Store Manager's Recommendation: Long-term discounts available (including transportation fees)"
     },
     {
       "id": 36,
       "titleJa": "番号7101",
       "titleZh": "番號7101",
       "titleEn": "No. 7101",
-      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
+      "excerpt": "🇯🇵| 店長推薦 長時間有折扣（包含交通費）  ",
       "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "contentJa": "🇯🇵| 店長推薦\n長時間割引（交通費込み）",
       "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
@@ -895,15 +895,14 @@ const siteData = {
         "age": 25,
         "weight": 48
       },
-      "published": true,
-      "excerptEn": "🇯🇵| Manager's Recommendation: Extended discount (transportation fees included)"
+      "published": true
     },
     {
       "id": 38,
       "titleJa": "番號7102",
       "titleZh": "番號7102",
       "titleEn": "番號7102",
-      "excerpt": "店長推薦 長時間割引（交通費込み）",
+      "excerpt": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
       "contentJa": "🇯🇵| 店長推薦\n長期間割引（交通費込み）",
       "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
@@ -918,246 +917,6 @@ const siteData = {
         "age": 27,
         "weight": 50
       },
-      "published": true,
-      "excerptEn": "🇯🇵| Store Manager's Recommendation: Long-term discounts available (including transportation fees)"
-    },
-    {
-      "id": 39,
-      "titleJa": "パートの女の子とフルタイムの女の子のサービスの違い",
-      "titleZh": "兼職女孩和全職女孩服務區別",
-      "titleEn": "Difference between part-time girl and full-time girl services",
-      "excerpt": "当店の子たちは短期のアルバイトがほとんどであるため、長く働いているプロの子たちとは少し異なる場合がございます。",
-      "excerptZh": "由於本店的女孩大多是短期兼職，她們可能與那些長期工作的專業女孩有些差異。",
-      "excerptEn": "Since most of the girls at our establishment are short-term part-timers, they may differ somewhat from long-term professional girls.",
-      "contentJa": "当店の女の子はほとんどが短期のアルバイトであるため、長期で働くプロの女の子とは少し異なる点があるかもしれません。\n\nもし、お客様が女の子との面会中やサービス中に、何かご期待に沿わない点があった場合、サービス内容に関する問題でも、お客様が不快に感じた点でも、必ずすぐに私にお伝えください！\n\n私は常にオンラインで対応しております",
-      "contentZh": "由於本店的女孩大多是短期兼職，她們可能與那些長期工作的專業女孩有些差異。\n\n如果在您與女孩見面或服務過程中，發現有任何不符合您預期的情況，無論是服務過程中的問題還是您不舒服的地方，請一定要第一時間告訴我！\n\n我會隨時在線，並優先處理您的需求。\n我並不希望您默默忍受，也不希望您認為這是無所謂的事。\n任何不舒服的地方，無論是情緒還是服務問題，都可以隨時告訴我。\n\n每一次的放縱或容忍，可能會變成無數次的不愉快。\n對於來到本店的每一位客人，我從不僅僅視作顧客，我會把您視作遠道而來的朋友來對待。\n也正因如此，我希望您能在放鬆的過程中，沒有任何壓力，並且享受每一刻的愉悅。\n\n本店一直秉持著讓每一位來到這裡的客人都能開心地度過，並快樂地結束每一次的服務過程。\n\n我也深感謝那些一直支持我、信任我的朋友們，因為有你們的支持，這一切才有了更深的意義。❤️🥰",
-      "contentEn": "As most of the girls at our establishment are short-term part-timers, they might differ somewhat from professional girls who work long-term.\n\nIf, during your meeting with a girl or the service, you find anything that doesn't meet your expectations, whether it's an issue with the service itself or something that makes you uncomfortable, please make sure to tell me immediately!\n\nI will be online at all times and will prioritize addressing your needs.\nI don't want you to silently endure it, nor do I want you to think it's insignificant.\nAny discomfort, whether emotional or a service issue, you can always tell me.\n\nEvery instance of letting things slide or tolerating something could turn into countless unpleasant experiences.\nFor every guest who comes to our establishment, I don't just see them as customers; I treat you as a friend who has traveled a long way.\nPrecisely because of this, I hope you can relax without any pressure and enjoy every moment of pleasure.\n\nOur establishment has always strived to ensure that every guest who comes here has a happy time and happily concludes each service.\n\nI am also deeply grateful to my friends who have always supported and trusted me, because with your support, all of this gains deeper meaning. ❤️🥰",
-      "category": "日記",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/93TNsb19/photo-2025-09-18-01-22-16.jpg",
-      "stats": null,
-      "published": true
-    },
-    {
-      "id": 40,
-      "titleJa": "番号7103",
-      "titleZh": "番號7103",
-      "titleEn": "No. 7103",
-      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fees)",
-      "contentJa": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discount (transportation included)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/pvDZwfm0/photo-2025-09-18-12-11-46-2.jpg",
-      "image": "https://i.ibb.co/jvdn1TQj/photo-2025-09-18-12-11-46.jpg",
-      "stats": {
-        "height": 158,
-        "cup": "E",
-        "age": 24,
-        "weight": 46
-      },
-      "published": true
-    },
-    {
-      "id": 41,
-      "titleJa": "番号7104",
-      "titleZh": "番號7104",
-      "titleEn": "Part No. 7104",
-      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fees)",
-      "contentJa": "🇯🇵| 店長推薦\n長時間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discounts (including transportation fees)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/SwKzFgws/photo-2025-09-18-12-14-52-2.jpg",
-      "image": "https://i.ibb.co/fzT7n0fx/photo-2025-09-18-12-14-52.jpg",
-      "stats": {
-        "height": 162,
-        "cup": "F",
-        "age": 25,
-        "weight": 55
-      },
-      "published": true
-    },
-    {
-      "id": 42,
-      "titleJa": "番号7105",
-      "titleZh": "番號7105",
-      "titleEn": "Number 7105",
-      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Shop Manager's Recommendation: Long-term discount available (transportation included)",
-      "contentJa": "🇯🇵| 店長推薦\n長期間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discount available (transportation included)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/8LXF5QtV/photo-2025-09-18-12-18-45-2.jpg",
-      "image": "https://i.ibb.co/cc5ByvsX/photo-2025-09-18-12-18-45.jpg",
-      "stats": {
-        "height": 156,
-        "cup": "F",
-        "age": 48,
-        "weight": 22
-      },
-      "published": true
-    },
-    {
-      "id": 43,
-      "titleJa": "番号7106",
-      "titleZh": "番號7106",
-      "titleEn": "Number 7106",
-      "excerpt": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
-      "contentJa": "🇯🇵| 店長推薦 長時間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discounts available (including transportation costs)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/Zp63Ptr1/photo-2025-09-18-12-22-23.jpg",
-      "image": "https://i.ibb.co/1G6dL7Vy/photo-2025-09-18-12-22-23-2.jpg",
-      "stats": {
-        "height": 163,
-        "cup": "E",
-        "age": 21,
-        "weight": 45
-      },
-      "published": true
-    },
-    {
-      "id": 44,
-      "titleJa": "番号7107",
-      "titleZh": "番號7107",
-      "titleEn": "No. 7107",
-      "excerpt": "店長推薦 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (transportation included)",
-      "contentJa": "🇯🇵| 店長のおすすめ\n長時間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Pick\nLong-term discount (transportation included)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/qQcQ0bV/photo-2025-09-18-12-23-39-2.jpg",
-      "image": "https://i.ibb.co/tw1Wykk0/photo-2025-09-18-12-23-39.jpg",
-      "stats": {
-        "height": 155,
-        "cup": "D",
-        "age": 19,
-        "weight": 42
-      },
-      "published": true
-    },
-    {
-      "id": 45,
-      "titleJa": "番号7108",
-      "titleZh": "番號7108",
-      "titleEn": "No. 7108",
-      "excerpt": "🇯🇵| 店長推薦 VIP限定 長時間割引あり（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 只接待VIP 長時間有折扣（包含交通費） ",
-      "excerptEn": "Manager's Recommendation: VIPs only. Long-term discount available (transportation fee included).",
-      "contentJa": "店長のおすすめ VIP限定 長時間割引あり（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦 只接待VIP\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation: VIPs Only\nLong-term discounts (transportation fees included)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/kgCFw8jv/photo-2025-09-18-12-24-57.jpg",
-      "stats": {
-        "height": 158,
-        "cup": "D",
-        "age": 20,
-        "weight": 44
-      },
-      "published": true
-    },
-    {
-      "id": 46,
-      "titleJa": "番号7109",
-      "titleZh": "番號7109",
-      "titleEn": "Part No. 7109",
-      "excerpt": "🇯🇵| 店長のおすすめ 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
-      "contentJa": "🇯🇵| 店長推薦\n長時間割引あり（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦\n長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Store Manager's Recommendation\nLong-term discount (including transportation fee)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/6chHz5pR/photo-2025-09-18-12-33-23.jpg",
-      "stats": {
-        "height": 157,
-        "cup": "E",
-        "age": 22,
-        "weight": 47
-      },
-      "published": true
-    },
-    {
-      "id": 47,
-      "titleJa": "番号7110",
-      "titleZh": "番號7110",
-      "titleEn": "Item number 7110",
-      "excerpt": "🇯🇵| 店長のおすすめ 長期割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "Manager's Recommendation: Long-term discount (including transportation fees)",
-      "contentJa": "🇯🇵| 店長推薦 長時間割引あり（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "contentEn": "Manager's Recommendation: Long-term discounts available (including transportation fees)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/svK3WdW5/photo-2025-09-18-12-36-04.jpg",
-      "image": "https://i.ibb.co/9HDRLTW0/photo-2025-09-18-12-36-05.jpg",
-      "stats": {
-        "height": 164,
-        "cup": "E",
-        "age": 25,
-        "weight": 48
-      },
-      "published": true
-    },
-    {
-      "id": 48,
-      "titleJa": "番号7111",
-      "titleZh": "番號7111",
-      "titleEn": "Number 7111",
-      "excerpt": "店長のおすすめ 長時間割引（交通費込み）",
-      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount available (transportation fee included).",
-      "contentJa": "🇯🇵| 店長推薦！長時間割引（交通費込み）",
-      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
-      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
-      "category": "出勤情報",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/qMx3mf6T/photo-2025-09-18-12-37-33.jpg",
-      "image": "https://i.ibb.co/5W4Hdgst/photo-2025-09-18-12-37-34.jpg",
-      "stats": {
-        "height": 150,
-        "cup": "D",
-        "age": 21,
-        "weight": 46
-      },
-      "published": true
-    },
-    {
-      "id": 49,
-      "titleJa": "📢 ちょっとしたお知らせ",
-      "titleZh": "📢 小提醒公告",
-      "titleEn": "Friendly Reminder",
-      "excerpt": "当店に短期アルバイトに来る女の子は、ほとんどが本業を持っています。",
-      "excerptZh": "來本店短期兼職的女孩，大多數都有自己的正職工作。",
-      "excerptEn": "Most girls working short-term part-time at our store also have full-time jobs.",
-      "contentJa": "お客様各位\n\n短期アルバイトの女性スタッフのプライバシーと安全を守るため、サービス中に万が一、女性の顔を認識してしまったり、個人情報に触れることがあった場合でも、どうか心に留めておき、ご本人に直接尋ねたり、話題にしたりすることは固くお控えください。\n\n当店で短期アルバイトとして働く女性のほとんどは、",
-      "contentZh": "親愛的各位兄弟：\n為了保護短期兼職女孩的隱私與安全，若在服務過程中不小心滑到女孩的臉，或發現女孩的相關資訊，請您默默享受即可，請勿主動詢問或提及。\n\n來本店短期兼職的女孩，大多數都有自己的正職工作。\n\n因此，我們特別希望大家能共同維護她們的隱私。\n也因為如此，您才能在這裡享受到來自各行各業、不同職業女孩所帶來的優質服務💕\n感謝您的理解與配合，讓我們一起創造安心、愉快的體驗！🥰",
-      "contentEn": "Dear gentlemen,\nTo protect the privacy and safety of our short-term part-time girls, if you accidentally catch a glimpse of a girl's face during the service, or discover any information about her, please simply enjoy the experience silently, and do not actively ask or mention it.\n\nMost of the girls who work part-time here have their own full-time jobs.\n\nTherefore, we especially hope that everyone can jointly uphold their privacy.\nIt is precisely for this reason that you can enjoy the high-quality service provided by girls from all walks of life and diverse professions.\nThank you for your understanding and cooperation, and let us work together to create a safe and pleasant experience!",
-      "category": "日記",
-      "date": "2026.3.18",
-      "thumbnail": "https://i.ibb.co/BKzmSXyX/photo-2026-03-18-16-56-45.jpg",
-      "stats": null,
       "published": true
     }
   ]
