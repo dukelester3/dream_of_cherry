@@ -259,11 +259,22 @@ function renderGallery(lang) {
     const statCup = lang === 'ja' ? 'カップ数' : lang === 'zh' ? '罩杯' : 'Cup';
     const statWeight = lang === 'ja' ? '体重' : lang === 'zh' ? '體重' : 'Weight';
     const ageUnit = lang === 'ja' ? '歳' : lang === 'zh' ? '歲' : 'yo';
+    const imgs = g.images?.length ? g.images : (g.image ? [g.image] : []);
+    const cardImgHtml = imgs.length >= 2
+      ? `<div class="card-img-wrap card-img-carousel card-img-n${imgs.length}">
+          ${imgs.map(url => `<img src="${resolveImgUrl(url)}" alt="${name}" class="card-img" loading="lazy">`).join('')}
+          <span class="card-badge">${badge}</span>
+        </div>`
+      : imgs.length === 1
+        ? `<div class="card-img-wrap">
+            <img src="${resolveImgUrl(imgs[0])}" alt="${name}" loading="lazy">
+            <span class="card-badge">${badge}</span>
+          </div>`
+        : `<div class="card-img-wrap">
+            <span class="card-badge">${badge}</span>
+          </div>`;
     return `<div class="gallery-card">
-      <div class="card-img-wrap">
-        <img src="${resolveImgUrl(g.image)}" alt="${name}" loading="lazy">
-        <span class="card-badge">${badge}</span>
-      </div>
+      ${cardImgHtml}
       <div class="card-info">
         <div class="card-name">${name}</div>
         <div class="card-stats card-stats-extracted">

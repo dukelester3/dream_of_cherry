@@ -640,10 +640,12 @@ function renderAll() {
 
 function renderGirlsTable() {
   const tbody = document.getElementById('girls-tbody');
-  tbody.innerHTML = [...adminData.girls].sort((a,b) => a.order - b.order).map(g => `
+  tbody.innerHTML = [...adminData.girls].sort((a,b) => a.order - b.order).map(g => {
+    const thumb = g.images?.[0] ?? g.image;
+    return `
     <tr>
       <td>${g.order}</td>
-      <td><img src="${g.image}" class="admin-thumb" onerror="this.style.display='none'"></td>
+      <td>${thumb ? `<img src="${thumb}" class="admin-thumb" onerror="this.style.display='none'">` : '-'}</td>
       <td><strong>${g.name}</strong><br><small style="color:#8a7a68">${g.nameZh} / ${g.nameEn}</small></td>
       <td>${g.height}cm</td>
       <td>${g.age}歲</td>
@@ -656,7 +658,8 @@ function renderGirlsTable() {
         <button class="btn-danger" onclick="deleteItem('girl', ${g.id})">刪除</button>
       </td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function renderReviewsTable() {
@@ -863,16 +866,35 @@ function openModal(type, id) {
         </div>
       </div>
       <div class="form-group">
-        <label>照片</label>
-        <div class="img-upload-box" data-target="f-image">
-          <label class="img-upload-area" for="f-image-file">
-            <span class="img-upload-icon">📷</span>
-            <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
-            <span class="img-upload-hint">支援 JPG、PNG</span>
-          </label>
-          <input type="file" id="f-image-file" accept="image/*" class="img-file-input">
-          <div class="img-upload-preview" id="f-image-preview"></div>
-          <input id="f-image" value="${item?.image||''}" class="img-url-input" placeholder="上傳後自動填入網址，或手動貼上">
+        <label>照片（選填，最多 3 張，列表會動態切換顯示）</label>
+        <div class="diary-images-row">
+          <div class="img-upload-box" data-target="f-girl-images-0">
+            <label class="img-upload-area" for="f-girl-images-0-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 1</span>
+            </label>
+            <input type="file" id="f-girl-images-0-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-girl-images-0-preview"></div>
+            <input id="f-girl-images-0" value="${(item?.images?.[0] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
+          <div class="img-upload-box" data-target="f-girl-images-1">
+            <label class="img-upload-area" for="f-girl-images-1-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 2</span>
+            </label>
+            <input type="file" id="f-girl-images-1-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-girl-images-1-preview"></div>
+            <input id="f-girl-images-1" value="${(item?.images?.[1] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
+          <div class="img-upload-box" data-target="f-girl-images-2">
+            <label class="img-upload-area" for="f-girl-images-2-file">
+              <span class="img-upload-icon">📷</span>
+              <span class="img-upload-text">圖片 3</span>
+            </label>
+            <input type="file" id="f-girl-images-2-file" accept="image/*" class="img-file-input">
+            <div class="img-upload-preview" id="f-girl-images-2-preview"></div>
+            <input id="f-girl-images-2" value="${(item?.images?.[2] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
+          </div>
         </div>
       </div>
       <div class="form-row">
@@ -1135,6 +1157,9 @@ function saveGirl() {
     typesZh.push(cb.dataset.zh);
     typesEn.push(cb.dataset.en);
   });
+  const images = [0, 1, 2]
+    .map(i => document.getElementById(`f-girl-images-${i}`)?.value?.trim() || '')
+    .filter(Boolean);
   const data = {
     name: document.getElementById('f-name').value,
     nameZh: document.getElementById('f-nameZh').value,
@@ -1147,7 +1172,8 @@ function saveGirl() {
     badgeZh: document.getElementById('f-badgeZh').value,
     badgeEn: document.getElementById('f-badge').value,
     types, typesZh, typesEn,
-    image: document.getElementById('f-image').value,
+    images: images.length ? images : undefined,
+    image: images[0] || undefined,
     order: parseInt(document.getElementById('f-order').value),
     active: document.getElementById('f-active').value === 'true'
   };
