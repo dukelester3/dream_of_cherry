@@ -168,9 +168,12 @@
         <div class="tab-header"><h1>匯出資料</h1></div>
         <div class="export-section">
           <p class="export-desc">將後台修改的內容匯出為 <code>data.js</code> 檔案。<strong>要讓無痕/其他裝置看到更新，必須點「發布到 GitHub」</strong>（需先在設定填寫 Token）。</p>
+          <p class="export-desc" style="margin-top:8px;color:#666"><strong>多人協作：</strong>發布時會自動合併 GitHub 上的最新資料，不會覆蓋他人新增的內容。建議發布前先點「從 GitHub 載入最新」取得遠端資料。</p>
           <div class="export-actions" style="margin-bottom:16px">
             <button class="btn-admin-primary" id="publish-github-btn">🚀 發布到 GitHub</button>
             <button class="btn-admin-secondary" id="export-btn">生成 data.js（手動複製）</button>
+            <button class="btn-admin-secondary" id="reload-from-github-btn" title="從 GitHub 取得最新資料">📥 從 GitHub 載入最新</button>
+            <button class="btn-admin-secondary" id="reload-from-data-btn" title="清除後台快取，從 data.js 重新載入">🔄 從 data.js 重新載入</button>
           </div>
           <div class="export-output hidden" id="export-output">
             <div class="export-actions">

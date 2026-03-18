@@ -214,6 +214,68 @@ function saveGitHubSettings() {
   }
 }
 
+// ── 合併本地與遠端資料，避免多人編輯互相覆蓋 ──
+function mergeDataLocalWithRemote(local, remote) {
+  if (!remote || typeof remote !== 'object') return local;
+  const merged = { ...local };
+  for (const key of ['girls', 'reviews', 'diary']) {
+    if (!Array.isArray(local[key]) || !Array.isArray(remote[key])) continue;
+    const map = new Map();
+    remote[key].forEach(item => map.set(item.id, { ...item }));
+    local[key].forEach(item => map.set(item.id, { ...item }));
+    let arr = Array.from(map.values());
+    if (key === 'girls') arr.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
+    else if (key === 'diary' || key === 'reviews') arr.sort((a, b) => (b.id || 0) - (a.id || 0));
+    merged[key] = arr;
+  }
+  return merged;
+}
+
+function parseDataJsContent(decoded) {
+  try {
+    const fn = new Function(decoded + '; return typeof siteData !== "undefined" ? siteData : null;');
+    return fn();
+  } catch {
+    return null;
+  }
+}
+
+async function loadFromGitHub() {
+  const token = localStorage.getItem(GITHUB_TOKEN_STORAGE);
+  const repo = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
+  if (!token) {
+    alert('請先至「設定」分頁填入 GitHub Token');
+    return;
+  }
+  const [owner, repoName] = repo.split('/').map(s => s.trim());
+  if (!owner || !repoName) {
+    alert('請設定正確的倉庫格式：owner/repo');
+    return;
+  }
+  const btn = document.getElementById('reload-from-github-btn');
+  const origText = btn?.textContent;
+  if (btn) { btn.disabled = true; btn.textContent = '載入中...'; }
+  try {
+    const res = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/data.js`, {
+      headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('無法取得資料');
+    const json = await res.json();
+    const raw = decodeURIComponent(escape(atob((json.content || '').replace(/\n/g, ''))));
+    const data = parseDataJsContent(raw);
+    if (!data) throw new Error('解析失敗');
+    adminData = JSON.parse(JSON.stringify(data));
+    if (!adminData.about && typeof siteData !== 'undefined') adminData.about = { ...siteData.about };
+    saveData();
+    renderAll();
+    alert('已從 GitHub 載入最新資料');
+  } catch (err) {
+    alert('載入失敗：' + (err.message || err));
+  } finally {
+    if (btn) { btn.disabled = false; btn.textContent = origText || '📥 從 GitHub 載入最新'; }
+  }
+}
+
 async function publishToGitHub() {
   const token = localStorage.getItem(GITHUB_TOKEN_STORAGE);
   const repo = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
@@ -226,13 +288,6 @@ async function publishToGitHub() {
     alert('請設定正確的倉庫格式：owner/repo');
     return;
   }
-  const content = `// ===== 夜桜の夢 — Site Content Database =====
-// Generated: ${new Date().toLocaleString()}
-
-const siteData = ${JSON.stringify(adminData, null, 2)};
-
-if (typeof module !== 'undefined') module.exports = siteData;`;
-  const contentBase64 = btoa(unescape(encodeURIComponent(content)));
   const btn = document.getElementById('publish-github-btn');
   const origText = btn?.textContent;
   if (btn) { btn.disabled = true; btn.textContent = '發布中...'; }
@@ -241,13 +296,36 @@ if (typeof module !== 'undefined') module.exports = siteData;`;
       headers: { 'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28', 'Authorization': `Bearer ${token}` }
     });
     let sha = null;
+    let dataToPublish = adminData;
     if (getRes.ok) {
       const getJson = await getRes.json();
       sha = getJson.sha;
-    } else if (getRes.status !== 404) {
+      try {
+        const raw = decodeURIComponent(escape(atob((getJson.content || '').replace(/\n/g, ''))));
+        const remote = parseDataJsContent(raw);
+        if (remote) {
+          dataToPublish = mergeDataLocalWithRemote(adminData, remote);
+          const mergedCount = (dataToPublish.diary?.length || 0);
+          const localCount = (adminData.diary?.length || 0);
+          if (mergedCount > localCount) {
+            console.log(`已合併遠端 ${mergedCount - localCount} 則新資料`);
+          }
+        }
+      } catch (e) {
+        console.warn('合併遠端資料時發生錯誤，將以本地資料發布:', e);
+      }
+    }
+    if (getRes.status !== 404 && !getRes.ok) {
       const err = await getRes.json();
       throw new Error(err.message || '取得檔案失敗');
     }
+    const content = `// ===== 夜桜の夢 — Site Content Database =====
+// Generated: ${new Date().toLocaleString()}
+
+const siteData = ${JSON.stringify(dataToPublish, null, 2)};
+
+if (typeof module !== 'undefined') module.exports = siteData;`;
+    const contentBase64 = btoa(unescape(encodeURIComponent(content)));
     const body = { message: 'Update data.js from admin', content: contentBase64 };
     if (sha) body.sha = sha;
     const putRes = await fetch(`https://api.github.com/repos/${owner}/${repoName}/contents/data.js`, {
@@ -308,6 +386,13 @@ function setupTabs() {
   document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
   document.getElementById('save-github-btn')?.addEventListener('click', saveGitHubSettings);
   document.getElementById('publish-github-btn')?.addEventListener('click', publishToGitHub);
+  document.getElementById('reload-from-github-btn')?.addEventListener('click', loadFromGitHub);
+  document.getElementById('reload-from-data-btn')?.addEventListener('click', () => {
+    if (confirm('將清除後台快取，從 data.js 重新載入最新資料。未儲存的編輯會遺失，確定嗎？')) {
+      localStorage.removeItem(STORAGE_KEY);
+      location.reload();
+    }
+  });
   const imgbbInput = document.getElementById('imgbb-key');
   if (imgbbInput) imgbbInput.value = localStorage.getItem(IMGBB_KEY_STORAGE) || '';
   const geminiInput = document.getElementById('gemini-key');
