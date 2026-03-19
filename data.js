@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/20 上午1:08:19
+// Generated: 3/20/2026, 12:26:56 AM
 
 const siteData = {
   "about": {
@@ -276,6 +276,23 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 52,
+      "titleJa": "番号7114",
+      "titleZh": "番號7114",
+      "titleEn": "No. 7114",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "出勤情報",
+      "date": "2026.3.20",
+      "createdAt": "2026.3.20 00:26:15",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 50,
       "titleJa": "番号7112",
