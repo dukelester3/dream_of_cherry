@@ -5,7 +5,8 @@
   "scripts": {
     "start": "npx serve . -p 3000",
     "serve": "npx serve . -p 3000",
-    "trim-logo": "node scripts/trim-logo.js"
+    "trim-logo": "node scripts/trim-logo.js",
+    "trim-icon": "node scripts/trim-icon.js"
   },
   "devDependencies": {
     "sharp": "^0.34.5"
