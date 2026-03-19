@@ -708,95 +708,112 @@ function setupModals() {
   document.getElementById('modal-save').addEventListener('click', saveModal);
   document.getElementById('admin-modal-body').addEventListener('change', async (e) => {
     const fileInput = e.target;
-    if (!fileInput.matches('.img-file-input') || !fileInput.files[0]) return;
+    if (!fileInput.matches('.img-file-input') || !fileInput.files?.length) return;
     const box = fileInput.closest('.img-upload-box');
     const targetId = box?.dataset.target;
-    const urlInput = document.getElementById(targetId);
-    const previewEl = document.getElementById(targetId + '-preview');
-    const area = box?.querySelector('.img-upload-area');
-    if (!urlInput || !box) return;
-    const file = fileInput.files[0];
+    if (!targetId || !box) return;
+    const isMultiSlot = /^(f-diary-images|f-girl-images)-(\d)$/.exec(targetId);
+    const files = Array.from(fileInput.files);
+    if (files.length === 0) return;
     const key = localStorage.getItem(IMGBB_KEY_STORAGE);
+    const prefix = isMultiSlot ? isMultiSlot[1] : null;
+    const baseIndex = isMultiSlot ? parseInt(isMultiSlot[2], 10) : 0;
 
-    function setPreviewAndUrl(url, showWatermarkHint) {
-      urlInput.value = url;
-      if (previewEl) {
-        const hint = showWatermarkHint ? '<p class="img-watermark-hint">✓ 已加浮水印</p>' : '';
-        previewEl.innerHTML = `<img src="${url}" alt="預覽">${hint}<button type="button" class="img-change-btn">更換圖片</button>`;
-        previewEl.querySelector('.img-change-btn').onclick = () => {
-          urlInput.value = '';
-          previewEl.innerHTML = '';
-          if (area) area.style.display = 'flex';
-          fileInput.value = '';
-        };
+    async function processOneFile(file, slotIndex) {
+      const tid = prefix ? `${prefix}-${slotIndex}` : targetId;
+      const urlInput = document.getElementById(tid);
+      const previewEl = document.getElementById(tid + '-preview');
+      const slotBox = prefix ? document.querySelector(`[data-target="${tid}"]`) : box;
+      const area = slotBox?.querySelector('.img-upload-area');
+      if (!urlInput) return;
+
+      function setPreviewAndUrl(url, showWatermarkHint) {
+        urlInput.value = url;
+        if (previewEl) {
+          const hint = showWatermarkHint ? '<p class="img-watermark-hint">✓ 已加浮水印</p>' : '';
+          previewEl.innerHTML = `<img src="${url}" alt="預覽">${hint}<button type="button" class="img-change-btn">更換圖片</button>`;
+          previewEl.querySelector('.img-change-btn').onclick = () => {
+            urlInput.value = '';
+            previewEl.innerHTML = '';
+            if (area) area.style.display = 'flex';
+            const fi = document.getElementById(tid + '-file');
+            if (fi) fi.value = '';
+          };
+        }
       }
-      fileInput.value = '';
-    }
 
-    if (!key) {
-      const useBase64 = confirm('尚未設定 ImgBB API Key。\n\n可選：\n• 按「確定」→ 使用 Base64 嵌入（無需 API，但會讓 data.js 變大）\n• 按「取消」→ 請至「設定」分頁填入 ImgBB Key，或直接貼上圖片網址\n\n取得免費 Key：https://api.imgbb.com/');
-      if (!useBase64) {
-        if (area) area.style.display = '';
+      if (!key) {
+        if (area) area.style.display = 'none';
+        if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
+        try {
+          const watermarked = await addWatermark(file);
+          await new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => {
+              const dataUrl = reader.result;
+              if (dataUrl.length > 800000) {
+                if (previewEl) previewEl.innerHTML = '';
+                if (area) area.style.display = 'flex';
+                alert('圖片過大，Base64 會讓 data.js 變大。建議壓縮或使用 ImgBB 上傳');
+                reject(new Error('too large'));
+                return;
+              }
+              setPreviewAndUrl(dataUrl, true);
+              if (area) area.style.display = 'flex';
+              resolve();
+            };
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(watermarked);
+          });
+        } catch (err) {
+          if (err?.message !== 'too large') {
+            if (area) area.style.display = 'flex';
+            if (previewEl) previewEl.innerHTML = '';
+            alert('浮水印處理失敗：' + (err?.message || err));
+          }
+        }
         return;
       }
+
       if (area) area.style.display = 'none';
       if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
       try {
         const watermarked = await addWatermark(file);
         const previewUrl = URL.createObjectURL(watermarked);
-        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 處理中...</p>`;
-        const reader = new FileReader();
-        reader.onload = () => {
-          URL.revokeObjectURL(previewUrl);
-          const dataUrl = reader.result;
-          if (dataUrl.length > 800000) {
-            if (previewEl) previewEl.innerHTML = '';
-            if (area) area.style.display = '';
-            alert('圖片過大，Base64 會讓 data.js 變大。建議：\n1. 壓縮圖片後再試\n2. 至「設定」填寫 ImgBB API Key 上傳');
-            return;
-          }
-          setPreviewAndUrl(dataUrl, true);
-        };
-        reader.readAsDataURL(watermarked);
-      } catch (e) {
-        if (area) area.style.display = '';
+        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><button type="button" class="img-change-btn" disabled>上傳中</button>`;
+        const fd = new FormData();
+        fd.append('key', key);
+        fd.append('image', watermarked);
+        const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
+        const json = await res.json();
+        URL.revokeObjectURL(previewUrl);
+        if (json.data?.url) {
+          setPreviewAndUrl(json.data.url, true);
+        } else {
+          if (area) area.style.display = 'flex';
+          if (previewEl) previewEl.innerHTML = '';
+          alert('上傳失敗：' + (json.error?.message || json.status || '未知錯誤'));
+        }
+      } catch (err) {
+        if (area) area.style.display = 'flex';
         if (previewEl) previewEl.innerHTML = '';
-        alert('浮水印處理失敗：' + (e.message || e));
+        alert('上傳失敗：' + err.message);
       }
-      return;
     }
 
-    if (area) area.style.display = 'none';
-    if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
-    try {
-      const watermarked = await addWatermark(file);
-      const previewUrl = URL.createObjectURL(watermarked);
-      if (previewEl) {
-        previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><button type="button" class="img-change-btn" disabled>上傳中</button>`;
-      }
-      const fd = new FormData();
-      fd.append('key', key);
-      fd.append('image', watermarked);
-      const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
-      const json = await res.json();
-      URL.revokeObjectURL(previewUrl);
-      if (json.data?.url) {
-        setPreviewAndUrl(json.data.url, true);
-      } else {
-        if (area) area.style.display = '';
-        if (previewEl) previewEl.innerHTML = '';
-        const errMsg = json.error?.message || json.status || '未知錯誤';
-        let hint = '\n\n也可直接貼上圖片網址（從 imgur、imgbb 等複製）';
-        if (errMsg.includes('Invalid API') || errMsg.includes('Invalid key')) {
-          hint = '\n\n請至「設定」檢查 ImgBB Key：\n• 至 https://api.imgbb.com/ 免費申請\n• 確認 Key 完整複製、無多餘空格\n• 或清空 Key 後再上傳，改用 Base64 嵌入（無需 API）';
-        }
-        alert('上傳失敗：' + errMsg + hint);
-      }
-    } catch (err) {
-      if (area) area.style.display = '';
-      if (previewEl) previewEl.innerHTML = '';
-      alert('上傳失敗：' + err.message + '\n\n若為 CORS 或網路問題，可改用 Base64：先刪除 ImgBB Key 後再上傳，或直接貼上圖片網址');
+    if (!key) {
+      const useBase64 = confirm('尚未設定 ImgBB API Key。\n\n可選：\n• 按「確定」→ 使用 Base64 嵌入（無需 API，但會讓 data.js 變大）\n• 按「取消」→ 請至「設定」分頁填入 ImgBB Key，或直接貼上圖片網址\n\n取得免費 Key：https://api.imgbb.com/');
+      if (!useBase64) { fileInput.value = ''; return; }
     }
+
+    if (isMultiSlot && files.length > 1) {
+      for (let i = 0; i < files.length && (baseIndex + i) < 3; i++) {
+        await processOneFile(files[i], baseIndex + i);
+      }
+    } else {
+      await processOneFile(files[0], baseIndex);
+    }
+    fileInput.value = '';
   });
   document.getElementById('admin-modal-body').addEventListener('dragover', (e) => {
     if (e.target.closest('.img-upload-area')) e.preventDefault();
@@ -874,7 +891,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 1</span>
             </label>
-            <input type="file" id="f-girl-images-0-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-girl-images-0-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-girl-images-0-preview"></div>
             <input id="f-girl-images-0" value="${(item?.images?.[0] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
@@ -883,7 +900,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 2</span>
             </label>
-            <input type="file" id="f-girl-images-1-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-girl-images-1-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-girl-images-1-preview"></div>
             <input id="f-girl-images-1" value="${(item?.images?.[1] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
@@ -892,7 +909,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 3</span>
             </label>
-            <input type="file" id="f-girl-images-2-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-girl-images-2-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-girl-images-2-preview"></div>
             <input id="f-girl-images-2" value="${(item?.images?.[2] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
@@ -1012,7 +1029,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 1</span>
             </label>
-            <input type="file" id="f-diary-images-0-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-diary-images-0-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-diary-images-0-preview"></div>
             <input id="f-diary-images-0" value="${(item?.images?.[0] ?? item?.thumbnail ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
@@ -1021,7 +1038,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 2</span>
             </label>
-            <input type="file" id="f-diary-images-1-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-diary-images-1-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-diary-images-1-preview"></div>
             <input id="f-diary-images-1" value="${(item?.images?.[1] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
@@ -1030,7 +1047,7 @@ function openModal(type, id) {
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 3</span>
             </label>
-            <input type="file" id="f-diary-images-2-file" accept="image/*" class="img-file-input">
+            <input type="file" id="f-diary-images-2-file" accept="image/*" class="img-file-input" multiple>
             <div class="img-upload-preview" id="f-diary-images-2-preview"></div>
             <input id="f-diary-images-2" value="${(item?.images?.[2] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
