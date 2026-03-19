@@ -245,6 +245,34 @@ function resolveImgUrl(url) {
   return base + (url.startsWith('./') ? url.slice(2) : url);
 }
 
+// ── 輪播：點擊切換下一張，自動播放保留 ──
+const CAROUSEL_INTERVAL_MS = 6000;
+
+function setupCarousel(carousel) {
+  const imgs = carousel.querySelectorAll('.diary-thumb-img, .card-img, .diary-modal-carousel-img');
+  if (imgs.length < 2) return;
+  carousel.classList.add('carousel-js');
+  let idx = 0;
+  let timer = null;
+
+  function show(i) {
+    idx = ((i % imgs.length) + imgs.length) % imgs.length;
+    imgs.forEach((img, j) => { img.style.opacity = j === idx ? '1' : '0'; });
+  }
+
+  function advance() {
+    show(idx + 1);
+    if (timer) clearInterval(timer);
+    timer = setInterval(advance, CAROUSEL_INTERVAL_MS);
+  }
+
+  show(0);
+  timer = setInterval(advance, CAROUSEL_INTERVAL_MS);
+  carousel.addEventListener('click', (e) => {
+    if (e.target.matches('.diary-thumb-img, .card-img, .diary-modal-carousel-img')) advance();
+  });
+}
+
 // ── Render Gallery from siteData ──
 function renderGallery(lang) {
   const grid = document.getElementById('gallery-grid-dynamic');
@@ -287,6 +315,7 @@ function renderGallery(lang) {
       </div>
     </div>`;
   }).join('');
+  document.querySelectorAll('#gallery-grid-dynamic .card-img-carousel').forEach(setupCarousel);
 }
 
 // ── Render Reviews from siteData ──
@@ -403,6 +432,7 @@ function renderDiary(lang, cat, page) {
   grid.querySelectorAll('.diary-readmore').forEach(btn => {
     btn.addEventListener('click', () => openDiaryModal(parseInt(btn.dataset.id), lang));
   });
+  grid.querySelectorAll('.diary-thumb-carousel').forEach(setupCarousel);
 }
 
 function openDiaryModal(id, lang) {
@@ -421,11 +451,16 @@ function openDiaryModal(id, lang) {
   </div>` : '';
 
   const modalImgs = post.images?.length ? post.images : [post.image, post.thumbnail].filter(Boolean);
+  const isModalCarousel = modalImgs.length >= 2;
   const modalImgHtml = modalImgs.length
-    ? modalImgs.map((url, i) => `<img src="${resolveImgUrl(url)}" class="diary-modal-img" alt="${title}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')
+    ? isModalCarousel
+      ? `<div class="diary-modal-carousel carousel-js">
+          ${modalImgs.map((url, i) => `<img src="${resolveImgUrl(url)}" class="diary-modal-img diary-modal-carousel-img" alt="${title}" loading="${i === 0 ? 'eager' : 'lazy'}">`).join('')}
+        </div>`
+      : `<div class="diary-modal-imgs"><img src="${resolveImgUrl(modalImgs[0])}" class="diary-modal-img" alt="${title}" loading="eager"></div>`
     : '';
   document.getElementById('diary-modal-body').innerHTML = `
-    ${modalImgHtml ? `<div class="diary-modal-imgs">${modalImgHtml}</div>` : ''}
+    ${modalImgHtml}
     <div class="diary-modal-header">
       <div class="diary-meta"><span class="diary-date">${post.createdAt || post.date}</span><span class="diary-cat">${getDiaryCatLabel(post.category, lang)}</span></div>
       <h2>${title}</h2>
@@ -435,6 +470,10 @@ function openDiaryModal(id, lang) {
   `;
   document.getElementById('diary-modal').classList.add('open');
   document.body.style.overflow = 'hidden';
+  if (isModalCarousel) {
+    const carousel = document.querySelector('.diary-modal-carousel');
+    if (carousel) setupCarousel(carousel);
+  }
 }
 
 document.getElementById('diary-modal-close')?.addEventListener('click', closeDiaryModal);

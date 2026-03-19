@@ -1052,7 +1052,10 @@ section { padding: 96px 0; }
   inset: 0;
   width: 100%;
   height: 100%;
+  transition: opacity 0.4s ease;
 }
+.card-img-wrap.card-img-carousel.carousel-js { cursor: pointer; }
+.card-img-wrap.card-img-carousel.carousel-js .card-img { animation: none !important; }
 .card-img-wrap.card-img-carousel.card-img-n2 .card-img:nth-child(1) {
   animation: diaryThumbShow1 6s ease-in-out infinite;
 }
@@ -1567,7 +1570,10 @@ section { padding: 96px 0; }
   inset: 0;
   width: 100%;
   height: 100%;
+  transition: opacity 0.4s ease;
 }
+.diary-thumb-carousel.carousel-js { cursor: pointer; }
+.diary-thumb-carousel.carousel-js .diary-thumb-img { animation: none !important; }
 .diary-thumb-carousel.diary-thumb-n2 .diary-thumb-img:first-child {
   animation: diaryThumbShow1 6s ease-in-out infinite;
 }
@@ -1709,6 +1715,22 @@ section { padding: 96px 0; }
   transition: color var(--transition);
 }
 .diary-modal-close:hover { color: var(--text); }
+.diary-modal-carousel {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  overflow: hidden;
+  cursor: pointer;
+}
+.diary-modal-carousel .diary-modal-carousel-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+  transition: opacity 0.4s ease;
+}
 .diary-modal-imgs {
   display: flex;
   flex-direction: column;
