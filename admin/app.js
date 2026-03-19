@@ -552,33 +552,68 @@ function setupTabs() {
   setupWatermarkTool();
 }
 
-// ── 浮水印工具：上傳 → 加水印 → 下載 ──
+// ── 浮水印工具：上傳 → 加水印 → 下載（最多 5 張）──
+const WATERMARK_MAX_FILES = 5;
+
 function setupWatermarkTool() {
   const zone = document.getElementById('watermark-upload-zone');
   const fileInput = document.getElementById('watermark-file-input');
   const resultEl = document.getElementById('watermark-result');
-  const previewImg = document.getElementById('watermark-preview-img');
-  const downloadBtn = document.getElementById('watermark-download-btn');
+  const previewsGrid = document.getElementById('watermark-previews-grid');
   const resetBtn = document.getElementById('watermark-reset-btn');
-  if (!zone || !fileInput || !resultEl) return;
+  if (!zone || !fileInput || !resultEl || !previewsGrid) return;
 
-  let watermarkedFile = null;
+  let watermarkedFiles = [];
+  let objectUrls = [];
 
-  function processFile(file) {
-    if (!file || !file.type.startsWith('image/')) return;
+  function processFiles(files) {
+    const allImages = [...files].filter(f => f && f.type.startsWith('image/'));
+    const imageFiles = allImages.slice(0, WATERMARK_MAX_FILES);
+    if (imageFiles.length === 0) return;
+    if (allImages.length > WATERMARK_MAX_FILES) {
+      alert(`已限制為前 ${WATERMARK_MAX_FILES} 張圖片。`);
+    }
     zone.classList.add('processing');
-    zone.querySelector('.img-upload-text').textContent = '處理中（加浮水印）...';
-    addWatermark(file).then((out) => {
-      watermarkedFile = out;
-      const url = URL.createObjectURL(out);
-      previewImg.src = url;
+    zone.querySelector('.img-upload-text').textContent = `處理中（加浮水印）${imageFiles.length} 張...`;
+    Promise.all(imageFiles.map(f => addWatermark(f))).then((results) => {
+      watermarkedFiles = results;
+      objectUrls.forEach(u => URL.revokeObjectURL(u));
+      objectUrls = results.map(f => URL.createObjectURL(f));
+      previewsGrid.innerHTML = '';
+      results.forEach((file, i) => {
+        const item = document.createElement('div');
+        item.className = 'watermark-preview-item';
+        const img = document.createElement('img');
+        img.src = objectUrls[i];
+        img.alt = '浮水印預覽';
+        img.title = '點擊放大';
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'btn-admin-primary';
+        btn.textContent = '⬇ 下載';
+        btn.onclick = () => {
+          const a = document.createElement('a');
+          a.href = objectUrls[i];
+          a.download = 'watermarked-' + file.name;
+          a.click();
+        };
+        item.appendChild(img);
+        item.appendChild(btn);
+        previewsGrid.appendChild(item);
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const lb = document.getElementById('watermark-lightbox');
+          const lbImg = document.getElementById('watermark-lightbox-img');
+          if (lb && lbImg) { lbImg.src = objectUrls[i]; lb.classList.add('open'); }
+        });
+      });
       zone.classList.add('hidden');
       zone.classList.remove('processing');
-      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此';
+      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此（最多 5 張）';
       resultEl.classList.remove('hidden');
     }).catch((err) => {
       zone.classList.remove('processing');
-      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此';
+      zone.querySelector('.img-upload-text').textContent = '點擊或拖曳圖片到此（最多 5 張）';
       alert('浮水印處理失敗：' + (err.message || err));
     });
   }
@@ -589,28 +624,20 @@ function setupWatermarkTool() {
   zone.addEventListener('drop', (e) => {
     e.preventDefault();
     zone.style.borderColor = '';
-    const f = e.dataTransfer?.files[0];
-    if (f && f.type.startsWith('image/')) processFile(f);
+    const files = e.dataTransfer?.files;
+    if (files?.length) processFiles(files);
   });
   fileInput.addEventListener('change', (e) => {
-    const f = e.target.files[0];
-    if (f) processFile(f);
+    const files = e.target.files;
+    if (files?.length) processFiles(files);
     e.target.value = '';
   });
 
-  downloadBtn?.addEventListener('click', () => {
-    if (!watermarkedFile) return;
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(watermarkedFile);
-    a.download = 'watermarked-' + watermarkedFile.name;
-    a.click();
-    URL.revokeObjectURL(a.href);
-  });
-
   resetBtn?.addEventListener('click', () => {
-    if (previewImg.src) URL.revokeObjectURL(previewImg.src);
-    previewImg.src = '';
-    watermarkedFile = null;
+    objectUrls.forEach(u => URL.revokeObjectURL(u));
+    objectUrls = [];
+    watermarkedFiles = [];
+    previewsGrid.innerHTML = '';
     resultEl.classList.add('hidden');
     zone.classList.remove('hidden');
     fileInput.value = '';
@@ -618,13 +645,6 @@ function setupWatermarkTool() {
 
   const lightbox = document.getElementById('watermark-lightbox');
   const lightboxImg = document.getElementById('watermark-lightbox-img');
-  previewImg?.addEventListener('click', (e) => {
-    e.stopPropagation();
-    if (previewImg.src) {
-      lightboxImg.src = previewImg.src;
-      lightbox?.classList.add('open');
-    }
-  });
   lightbox?.addEventListener('click', () => lightbox.classList.remove('open'));
   lightboxImg?.addEventListener('click', (e) => e.stopPropagation());
   document.addEventListener('keydown', (e) => {

@@ -140,20 +140,17 @@
       <div class="admin-tab hidden" id="tab-watermark">
         <div class="tab-header"><h1>浮水印工具</h1></div>
         <div class="export-section">
-          <p class="export-desc">上傳圖片後自動裁切為 2:3 並加上浮水印，可下載使用。與女孩/客評/日記上傳時相同（先裁切再浮水印，確保網頁顯示時浮水印不被裁掉）。</p>
+          <p class="export-desc">上傳圖片後自動裁切為 2:3 並加上浮水印，可下載使用。與女孩/客評/日記上傳時相同（先裁切再浮水印，確保網頁顯示時浮水印不被裁掉）。<strong>一次最多 5 張</strong>。</p>
           <div class="watermark-tool-area">
             <div class="watermark-upload-zone" id="watermark-upload-zone">
               <span class="img-upload-icon">📷</span>
-              <span class="img-upload-text">點擊或拖曳圖片到此</span>
+              <span class="img-upload-text">點擊或拖曳圖片到此（最多 5 張）</span>
               <span class="img-upload-hint">支援 JPG、PNG 等</span>
-              <input type="file" id="watermark-file-input" class="img-file-input" accept="image/*">
+              <input type="file" id="watermark-file-input" class="img-file-input" accept="image/*" multiple>
             </div>
             <div class="watermark-result hidden" id="watermark-result">
-              <div class="watermark-preview-wrap">
-                <img id="watermark-preview-img" src="" alt="浮水印預覽" title="點擊放大">
-              </div>
+              <div class="watermark-previews-grid" id="watermark-previews-grid"></div>
               <p class="watermark-zoom-hint">點擊圖片可放大</p>
-              <button type="button" class="btn-admin-primary" id="watermark-download-btn">⬇ 下載加浮水印圖片</button>
               <button type="button" class="btn-admin-secondary" id="watermark-reset-btn">重新選擇</button>
             </div>
           </div>
