@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/20 下午12:02:54
+// Generated: 2026/3/20 下午12:29:15
 
 const siteData = {
   "about": {
@@ -276,6 +276,60 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 60,
+      "titleJa": "番号7122",
+      "titleZh": "番號7122",
+      "titleEn": "No. 7122",
+      "excerpt": "店長推薦！長時間利用割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
+      "contentJa": "🇯🇵| 店長のおすすめ 長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation costs)",
+      "category": "出勤情報",
+      "date": "2026.3.20",
+      "createdAt": "2026.3.20 12:27:58",
+      "images": [
+        "https://i.ibb.co/LzKWPqs4/photo-2025-09-20-13-10-25-2.jpg",
+        "https://i.ibb.co/9mZjxjs2/photo-2025-09-20-13-10-25.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/LzKWPqs4/photo-2025-09-20-13-10-25-2.jpg",
+      "stats": {
+        "height": 156,
+        "cup": "D",
+        "age": 20,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 59,
+      "titleJa": "番号7121",
+      "titleZh": "番號7121",
+      "titleEn": "No. 7121",
+      "excerpt": "店長推薦 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fees)",
+      "contentJa": "店長のおすすめ 長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Store Manager's Recommendation: Long-term discounts available (including transportation fees)",
+      "category": "出勤情報",
+      "date": "2026.3.20",
+      "createdAt": "2026.3.20 12:26:01",
+      "images": [
+        "https://i.ibb.co/zhDGr1M7/photo-2025-09-20-13-19-57-2.jpg",
+        "https://i.ibb.co/GQGwFdgR/photo-2025-09-20-13-19-57.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/zhDGr1M7/photo-2025-09-20-13-19-57-2.jpg",
+      "stats": {
+        "height": 158,
+        "cup": "E",
+        "age": 45,
+        "weight": 19
+      },
+      "published": true
+    },
     {
       "id": 58,
       "titleJa": "番号7120",
