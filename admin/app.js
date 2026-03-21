@@ -318,7 +318,9 @@ function mergeDataLocalWithRemote(local, remote) {
   return mergeTwoData(local, remote);
 }
 
-// ── 合併兩份完整資料（用於合併匯入）──
+// ── 合併兩份完整資料 ──
+// 用於發布時：以本地(dataA)為準，只從遠端(dataB)補上本地沒有的項目（他人新增的）
+// 因此本地已刪除的項目不會被遠端「加回來」
 function mergeTwoData(dataA, dataB) {
   if (!dataA || !dataB) return dataA || dataB;
   const merged = { ...dataA };
@@ -326,9 +328,12 @@ function mergeTwoData(dataA, dataB) {
     const arrA = dataA[key];
     const arrB = dataB[key];
     if (!Array.isArray(arrA) && !Array.isArray(arrB)) continue;
+    const localIds = new Set((arrA || []).map(x => x.id));
     const map = new Map();
-    (arrB || []).forEach(item => map.set(item.id, { ...item }));
     (arrA || []).forEach(item => map.set(item.id, { ...item }));
+    (arrB || []).forEach(item => {
+      if (!localIds.has(item.id)) map.set(item.id, { ...item });
+    });
     let arr = Array.from(map.values());
     if (key === 'girls') arr.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
     else if (key === 'diary') arr.sort((a, b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a)));
@@ -700,13 +705,35 @@ function renderReviewsTable() {
   `).join('');
 }
 
+function getBangouGaps() {
+  const nums = getUsedBangouList(null).sort((a, b) => a - b);
+  const gaps = [];
+  for (let i = 1; i < nums.length; i++) {
+    if (nums[i] - nums[i - 1] > 1) {
+      for (let k = nums[i - 1] + 1; k < nums[i]; k++) gaps.push(k);
+    }
+  }
+  return gaps;
+}
+
 function renderDiaryTable() {
   const tbody = document.getElementById('diary-tbody');
+  document.getElementById('diary-bangou-gap-warn')?.remove();
+  const gaps = getBangouGaps();
+  if (gaps.length > 0) {
+    const warn = document.createElement('div');
+    warn.id = 'diary-bangou-gap-warn';
+    warn.className = 'bangou-gap-warn';
+    warn.textContent = '番號跳號警告：缺少 ' + gaps.join(', ');
+    tbody.closest('.admin-table-wrap')?.insertBefore(warn, tbody.closest('table'));
+  }
   tbody.innerHTML = [...adminData.diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => {
     const thumb = d.images?.[0] ?? d.thumbnail;
+    const bangou = d.category === '出勤情報' ? (extractBangouFromTitle(d.titleZh) || extractBangouFromTitle(d.titleJa) || '-') : '-';
     return `
     <tr>
       <td>${thumb ? `<img src="${thumb}" class="admin-thumb-sm" onerror="this.style.display='none'">` : '-'}</td>
+      <td>${bangou}</td>
       <td><strong>${d.titleZh}</strong></td>
       <td>${d.category}</td>
       <td>${d.createdAt || d.date}</td>
@@ -751,14 +778,10 @@ function setupModals() {
         urlInput.value = url;
         if (previewEl) {
           const hint = showWatermarkHint ? '<p class="img-watermark-hint">✓ 已加浮水印</p>' : '';
-          previewEl.innerHTML = `<img src="${url}" alt="預覽">${hint}<button type="button" class="img-change-btn">更換圖片</button>`;
-          previewEl.querySelector('.img-change-btn').onclick = () => {
-            urlInput.value = '';
-            previewEl.innerHTML = '';
-            if (area) area.style.display = 'flex';
-            const fi = document.getElementById(tid + '-file');
-            if (fi) fi.value = '';
-          };
+          previewEl.innerHTML = `<img src="${url}" alt="預覽">${hint}<div class="img-btn-row"><button type="button" class="img-change-btn">更換</button><button type="button" class="img-delete-btn">刪除</button></div>`;
+          const clearSlot = () => { urlInput.value = ''; previewEl.innerHTML = ''; if (area) area.style.display = 'flex'; const fi = document.getElementById(tid + '-file'); if (fi) fi.value = ''; };
+          previewEl.querySelector('.img-change-btn').onclick = clearSlot;
+          previewEl.querySelector('.img-delete-btn').onclick = clearSlot;
         }
       }
 
@@ -800,7 +823,7 @@ function setupModals() {
       try {
         const watermarked = await addWatermark(file);
         const previewUrl = URL.createObjectURL(watermarked);
-        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><button type="button" class="img-change-btn" disabled>上傳中</button>`;
+        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
         const fd = new FormData();
         fd.append('key', key);
         fd.append('image', watermarked);
@@ -1100,19 +1123,29 @@ function openModal(type, id) {
       img.src = urlInput.value;
       img.alt = '預覽';
       img.onerror = () => { previewEl.innerHTML = ''; area.style.display = 'flex'; if (fileInput) fileInput.value = ''; };
+      const btnRow = document.createElement('div');
+      btnRow.className = 'img-btn-row';
       const changeBtn = document.createElement('button');
       changeBtn.type = 'button';
       changeBtn.className = 'img-change-btn';
-      changeBtn.textContent = '更換圖片';
-      changeBtn.onclick = () => {
+      changeBtn.textContent = '更換';
+      const deleteBtn = document.createElement('button');
+      deleteBtn.type = 'button';
+      deleteBtn.className = 'img-delete-btn';
+      deleteBtn.textContent = '刪除';
+      const clearSlot = () => {
         urlInput.value = '';
         previewEl.innerHTML = '';
         area.style.display = 'flex';
         if (fileInput) fileInput.value = '';
       };
+      changeBtn.onclick = clearSlot;
+      deleteBtn.onclick = clearSlot;
+      btnRow.appendChild(changeBtn);
+      btnRow.appendChild(deleteBtn);
       previewEl.innerHTML = '';
       previewEl.appendChild(img);
-      previewEl.appendChild(changeBtn);
+      previewEl.appendChild(btnRow);
     }
   });
 }
@@ -1238,7 +1271,7 @@ function saveReview() {
     featured: document.getElementById('f-featured').value === 'true',
     rating: 5
   };
-  if (imgEl?.value) data.image = imgEl.value;
+  data.image = imgEl?.value?.trim() || undefined;
   if (editingId) {
     const idx = adminData.reviews.findIndex(r => r.id === editingId);
     adminData.reviews[idx] = { ...adminData.reviews[idx], ...data };
