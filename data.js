@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/22 上午12:30:03
+// Generated: 2026/3/22 上午12:31:17
 
 const siteData = {
   "about": {
@@ -289,6 +289,33 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 78,
+      "titleJa": "番号7139",
+      "titleZh": "番號7139",
+      "titleEn": "No. 7139",
+      "excerpt": "店長のおすすめ 長時間割引（交通費込み）",
+      "excerptZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
+      "contentJa": "店長おすすめ 長時間割引（交通費込み）",
+      "contentZh": "🇯🇵| 店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "🇯🇵| Manager's Recommendation: Long-term discount (including transportation fee)",
+      "category": "出勤情報",
+      "date": "2026.3.22",
+      "createdAt": "2026.3.22 00:30:30",
+      "images": [
+        "https://i.ibb.co/ZpckwMk3/photo-2025-09-25-16-41-46-2.jpg",
+        "https://i.ibb.co/wFGF1c3N/photo-2025-09-25-16-41-46.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ZpckwMk3/photo-2025-09-25-16-41-46-2.jpg",
+      "stats": {
+        "height": 142,
+        "cup": "C",
+        "age": 19,
+        "weight": 40
+      },
+      "published": true
+    },
     {
       "id": 77,
       "titleJa": "番号7138",
