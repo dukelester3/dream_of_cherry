@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/21 下午4:05:36
+// Generated: 2026/3/21 下午9:06:58
 
 const siteData = {
   "about": {
@@ -304,6 +304,10 @@ const siteData = {
       "category": "日記",
       "date": "2026.3.21",
       "createdAt": "2026.3.21 12:53:01",
+      "images": [
+        "https://i.ibb.co/2732H5TD/photo-2025-04-25-15-26-16.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/2732H5TD/photo-2025-04-25-15-26-16.jpg",
       "stats": null,
       "published": true
     },
