@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/21 上午11:53:07
+// Generated: 2026/3/21 下午12:52:42
 
 const siteData = {
   "about": {
@@ -209,6 +209,20 @@ const siteData = {
     }
   ],
   "reviews": [
+    {
+      "id": 6,
+      "titleJa": "すごい戦績",
+      "titleZh": "好強的戰績",
+      "titleEn": "What an impressive record!",
+      "contentJa": "すごい戦績だ！まずは皆さんにお見せしますね！ははは！O(∩_∩)O~~",
+      "contentZh": "好強的戰績 我先來分享給你們看看 哈哈哈!O(∩_∩)O~~",
+      "contentEn": "What an impressive record! Let me share it with you all first! Hahaha! :D",
+      "girlName": "",
+      "date": "2026.3.21",
+      "featured": true,
+      "rating": 5,
+      "image": "https://i.ibb.co/tMjdL0cB/photo-2026-02-13-15-29-22.jpg"
+    },
     {
       "id": 5,
       "titleJa": "毎回のご予約を大切に",
