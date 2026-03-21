@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/21 下午12:52:42
+// Generated: 2026/3/21 下午12:57:09
 
 const siteData = {
   "about": {
@@ -290,6 +290,23 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 62,
+      "titleJa": "⚠️盗撮に関するご注意⚠️",
+      "titleZh": "⚠️關於偷拍的小提醒⚠️",
+      "titleEn": "⚠️ A quick reminder about secret filming ⚠️",
+      "excerpt": "東京撮影2万円 大阪撮影5千円",
+      "excerptZh": "東京拍攝2萬日圓  大阪拍攝5000日圓",
+      "excerptEn": "Tokyo shoot: ¥20,000, Osaka shoot: ¥5,000",
+      "contentJa": "⚠️盗撮に関するご注意⚠️\n\nお客様へ。素敵な瞬間を記録したいお気持ち、大変よく分かります。\n\n✨ こうすれば大丈夫です：\n女の子に「写真を撮ってもいいですか？」と直接、丁寧にお尋ねください。\n丁寧にお尋ねいただければ、多くの女の子が快く応じてくれます。そうすれば皆がハッピーになり、素敵な思い出も残せ",
+      "contentZh": "⚠️關於偷拍的小提醒⚠️\n\n親愛的客人 我知道您可能會想記錄美好時刻這完全能理解呢～\n\n✨ 可以這樣做：\n直接溫柔地問小姐\"可以拍照嗎？\"\n很多女孩在您禮貌詢問後都會願意配合的 這樣大家都開心 還能留下美好回憶～\n重點來啦❗️重點來啦❗️重點來啦❗️\n⚠️ 要注意的是：\n偷偷拍攝會讓女孩很受傷...\n而且日本法律對這方面非常嚴格\n萬一被發現可能要支付50萬日元罰款\n還會影響您以後的預約資格 多可惜！\n\n🌸 悠悠小建議：\n現在只要提前告訴UU就能拍到爽！\n東京拍攝2萬日圓  大阪拍攝5000日圓\n拍攝只有部分女孩可配合喔 不是所有女孩都可哈 \n\n提前告知您的需求 這樣既尊重對方 您也能玩得更安心盡興\n\n悠悠相信您一定會做出最棒的選擇～(｡･ω･｡)ﾉ❤️",
+      "contentEn": "⚠️ A little reminder about secret photography ⚠️\n\nDear guests, I understand you might want to capture beautiful moments, and that's completely understandable~\n\n✨ Here's what you CAN do:\nGently ask the lady directly, \"May I take a photo?\"\nMany girls will be happy to cooperate after you politely ask. This way, everyone is happy and you can create wonderful memories~\n\nCrucial point! Crucial point! Crucial point!\n⚠️ What to be aware of:\nSecretly taking photos can deeply hurt the girls...\nMoreover, Japanese law is very strict regarding this.\nIf caught, you might have to pay a 500,000 JPY fine.\nIt could also affect your eligibility for future bookings. What a shame!\n\n🌸 UU's little tip:\nNow, as long as you inform UU in advance, you can take photos to your heart's content!\nPhotography in Tokyo: 20,000 JPY. Photography in Osaka: 5,000 JPY.\nPlease note that only some girls can accommodate photography requests, not all of them.\n\nBy informing us of your needs in advance, you show respect to the other party, and you can also enjoy yourself more safely and fully.\n\nUU believes you will definitely make the best choice~",
+      "category": "日記",
+      "date": "2026.3.21",
+      "createdAt": "2026.3.21 12:53:01",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 61,
       "titleJa": "番号7123",
