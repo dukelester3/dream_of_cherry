@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/21/2026, 10:08:56 PM
+// Generated: 3/21/2026, 10:18:40 PM
 
 const siteData = {
   "about": {
@@ -220,8 +220,7 @@ const siteData = {
       "girlName": "",
       "date": "2026.3.21",
       "featured": true,
-      "rating": 5,
-      "image": "https://i.ibb.co/tMjdL0cB/photo-2026-02-13-15-29-22.jpg"
+      "rating": 5
     },
     {
       "id": 5,
