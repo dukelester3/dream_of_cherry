@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/21 下午12:57:09
+// Generated: 2026/3/21 下午4:05:36
 
 const siteData = {
   "about": {
@@ -26,10 +26,10 @@ const siteData = {
       "name": "アイちゃん",
       "nameZh": "小愛",
       "nameEn": "Ai",
-      "height": 161,
+      "height": 158,
       "age": 24,
       "cup": "E",
-      "weight": 46,
+      "weight": 45,
       "badge": "人気No.1",
       "badgeZh": "人氣No.1",
       "badgeEn": "人気No.1",
