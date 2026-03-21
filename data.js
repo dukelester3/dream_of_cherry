@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/21 下午10:46:52
+// Generated: 2026/3/21 下午10:49:27
 
 const siteData = {
   "about": {
@@ -211,12 +211,12 @@ const siteData = {
   "reviews": [
     {
       "id": 6,
-      "titleJa": "すごい戦績",
-      "titleZh": "好強的戰績",
-      "titleEn": "What an impressive record!",
-      "contentJa": "すごい戦績だ！まずは皆さんにお見せしますね！ははは！O(∩_∩)O~~",
-      "contentZh": "好強的戰績 我先來分享給你們看看 哈哈哈!O(∩_∩)O~~",
-      "contentEn": "What an impressive record! Let me share it with you all first! Hahaha! :D",
+      "titleJa": "🍒 お兄さん、初めてのコラボを評価してくださり、ありがとうございます。",
+      "titleZh": "🍒 感謝哥哥首次合作的肯定",
+      "titleEn": "Thank you, brother, for your affirmation of our first collaboration.",
+      "contentJa": "技術派ではないですが、彼女の対応は自然で、声も可愛らしく、反応もリアルです。私たちは毎回フィードバックを記録し、次回のおすすめがより的確になるよう努めています🌸\n「新鮮さ＋協調性の高さ」がお好きな方は、ぜひDMでご連絡ください～",
+      "contentZh": "不是技術派，但妹妹互動自然、聲音好聽、反應真實 我們都會記錄每一次回饋，讓下次推薦更準確🌸\n喜歡「新鮮感＋配合度高」的可以私訊聊聊～",
+      "contentEn": "I'm not a technical expert, but her interactions are natural, her voice is lovely, and her reactions are genuine. We record all feedback to ensure more accurate recommendations next time. If you appreciate novelty and high adaptability, feel free to send a private message to chat.",
       "girlName": "",
       "date": "2026.3.21",
       "featured": true,
