@@ -28,7 +28,7 @@ const WATERMARK_LOGO = '../logo/logo-trimmed.png';
 // ── 裁切 + 浮水印：先裁成 2:3（top center）再疊 logo，確保顯示時浮水印不被裁掉 ──
 const CROP_ASPECT = 2 / 3; // 與 Gallery、日記顯示比例一致
 
-async function addWatermark(file) {
+async function applyWatermarkToFile(file) {
   return new Promise((resolve) => {
     const img = new Image();
     const objectUrl = URL.createObjectURL(file);
@@ -83,11 +83,14 @@ async function addWatermark(file) {
         ctx.globalAlpha = 1;
         ctx.drawImage(logoImg, x, y, logoW, logoH);
         ctx.globalAlpha = 1;
+        const outMime = file.type && file.type.startsWith('image/') ? file.type : 'image/jpeg';
         canvas.toBlob(blob => {
           URL.revokeObjectURL(objectUrl);
-          if (blob) resolve(new File([blob], file.name, { type: file.type }));
-          else resolve(file);
-        }, file.type || 'image/jpeg', 0.92);
+          if (blob && blob.size > 0) {
+            const mime = blob.type || outMime;
+            resolve(new File([blob], file.name, { type: mime }));
+          } else resolve(file);
+        }, outMime, 0.92);
       };
       logoImg.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
       logoImg.src = WATERMARK_LOGO;
@@ -590,7 +593,7 @@ function setupWatermarkTool() {
     }
     zone.classList.add('processing');
     zone.querySelector('.img-upload-text').textContent = `處理中（加浮水印）${imageFiles.length} 張...`;
-    Promise.all(imageFiles.map(f => addWatermark(f))).then((results) => {
+    Promise.all(imageFiles.map(f => applyWatermarkToFile(f))).then((results) => {
       watermarkedFiles = results;
       objectUrls.forEach(u => URL.revokeObjectURL(u));
       objectUrls = results.map(f => URL.createObjectURL(f));
@@ -787,6 +790,18 @@ function setupModals() {
       if (!urlInput) return;
       const wantWatermark = slotBox?.querySelector('.img-slot-watermark')?.checked !== false;
 
+      async function getFileForUpload(rawFile) {
+        if (!wantWatermark) return rawFile;
+        try {
+          const out = await applyWatermarkToFile(rawFile);
+          if (out && out.size > 0) return out;
+        } catch (e) {
+          console.warn('applyWatermarkToFile', e);
+        }
+        alert('浮水印處理失敗，已改用原圖上傳。');
+        return rawFile;
+      }
+
       function setPreviewAndUrl(url, showWatermarkHint) {
         urlInput.value = url;
         if (previewEl) {
@@ -802,7 +817,7 @@ function setupModals() {
         if (area) area.style.display = 'none';
         if (previewEl) previewEl.innerHTML = wantWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">處理中...</div>';
         try {
-          const fileToUse = wantWatermark ? await addWatermark(file) : file;
+          const fileToUse = await getFileForUpload(file);
           await new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => {
@@ -834,12 +849,12 @@ function setupModals() {
       if (area) area.style.display = 'none';
       if (previewEl) previewEl.innerHTML = wantWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">上傳中...</div>';
       try {
-        const fileToUse = wantWatermark ? await addWatermark(file) : file;
+        const fileToUse = await getFileForUpload(file);
         const previewUrl = URL.createObjectURL(fileToUse);
         if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="預覽"><p class="img-watermark-hint">${wantWatermark ? '浮水印預覽 · ' : ''}上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
         const fd = new FormData();
         fd.append('key', key);
-        fd.append('image', fileToUse);
+        fd.append('image', fileToUse, fileToUse.name || 'image.jpg');
         const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
         const json = await res.json();
         URL.revokeObjectURL(previewUrl);
