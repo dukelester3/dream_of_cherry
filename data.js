@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/24 下午3:04:56
+// Generated: 2026/3/24 下午3:10:19
 
 const siteData = {
   "about": {
@@ -289,6 +289,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 91,
+      "titleJa": "悠々店長のおすすめ",
+      "titleZh": "悠悠店長推薦",
+      "titleEn": "Recommended by Store Manager Youyou",
+      "excerpt": "事前予約で交通費無料",
+      "excerptZh": "提前預約免交通費",
+      "excerptEn": "Free transportation for advance bookings.",
+      "contentJa": "和風な雰囲気\" (Japanese style atmosphere) or \"和風美人\" (Japanese style beauty). \"和風の雰囲気\" (Japanese atmosphere). \"和風美人\" is more about the person. \"和風の佇まい\" (Japanese demeanor). Let's use \"和風美人\".\n    *   講話溫柔 (Jiǎnghuà wēnróu):",
+      "contentZh": "🌸 名前：七瀨（Nanase）\n📕 職業：甜點工作室學徒\n📏 身高體重：157cm／C罩杯／45kg\n🔖 標籤：#奶香甜系 #私服可愛 #笑起來很乖\n\n🌸 名前：朝倉（Asakura）\n📕 職業：百貨專櫃櫃姐\n📏 身高體重：160cm／D罩杯／47kg\n🔖 標籤：#S感女孩 #大姊姊氣場 #制服控首選\n\n🌸 名前：高宮（Takamiyā）\n📕 職業：咖啡廳外場人員\n📏 身高體重：159cm／B罩杯／46kg\n🔖 標籤：#鄰家女友感 #有點靦腆 #越聊越有感覺\n\n🌸 名前：深田（Fukada）\n📕 職業：動物醫院實習生\n📏 身高體重：158cm／C罩杯／44kg\n🔖 標籤：#療癒系女孩 #溫柔笑容 #天然呆萌感\n\n🌸 名前：白鳥（Shiratori）\n📕 職業：日式旅館見習女將\n📏 身高體重：161cm／D罩杯／48kg\n🔖 標籤：#和風氣質 #講話溫柔 #貼心好相處\n\n🌸 名前：水瀨（Minase）\n📕 職業：漫畫店兼職店員\n📏 身高體重：155cm／B罩杯／43kg\n🔖 標籤：#宅系可愛 #會聊動漫 #雙馬尾加分",
+      "contentEn": "🌸 Name: Nanase\n📕 Occupation: Dessert studio apprentice\n📏 Height/Weight: 157cm / C-cup / 45kg\n🔖 Tags: #MilkySweet #CuteCasualWear #SweetSmile\n\n🌸 Name: Asakura\n📕 Occupation: Department store counter sales associate\n📏 Height/Weight: 160cm / D-cup / 47kg\n🔖 Tags: #SassyVibe #BigSisterAura #UniformLover'sTopPick\n\n🌸 Name: Takamiya\n📕 Occupation: Cafe floor staff\n📏 Height/Weight: 159cm / B-cup / 46kg\n🔖 Tags: #GirlNextDoorVibe #AbitShy #GetsBetterTheMoreYouChat\n\n🌸 Name: Fukada\n📕 Occupation: Animal hospital intern\n📏 Height/Weight: 158cm / C-cup / 44kg\n🔖 Tags: #HealingGirl #GentleSmile #NaturallyClumsyCute\n\n🌸 Name: Shiratori\n📕 Occupation: Apprentice Okami (Japanese inn proprietress)\n📏 Height/Weight: 161cm / D-cup / 48kg\n🔖 Tags: #JapaneseElegance #SoftSpoken #ConsiderateAndEasygoing\n\n🌸 Name: Minase\n📕 Occupation: Part-time comic book store clerk\n📏 Height/Weight: 155cm / B-cup / 43kg\n🔖 Tags: #OtakuCute #CanTalkAnime #TwinTailsBonus",
+      "category": "日記",
+      "date": "2026.3.24",
+      "createdAt": "2026.3.24 15:06:54",
+      "images": [
+        "https://i.ibb.co/1fCrxKnR/photo-2020-11-25-01-01-02.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/1fCrxKnR/photo-2020-11-25-01-01-02.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 90,
       "titleJa": "番号7151",
