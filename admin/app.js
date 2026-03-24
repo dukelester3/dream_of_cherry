@@ -501,13 +501,13 @@ function setupTabs() {
   document.getElementById('add-girl-btn').addEventListener('click', () => openModal('girl', null));
   document.getElementById('add-review-btn').addEventListener('click', () => openModal('review', null));
   document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
-  document.querySelectorAll('.diary-sub-nav-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      document.querySelectorAll('.diary-sub-nav-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      diaryCategoryFilter = btn.dataset.diaryCategory || '';
-      renderDiaryTable();
-    });
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('#tab-diary .diary-sub-nav-btn');
+    if (!btn) return;
+    document.querySelectorAll('#tab-diary .diary-sub-nav-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    diaryCategoryFilter = btn.dataset.diaryCategory ?? '';
+    renderDiaryTable();
   });
   document.getElementById('edit-about-btn')?.addEventListener('click', () => openModal('about', 0));
   document.getElementById('export-btn').addEventListener('click', generateExport);
@@ -785,7 +785,7 @@ function setupModals() {
       const slotBox = prefix ? document.querySelector(`[data-target="${tid}"]`) : box;
       const area = slotBox?.querySelector('.img-upload-area');
       if (!urlInput) return;
-      const addWatermark = document.getElementById('f-watermark')?.checked !== false;
+      const addWatermark = slotBox?.querySelector('.img-slot-watermark')?.checked !== false;
 
       function setPreviewAndUrl(url, showWatermarkHint) {
         urlInput.value = url;
@@ -940,10 +940,10 @@ function openModal(type, id) {
         </div>
       </div>
       <div class="form-group">
-        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>照片（選填，最多 3 張，列表會動態切換顯示）</label>
         <div class="diary-images-row">
           <div class="img-upload-box" data-target="f-girl-images-0">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-girl-images-0-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 1</span>
@@ -953,6 +953,7 @@ function openModal(type, id) {
             <input id="f-girl-images-0" value="${(item?.images?.[0] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
           <div class="img-upload-box" data-target="f-girl-images-1">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-girl-images-1-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 2</span>
@@ -962,6 +963,7 @@ function openModal(type, id) {
             <input id="f-girl-images-1" value="${(item?.images?.[1] ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
           <div class="img-upload-box" data-target="f-girl-images-2">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-girl-images-2-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 3</span>
@@ -989,9 +991,9 @@ function openModal(type, id) {
       <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentJa||''}</textarea></div>
       <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentEn||''}</textarea></div>
       <div class="form-group">
-        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>照片（選填）</label>
         <div class="img-upload-box" data-target="f-review-image">
+          <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
           <label class="img-upload-area" for="f-review-image-file">
             <span class="img-upload-icon">📷</span>
             <span class="img-upload-text">點擊選擇圖片或拖曳到這裡</span>
@@ -1015,9 +1017,9 @@ function openModal(type, id) {
     const photos = a.photos || [...DEFAULT_ABOUT.photos];
     const ph = (i) => (photos[i] || '').replace(/"/g, '&quot;');
     body.innerHTML = `
-      <div class="form-group"><label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label></div>
       <div class="form-group"><label>照片 1（左上小圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-0">
+          <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
           <label class="img-upload-area" for="f-about-photo-0-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
           <input type="file" id="f-about-photo-0-file" accept="image/*" class="img-file-input">
           <div class="img-upload-preview" id="f-about-photo-0-preview"></div>
@@ -1026,6 +1028,7 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>照片 2（右大圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-1">
+          <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
           <label class="img-upload-area" for="f-about-photo-1-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
           <input type="file" id="f-about-photo-1-file" accept="image/*" class="img-file-input">
           <div class="img-upload-preview" id="f-about-photo-1-preview"></div>
@@ -1034,6 +1037,7 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>照片 3（左長圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-2">
+          <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
           <label class="img-upload-area" for="f-about-photo-2-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
           <input type="file" id="f-about-photo-2-file" accept="image/*" class="img-file-input">
           <div class="img-upload-preview" id="f-about-photo-2-preview"></div>
@@ -1042,6 +1046,7 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>照片 4（右下小圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-3">
+          <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
           <label class="img-upload-area" for="f-about-photo-3-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
           <input type="file" id="f-about-photo-3-file" accept="image/*" class="img-file-input">
           <div class="img-upload-preview" id="f-about-photo-3-preview"></div>
@@ -1081,10 +1086,10 @@ function openModal(type, id) {
         <div class="form-group"><label>建立時間(YYYY.M.D HH:mm:ss)</label><input id="f-date" value="${item?.createdAt||item?.date||getNowStr()}" placeholder="例：2026.3.18 17:30:45"></div>
       </div>
       <div class="form-group">
-        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>圖片（選填，最多 3 張，列表卡片會動態切換顯示）</label>
         <div class="diary-images-row">
           <div class="img-upload-box" data-target="f-diary-images-0">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-diary-images-0-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 1</span>
@@ -1094,6 +1099,7 @@ function openModal(type, id) {
             <input id="f-diary-images-0" value="${(item?.images?.[0] ?? item?.thumbnail ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
           <div class="img-upload-box" data-target="f-diary-images-1">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-diary-images-1-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 2</span>
@@ -1103,6 +1109,7 @@ function openModal(type, id) {
             <input id="f-diary-images-1" value="${(item?.images?.[1] ?? item?.image ?? '').replace(/"/g,'&quot;')}" class="img-url-input" placeholder="上傳後自動填入">
           </div>
           <div class="img-upload-box" data-target="f-diary-images-2">
+            <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
             <label class="img-upload-area" for="f-diary-images-2-file">
               <span class="img-upload-icon">📷</span>
               <span class="img-upload-text">圖片 3</span>
