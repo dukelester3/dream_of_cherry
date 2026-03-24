@@ -773,6 +773,7 @@ function setupModals() {
       const slotBox = prefix ? document.querySelector(`[data-target="${tid}"]`) : box;
       const area = slotBox?.querySelector('.img-upload-area');
       if (!urlInput) return;
+      const addWatermark = document.getElementById('f-watermark')?.checked !== false;
 
       function setPreviewAndUrl(url, showWatermarkHint) {
         urlInput.value = url;
@@ -787,9 +788,9 @@ function setupModals() {
 
       if (!key) {
         if (area) area.style.display = 'none';
-        if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
+        if (previewEl) previewEl.innerHTML = addWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">處理中...</div>';
         try {
-          const watermarked = await addWatermark(file);
+          const fileToUse = addWatermark ? await addWatermark(file) : file;
           await new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => {
@@ -801,37 +802,37 @@ function setupModals() {
                 reject(new Error('too large'));
                 return;
               }
-              setPreviewAndUrl(dataUrl, true);
+              setPreviewAndUrl(dataUrl, addWatermark);
               if (area) area.style.display = 'flex';
               resolve();
             };
             reader.onerror = () => reject(reader.error);
-            reader.readAsDataURL(watermarked);
+            reader.readAsDataURL(fileToUse);
           });
         } catch (err) {
           if (err?.message !== 'too large') {
             if (area) area.style.display = 'flex';
             if (previewEl) previewEl.innerHTML = '';
-            alert('浮水印處理失敗：' + (err?.message || err));
+            alert(addWatermark ? '浮水印處理失敗：' + (err?.message || err) : '處理失敗：' + (err?.message || err));
           }
         }
         return;
       }
 
       if (area) area.style.display = 'none';
-      if (previewEl) previewEl.innerHTML = '<div class="img-uploading">處理中（加浮水印）...</div>';
+      if (previewEl) previewEl.innerHTML = addWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">上傳中...</div>';
       try {
-        const watermarked = await addWatermark(file);
-        const previewUrl = URL.createObjectURL(watermarked);
-        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="浮水印預覽"><p class="img-watermark-hint">浮水印預覽 · 上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
+        const fileToUse = addWatermark ? await addWatermark(file) : file;
+        const previewUrl = URL.createObjectURL(fileToUse);
+        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="預覽"><p class="img-watermark-hint">${addWatermark ? '浮水印預覽 · ' : ''}上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
         const fd = new FormData();
         fd.append('key', key);
-        fd.append('image', watermarked);
+        fd.append('image', fileToUse);
         const res = await fetch('https://api.imgbb.com/1/upload', { method: 'POST', body: fd });
         const json = await res.json();
         URL.revokeObjectURL(previewUrl);
         if (json.data?.url) {
-          setPreviewAndUrl(json.data.url, true);
+          setPreviewAndUrl(json.data.url, addWatermark);
         } else {
           if (area) area.style.display = 'flex';
           if (previewEl) previewEl.innerHTML = '';
@@ -927,6 +928,7 @@ function openModal(type, id) {
         </div>
       </div>
       <div class="form-group">
+        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>照片（選填，最多 3 張，列表會動態切換顯示）</label>
         <div class="diary-images-row">
           <div class="img-upload-box" data-target="f-girl-images-0">
@@ -975,6 +977,7 @@ function openModal(type, id) {
       <div class="form-group"><label>內容(日)</label><textarea id="f-contentJa" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentJa||''}</textarea></div>
       <div class="form-group"><label>內容(英)</label><textarea id="f-contentEn" style="min-height:80px" placeholder="翻譯後自動填入">${item?.contentEn||''}</textarea></div>
       <div class="form-group">
+        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>照片（選填）</label>
         <div class="img-upload-box" data-target="f-review-image">
           <label class="img-upload-area" for="f-review-image-file">
@@ -1000,6 +1003,7 @@ function openModal(type, id) {
     const photos = a.photos || [...DEFAULT_ABOUT.photos];
     const ph = (i) => (photos[i] || '').replace(/"/g, '&quot;');
     body.innerHTML = `
+      <div class="form-group"><label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label></div>
       <div class="form-group"><label>照片 1（左上小圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-0">
           <label class="img-upload-area" for="f-about-photo-0-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
@@ -1065,6 +1069,7 @@ function openModal(type, id) {
         <div class="form-group"><label>建立時間(YYYY.M.D HH:mm:ss)</label><input id="f-date" value="${item?.createdAt||item?.date||getNowStr()}" placeholder="例：2026.3.18 17:30:45"></div>
       </div>
       <div class="form-group">
+        <label class="watermark-option"><input type="checkbox" id="f-watermark" checked> 上傳時添加浮水印</label>
         <label>圖片（選填，最多 3 張，列表卡片會動態切換顯示）</label>
         <div class="diary-images-row">
           <div class="img-upload-box" data-target="f-diary-images-0">
