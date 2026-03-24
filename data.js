@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/24 下午5:31:28
+// Generated: 2026/3/24 下午5:46:21
 
 const siteData = {
   "about": {
@@ -289,6 +289,34 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 92,
+      "titleJa": "番号7152",
+      "titleZh": "番號7152",
+      "titleEn": "No. 7152",
+      "excerpt": "悠々店長推薦 長時間割引（交通費込み）",
+      "excerptZh": " 悠悠店長推薦 長時間有折扣（包含交通費） ",
+      "excerptEn": "Shop Manager Yoyo recommends: Long-term discounts (including transportation fees).",
+      "contentJa": "悠々店長のおすすめ：長時間割引（交通費込み）",
+      "contentZh": "悠悠店長推薦 長時間有折扣（包含交通費） ",
+      "contentEn": "Recommended by Store Manager Yoyo: Long-term discounts (including transportation costs).",
+      "category": "出勤情報",
+      "date": "2026.3.24",
+      "createdAt": "2026.3.24 17:43:40",
+      "images": [
+        "https://i.ibb.co/8gDgVG4T/photo-2025-10-02-15-23-55.jpg",
+        "https://i.ibb.co/mCnRJT5B/photo-2025-10-02-15-23-57-2.jpg",
+        "https://i.ibb.co/VpcFHgqh/photo-2025-10-02-15-23-57.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/8gDgVG4T/photo-2025-10-02-15-23-55.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "D",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 91,
       "titleJa": "悠々店長のおすすめ",
