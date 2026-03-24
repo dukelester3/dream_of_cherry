@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 3/24/2026, 4:50:27 PM
+// Generated: 2026/3/24 下午5:55:41
 
 const siteData = {
   "about": {
