@@ -785,7 +785,7 @@ function setupModals() {
       const slotBox = prefix ? document.querySelector(`[data-target="${tid}"]`) : box;
       const area = slotBox?.querySelector('.img-upload-area');
       if (!urlInput) return;
-      const addWatermark = slotBox?.querySelector('.img-slot-watermark')?.checked !== false;
+      const wantWatermark = slotBox?.querySelector('.img-slot-watermark')?.checked !== false;
 
       function setPreviewAndUrl(url, showWatermarkHint) {
         urlInput.value = url;
@@ -800,9 +800,9 @@ function setupModals() {
 
       if (!key) {
         if (area) area.style.display = 'none';
-        if (previewEl) previewEl.innerHTML = addWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">處理中...</div>';
+        if (previewEl) previewEl.innerHTML = wantWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">處理中...</div>';
         try {
-          const fileToUse = addWatermark ? await addWatermark(file) : file;
+          const fileToUse = wantWatermark ? await addWatermark(file) : file;
           await new Promise((resolve, reject) => {
             const reader = new FileReader();
             reader.onload = () => {
@@ -814,7 +814,7 @@ function setupModals() {
                 reject(new Error('too large'));
                 return;
               }
-              setPreviewAndUrl(dataUrl, addWatermark);
+              setPreviewAndUrl(dataUrl, wantWatermark);
               if (area) area.style.display = 'flex';
               resolve();
             };
@@ -825,18 +825,18 @@ function setupModals() {
           if (err?.message !== 'too large') {
             if (area) area.style.display = 'flex';
             if (previewEl) previewEl.innerHTML = '';
-            alert(addWatermark ? '浮水印處理失敗：' + (err?.message || err) : '處理失敗：' + (err?.message || err));
+            alert(wantWatermark ? '浮水印處理失敗：' + (err?.message || err) : '處理失敗：' + (err?.message || err));
           }
         }
         return;
       }
 
       if (area) area.style.display = 'none';
-      if (previewEl) previewEl.innerHTML = addWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">上傳中...</div>';
+      if (previewEl) previewEl.innerHTML = wantWatermark ? '<div class="img-uploading">處理中（加浮水印）...</div>' : '<div class="img-uploading">上傳中...</div>';
       try {
-        const fileToUse = addWatermark ? await addWatermark(file) : file;
+        const fileToUse = wantWatermark ? await addWatermark(file) : file;
         const previewUrl = URL.createObjectURL(fileToUse);
-        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="預覽"><p class="img-watermark-hint">${addWatermark ? '浮水印預覽 · ' : ''}上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
+        if (previewEl) previewEl.innerHTML = `<img src="${previewUrl}" alt="預覽"><p class="img-watermark-hint">${wantWatermark ? '浮水印預覽 · ' : ''}上傳中...</p><div class="img-btn-row"><button type="button" class="img-change-btn" disabled>上傳中</button></div>`;
         const fd = new FormData();
         fd.append('key', key);
         fd.append('image', fileToUse);
@@ -844,7 +844,7 @@ function setupModals() {
         const json = await res.json();
         URL.revokeObjectURL(previewUrl);
         if (json.data?.url) {
-          setPreviewAndUrl(json.data.url, addWatermark);
+          setPreviewAndUrl(json.data.url, wantWatermark);
         } else {
           if (area) area.style.display = 'flex';
           if (previewEl) previewEl.innerHTML = '';
