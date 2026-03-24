@@ -100,6 +100,7 @@ async function addWatermark(file) {
 // ── State ──
 let adminData = null;
 let currentTab = 'girls';
+let diaryCategoryFilter = '';
 let editingId = null;
 let editingType = null;
 
@@ -492,6 +493,7 @@ function setupTabs() {
         tabEl.classList.remove('hidden');
         tabEl.classList.add('active');
         if (btn.dataset.tab === 'export') updateStorageUsage();
+        if (btn.dataset.tab === 'diary') renderDiaryTable();
       }
     });
   });
@@ -499,6 +501,14 @@ function setupTabs() {
   document.getElementById('add-girl-btn').addEventListener('click', () => openModal('girl', null));
   document.getElementById('add-review-btn').addEventListener('click', () => openModal('review', null));
   document.getElementById('add-diary-btn').addEventListener('click', () => openModal('diary', null));
+  document.querySelectorAll('.diary-sub-nav-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.diary-sub-nav-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      diaryCategoryFilter = btn.dataset.diaryCategory || '';
+      renderDiaryTable();
+    });
+  });
   document.getElementById('edit-about-btn')?.addEventListener('click', () => openModal('about', 0));
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
@@ -718,8 +728,10 @@ function getBangouGaps() {
 
 function renderDiaryTable() {
   const tbody = document.getElementById('diary-tbody');
+  if (!tbody) return;
   document.getElementById('diary-bangou-gap-warn')?.remove();
-  const gaps = getBangouGaps();
+  const diary = (adminData.diary || []).filter(d => !diaryCategoryFilter || d.category === diaryCategoryFilter);
+  const gaps = diaryCategoryFilter === '出勤情報' || !diaryCategoryFilter ? getBangouGaps() : [];
   if (gaps.length > 0) {
     const warn = document.createElement('div');
     warn.id = 'diary-bangou-gap-warn';
@@ -727,7 +739,7 @@ function renderDiaryTable() {
     warn.textContent = '番號跳號警告：缺少 ' + gaps.join(', ');
     tbody.closest('.admin-table-wrap')?.insertBefore(warn, tbody.closest('table'));
   }
-  tbody.innerHTML = [...adminData.diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => {
+  tbody.innerHTML = [...diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => {
     const thumb = d.images?.[0] ?? d.thumbnail;
     const bangou = d.category === '出勤情報' ? (extractBangouFromTitle(d.titleZh) || extractBangouFromTitle(d.titleJa) || '-') : '-';
     return `
