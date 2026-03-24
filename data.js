@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/24 下午5:55:41
+// Generated: 2026/3/24 下午5:56:40
 
 const siteData = {
   "about": {
@@ -2220,13 +2220,13 @@ const siteData = {
       "excerptZh": "悠悠夜桜東京外送【不限外國客】",
       "date": "2025.04.20",
       "category": "日記",
-      "thumbnail": "https://i.ibb.co/d4DFjWQf/133e04fc1bfc56344cb56b5e86bd293af79e1573-31-9-9-3.jpg",
+      "thumbnail": "https://i.ibb.co/gMXx5PFQ/photo-2023-03-30-15-24-05.jpg",
       "stats": null,
       "published": true,
       "excerptEn": "",
       "createdAt": "2025.04.20",
       "images": [
-        "https://i.ibb.co/d4DFjWQf/133e04fc1bfc56344cb56b5e86bd293af79e1573-31-9-9-3.jpg"
+        "https://i.ibb.co/gMXx5PFQ/photo-2023-03-30-15-24-05.jpg"
       ]
     },
     {
