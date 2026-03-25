@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/25 下午2:43:30
+// Generated: 2026/3/25 下午3:56:53
 
 const siteData = {
   "about": {
@@ -1929,7 +1929,7 @@ const siteData = {
       "contentEn": "🇯🇵| Manager's Recommendation\nLong-term discount (including transportation fee)",
       "category": "出勤情報",
       "date": "2026.3.17",
-      "thumbnail": "https://i.ibb.co/7fmshT2/photo-2025-09-16-14-38-26-2.jpg",
+      "thumbnail": "https://i.ibb.co/JFSF044C/photo-2025-09-16-14-38-26-2.jpg",
       "image": "https://i.ibb.co/MyrH27sW/photo-2025-09-16-14-38-26.jpg",
       "stats": {
         "height": 164,
@@ -1938,7 +1938,12 @@ const siteData = {
         "weight": 50
       },
       "published": true,
-      "excerptEn": "🇯🇵| Store Manager's Recommendation: Long-term discounts available (including transportation fees)"
+      "excerptEn": "🇯🇵| Store Manager's Recommendation: Long-term discounts available (including transportation fees)",
+      "createdAt": "2026.3.17",
+      "images": [
+        "https://i.ibb.co/JFSF044C/photo-2025-09-16-14-38-26-2.jpg",
+        "https://i.ibb.co/HpNhSp42/photo-2025-09-16-14-38-26.jpg"
+      ]
     },
     {
       "id": 35,
