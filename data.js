@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/26 下午2:17:41
+// Generated: 2026/3/26 下午2:20:42
 
 const siteData = {
   "about": {
@@ -289,6 +289,60 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 107,
+      "titleJa": "番号7167",
+      "titleZh": "番號7167",
+      "titleEn": "No. 7167",
+      "excerpt": "悠悠店長のおすすめ：長時間割引（交通費込み）",
+      "excerptZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "excerptEn": "Recommended by Manager Youyou: Long-term discount (including transportation costs).",
+      "contentJa": "悠々店長のおすすめ！長時間割引あり（交通費込み）",
+      "contentZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "contentEn": "Recommended by Manager Youyou: Long-term discount (including transportation fees)",
+      "category": "出勤情報",
+      "date": "2026.3.26",
+      "createdAt": "2026.3.26 14:19:39",
+      "images": [
+        "https://i.ibb.co/bjtmKqTH/photo-2025-10-07-15-15-14.jpg",
+        "https://i.ibb.co/35T9CQTt/photo-2025-10-07-15-15-15.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/bjtmKqTH/photo-2025-10-07-15-15-14.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "E",
+        "age": 25,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 106,
+      "titleJa": "番号7166",
+      "titleZh": "番號7166",
+      "titleEn": "No. 7166",
+      "excerpt": "悠悠店長のおすすめ 長時間割引（交通費込み）",
+      "excerptZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "excerptEn": "Store Manager Yoyo recommends long-term discounts (including transportation fees).",
+      "contentJa": "悠悠店長推薦 長時間割引（交通費込み）",
+      "contentZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "contentEn": "Shop Manager Yoyo recommends long-term discounts (including transportation fees).",
+      "category": "出勤情報",
+      "date": "2026.3.26",
+      "createdAt": "2026.3.26 14:18:09",
+      "images": [
+        "https://i.ibb.co/YFDBhY8w/photo-2025-10-07-15-13-32-2.jpg",
+        "https://i.ibb.co/mF9S2MZP/photo-2025-10-07-15-13-32.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/YFDBhY8w/photo-2025-10-07-15-13-32-2.jpg",
+      "stats": {
+        "height": 157,
+        "cup": "E",
+        "age": 23,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 105,
       "titleJa": "番号7165",
