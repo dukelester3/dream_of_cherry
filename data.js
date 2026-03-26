@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/26 下午2:03:37
+// Generated: 2026/3/26 下午2:14:10
 
 const siteData = {
   "about": {
@@ -289,6 +289,34 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 103,
+      "titleJa": "番号7163",
+      "titleZh": "番號7163",
+      "titleEn": "No. 7163",
+      "excerpt": "悠々店長のおすすめ 長時間割引あり（交通費込み）",
+      "excerptZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "excerptEn": "Manager Youyou recommends: Extended discount (including transportation fees)",
+      "contentJa": "悠悠店長のおすすめ：長時間割引（交通費込み）",
+      "contentZh": "悠悠店長推薦 長時間有折扣（包含交通費）",
+      "contentEn": "Recommended by Manager Youyou: Long-term discount (including transportation fees)",
+      "category": "出勤情報",
+      "date": "2026.3.26",
+      "createdAt": "2026.3.26 14:03:44",
+      "images": [
+        "https://i.ibb.co/TsYHtBP/photo-2025-10-07-15-03-43-3.jpg",
+        "https://i.ibb.co/CDwtNNR/photo-2025-10-07-15-03-43.jpg",
+        "https://i.ibb.co/MkSTwXhH/photo-2025-10-07-15-03-43-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/TsYHtBP/photo-2025-10-07-15-03-43-3.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "E",
+        "age": 25,
+        "weight": 48
+      },
+      "published": true
+    },
     {
       "id": 102,
       "titleJa": "番号7162",
