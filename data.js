@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午7:16:57
+// Generated: 2026/3/27 下午7:24:09
 
 const siteData = {
   "about": {
@@ -292,6 +292,48 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 127,
+      "titleJa": "東京リアル還元",
+      "titleZh": "東京真實回饋",
+      "titleEn": "Real Rewards from Tokyo",
+      "excerpt": "初めてコラボしたお兄さんからのフィードバック",
+      "excerptZh": "第一次合作的哥哥 給來的回饋~~",
+      "excerptEn": "Feedback from my first collaboration 'brother'.",
+      "contentJa": "全くその通りです！\n初めてお取引させていただいたお兄さんからの嬉しいお言葉です！\n\n初めてのお取引で信頼関係がないのは、確かにごく自然なことです。ですが、悠悠はどのお客様にも誠実に向き合っています。\nお客様がどこからいらしたとしても、同じように真心を込めて対応いたします。\n私は一度きりのお付き合いはしません。\nここは、口コミによる長期的なお付き合いを大切にしています。\nそして、初めてのお取引で悠悠を信頼してくださったお兄さんに心より感謝いたします。",
+      "contentZh": "誰說不是呢？😜\n第一次合作的哥哥 給來的回饋~~\n\n第一次合作沒有信任的確非常正常 但悠悠對每個客人都是坦誠相待 \n無論你是來自哪裡 一樣真誠 我從不做一次性生意 \n這裡是口碑長期生意 也真心謝謝第一次合作就信任悠悠的哥哥",
+      "contentEn": "Who says it isn't? 😜\nFeedback from the gentleman I collaborated with for the first time~~\n\nIt's perfectly normal for there to be a lack of trust in a first-time collaboration, but Youyou treats every customer with sincerity. No matter where you come from, I treat you with the same sincerity. I never do one-off business. This is a long-term business built on word-of-mouth. I also sincerely thank the gentleman who trusted Youyou from our very first collaboration.",
+      "category": "客戶反饋",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 19:21:48",
+      "images": [
+        "https://i.ibb.co/Q7pvd1GP/photo-2026-02-13-14-21-50.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Q7pvd1GP/photo-2026-02-13-14-21-50.jpg",
+      "stats": null,
+      "published": true
+    },
+    {
+      "id": 126,
+      "titleJa": "大阪のリアルな声",
+      "titleZh": "大阪真實回饋",
+      "titleEn": "Real feedback from Osaka",
+      "excerpt": "いえーい！実物の方が写真よりずっと可愛いんだもんn(*≧▽≦*)n",
+      "excerptZh": "耶~~~ 本人比照片還要可愛n(*≧▽≦*)n",
+      "excerptEn": "Yay~~~ I'm even cuter in person than in my photos n(*≧▽≦*)n",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "客戶反饋",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 19:19:50",
+      "images": [
+        "https://i.ibb.co/WpHtdhdy/photo-2026-02-13-16-51-03.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/WpHtdhdy/photo-2026-02-13-16-51-03.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 125,
       "titleJa": "フィードバックありがとうございます。",
