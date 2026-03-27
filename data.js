@@ -1,13 +1,15 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午4:49:07
+// Generated: 2026/3/27 下午4:51:07
 
 const siteData = {
   "about": {
     "photos": [
-      "https://i.ibb.co/d0jHqV4k/yuyu-1.jpg",
+      "https://i.ibb.co/Z1KqdZhX/1040g2sg31t1ts40r5cg049vmksgkd2nvgln7ik8.jpg",
       "https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg",
-      "https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg",
-      "https://i.ibb.co/bTkVcn3/S-28147830-0.jpg"
+      "https://i.ibb.co/JWxz2kK5/image-5-1.jpg",
+      "https://i.ibb.co/bTkVcn3/S-28147830-0.jpg",
+      "https://i.ibb.co/d0jHqV4k/yuyu-1.jpg",
+      "https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg"
     ],
     "p1Ja": "はじめまして、ゆうゆうと申します。台湾出身です。昔から日本の文化や礼儀作法に憧れていて、卒業を機に、ついに夢だった日本での生活をスタートさせました。",
     "p1Zh": "大家好～我是悠悠，來自台灣！從小就被日本的文化與禮儀深深吸引，畢業後終於實現夢想來到日本生活。",
