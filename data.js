@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午4:14:04
+// Generated: 2026/3/27 下午4:48:12
 
 const siteData = {
   "about": {
@@ -289,6 +289,82 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 122,
+      "titleJa": "番号7182",
+      "titleZh": "番號7182",
+      "titleEn": "No. 7182",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japan Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・泊まり割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 16:46:35",
+      "stats": {
+        "height": 166,
+        "age": 25,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 121,
+      "titleJa": "番号7181",
+      "titleZh": "番號7181",
+      "titleEn": "No. 7181",
+      "excerpt": "夜桜の夢 日本の高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "店長推薦\n長時間・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended hours/overnight",
+      "category": "出勤情報",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 16:45:17",
+      "images": [
+        "https://i.ibb.co/gM404y4Q/photo-2025-10-13-19-40-08.jpg",
+        "https://i.ibb.co/bMYwHPvt/photo-2025-10-13-19-40-09-2.jpg",
+        "https://i.ibb.co/Q7rXYBPc/photo-2025-10-13-19-40-09.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/gM404y4Q/photo-2025-10-13-19-40-08.jpg",
+      "stats": {
+        "height": 159,
+        "cup": "D",
+        "age": 24,
+        "weight": 42
+      },
+      "published": true
+    },
+    {
+      "id": 120,
+      "titleJa": "番号7180",
+      "titleZh": "番號7180",
+      "titleEn": "No. 7180",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイトは割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 16:42:43",
+      "images": [
+        "https://i.ibb.co/hx5cyhs3/photo-2025-10-13-19-38-17-2.jpg",
+        "https://i.ibb.co/2YmcbXvW/photo-2025-10-13-19-38-17.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/hx5cyhs3/photo-2025-10-13-19-38-17-2.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "E",
+        "age": 26,
+        "weight": 48
+      },
+      "published": true
+    },
     {
       "id": 119,
       "titleJa": "番号7179",
