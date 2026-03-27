@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午4:48:12
+// Generated: 2026/3/27 下午4:49:07
 
 const siteData = {
   "about": {
@@ -303,6 +303,10 @@ const siteData = {
       "category": "出勤情報",
       "date": "2026.3.27",
       "createdAt": "2026.3.27 16:46:35",
+      "images": [
+        "https://i.ibb.co/ynh2FstL/photo-2025-10-13-19-41-50.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ynh2FstL/photo-2025-10-13-19-41-50.jpg",
       "stats": {
         "height": 166,
         "age": 25,
