@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午7:12:43
+// Generated: 2026/3/27 下午7:16:57
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 125,
+      "titleJa": "フィードバックありがとうございます。",
+      "titleZh": "謝謝你們給的回饋",
+      "titleEn": "Thank you for your feedback",
+      "excerpt": "私を信じて、絶対に迷わせないから！",
+      "excerptZh": "信我包不迷路！",
+      "excerptEn": "Trust me, you won't get lost.",
+      "contentJa": "私を信じて、迷わないから！\nお兄ちゃん、フィードバックありがとう😘",
+      "contentZh": "信我包不迷路！\n謝謝哥哥給的回饋😘",
+      "contentEn": "Trust me, you won't get lost!\nThanks for the feedback, bro 😘",
+      "category": "客戶反饋",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 19:16:03",
+      "images": [
+        "https://i.ibb.co/WpHtdhdy/photo-2026-02-13-16-51-03.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/WpHtdhdy/photo-2026-02-13-16-51-03.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 124,
       "titleJa": "遊びは、リラックスに留まらず、むしろ体験です。",
