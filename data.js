@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/27 下午4:54:45
+// Generated: 2026/3/27 下午4:57:45
 
 const siteData = {
   "about": {
@@ -292,6 +292,54 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 124,
+      "titleJa": "遊びは、リラックスに留まらず、むしろ体験です。",
+      "titleZh": "出門玩 不只是放鬆 更是一種體驗",
+      "titleEn": "Going on a trip is more than just relaxing; it's an experience.",
+      "excerpt": "ユウユウからのちょっとした雑談",
+      "excerptZh": "#來自悠悠的小閒聊",
+      "excerptEn": "#A little chat from Youyou",
+      "contentJa": "#悠々からの雑談\n遊びに出かけるのは、ただリラックスするだけでなく、一つの体験でもあります。\n本当の喜びは、様々な雰囲気や物語を持つ人々との出会いです。\n交流するたびに、毎回違った体験や感動があります。\n\n明るく純粋な女性もいて、初恋を思い出させます☺️\n優しく繊細な女性もいて、最高の",
+      "contentZh": "#來自悠悠的小閒聊\n出門玩 不只是放鬆 更是一種體驗 \n真正的快樂 是遇見各種不同氣質與故事的人\n每一次互動 都有不一樣的體驗感和感受\n\n有些女孩活潑單純 讓人想起初戀☺️\n有些女孩溫柔細膩 給人滿滿的安心感😁\n也有人帶著自信與魅力 讓相處變得特別動人👍\n\n花錢買的從來都不是一場發泄的活動!!! 而是一份「專屬於您的回憶」\n只要遇見真正懂得享受的人和遇到對的人 那份真實的感受 才是最值得收藏的體驗 \n享受快樂才能真正快樂 來到日本你可以肆無忌憚的展現自己 讓自己有一次完美的邂逅吧！",
+      "contentEn": "#A Little Chat from Youyou\nVenturing out isn't just about relaxing; it's also an experience.\nTrue happiness comes from meeting people with diverse temperaments and stories.\nEvery interaction brings unique experiences and feelings.\n\nSome girls are lively and innocent, reminding you of your first love ☺️.\nSome girls are gentle and delicate, giving you a full sense of security 😁.\nOthers exude confidence and charm, making time spent with them particularly captivating 👍.\n\nWhat you spend money on is never just an outlet for stress!!! It's a \"memory exclusively for you.\"\nAs long as you meet people who truly know how to enjoy themselves and encounter the right person, that genuine feeling is the most valuable experience to cherish.\nOnly by embracing joy can you truly be happy. Come to Japan, you can freely express yourself and have a perfect encounter!",
+      "category": "出勤情報",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 16:56:46",
+      "images": [
+        "https://i.ibb.co/9mzfsPMG/photo-2025-10-13-20-37-15.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/9mzfsPMG/photo-2025-10-13-20-37-15.jpg",
+      "stats": null,
+      "published": true
+    },
+    {
+      "id": 123,
+      "titleJa": "番号7183",
+      "titleZh": "番號7183",
+      "titleEn": "No. 7183",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・一晩利用で割引",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended hours or overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.27",
+      "createdAt": "2026.3.27 16:55:31",
+      "images": [
+        "https://i.ibb.co/d0dR6MWr/photo-2025-10-13-19-43-44-2.jpg",
+        "https://i.ibb.co/1YFdQMY0/photo-2025-10-13-19-43-44.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/d0dR6MWr/photo-2025-10-13-19-43-44-2.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "C",
+        "age": 20,
+        "weight": 45
+      },
+      "published": true
+    },
     {
       "id": 122,
       "titleJa": "番号7182",
