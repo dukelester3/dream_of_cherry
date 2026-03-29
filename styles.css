@@ -1541,7 +1541,64 @@ section { padding: 96px 0; }
 }
 .diary-page-numbers {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
+  justify-content: center;
+  max-width: 100%;
+}
+.diary-page-ellipsis {
+  display: inline-flex;
+  align-items: center;
+  padding: 0 4px;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  user-select: none;
+  pointer-events: none;
+}
+/* 窄螢幕改為「目前頁 / 總頁 + 下拉選單」，避免 10+ 頁時一排按鈕難點 */
+.diary-page-select-wrap {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  flex: 0 1 auto;
+  justify-content: center;
+  min-width: 0;
+}
+.diary-page-of {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.diary-page-select {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  min-width: 72px;
+  max-width: min(160px, 42vw);
+  height: 36px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text);
+  border-radius: 2px;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23666' d='M3 4.5L6 8l3-3.5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+}
+.diary-page-select:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+@media (max-width: 640px) {
+  .diary-pagination.visible .diary-page-numbers {
+    display: none !important;
+  }
+  .diary-page-select-wrap {
+    display: flex !important;
+  }
 }
 .diary-card {
   background: var(--bg-card);

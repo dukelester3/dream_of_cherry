@@ -347,6 +347,24 @@ function getDiaryCatLabel(cat, lang) {
   return (key && typeof translations !== 'undefined' && translations[lang]?.[key]) ? translations[lang][key] : cat;
 }
 
+/** 桌面版省略多餘頁碼按鈕，避免 10+ 頁時一排過長 */
+function getDiaryPaginationItems(current, total) {
+  if (total <= 7) {
+    return Array.from({ length: total }, (_, i) => i + 1);
+  }
+  const set = new Set([1, total]);
+  for (let i = current - 2; i <= current + 2; i++) {
+    if (i >= 1 && i <= total) set.add(i);
+  }
+  const sorted = [...set].sort((a, b) => a - b);
+  const out = [];
+  for (let i = 0; i < sorted.length; i++) {
+    if (i > 0 && sorted[i] - sorted[i - 1] > 1) out.push('ellipsis');
+    out.push(sorted[i]);
+  }
+  return out;
+}
+
 function renderDiary(lang, cat, page) {
   const grid = document.getElementById('diary-grid');
   const paginationEl = document.getElementById('diary-pagination');
@@ -405,26 +423,56 @@ function renderDiary(lang, cat, page) {
       paginationEl.classList.add('visible');
       const prevLabel = lang === 'zh' ? '上一頁' : lang === 'en' ? 'Prev' : '前へ';
       const nextLabel = lang === 'zh' ? '下一頁' : lang === 'en' ? 'Next' : '次へ';
+      const selectAria = lang === 'zh' ? '選擇頁碼' : lang === 'en' ? 'Go to page' : 'ページを選択';
+      const pageOfText = lang === 'ja'
+        ? `${currentDiaryPage} / ${totalPages} ページ`
+        : `${currentDiaryPage} / ${totalPages}`;
+
       let html = '';
       if (currentDiaryPage > 1) {
         html += `<button type="button" class="diary-page-btn diary-page-prev" data-page="${currentDiaryPage - 1}" aria-label="${prevLabel}">${prevLabel}</button>`;
       }
-      html += '<span class="diary-page-numbers">';
-      for (let i = 1; i <= totalPages; i++) {
-        const active = i === currentDiaryPage ? ' active' : '';
-        html += `<button type="button" class="diary-page-btn diary-page-num${active}" data-page="${i}">${i}</button>`;
+      const items = getDiaryPaginationItems(currentDiaryPage, totalPages);
+      html += '<span class="diary-page-numbers" aria-hidden="false">';
+      for (const item of items) {
+        if (item === 'ellipsis') {
+          html += '<span class="diary-page-ellipsis">…</span>';
+        } else {
+          const active = item === currentDiaryPage ? ' active' : '';
+          html += `<button type="button" class="diary-page-btn diary-page-num${active}" data-page="${item}">${item}</button>`;
+        }
       }
       html += '</span>';
+
+      const selectOpts = Array.from({ length: totalPages }, (_, i) => {
+        const n = i + 1;
+        return `<option value="${n}"${n === currentDiaryPage ? ' selected' : ''}>${n}</option>`;
+      }).join('');
+      html += `<div class="diary-page-select-wrap">
+        <span class="diary-page-of">${pageOfText}</span>
+        <select class="diary-page-select" id="diary-page-select" aria-label="${selectAria}">${selectOpts}</select>
+      </div>`;
+
       if (currentDiaryPage < totalPages) {
         html += `<button type="button" class="diary-page-btn diary-page-next" data-page="${currentDiaryPage + 1}" aria-label="${nextLabel}">${nextLabel}</button>`;
       }
       paginationEl.innerHTML = html;
       paginationEl.querySelectorAll('.diary-page-btn[data-page]').forEach(btn => {
         btn.addEventListener('click', () => {
-          renderDiary(lang, currentDiaryCat, parseInt(btn.dataset.page));
+          renderDiary(lang, currentDiaryCat, parseInt(btn.dataset.page, 10));
           document.getElementById('diary')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
+      const sel = document.getElementById('diary-page-select');
+      if (sel) {
+        sel.addEventListener('change', () => {
+          const p = parseInt(sel.value, 10);
+          if (p >= 1 && p <= totalPages) {
+            renderDiary(lang, currentDiaryCat, p);
+            document.getElementById('diary')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        });
+      }
     }
   }
 
