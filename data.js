@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 下午3:41:04
+// Generated: 2026/3/29 下午3:43:36
 
 const siteData = {
   "about": {
@@ -292,6 +292,60 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 143,
+      "titleJa": "番号7195",
+      "titleZh": "番號7195",
+      "titleEn": "No. 7195",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "店長推薦\n長時間・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended stays/overnight bookings",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:42:53",
+      "images": [
+        "https://i.ibb.co/SXS81hVW/photo-2025-10-16-16-10-50-2.jpg",
+        "https://i.ibb.co/TBCWsfM2/photo-2025-10-16-16-10-50.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/SXS81hVW/photo-2025-10-16-16-10-50-2.jpg",
+      "stats": {
+        "height": 156,
+        "cup": "E",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 142,
+      "titleJa": "番号7194",
+      "titleZh": "番號7194",
+      "titleEn": "No. 7194",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japan Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "店長のおすすめ\n長時間・深夜パック割引",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended hours/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:41:23",
+      "images": [
+        "https://i.ibb.co/1Yq3Pd6T/photo-2025-10-16-16-09-26.jpg",
+        "https://i.ibb.co/Q1TVV3W/photo-2025-10-16-16-09-26-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/1Yq3Pd6T/photo-2025-10-16-16-09-26.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "F",
+        "age": 24,
+        "weight": 49
+      },
+      "published": true
+    },
     {
       "id": 141,
       "titleJa": "東京リアルフィードバック",
