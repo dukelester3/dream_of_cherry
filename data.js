@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 下午3:26:50
+// Generated: 2026/3/29 下午3:30:56
 
 const siteData = {
   "about": {
@@ -292,6 +292,88 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 132,
+      "titleJa": "番号7186",
+      "titleZh": "番號7186",
+      "titleEn": "No. 7186",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Delivery from Japan (All Nationalities Welcome)",
+      "contentJa": "店長のおすすめ\n長時間利用・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:30:02",
+      "images": [
+        "https://i.ibb.co/2YLmhsQv/photo-2025-10-15-16-37-47-2.jpg",
+        "https://i.ibb.co/ktrqqRG/photo-2025-10-15-16-37-47-3.jpg",
+        "https://i.ibb.co/tPvpdHkb/photo-2025-10-15-16-37-47.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/2YLmhsQv/photo-2025-10-15-16-37-47-2.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "E",
+        "age": 23,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 131,
+      "titleJa": "番号7185",
+      "titleZh": "番號7185",
+      "titleEn": "No. 7185",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "店長のおすすめ\n長時間・宿泊割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:29:19",
+      "images": [
+        "https://i.ibb.co/mV0PwRqK/photo-2025-10-15-16-50-26-2.jpg",
+        "https://i.ibb.co/VpMVwVTW/photo-2025-10-15-16-50-26.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/mV0PwRqK/photo-2025-10-15-16-50-26-2.jpg",
+      "stats": {
+        "height": 165,
+        "cup": "E",
+        "age": 25,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 130,
+      "titleJa": "番号7184",
+      "titleZh": "番號7184",
+      "titleEn": "No. 7184",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Luxury Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "店長推薦\n長時間利用・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended hours / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:27:56",
+      "images": [
+        "https://i.ibb.co/0yTBbYQb/photo-2025-10-15-16-35-06-2.jpg",
+        "https://i.ibb.co/Y7hVLwMq/photo-2025-10-15-16-35-06.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/0yTBbYQb/photo-2025-10-15-16-35-06-2.jpg",
+      "stats": {
+        "height": 155,
+        "cup": "C",
+        "age": 20,
+        "weight": 40
+      },
+      "published": true
+    },
     {
       "id": 129,
       "titleJa": "店長のUUです。よろしくお願いします。",
