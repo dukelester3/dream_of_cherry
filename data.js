@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 下午10:18:58
+// Generated: 2026/3/29 下午10:26:04
 
 const siteData = {
   "about": {
@@ -486,7 +486,7 @@ const siteData = {
       "contentJa": "",
       "contentZh": "",
       "contentEn": "",
-      "category": "出勤情報",
+      "category": "客戶反饋",
       "date": "2026.3.29",
       "createdAt": "2026.3.29 15:34:31",
       "images": [
