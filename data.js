@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 下午3:35:24
+// Generated: 2026/3/29 下午3:41:04
 
 const siteData = {
   "about": {
@@ -292,6 +292,135 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 141,
+      "titleJa": "東京リアルフィードバック",
+      "titleZh": "東京真實回饋",
+      "titleEn": "Real Feedback from Tokyo",
+      "excerpt": "皆様からいただくフィードバックは、本当に一つ一つ大切にしています。",
+      "excerptZh": "你們給的每一份回饋真的都是好好收藏~",
+      "excerptEn": "Every piece of feedback you give is truly treasured.",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "客戶反饋",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:40:14",
+      "images": [
+        "https://i.ibb.co/WpqgfZ81/photo-2025-10-13-22-39-40.jpg",
+        "https://i.ibb.co/r2VBrrgz/photo-2025-10-13-22-39-41.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/WpqgfZ81/photo-2025-10-13-22-39-40.jpg",
+      "stats": null,
+      "published": true
+    },
+    {
+      "id": 140,
+      "titleJa": "番号7193",
+      "titleZh": "番號7193",
+      "titleEn": "No. 7193",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "店長おすすめ\n長時間・オールナイト割引",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods/overnight packages",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:39:36",
+      "images": [
+        "https://i.ibb.co/FL92LHmw/photo-2025-10-16-16-05-51.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/FL92LHmw/photo-2025-10-16-16-05-51.jpg",
+      "stats": {
+        "height": 164,
+        "cup": "F",
+        "age": 22,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 139,
+      "titleJa": "番号7192",
+      "titleZh": "番號7192",
+      "titleEn": "No. 7192",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイトプランで割引",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:38:21",
+      "images": [
+        "https://i.ibb.co/RGTL6TDt/photo-2025-10-16-15-52-45-2.jpg",
+        "https://i.ibb.co/gZkddNQh/photo-2025-10-16-15-52-45.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/RGTL6TDt/photo-2025-10-16-15-52-45-2.jpg",
+      "stats": {
+        "height": 155,
+        "cup": "D",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 138,
+      "titleJa": "番号7191",
+      "titleZh": "番號7191",
+      "titleEn": "No. 7191",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended periods / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:37:26",
+      "images": [
+        "https://i.ibb.co/jZ6wwsHx/photo-2025-10-16-15-43-40-2.jpg",
+        "https://i.ibb.co/V5yJ64b/photo-2025-10-16-15-43-40.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/jZ6wwsHx/photo-2025-10-16-15-43-40-2.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "E",
+        "age": 22,
+        "weight": 50
+      },
+      "published": true
+    },
+    {
+      "id": 137,
+      "titleJa": "番号7190",
+      "titleZh": "番號7190",
+      "titleEn": "No. 7190",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Japanese Premium Delivery [Open to All Nationalities]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for longer stays / overnight.",
+      "category": "出勤情報",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:36:22",
+      "images": [
+        "https://i.ibb.co/wNWdbMqt/photo-2025-10-16-15-42-16-2.jpg",
+        "https://i.ibb.co/MxQqgsf0/photo-2025-10-16-15-42-16.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/wNWdbMqt/photo-2025-10-16-15-42-16-2.jpg",
+      "stats": {
+        "height": 159,
+        "cup": "D",
+        "age": 20,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 136,
       "titleJa": "大阪のリアルな声",
