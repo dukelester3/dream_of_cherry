@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 上午11:46:22
+// Generated: 2026/3/29 下午3:10:19
 
 const siteData = {
   "about": {
@@ -292,6 +292,28 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 128,
+      "titleJa": "台湾のお兄さんからのリアルな声です！",
+      "titleZh": "這是來自台灣哥哥的真實回饋！",
+      "titleEn": "This is real feedback from a Taiwanese older brother!",
+      "excerpt": "このフィードバックと女の子の全体的な印象が、どれほど素晴らしいか、想像に難くないでしょう😁",
+      "excerptZh": "可想而知這回饋還有女孩的整體感是有多高了吧😁",
+      "excerptEn": "You can imagine how high the feedback and the girl's overall impression must be!",
+      "contentJa": "容姿、スタイルは8点！\nこれは台湾の男性からのリアルなフィードバックです！\nこのフィードバックと、その女性の全体的な魅力がいかに高いか、もうお分かりですよね？",
+      "contentZh": "外貌、身材 八分！\n這是來自台灣哥哥的真實回饋！\n可想而知這回饋還有女孩的整體感是有多高了吧😁",
+      "contentEn": "Appearance, figure: an eight out of ten!\nThis is real feedback from a Taiwanese guy!\nYou can imagine just how high this feedback, and the girl's overall appeal, must be!",
+      "category": "客戶反饋",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:08:51",
+      "images": [
+        "https://i.ibb.co/JjpGH5jy/photo-2025-10-13-20-13-40.jpg",
+        "https://i.ibb.co/7NL1pL65/photo-2025-10-13-20-13-40-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/JjpGH5jy/photo-2025-10-13-20-13-40.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 127,
       "titleJa": "東京リアル還元",
