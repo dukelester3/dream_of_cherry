@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/29 下午3:16:07
+// Generated: 2026/3/29 下午3:26:50
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 129,
+      "titleJa": "店長のUUです。よろしくお願いします。",
+      "titleZh": "我是店長UU ，請多指教",
+      "titleEn": "I am UU, the store manager. Pleased to meet you.",
+      "excerpt": "心を込めて女性を紹介する小さな窓口",
+      "excerptZh": "一個用心經營小姐介紹的小窗口",
+      "excerptEn": "A small, carefully managed window for introducing escorts.",
+      "contentJa": "💫 店長のUUです。\n東京在住の台湾人です。\nもしかしたら、あなたは私と初めての出会いかもしれませんし、あるいは、ずっと前から密かに私を観察してくださっていたのかもしれません。\n私は大きなプラットフォームではありません。\n心を込めて女性をご紹介する、小さな窓口です。\n\n🛡 ここでは、偽りの写真、強制的なアポイントメント、そして入金を急かすことは一切ありません。\nご紹介する女性は全員、私が直接確認し、直接コミュニケーションを取ってから掲載しています。\n私は急ぎの案件や、適当なマッチングは行いません。お客様に「本当に合う」方を見つけるお手伝いをしたいだけです。\n\n📸 ご予約前に安心してご確認いただけます：\n\n事前に写真を確認し、詳細を詰めることができます。\n\n前払いは不要、指名強制もありません。\n\nお会いした後、もし合わないと感じた場合は、その場でのキャンセルも可能です（交通費のみ頂戴いたします）。\n\n本当のアポイントメントは、「双方が安心して」選べるものであるべきです。\n\n📒 マッチングの度に、私はフィードバックを記録しています：\n写真の真実性、インタラクションの感覚、サービスの詳細…すべてに正直に向き合っています。\n運任せではなく、お客様がより正確に選べるようサポートします。\n\n🌸 この業界には、多くの手口や不確実性があることを承知しています。\nしかし、私はその例外でありたいと願っています。\nお客様が安心して観察し、ゆっくりと理解を深められるような存在に。\nそして、本当にアポイントメントを希望される際に、こう言っていただけるように：\n「UUに頼めば大丈夫」",
+      "contentZh": "💫 我是店長UU \n一個在東京生活的台灣人\n也許你是第一次接觸我 \n也可能早就默默觀察我很久了\n我不是什麼大平台 \n只是一個用心經營小姐介紹的小窗口\n\n🛡 在這裡 沒有假照片、沒有強制安排、更不會催你匯款\n每一位女生 都是我親自確認＋親自溝通後才會出現在我這裡\n我不做快單、不亂塞人 只想幫你找到「真的合適」的那一位\n\n📸 安排前可以安心確認：\n\n可先看照片、確認細節\n\n不需預付、無強制指名\n\n見到本人後若不合適 現場取消也OK（只收交通費）\n\n真正的安排 應該是「雙方都安心」的選擇\n\n📒 每一次配對 我都會記錄回饋：\n照片真實度、互動感、服務細節……我都誠實面對\n不是讓你靠運氣 而是幫你越選越準確\n\n🌸 我知道這個圈子有太多套路 太多不確定\n但我希望 我能成為那個例外\n一個你可以放心觀察、慢慢了解\n當你真的想安排時 會願意說一句：\n「找UU就好」",
+      "contentEn": "💫 I'm UU, the manager.\nA Taiwanese living in Tokyo.\nPerhaps this is your first time encountering me,\nOr maybe you've been quietly observing me for a long time.\nI'm not a big platform,\nJust a small window dedicated to carefully introducing ladies.\n\n🛡 Here, there are no fake photos, no forced arrangements, and I will never rush you to make a payment.\nEvery lady you see here has been personally vetted and communicated with by me.\nI don't do quick bookings or randomly assign people; I just want to help you find the \"truly suitable\" one.\n\n📸 Before arranging, you can confirm with peace of mind:\n\nYou can view photos and confirm details beforehand.\n\nNo upfront payment required, no mandatory designation.\n\nIf she's not suitable after meeting in person, on-site cancellation is fine (only a transportation fee will be charged).\n\nA true arrangement should be a choice where \"both parties feel at ease.\"\n\n📒 For every match, I record feedback:\nPhoto authenticity, interaction quality, service details... I address everything honestly.\nInstead of leaving it to chance, I help you make increasingly accurate selections.\n\n🌸 I know this industry has too many tricks and too much uncertainty.\nBut I hope I can be the exception.\nSomeone you can observe with confidence and get to know gradually.\nWhen you're truly ready to make an arrangement, you'll be willing to say:\n\"Just find UU.\"",
+      "category": "日記",
+      "date": "2026.3.29",
+      "createdAt": "2026.3.29 15:25:07",
+      "images": [
+        "https://i.ibb.co/GfK7Nx8Y/image.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/GfK7Nx8Y/image.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 128,
       "titleJa": "東京リアルフィードバック",
