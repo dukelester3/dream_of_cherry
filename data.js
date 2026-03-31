@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/31 下午1:12:34
+// Generated: 2026/3/31 下午2:16:09
 
 const siteData = {
   "about": {
@@ -292,6 +292,60 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 150,
+      "titleJa": "番号7501",
+      "titleZh": "番號7501",
+      "titleEn": "No. 7501",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom DreamPremium Japanese Delivery[All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイトは割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.31",
+      "createdAt": "2026.3.31 14:14:23",
+      "images": [
+        "https://i.ibb.co/TBRJNLTp/photo-2026-01-01-12-13-43-2.jpg",
+        "https://i.ibb.co/Kx5Rf1JH/photo-2026-01-01-12-13-43.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/TBRJNLTp/photo-2026-01-01-12-13-43-2.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "F",
+        "age": 25,
+        "weight": 49
+      },
+      "published": true
+    },
+    {
+      "id": 149,
+      "titleJa": "番号7500",
+      "titleZh": "番號7500",
+      "titleEn": "Serial No. 7500",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume - Luxury Japanese Delivery - All Nationalities Welcome",
+      "contentJa": "店長推薦\n長時間利用・深夜パック割引",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for extended hours / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.31",
+      "createdAt": "2026.3.31 14:11:20",
+      "images": [
+        "https://i.ibb.co/7d6C2b2s/photo-2025-12-30-12-27-30-2.jpg",
+        "https://i.ibb.co/GfKXWbcS/photo-2025-12-30-12-27-30.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/7d6C2b2s/photo-2025-12-30-12-27-30-2.jpg",
+      "stats": {
+        "height": 161,
+        "cup": "E",
+        "age": 21,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 148,
       "titleJa": "番号7200",
