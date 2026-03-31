@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/3/31 下午2:21:49
+// Generated: 2026/3/31 下午2:23:55
 
 const siteData = {
   "about": {
@@ -292,6 +292,34 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 154,
+      "titleJa": "番号7505",
+      "titleZh": "番號7505",
+      "titleEn": "No. 7505",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長推薦\n長時間・オールナイト割引あり",
+      "contentZh": "店長推薦\n長時間/包夜有折扣",
+      "contentEn": "Manager's Recommendation\nDiscounts for long hours/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.3.31",
+      "createdAt": "2026.3.31 14:22:21",
+      "images": [
+        "https://i.ibb.co/9B3rdmd/photo-2026-01-01-15-15-14.jpg",
+        "https://i.ibb.co/nshrP3YY/photo-2026-01-01-15-15-13.jpg",
+        "https://i.ibb.co/G4Lny4x9/photo-2026-01-01-15-15-13-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/9B3rdmd/photo-2026-01-01-15-15-14.jpg",
+      "stats": {
+        "height": 164,
+        "cup": "E",
+        "age": 22,
+        "weight": 47
+      },
+      "published": true
+    },
     {
       "id": 153,
       "titleJa": "番号7504",
