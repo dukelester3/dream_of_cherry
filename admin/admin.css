@@ -253,6 +253,12 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 .bangou-gap-warn {
   margin: 0 0 12px 0; padding: 10px 14px; background: #fff3cd; border: 1px solid #ffc107;
   color: #856404; font-size: 0.9rem; border-radius: 6px;
+  max-height: 120px; overflow-y: auto;
+}
+.bangou-skip-textarea {
+  font-family: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.5;
 }
 .admin-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
 .admin-table th {

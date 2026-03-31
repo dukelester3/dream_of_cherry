@@ -206,6 +206,11 @@ function loadData() {
     adminData = { girls: [], reviews: [], diary: [] };
   }
   if (!adminData.about) adminData.about = (siteData?.about ? { ...siteData.about } : { ...DEFAULT_ABOUT });
+  if (adminData.bangouSkipSpec === undefined) {
+    adminData.bangouSkipSpec = (typeof siteData !== 'undefined' && siteData.bangouSkipSpec != null)
+      ? String(siteData.bangouSkipSpec)
+      : '';
+  }
 }
 
 function saveData() {
@@ -231,6 +236,30 @@ function extractBangouFromTitle(title) {
   if (!title || typeof title !== 'string') return null;
   const m = title.match(/番[号號](\d+)/);
   return m ? parseInt(m[1], 10) : null;
+}
+
+/** 解析「刻意跳過」番號：單號、範圍（7201-7499），逗號／分號／換行分隔 */
+function parseBangouSkipSpec(spec) {
+  const set = new Set();
+  if (!spec || typeof spec !== 'string') return set;
+  const parts = spec.split(/[\n,;，；]+/).map(s => s.trim()).filter(Boolean);
+  for (const part of parts) {
+    const rangeMatch = part.match(/^(\d+)\s*[-–~〜]\s*(\d+)$/);
+    if (rangeMatch) {
+      let a = parseInt(rangeMatch[1], 10);
+      let b = parseInt(rangeMatch[2], 10);
+      if (a > b) [a, b] = [b, a];
+      for (let n = a; n <= b; n++) set.add(n);
+      continue;
+    }
+    const single = part.match(/^(\d+)$/);
+    if (single) set.add(parseInt(single[1], 10));
+  }
+  return set;
+}
+
+function getBangouSkipSet() {
+  return parseBangouSkipSpec((adminData && adminData.bangouSkipSpec) || '');
 }
 
 function getUsedBangouList(excludeDiaryId) {
@@ -316,6 +345,15 @@ function saveGitHubSettings() {
   }
 }
 
+function saveBangouSkipSpec() {
+  const ta = document.getElementById('bangou-skip-spec');
+  if (!ta || !adminData) return;
+  adminData.bangouSkipSpec = ta.value || '';
+  saveData();
+  renderDiaryTable();
+  alert('番號跳號忽略設定已儲存（發布後會寫入 data.js）');
+}
+
 // ── 合併本地與遠端資料，避免多人編輯互相覆蓋 ──
 function mergeDataLocalWithRemote(local, remote) {
   if (!remote || typeof remote !== 'object') return local;
@@ -348,6 +386,9 @@ function mergeTwoData(dataA, dataB) {
     const photoSet = new Set([...(dataA.about?.photos || []), ...(dataB.about?.photos || [])]);
     merged.about = { ...dataA.about, ...dataB.about, photos: [...photoSet] };
   }
+  const skipA = (dataA.bangouSkipSpec && String(dataA.bangouSkipSpec).trim()) || '';
+  const skipB = (dataB.bangouSkipSpec && String(dataB.bangouSkipSpec).trim()) || '';
+  merged.bangouSkipSpec = skipA || skipB || '';
   return merged;
 }
 
@@ -497,6 +538,7 @@ function setupTabs() {
         tabEl.classList.add('active');
         if (btn.dataset.tab === 'export') updateStorageUsage();
         if (btn.dataset.tab === 'diary') renderDiaryTable();
+        if (btn.dataset.tab === 'settings') syncSettingsFormFields();
       }
     });
   });
@@ -517,6 +559,7 @@ function setupTabs() {
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
   document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
   document.getElementById('save-github-btn')?.addEventListener('click', saveGitHubSettings);
+  document.getElementById('save-bangou-skip-btn')?.addEventListener('click', saveBangouSkipSpec);
   document.getElementById('publish-github-btn')?.addEventListener('click', publishToGitHub);
   document.getElementById('reload-from-github-btn')?.addEventListener('click', loadFromGitHub);
   document.getElementById('reload-from-data-btn')?.addEventListener('click', () => {
@@ -561,6 +604,8 @@ function setupTabs() {
   if (githubTokenInput) githubTokenInput.value = localStorage.getItem(GITHUB_TOKEN_STORAGE) || '';
   const githubRepoInput = document.getElementById('github-repo');
   if (githubRepoInput) githubRepoInput.value = localStorage.getItem(GITHUB_REPO_STORAGE) || 'dukelester3/dream_of_cherry';
+  const bangouSkipTa = document.getElementById('bangou-skip-spec');
+  if (bangouSkipTa && adminData) bangouSkipTa.value = adminData.bangouSkipSpec || '';
   document.getElementById('copy-export-btn').addEventListener('click', () => {
     const ta = document.getElementById('export-textarea');
     ta.select(); document.execCommand('copy');
@@ -671,10 +716,16 @@ function setupWatermarkTool() {
 }
 
 // ── Render Tables ──
+function syncSettingsFormFields() {
+  const ta = document.getElementById('bangou-skip-spec');
+  if (ta && adminData) ta.value = adminData.bangouSkipSpec || '';
+}
+
 function renderAll() {
   renderGirlsTable();
   renderReviewsTable();
   renderDiaryTable();
+  syncSettingsFormFields();
 }
 
 function renderGirlsTable() {
@@ -720,10 +771,13 @@ function renderReviewsTable() {
 
 function getBangouGaps() {
   const nums = getUsedBangouList(null).sort((a, b) => a - b);
+  const skipped = getBangouSkipSet();
   const gaps = [];
   for (let i = 1; i < nums.length; i++) {
     if (nums[i] - nums[i - 1] > 1) {
-      for (let k = nums[i - 1] + 1; k < nums[i]; k++) gaps.push(k);
+      for (let k = nums[i - 1] + 1; k < nums[i]; k++) {
+        if (!skipped.has(k)) gaps.push(k);
+      }
     }
   }
   return gaps;

@@ -4177,7 +4177,8 @@ const siteData = {
       "stats": null,
       "published": true
     }
-  ]
+  ],
+  "bangouSkipSpec": ""
 };
 
 if (typeof module !== 'undefined') module.exports = siteData;

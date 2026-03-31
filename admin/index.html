@@ -142,6 +142,12 @@
             <input type="text" id="github-repo" placeholder="dukelester3/dream_of_cherry">
           </div>
           <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
+          <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
+            <label>番號跳號忽略（刻意跳過的範圍／單號）</label>
+            <textarea id="bangou-skip-spec" rows="5" class="bangou-skip-textarea" placeholder="例：&#10;7201-7499&#10;8000"></textarea>
+            <p class="form-hint">「出勤情報」跳號警告會略過這裡列出的號碼。每行一筆，或同一行用逗號、分號分隔。範圍用 <code>7201-7499</code>（半形減號），單號寫數字即可。儲存後會一併寫入 data.js（與網站內容一起發布）。</p>
+          </div>
+          <button type="button" class="btn-admin-primary" id="save-bangou-skip-btn">儲存番號忽略設定</button>
         </div>
       </div>
 
