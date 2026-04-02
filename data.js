@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/2 下午3:56:25
+// Generated: 2026/4/2 下午4:00:09
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 174,
+      "titleJa": "📣時間の長短って、一体何が違うの？",
+      "titleZh": "📣時間長短到底差在哪？",
+      "titleEn": "📣What's the actual difference in duration?",
+      "excerpt": "長時間サービス対短時間サービス",
+      "excerptZh": "長時間的服務vs短時間的服務",
+      "excerptEn": "Long-term service vs short-term service",
+      "contentJa": "🔹一節｜スピード決着、純粋な解放\n🔔前戯はそこそこに、すぐに本番へ。\n服を脱ぎ、息が荒くなり始めたばかりなのに、もうあなたは抑えきれない。\nクライマックスは早く訪れ、早く去る。ストレスが溜まっている時や、早く発散したい時に最適。\nただ、終わった後は少し虚しさを感じることも。\n\n🔸二節｜交流が始まり、前戯が軌道に乗る\n🔔時間をかけると、良い雰囲気が出てくる。\n彼女があなたをからかい、誘惑し、前戯がより官能的に感じられる。\n彼女の反応、声、笑顔もはっきりと見ることができるだろう。\nプロセスは探求のようになり、二度の絶頂を経験すると、体だけでなく心も満たされる。\n\n🔹三節｜恋愛感情が芽生える、甘くベタベタした交流\n🔔彼女があなたに寄り添い、水を飲ませてくれたり、腕の中で甘えたりする。\n「まだどうしたい？」と尋ねてくることも。\nロールプレイも可能、交流を伴うイチャイチャも良い。新しい遊び方にも挑戦できる余地があり、サービスを買っているというよりは、優しくてセクシーな小さな恋を体験しているかのよう。\n\n🔸包夜｜一晩中あなただけのもの\n🔔夕食、入浴、おしゃべり、セックス、そして抱き合って眠りにつくまで、全てをスケジュールに組み込めます。\n彼女はあなたの好きなセクシーな衣装に着替え、あなたがずっと試したかったけれど機会がなかった遊び方を一緒に試してくれるでしょう。\nさらにはあなたの腕の中で「今夜は全部あなたのものよ」と",
+      "contentZh": "🔹一節｜速戰速決 純粹釋放\n🔔沒有太多前戲 直接進入重點\n衣服剛脫、剛開始喘 你就已經控制不住 \n高潮來得快 走得也快 適合壓力大、想快點發洩的時候 \n但完事後 常會空虛一點\n\n🔸二節｜開始有互動 前戲才剛上道\n🔔時間一多 氣氛就出來了 \n她會逗你、撩你 前戲玩得更有感覺\n你也能看清楚她的反應、聲音、笑容\n過程變得像在探索  兩次高潮下來 \n不只身體爽 心情也被填滿\n\n🔹三節｜戀愛感上來了 甜甜黏黏的互動\n🔔她會貼著你、餵你喝水、躺你懷裡撒嬌\n還問你：「還想怎麼玩嘛？」\n角色扮演也可以、互動調情也行 甚至玩新花樣都有空間  不像是在買服務 而是體驗一段溫柔又性感的小戀愛\n\n🔸包夜｜一整晚專屬於你\n🔔從晚餐、泡澡、聊天、做愛到擁抱入睡全部都能安排進去 \n她換你喜歡的情趣裝、陪你試你一直想嘗試卻沒機會的玩法 \n甚至還會黏在你懷裡說：「今晚都是你的」\n你會發現 性愛只是其中一部分 陪伴才是讓人最上癮的那一塊",
+      "contentEn": "**\n**Section 1 | Quickie, Pure Release**\nNot much foreplay, getting straight to the point. Clothes just off, you're just starting to pant, and you've already lost control. Orgasm comes and goes quickly, suitable for when you're stressed and want a quick release. But often leaves you feeling a bit empty afterwards.\n\n**Section 2 |",
+      "category": "お知らせ",
+      "date": "2026.4.2",
+      "createdAt": "2026.4.2 15:57:05",
+      "images": [
+        "https://i.ibb.co/VYLbqSQg/photo-2025-01-30-10-58-40.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/VYLbqSQg/photo-2025-01-30-10-58-40.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 173,
       "titleJa": "当店は一枚一枚の写真ではなく、現実では叶えがたい夢です。",
