@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/2 下午3:55:08
+// Generated: 2026/4/2 下午3:56:25
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 173,
+      "titleJa": "当店は一枚一枚の写真ではなく、現実では叶えがたい夢です。",
+      "titleZh": "本店不是一張張照片，而是一場現實中難以實現的夢。",
+      "titleEn": "Our store is not merely a collection of photographs, but a dream difficult to realize in reality.",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "実は、悠悠がご提供するのは、一枚一枚の写真ではなく、現実ではなかなか叶えられない夢のような体験です。\n写真では、実際に会った時の雰囲気、眼差し、香り、そして感覚を永遠に伝えることはできません。\nどんなにたくさんの写真を選んだとしても、彼女が本当にあなたのそばにいるその瞬間を事前に感じることはできません。\n\nもしあなたが求めているのが、完全に「視覚的な好み」であるならば、それは完璧には難しいかもしれません。\nしかし、もしあなたが自分の感覚を信じ、お互いにチャンスを与えてくださるなら、この体験は写真が与えられるものをはるかに超えることに気づくでしょう。😊",
+      "contentZh": "其實，悠悠這邊提供的 \n不是一張張照片，而是一場現實中難以實現的夢。\n照片永遠無法呈現真實見面時的氛圍、眼神、氣味與感覺。\n挑再多照片，也無法提前感受到她真正陪在您身邊的那一刻。\n\n如果您要的是完全「視覺上的喜好」，那可能很難完美。\n但如果您願意相信自己的感覺、給彼此一個機會，您會發現這場體驗遠遠超出照片所能給您的。😊",
+      "contentEn": "Actually, what Yoyo offers isn't just a series of photos, but a dream that's hard to realize in reality. Photos can never truly capture the atmosphere, eye contact, scent, and feelings of a real-life meeting. No matter how many photos you choose, you can't truly anticipate the moment she is actually by your side.\n\nIf what you're looking for is purely \"visual preference,\" then it might be hard to achieve perfection. But if you are willing to trust your feelings and give each other a chance, you will find that this experience far exceeds what photos can offer you. 😊",
+      "category": "日記",
+      "date": "2026.4.2",
+      "createdAt": "2026.4.2 15:55:23",
+      "images": [
+        "https://i.ibb.co/ZR0p2xGn/photo-2026-01-07-17-33-32.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ZR0p2xGn/photo-2026-01-07-17-33-32.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 172,
       "titleJa": "番号7523",
