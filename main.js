@@ -120,13 +120,67 @@ function setLanguage(lang, rerender) {
   localStorage.setItem('yuyu-lang', lang);
 
   // 僅在用戶點擊切換語言時重新渲染（init 時不呼叫，避免 currentDiaryCat 未定義）
-  if (rerender && typeof renderGallery === 'function') {
+  const ageGateOpen = document.getElementById('age-gate-modal')?.classList.contains('open');
+  if (rerender && typeof renderGallery === 'function' && !ageGateOpen) {
     renderGallery(lang);
     renderReviews(lang);
     renderDiary(lang);
     renderAbout(lang);
     if (currentOpenDiaryId) openDiaryModal(currentOpenDiaryId, lang);
   }
+}
+
+// ── Age gate (18+)：session 僅本次分頁；勾選「今日不再」則記到當日午夜前 ──
+const AGE_GATE_DAY_KEY = 'yuyu_age_ok_date';
+const AGE_GATE_SESSION_KEY = 'yuyu_age_ok_session';
+
+function todayLocalYmd() {
+  const d = new Date();
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+}
+
+function shouldShowAgeGate() {
+  if (new URLSearchParams(location.search).get('skip_age_gate') === '1') return false;
+  if (sessionStorage.getItem(AGE_GATE_SESSION_KEY) === '1') return false;
+  if (localStorage.getItem(AGE_GATE_DAY_KEY) === todayLocalYmd()) return false;
+  return true;
+}
+
+function openAgeGateModal() {
+  const el = document.getElementById('age-gate-modal');
+  if (!el) return;
+  el.classList.add('open');
+  el.setAttribute('aria-hidden', 'false');
+  document.body.classList.add('age-gate-open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeAgeGateModal() {
+  const el = document.getElementById('age-gate-modal');
+  if (!el) return;
+  el.classList.remove('open');
+  el.setAttribute('aria-hidden', 'true');
+  document.body.classList.remove('age-gate-open');
+  document.body.style.overflow = '';
+}
+
+function initAgeGate() {
+  if (!shouldShowAgeGate()) return;
+  openAgeGateModal();
+  document.getElementById('age-gate-exit')?.addEventListener('click', () => {
+    window.location.href = 'https://www.google.com/';
+  });
+  document.getElementById('age-gate-enter')?.addEventListener('click', () => {
+    const remember = document.getElementById('age-gate-remember')?.checked;
+    if (remember) {
+      localStorage.setItem(AGE_GATE_DAY_KEY, todayLocalYmd());
+    } else {
+      sessionStorage.setItem(AGE_GATE_SESSION_KEY, '1');
+    }
+    closeAgeGateModal();
+    const lang = localStorage.getItem('yuyu-lang') || 'ja';
+    setLanguage(lang, true);
+  });
 }
 
 allLangButtons.forEach(btn => {
@@ -146,6 +200,7 @@ function getInitialLang() {
 }
 const savedLang = getInitialLang();
 setLanguage(savedLang, false);
+initAgeGate();
 
 // ── Sidebar ──
 const hamburgerBtn = document.getElementById('nav-hamburger-btn');

@@ -2002,3 +2002,186 @@ section { padding: 96px 0; }
   font-size: 0.82rem; text-align: center;
   min-height: 20px;
 }
+
+/* ── Age gate (18+) — 與全站金／米／襯線風格一致 ── */
+.age-gate-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 16px;
+  background: rgba(28, 25, 23, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.age-gate-modal.open {
+  display: flex;
+}
+.age-gate-modal-inner {
+  width: 100%;
+  max-width: 440px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+  overflow: hidden;
+}
+.age-gate-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 22px;
+  background: linear-gradient(135deg, var(--gold-bg) 0%, transparent 120%);
+  border-bottom: 2px solid var(--gold);
+}
+.age-gate-icon {
+  font-size: 1.35rem;
+  line-height: 1;
+  color: var(--gold);
+}
+.age-gate-header-title {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  margin: 0;
+}
+.age-gate-lang {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 12px 22px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+}
+.age-gate-lang-label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.age-gate-lang-btns {
+  display: flex;
+  gap: 6px;
+}
+.age-gate-lang-btn {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  padding: 8px 14px;
+  border: 1px solid var(--border-strong);
+  background: var(--bg-card);
+  color: var(--text-muted);
+  cursor: pointer;
+  border-radius: var(--radius);
+  transition: color var(--transition), border-color var(--transition), background var(--transition);
+}
+.age-gate-lang-btn:hover {
+  color: var(--gold);
+  border-color: var(--gold);
+}
+.age-gate-lang-btn.active {
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-bg);
+}
+.age-gate-body {
+  padding: 22px 22px 24px;
+}
+.age-gate-heading {
+  font-family: var(--font-serif);
+  font-size: 1.22rem;
+  font-weight: 600;
+  line-height: 1.35;
+  color: var(--text);
+  margin-bottom: 12px;
+}
+.age-gate-text {
+  font-size: 0.92rem;
+  line-height: 1.65;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+.age-gate-remember {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.82rem;
+  line-height: 1.5;
+  color: var(--text);
+  margin-bottom: 14px;
+}
+.age-gate-remember input {
+  margin-top: 3px;
+  accent-color: var(--gold);
+  cursor: pointer;
+}
+.age-gate-disclaimer {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+  padding: 12px 14px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 20px;
+}
+.age-gate-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.age-gate-btn {
+  flex: 1 1 140px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 14px 18px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: background var(--transition), border-color var(--transition), color var(--transition);
+}
+.age-gate-btn-exit {
+  background: var(--bg);
+  border: 1px solid var(--border-strong);
+  color: var(--text-muted);
+}
+.age-gate-btn-exit:hover {
+  border-color: var(--text-muted);
+  color: var(--text);
+}
+.age-gate-btn-enter {
+  background: var(--gold);
+  border: 1px solid var(--gold);
+  color: var(--bg-dark);
+  font-weight: 600;
+}
+.age-gate-btn-enter:hover {
+  background: var(--gold-light);
+  border-color: var(--gold-light);
+}
+.age-gate-btn-icon {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+body.age-gate-open {
+  overflow: hidden;
+}
+@media (max-width: 480px) {
+  .age-gate-header-title { font-size: 1.02rem; }
+  .age-gate-heading { font-size: 1.08rem; }
+  .age-gate-actions { flex-direction: column; }
+  .age-gate-btn { flex: 1 1 auto; width: 100%; }
+}

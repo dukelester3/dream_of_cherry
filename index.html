@@ -16,6 +16,43 @@
 </head>
 <body>
 
+  <!-- 18+ 年齡確認（樣式見 styles.css .age-gate-*） -->
+  <div id="age-gate-modal" class="age-gate-modal" role="dialog" aria-modal="true" aria-labelledby="age-gate-title" aria-hidden="true">
+    <div class="age-gate-modal-inner">
+      <div class="age-gate-header">
+        <span class="age-gate-icon" aria-hidden="true">⚠</span>
+        <h2 id="age-gate-title" class="age-gate-header-title" data-i18n="agegate.title">サイト閲覧の注意</h2>
+      </div>
+      <div class="age-gate-lang" role="group" aria-label="Language">
+        <span class="age-gate-lang-label" data-i18n="agegate.lang">言語</span>
+        <div class="age-gate-lang-btns">
+          <button type="button" data-lang="ja" class="age-gate-lang-btn">JP</button>
+          <button type="button" data-lang="zh" class="age-gate-lang-btn">ZH</button>
+          <button type="button" data-lang="en" class="age-gate-lang-btn">EN</button>
+        </div>
+      </div>
+      <div class="age-gate-body">
+        <p class="age-gate-heading" data-i18n="agegate.heading">このサイトには成人向けの内容が含まれます（18+）</p>
+        <p class="age-gate-text" data-i18n="agegate.body">現地の法令に基づき、本ページを閲覧するには18歳以上である必要があります。</p>
+        <label class="age-gate-remember">
+          <input type="checkbox" id="age-gate-remember" />
+          <span data-i18n="agegate.remember">今日は再表示しない（深夜0時まで）</span>
+        </label>
+        <div class="age-gate-disclaimer" data-i18n="agegate.disclaimer">「18歳以上です」をクリックすると、本サイトの閲覧に同意し、自己責任で行うことにみなされます。</div>
+        <div class="age-gate-actions">
+          <button type="button" id="age-gate-exit" class="age-gate-btn age-gate-btn-exit">
+            <span class="age-gate-btn-icon" aria-hidden="true">←</span>
+            <span data-i18n="agegate.exit">18歳未満</span>
+          </button>
+          <button type="button" id="age-gate-enter" class="age-gate-btn age-gate-btn-enter">
+            <span data-i18n="agegate.enter">18歳以上です</span>
+            <span class="age-gate-btn-icon" aria-hidden="true">✓</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- 右上角固定 Logo（隨滾動可見，使用裁切版緊貼右側）-->
   <div class="site-corner-logo" aria-hidden="true">
     <img src="logo/logo-trimmed.png" alt="">

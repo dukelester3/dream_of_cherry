@@ -158,7 +158,15 @@ const translations = {
     'pricing.addon.osaka.stocking': 'ストッキング【1,000円】',
     'pricing.addon.osaka.golden': 'せいすい【3,000円】※女性の尿のみ',
     'pricing.addon.osaka.nn': 'ゴムなし+膣内射精【20,000円】',
-    'pricing.addon.osaka.note': '特殊サービスは女の子により対応不可の場合があります。'
+    'pricing.addon.osaka.note': '特殊サービスは女の子により対応不可の場合があります。',
+    'agegate.lang': '言語',
+    'agegate.title': 'サイト閲覧の注意',
+    'agegate.heading': 'このサイトには成人向けの内容が含まれます（18+）',
+    'agegate.body': '現地の法令に基づき、本ページを閲覧するには18歳以上である必要があります。18歳未満の方は、直ちに閲覧をおやめください。',
+    'agegate.remember': '今日は再表示しない（深夜0時まで）',
+    'agegate.disclaimer': '「18歳以上です」をクリックすると、本サイトの閲覧に同意し、自己責任で行うことに同意したものとみなされます。',
+    'agegate.exit': '18歳未満',
+    'agegate.enter': '18歳以上です'
   },
   zh: {
     'nav.services': '服務介紹',
@@ -319,7 +327,15 @@ const translations = {
     'pricing.addon.osaka.stocking': '絲襪ストッキング【1,000日圓】',
     'pricing.addon.osaka.golden': '聖水せいすい【3,000日圓】僅喝女孩尿',
     'pricing.addon.osaka.nn': '無套内射ゴムなし+膣内射精【20,000日圓】',
-    'pricing.addon.osaka.note': '特殊服務不是每個女孩都可以一定要有這項服務才可以配合哦。'
+    'pricing.addon.osaka.note': '特殊服務不是每個女孩都可以一定要有這項服務才可以配合哦。',
+    'agegate.lang': '語言',
+    'agegate.title': '網站瀏覽警示',
+    'agegate.heading': '本網站內容含有成人議題（18+）',
+    'agegate.body': '依據當地法律規定，您必須年滿 18 歲才能瀏覽此頁面。若您未滿 18 歲，請立即離開。',
+    'agegate.remember': '今日不再提醒（直到午夜）',
+    'agegate.disclaimer': '點擊「我已滿 18 歲」即表示您同意瀏覽本站內容，並自行承擔相關責任。',
+    'agegate.exit': '我未滿 18 歲',
+    'agegate.enter': '我已滿 18 歲'
   },
   en: {
     'nav.services': 'Services',
@@ -480,6 +496,14 @@ const translations = {
     'pricing.addon.osaka.stocking': 'Stockings【1,000 JPY】',
     'pricing.addon.osaka.golden': 'Golden shower (female urine only)【3,000 JPY】',
     'pricing.addon.osaka.nn': 'Creampie【20,000 JPY】',
-    'pricing.addon.osaka.note': 'Special services vary by girl. Only available when the girl offers that service.'
+    'pricing.addon.osaka.note': 'Special services vary by girl. Only available when the girl offers that service.',
+    'agegate.lang': 'Language',
+    'agegate.title': 'Website Browsing Warning',
+    'agegate.heading': 'This website contains adult content (18+)',
+    'agegate.body': 'Under applicable law, you must be at least 18 years old to view this page. If you are under 18, please leave immediately.',
+    'agegate.remember': "Don't show this again today (until midnight)",
+    'agegate.disclaimer': 'By clicking "I am over 18", you agree to view this site and accept full responsibility.',
+    'agegate.exit': 'I am under 18',
+    'agegate.enter': 'I am over 18'
   }
 };
