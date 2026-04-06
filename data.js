@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/6 下午2:36:25
+// Generated: 2026/4/6 下午2:39:37
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 206,
+      "titleJa": "当店にいる女の子は、風俗嬢ではありませんし、プロの女の子でもありません。",
+      "titleZh": "本店的女孩都不是風俗女、不是職業女孩",
+      "titleEn": "Our girls are neither prostitutes nor working girls.",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "当店の女の子はフルタイムではなく、プロの女性でもありません。\nそのため、サービス面では一般的なプロの女性ほど専門的ではありません。\n当店の女の子は研修も一切受けておらず、あくまで純粋な短期アルバイトです。\n短期アルバイトとは、本業をお持ちで、空いている時間にのみ1～4時間程度で出勤するという形です。\n\nサービス内容",
+      "contentZh": "本店的女孩都不是全職、不是職業女孩\n所以對於服務上面沒有店家職業女孩專業\n我們的女孩也沒有進過任何培訓 全部都是純短期兼職\n純短期兼職=有自己的正職工作並且只有在有空才出來1-4個小時\n\n服務上面全部都是需要看你和女孩當下是如何去互動喔\n沒辦法完全保證做到什麼程度 服務也不會制式化沒有也沒有一套流程 全部都是看互動和配合度!!!\n高級外送出勤的女孩和普通店家職業女孩或其它地方的女孩無法相提並論 !!!!!!!\n\n請大家記住喔 無論來日本是體驗什麼樣的服務 來到一行就要守一行的規矩😊",
+      "contentEn": "Our girls are neither full-time nor professional. Therefore, in terms of service, they are not as professional as career girls from other establishments. Our girls have not received any training; all of them are purely short-term part-timers. A purely short-term part-timer means they have their own full-time jobs and only come out for 1-4 hours when they are available.\n\nAll services depend entirely on how you and the girl interact at the moment. We cannot fully guarantee the extent of the service provided. Services are not standardized, nor is there a fixed procedure. Everything depends on interaction and mutual cooperation! Girls providing high-end escort services cannot",
+      "category": "お知らせ",
+      "date": "2026.4.6",
+      "createdAt": "2026.4.6 14:37:14",
+      "images": [
+        "https://i.ibb.co/QvhKVhcH/photo-2026-01-13-13-09-15.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/QvhKVhcH/photo-2026-01-13-13-09-15.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 205,
       "titleJa": "番号7554",
