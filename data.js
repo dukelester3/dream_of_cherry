@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/7 下午3:12:47
+// Generated: 2026/4/7 下午3:15:32
 
 const siteData = {
   "about": {
@@ -292,6 +292,27 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 221,
+      "titleJa": "最近、このようなお声をいくつかいただきましたので、悠悠が少しご説明したいと思います。",
+      "titleZh": "最近收到了這樣的一些聲音，所以悠悠想稍微說明一下～",
+      "titleEn": "Recently, Youyou has been receiving some comments like this, so Youyou wants to explain a bit.",
+      "excerpt": "なぜUUの店舗の価格は少し高めなのでしょうか？",
+      "excerptZh": "「為什麼 UU 的店鋪價格會稍微高一點呢？」",
+      "excerptEn": "Why are UU's store prices slightly higher?",
+      "contentJa": "主な理由は以下の通りです。\n\n① お客様には本当に質の高い女性のみをご紹介しているからです。\n② 彼女たちは一時的なアルバイト要員ではなく、路上で安価なサービスを提供するタイプでもありません。\n③ 彼女たちは礼儀正しく、TPOをわきまえ、気配りができ、時間を守り、そして非常に上品です。\n\n全体的なサービススタイルは、日本式の優しさと繊細さを兼ね備えており、まるで恋人のように自然に接することができます😄\n細部から全体に至るまで非常に丁寧で、おろそかにせず、時間を惜しまず、決して手抜きをしません。\nシャワーの際も、ちょっとした気遣いの行動一つ一つも、真の優しさと温もりを感じさせてくれます。\n\n価格の安さで失望したり不安になったりするサービスを選ぶよりも、\nほんの少しだけ多くお支払いいただくだけで、\n安全で、安心でき、快適で、忘れられない体験を得られます。\n\nこれは単なるお金の消費ではなく、\n疲れた体を癒し、自分を甘やかし、自分へのご褒美と労りを与える消費です。",
+      "contentZh": "原因主要有以下幾點：\n\n① 因為我們只為客人介紹真正高品質的女孩。\n② 她們並不是臨時打工的人員，也不是站在街頭、以低價提供服務的類型。\n③ 她們有禮貌、懂分寸、會照顧人、認真守時，而且很有品味。\n\n整體服務風格是日本式的溫柔與細緻，相處起來非常自然，就像戀人一樣😄\n從細節到整體都非常用心，不會敷衍、不偷時間、不馬虎，\n無論是洗澡，還是一些小小的體貼舉動，\n都能讓人感受到真正的溫柔與溫度。\n\n與其選擇因為價格便宜而感到失望或不安的服務，\n只需多支付一點點，\n就能換來安全、安心、舒適、且令人難忘的體驗。\n\n這不只是單純的花錢，\n而是一種療癒疲憊、寵愛自己、給予自己獎勵與關懷的消費。",
+      "contentEn": "The main reasons are as follows:\n\n① Because we only introduce genuinely high-quality girls to our guests.\n② They are not temporary workers, nor are they the type who stand on the street offering services at low prices.\n③ They are polite, discreet, caring, punctual, and tasteful.\n\nThe overall service style is Japanese-gentle and meticulous, making interactions feel very natural, just like with a lover 😄\nEvery detail, from the smallest to the overall experience, is handled with utmost care; there's no perfunctoriness, no rushing, and no sloppiness.\nWhether it's during a bath or through small thoughtful gestures,\nyou can feel genuine tenderness and warmth.\n\nRather than choosing a service that leaves you disappointed or uneasy due to its low price,\nby paying just a little bit more,\nyou can gain a safe, reassuring, comfortable, and unforgettable experience.\n\nThis is not merely spending money,\nbut a form of consumption that heals your fatigue, pampers yourself, and offers a reward and care.",
+      "category": "お知らせ",
+      "date": "2026.4.7",
+      "createdAt": "2026.4.7 15:13:43",
+      "images": [
+        "https://i.ibb.co/CKKncGg1/photo-2023-03-22-08-27-49.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/CKKncGg1/photo-2023-03-22-08-27-49.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 220,
       "titleJa": "番号7568",
