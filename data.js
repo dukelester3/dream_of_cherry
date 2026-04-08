@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/8 下午5:57:52
+// Generated: 2026/4/8 下午6:18:47
 
 const siteData = {
   "about": {
@@ -292,6 +292,114 @@ const siteData = {
     }
   ],
   "diary": [
+    {
+      "id": 225,
+      "titleJa": "番号7572",
+      "titleZh": "番號7572",
+      "titleEn": "No. 7572",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Luxury Delivery (All Nationalities Welcome)",
+      "contentJa": "店長のおすすめ\n長時間・ナイトパック割引あり",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Special\nDiscounts for long hours / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.8",
+      "createdAt": "2026.4.8 18:07:39",
+      "images": [
+        "https://i.ibb.co/hFWL71Hv/photo-2026-01-18-14-36-28.jpg",
+        "https://i.ibb.co/x82nS1LY/photo-2026-01-18-14-36-29.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/hFWL71Hv/photo-2026-01-18-14-36-28.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "F",
+        "age": 28,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 224,
+      "titleJa": "番号7571",
+      "titleZh": "番號7571",
+      "titleEn": "No. 7571",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長厳選\n長時間・一晩のご利用で割引",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Special\nDiscounts for long hours/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.8",
+      "createdAt": "2026.4.8 18:06:23",
+      "images": [
+        "https://i.ibb.co/ycwdb8yC/photo-2026-01-18-14-34-34-2.jpg",
+        "https://i.ibb.co/B5ZTGW0b/photo-2026-01-18-14-34-34.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ycwdb8yC/photo-2026-01-18-14-34-34-2.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "D",
+        "age": 21,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 223,
+      "titleJa": "番号7570",
+      "titleZh": "番號7570",
+      "titleEn": "No. 7570",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍問わず】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Japanese Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "店長厳選\n長時間・泊まり割引",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Choice\nDiscounts for extended hours or overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.8",
+      "createdAt": "2026.4.8 18:05:02",
+      "images": [
+        "https://i.ibb.co/Kp63jQy9/photo-2026-01-18-14-33-15-2.jpg",
+        "https://i.ibb.co/cmXZXFZ/photo-2026-01-18-14-33-15.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Kp63jQy9/photo-2026-01-18-14-33-15-2.jpg",
+      "stats": {
+        "height": 156,
+        "cup": "F",
+        "age": 24,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 222,
+      "titleJa": "番号7569",
+      "titleZh": "番號7569",
+      "titleEn": "No. 7569",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "店長厳選\n長時間・オールナイト割引",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Pick\nDiscounts for long hours/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.8",
+      "createdAt": "2026.4.8 17:59:07",
+      "images": [
+        "https://i.ibb.co/LzW9BQKv/photo-2026-01-18-14-31-55-2.jpg",
+        "https://i.ibb.co/qFctw46N/photo-2026-01-18-14-31-55.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/LzW9BQKv/photo-2026-01-18-14-31-55-2.jpg",
+      "stats": {
+        "height": 164,
+        "cup": "C",
+        "age": 25,
+        "weight": 47
+      },
+      "published": true
+    },
     {
       "id": 221,
       "titleJa": "最近、このようなお声をいくつかいただきましたので、悠悠が少しご説明したいと思います。",
