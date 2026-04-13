@@ -15,6 +15,29 @@ function parseDataJs(filePath) {
   return fn();
 }
 
+/** 與 diary-dates.js 一致：YYYY.M.D 未補零不可用字串排序 */
+function diaryCreatedAtMs(d) {
+  const s = (d.createdAt || (d.date ? d.date + ' 00:00:00' : '')).trim();
+  if (!s) return 0;
+  const m = s.match(/^(\d+)\.(\d+)\.(\d+)\s+(\d+):(\d+):(\d+)/);
+  if (m) {
+    const t = new Date(+m[1], +m[2] - 1, +m[3], +m[4], +m[5], +m[6]).getTime();
+    return Number.isFinite(t) ? t : 0;
+  }
+  const m2 = s.match(/^(\d+)\.(\d+)\.(\d+)$/);
+  if (m2) {
+    const t = new Date(+m2[1], +m2[2] - 1, +m2[3]).getTime();
+    return Number.isFinite(t) ? t : 0;
+  }
+  return 0;
+}
+
+function compareDiaryDesc(a, b) {
+  const diff = diaryCreatedAtMs(b) - diaryCreatedAtMs(a);
+  if (diff !== 0) return diff;
+  return (b.id || 0) - (a.id || 0);
+}
+
 function mergeArrayById(arrA, arrB, preferNewer = true, sortKey = null) {
   const map = new Map();
   const add = (item) => {
@@ -41,8 +64,7 @@ function mergeArrayById(arrA, arrB, preferNewer = true, sortKey = null) {
   (arrB || []).forEach(add);
   let result = Array.from(map.values());
   if (sortKey === 'diary') {
-    const sk = (d) => d.createdAt || (d.date ? d.date + ' 00:00:00' : '');
-    result.sort((a, b) => sk(b).localeCompare(sk(a)));
+    result.sort(compareDiaryDesc);
   } else if (result.some((x) => x.order != null)) {
     result.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
   } else {
@@ -66,11 +88,16 @@ function mergeAbout(a, b) {
 }
 
 function mergeData(dataA, dataB) {
+  const diaryDeletedIds = [...new Set([...(dataA?.diaryDeletedIds || []), ...(dataB?.diaryDeletedIds || [])])];
+  const deletedSet = new Set(diaryDeletedIds);
+  const diaryMerged = mergeArrayById(dataA?.diary, dataB?.diary, true, 'diary');
+  const diary = diaryMerged.filter((d) => !deletedSet.has(d.id));
   return {
     about: mergeAbout(dataA?.about, dataB?.about),
     girls: mergeArrayById(dataA?.girls, dataB?.girls),
     reviews: mergeArrayById(dataA?.reviews, dataB?.reviews),
-    diary: mergeArrayById(dataA?.diary, dataB?.diary, true, 'diary'),
+    diary,
+    ...(diaryDeletedIds.length ? { diaryDeletedIds } : {}),
   };
 }
 

@@ -426,10 +426,9 @@ function renderDiary(lang, cat, page) {
   if (!grid || typeof siteData === 'undefined') return;
   currentDiaryCat = cat || currentDiaryCat;
   currentDiaryPage = (page !== undefined && page !== null) ? page : currentDiaryPage;
-  function diarySortKey(d) { return d.createdAt || (d.date ? d.date + ' 00:00:00' : ''); }
   const allPosts = siteData.diary
     .filter(d => d.published && (currentDiaryCat === 'all' || d.category === currentDiaryCat))
-    .sort((a,b) => diarySortKey(b).localeCompare(diarySortKey(a)));
+    .sort(compareDiaryDesc);
   const totalPages = Math.ceil(allPosts.length / DIARY_PER_PAGE);
   const start = (currentDiaryPage - 1) * DIARY_PER_PAGE;
   const posts = allPosts.slice(start, start + DIARY_PER_PAGE);

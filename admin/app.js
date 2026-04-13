@@ -228,10 +228,6 @@ function getNowStr() {
   return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
-function getDiarySortKey(d) {
-  return d.createdAt || (d.date ? d.date + ' 00:00:00' : '');
-}
-
 function extractBangouFromTitle(title) {
   if (!title || typeof title !== 'string') return null;
   const m = title.match(/番[号號](\d+)/);
@@ -361,11 +357,12 @@ function mergeDataLocalWithRemote(local, remote) {
 }
 
 // ── 合併兩份完整資料 ──
-// 用於發布時：以本地(dataA)為準，只從遠端(dataB)補上本地沒有的項目（他人新增的）
-// 因此本地已刪除的項目不會被遠端「加回來」
+// 以本地(dataA)為準；遠端(dataB)僅補上「本地沒有的 id」。
+// 日記：曾刪除的 id 記在 diaryDeletedIds，合併時不會從遠端再加回（發布後刪除才會生效）。
 function mergeTwoData(dataA, dataB) {
   if (!dataA || !dataB) return dataA || dataB;
   const merged = { ...dataA };
+  const diaryDeletedIds = new Set([...(dataA.diaryDeletedIds || []), ...(dataB.diaryDeletedIds || [])]);
   for (const key of ['girls', 'reviews', 'diary']) {
     const arrA = dataA[key];
     const arrB = dataB[key];
@@ -374,14 +371,19 @@ function mergeTwoData(dataA, dataB) {
     const map = new Map();
     (arrA || []).forEach(item => map.set(item.id, { ...item }));
     (arrB || []).forEach(item => {
+      if (key === 'diary' && diaryDeletedIds.has(item.id)) return;
       if (!localIds.has(item.id)) map.set(item.id, { ...item });
     });
     let arr = Array.from(map.values());
     if (key === 'girls') arr.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
-    else if (key === 'diary') arr.sort((a, b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a)));
+    else if (key === 'diary') {
+      arr = arr.filter((d) => !diaryDeletedIds.has(d.id));
+      arr.sort(compareDiaryDesc);
+    }
     else if (key === 'reviews') arr.sort((a, b) => (b.id || 0) - (a.id || 0));
     merged[key] = arr;
   }
+  merged.diaryDeletedIds = [...diaryDeletedIds];
   if (dataB.about) {
     const photoSet = new Set([...(dataA.about?.photos || []), ...(dataB.about?.photos || [])]);
     merged.about = { ...dataA.about, ...dataB.about, photos: [...photoSet] };
@@ -796,7 +798,7 @@ function renderDiaryTable() {
     warn.textContent = '番號跳號警告：缺少 ' + gaps.join(', ');
     tbody.closest('.admin-table-wrap')?.insertBefore(warn, tbody.closest('table'));
   }
-  tbody.innerHTML = [...diary].sort((a,b) => getDiarySortKey(b).localeCompare(getDiarySortKey(a))).map(d => {
+  tbody.innerHTML = [...diary].sort(compareDiaryDesc).map(d => {
     const thumb = d.images?.[0] ?? d.thumbnail;
     const bangou = d.category === '出勤情報' ? (extractBangouFromTitle(d.titleZh) || extractBangouFromTitle(d.titleJa) || '-') : '-';
     return `
@@ -1453,7 +1455,11 @@ function deleteItem(type, id) {
   if (!confirm('確定要刪除？')) return;
   if (type === 'girl') adminData.girls = adminData.girls.filter(g => g.id !== id);
   if (type === 'review') adminData.reviews = adminData.reviews.filter(r => r.id !== id);
-  if (type === 'diary') adminData.diary = adminData.diary.filter(d => d.id !== id);
+  if (type === 'diary') {
+    adminData.diary = adminData.diary.filter(d => d.id !== id);
+    if (!adminData.diaryDeletedIds) adminData.diaryDeletedIds = [];
+    if (!adminData.diaryDeletedIds.includes(id)) adminData.diaryDeletedIds.push(id);
+  }
   saveData();
   renderAll();
 }
