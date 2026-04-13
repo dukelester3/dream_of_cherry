@@ -228,6 +228,13 @@ function getNowStr() {
   return `${d.getFullYear()}.${d.getMonth() + 1}.${d.getDate()} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
 }
 
+/** 日記 id 統一為數字，避免 JSON／inline onclick 出現字串導致刪除／合併比對失敗 */
+function diaryIdKey(id) {
+  if (id == null || id === '') return id;
+  const n = Number(id);
+  return Number.isFinite(n) ? n : id;
+}
+
 function extractBangouFromTitle(title) {
   if (!title || typeof title !== 'string') return null;
   const m = title.match(/番[号號](\d+)/);
@@ -260,7 +267,7 @@ function getBangouSkipSet() {
 
 function getUsedBangouList(excludeDiaryId) {
   return (adminData.diary || [])
-    .filter(d => d.category === '出勤情報' && d.id !== excludeDiaryId)
+    .filter(d => d.category === '出勤情報' && diaryIdKey(d.id) !== diaryIdKey(excludeDiaryId))
     .map(d => extractBangouFromTitle(d.titleZh) || extractBangouFromTitle(d.titleJa))
     .filter(n => n != null);
 }
@@ -362,22 +369,30 @@ function mergeDataLocalWithRemote(local, remote) {
 function mergeTwoData(dataA, dataB) {
   if (!dataA || !dataB) return dataA || dataB;
   const merged = { ...dataA };
-  const diaryDeletedIds = new Set([...(dataA.diaryDeletedIds || []), ...(dataB.diaryDeletedIds || [])]);
+  const diaryDeletedIds = new Set(
+    [...(dataA.diaryDeletedIds || []), ...(dataB.diaryDeletedIds || [])].map(diaryIdKey)
+  );
   for (const key of ['girls', 'reviews', 'diary']) {
     const arrA = dataA[key];
     const arrB = dataB[key];
     if (!Array.isArray(arrA) && !Array.isArray(arrB)) continue;
-    const localIds = new Set((arrA || []).map(x => x.id));
+    const localIds = key === 'diary'
+      ? new Set((arrA || []).map(x => diaryIdKey(x.id)))
+      : new Set((arrA || []).map(x => x.id));
     const map = new Map();
-    (arrA || []).forEach(item => map.set(item.id, { ...item }));
+    (arrA || []).forEach(item => {
+      const k = key === 'diary' ? diaryIdKey(item.id) : item.id;
+      map.set(k, { ...item });
+    });
     (arrB || []).forEach(item => {
-      if (key === 'diary' && diaryDeletedIds.has(item.id)) return;
-      if (!localIds.has(item.id)) map.set(item.id, { ...item });
+      const ik = key === 'diary' ? diaryIdKey(item.id) : item.id;
+      if (key === 'diary' && diaryDeletedIds.has(ik)) return;
+      if (!localIds.has(ik)) map.set(ik, { ...item });
     });
     let arr = Array.from(map.values());
     if (key === 'girls') arr.sort((a, b) => (a.order ?? 999) - (b.order ?? 999));
     else if (key === 'diary') {
-      arr = arr.filter((d) => !diaryDeletedIds.has(d.id));
+      arr = arr.filter((d) => !diaryDeletedIds.has(diaryIdKey(d.id)));
       arr.sort(compareDiaryDesc);
     }
     else if (key === 'reviews') arr.sort((a, b) => (b.id || 0) - (a.id || 0));
@@ -972,7 +987,7 @@ function openModal(type, id) {
   if (id !== null) {
     if (type === 'girl') item = adminData.girls.find(g => g.id === id);
     if (type === 'review') item = adminData.reviews.find(r => r.id === id);
-    if (type === 'diary') item = adminData.diary.find(d => d.id === id);
+    if (type === 'diary') item = adminData.diary.find(d => diaryIdKey(d.id) === diaryIdKey(id));
   }
 
   if (type === 'girl') {
@@ -1422,7 +1437,7 @@ function saveDiary() {
     published: document.getElementById('f-published').value === 'true'
   };
   if (editingId) {
-    const idx = adminData.diary.findIndex(d => d.id === editingId);
+    const idx = adminData.diary.findIndex(d => diaryIdKey(d.id) === diaryIdKey(editingId));
     adminData.diary[idx] = { ...adminData.diary[idx], ...data };
   } else {
     const maxId = adminData.diary.reduce((m,d) => Math.max(m, d.id), 0);
@@ -1456,9 +1471,10 @@ function deleteItem(type, id) {
   if (type === 'girl') adminData.girls = adminData.girls.filter(g => g.id !== id);
   if (type === 'review') adminData.reviews = adminData.reviews.filter(r => r.id !== id);
   if (type === 'diary') {
-    adminData.diary = adminData.diary.filter(d => d.id !== id);
+    const ik = diaryIdKey(id);
+    adminData.diary = adminData.diary.filter(d => diaryIdKey(d.id) !== ik);
     if (!adminData.diaryDeletedIds) adminData.diaryDeletedIds = [];
-    if (!adminData.diaryDeletedIds.includes(id)) adminData.diaryDeletedIds.push(id);
+    if (!adminData.diaryDeletedIds.some(x => diaryIdKey(x) === ik)) adminData.diaryDeletedIds.push(ik);
   }
   saveData();
   renderAll();
