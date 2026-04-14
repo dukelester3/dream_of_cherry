@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/14 下午4:57:50
+// Generated: 2026/4/14 下午6:27:55
 
 const siteData = {
   "about": {
@@ -297,6 +297,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 239,
+      "titleJa": "なぜ、そちらは1時間こんなに高いのですか？",
+      "titleZh": "為什麼你們這邊一個小時這麼貴？",
+      "titleEn": "Why is an hour so expensive here?",
+      "excerpt": "他のお店だともっと安いんですけど。",
+      "excerptZh": "我在別家看到便宜很多耶？",
+      "excerptEn": "I saw it much cheaper elsewhere.",
+      "contentJa": "UUからの回答です。\n本当に良いものは、決して価格競争で選ばれるものではなく、ご自身で一度体験し、その価値を測るものです。\n私たちが提供するのは、単なる時間ではなく、品質、感覚、そして体験全体です。\n\n1. UUは「お客様のために心を込めて、的確な人選をする」ことをお約束します。決して適当に",
+      "contentZh": "UU 的回答是這樣的\n好東西，從來不是比價比出來的，\n而是你親自體驗過一次，衡量出來的。\n我們這裡賣的，不只是時間，而是品質、感覺，還有整段體驗。\n\n1. UU是「用心幫您針對性挑人」不是隨便配一個給您喔\n每一位能夠推薦出來的女孩，都是經過嚴格篩選的。\n會依照您的喜好、年齡、聊天風格、相處感覺來推薦，\n不是只看長相，更重視態度、互動、細節感。😊\n\nUU希望您這一個小時，不是「來完成一個行程」，\n而是有一種體驗完了之後 感覺像女朋友陪您約會、放鬆聊天、被好好對待的感覺。\n\n2. 女孩都是純兼職出勤，不是流水線式接客，也不是隨時等待客人來臨時約\n本店的女孩她們本身都有正職工作，不是天天接、也不會硬撐，身體狀況不好、生理期，都會休息。\n一天最多只接 3～4 位客人，就是為了把狀態、體力、情緒，留給您。\n\n不趕場、不敷衍，更不會時間到就想走人，女孩們會像女友一樣陪到時間到才離開~\n\n3. 顏值、年紀、身材，全部都有標準\n我們錄用的標準，至少 8 分以上。\n你喜歡的是：年輕清純？氣質御姐？還是青春感？\n本店都可以提供到位 也都有，而且品質是我們最驕傲的地方。\n\n就像喝咖啡一樣：\n便利店現磨，跟星巴克等級的手沖精品，價格會一樣嗎？\n\n我們這裡的女孩，\n就像是那杯 星巴克以上的特調手沖\n不是每天都喝，但喝過就知道差別。\n\n您選擇的是服務，我提供的是女孩的品質、安排與整體體驗。\n\nUU希望您在日本的這段時間\n不只是來過一次，而是真的玩得開心、放鬆、值得回味，並且是一次不錯的體驗。😊",
+      "contentEn": "Here's UU's answer:\nGood things are never found by comparing prices, but by experiencing them firsthand and then evaluating their worth. What we offer here isn't just time, but quality, feeling, and the entire experience.\n\n1.  UU \"meticulously handpicks individuals tailored to your needs,\" not just randomly assigning someone.\n    Every girl we recommend has undergone strict screening",
+      "category": "お知らせ",
+      "date": "2026.4.14",
+      "createdAt": "2026.4.14 18:26:03",
+      "images": [
+        "https://i.ibb.co/ZpNz3S7T/photo-2021-01-04-01-36-38.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ZpNz3S7T/photo-2021-01-04-01-36-38.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 235,
       "titleJa": "番号7582",
