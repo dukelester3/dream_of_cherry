@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/14 下午6:27:55
+// Generated: 2026/4/14 下午6:33:35
 
 const siteData = {
   "about": {
@@ -297,6 +297,114 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 243,
+      "titleJa": "番号7586",
+      "titleZh": "番號7586",
+      "titleEn": "No. 7586",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Premium Delivery (Open to All Nationalities)",
+      "contentJa": "店長精選\n長時間・宿泊割引",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Pick\nDiscounts for long hours or overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.14",
+      "createdAt": "2026.4.14 18:32:07",
+      "images": [
+        "https://i.ibb.co/SDDYmVnn/photo-2026-01-25-15-00-17-2.jpg",
+        "https://i.ibb.co/Y4xYzvr3/photo-2026-01-25-15-00-17.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/SDDYmVnn/photo-2026-01-25-15-00-17-2.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "D",
+        "age": 25,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 242,
+      "titleJa": "番号7585",
+      "titleZh": "番號7585",
+      "titleEn": "No. 7585",
+      "excerpt": "夜桜の夢 日本の高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "店長のおすすめ\n長時間・宿泊割引あり",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Choice\nDiscounts for long hours/overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.14",
+      "createdAt": "2026.4.14 18:31:21",
+      "images": [
+        "https://i.ibb.co/XdcSZ6x/photo-2026-01-25-14-57-18-2.jpg",
+        "https://i.ibb.co/cSD6G30c/photo-2026-01-25-14-57-18.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/XdcSZ6x/photo-2026-01-25-14-57-18-2.jpg",
+      "stats": {
+        "height": 161,
+        "cup": "E",
+        "age": 21,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 241,
+      "titleJa": "番号7584",
+      "titleZh": "番號7584",
+      "titleEn": "No. 7584",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "店長のおすすめ\n長時間・オールナイトご利用で割引",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Pick\nDiscounts for extended stays/overnight packages",
+      "category": "出勤情報",
+      "date": "2026.4.14",
+      "createdAt": "2026.4.14 18:30:24",
+      "images": [
+        "https://i.ibb.co/bg6mRJLJ/photo-2026-01-25-14-54-56-2.jpg",
+        "https://i.ibb.co/0pjR0vRg/photo-2026-01-25-14-54-56.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/bg6mRJLJ/photo-2026-01-25-14-54-56-2.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "D",
+        "age": 23,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 240,
+      "titleJa": "番号7583",
+      "titleZh": "番號7583",
+      "titleEn": "No. 7583",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Premium Japanese Delivery [Open to all nationalities]",
+      "contentJa": "店長厳選\n長時間・オールナイト割引あり",
+      "contentZh": "店長精選\n長時間/包夜有折扣",
+      "contentEn": "Manager's Pick\nDiscounts for long hours / overnight stays",
+      "category": "出勤情報",
+      "date": "2026.4.14",
+      "createdAt": "2026.4.14 18:29:18",
+      "images": [
+        "https://i.ibb.co/Fqzhz61h/photo-2026-01-23-15-35-24-2.jpg",
+        "https://i.ibb.co/JRkfXQxM/photo-2026-01-23-15-35-24.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Fqzhz61h/photo-2026-01-23-15-35-24-2.jpg",
+      "stats": {
+        "height": 157,
+        "cup": "D",
+        "age": 23,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 239,
       "titleJa": "なぜ、そちらは1時間こんなに高いのですか？",
