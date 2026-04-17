@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/17 下午2:09:29
+// Generated: 2026/4/17 下午2:29:13
 
 const siteData = {
   "about": {
@@ -297,6 +297,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 262,
+      "titleJa": "🧠『新規の方からよくある9つの疑問』",
+      "titleZh": "🧠《新客常見9大問題》",
+      "titleEn": "Top 9 Common Questions for New Customers",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "❶ こちらはどのようなサービスですか？どのような内容ですか？\n⭐ 実際にお会いできる女性をご紹介するサービスです。チャットのみやゲーム感覚のサービスではございません。\n\n❷ 写真は本物ですか？本人と写真が同じですか？\n⭐ 全て本人による実写です。お会いする際にご本人",
+      "contentZh": "❶ 請問這裡是什麼服務？有什麼內容？\n⭐ 是介紹可以實際見面的小姐，不是純聊天或遊戲型服務。\n\n❷ 照片是真的嗎？本人跟照片一樣嗎？\n⭐ 都是本人實拍照，安排見面後您可以現場確認。\n\n❸ 會先收錢嗎？付款方式是什麼？\n⭐ 完全不提前收款，見到小姐後、滿意再現金付款。\n\n❹ 有全套嗎？可以做到什麼程度？\n⭐ 可對應親密需求，實際內容會依小姐個別狀況事前說明。\n\n❺ 有推薦的嗎？可以幫我挑嗎？\n⭐ 我會根據您喜好、預算推薦合適的小姐，也可以先看看介紹資料。\n\n❻ 有沒有短時間的，便宜一點的？\n⭐ 有3萬日圓左右的短時方案，性價比高，CP值好入門。\n\n❼ 我是第一次用，有點緊張\n⭐ 很多人都是第一次，可以放心問我細節，我會一步一步協助您。\n\n❽ 要自己開房嗎？可以去哪裡？\n⭐ 是的，您只要訂好飯店，我幫您安排時間配合的小姐前往。\n\n❾ 我曾經被騙，所以現在很小心\n⭐ 完全不提前收款、不亂報價，安排成功的熟客很多，也歡迎您用低風險方案先體驗一次。",
+      "contentEn": "**1. What kind of service is this? What does it include?**\n⭐ We arrange in-person meetings with ladies; this is not a chat-only or game-based service.\n\n**2. Are the photos real? Does the person look like their photo?**\n⭐ All photos are authentic, taken by the ladies themselves. You can confirm in person once a meeting is arranged.\n\n**3. Do you collect payment upfront? What are the payment methods?**\n⭐ No upfront payment whatsoever. You pay in cash after meeting the lady and if you are satisfied.\n\n**4. Is a full service available? What extent can be provided?**\n⭐ Intimate requests can be fulfilled. The specific details will be explained in advance, tailored to each lady's individual situation.\n\n**5. Do you have any recommendations? Can you help me choose?**\n⭐ I can recommend suitable ladies based on your preferences and budget. You're also welcome to browse their profiles first.\n\n**6. Are there shorter, cheaper options?**\n⭐ Yes, there are short-time plans starting around 30,000 JPY, which offer excellent value and are a great way to start.\n\n**7. I'm a first-time user, and I'm a bit nervous.**\n⭐ Many clients are first-timers. Please feel free to ask me any questions, and I will guide you through the process step by step.\n\n**8. Do I need to book a room myself? Where can we go?**\n⭐ Yes, you simply book a hotel, and I will arrange for a lady to meet you there at a convenient time.\n\n**9. I've been scammed before, so I'm very cautious now.**\n⭐ We never collect payment upfront and provide transparent pricing. We have many successful arrangements and repeat clients. You are welcome to try a low-risk option for your first experience.",
+      "category": "お知らせ",
+      "date": "2026.4.17",
+      "createdAt": "2026.4.17 14:23:07",
+      "images": [
+        "https://i.ibb.co/jvRB3B4s/photo.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/jvRB3B4s/photo.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 261,
       "titleJa": "番号7604",
