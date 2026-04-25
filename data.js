@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/25 下午3:37:01
+// Generated: 2026/4/25 下午3:44:59
 
 const siteData = {
   "about": {
@@ -26,33 +26,36 @@ const siteData = {
   "girls": [
     {
       "id": 1,
-      "name": "アイちゃん",
-      "nameZh": "小愛",
-      "nameEn": "Ai",
-      "height": 158,
-      "age": 24,
-      "cup": "E",
-      "weight": 45,
+      "name": "あみ",
+      "nameZh": "亜美",
+      "nameEn": "ami",
+      "height": 156,
+      "age": 18,
+      "cup": "D",
+      "weight": 41,
       "badge": "人気No.1",
       "badgeZh": "人氣No.1",
       "badgeEn": "人気No.1",
       "types": [
-        "清楚系",
-        "AV経験"
+        "可愛系",
+        "学生系",
+        "清楚系"
       ],
       "typesZh": [
-        "清純型",
-        "AV經驗"
+        "可愛型",
+        "學生型",
+        "清純型"
       ],
       "typesEn": [
-        "Innocent",
-        "AV Exp."
+        "Cute",
+        "Student",
+        "Innocent"
       ],
-      "image": "https://i.ibb.co/zTK6cRzG/17f2f4e84b7f492c06cf061445a01bf2.jpg",
+      "image": "https://i.ibb.co/QvhKfzVk/photo-2026-03-27-13-48-34.jpg",
       "active": true,
       "order": 1,
       "images": [
-        "https://i.ibb.co/zTK6cRzG/17f2f4e84b7f492c06cf061445a01bf2.jpg"
+        "https://i.ibb.co/QvhKfzVk/photo-2026-03-27-13-48-34.jpg"
       ]
     },
     {
