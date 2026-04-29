@@ -7,7 +7,7 @@
   --admin-card: #ffffff;
   --admin-border: #e5ddd5;
   --admin-text: #2c2418;
-  --admin-muted: #8a7a68;
+  --admin-muted: #5e5245;
   --admin-gold: #c09a45;
   --admin-danger: #c0392b;
   --admin-success: #27ae60;
@@ -201,7 +201,7 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .admin-brand-name { display: block; font-size: 1.1rem; font-weight: 700; color: #f5ede0; }
-.admin-brand-sub { font-size: 0.68rem; color: rgba(245,237,224,0.4); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; display: block; }
+.admin-brand-sub { font-size: 0.68rem; color: rgba(245,237,224,0.78); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; display: block; }
 
 .admin-visitor-stats {
   padding: 14px 20px 18px;
@@ -213,47 +213,49 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 }
 .admin-visitor-stats-label {
   font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(245,237,224,0.45);
+  color: rgba(245,237,224,0.88);
 }
 .admin-visitor-stats-value {
   margin-top: 8px;
   font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums;
-  color: var(--admin-gold); line-height: 1.2;
+  color: #e8c96a;
+  line-height: 1.2;
+  text-shadow: 0 0 1px rgba(0,0,0,0.4);
 }
 .admin-visitor-stats-refresh {
   flex-shrink: 0;
   width: 28px; height: 28px; padding: 0;
-  border: 1px solid rgba(255,255,255,0.15); border-radius: 4px;
-  background: rgba(255,255,255,0.06); color: rgba(245,237,224,0.65);
+  border: 1px solid rgba(255,255,255,0.28); border-radius: 4px;
+  background: rgba(255,255,255,0.1); color: rgba(245,237,224,0.92);
   cursor: pointer; font-size: 0.95rem; line-height: 1;
   transition: border-color 0.2s, color 0.2s;
 }
 .admin-visitor-stats-refresh:hover {
-  border-color: var(--admin-gold); color: var(--admin-gold);
+  border-color: var(--admin-gold); color: #f5ede0;
 }
 .admin-visitor-stats-hint {
-  margin-top: 8px; font-size: 0.65rem; line-height: 1.45;
-  color: rgba(245,237,224,0.35);
+  margin-top: 8px; font-size: 0.68rem; line-height: 1.45;
+  color: rgba(245,237,224,0.68);
 }
 
 .admin-nav { padding: 16px 0; flex: 1; }
 .admin-nav-btn {
   display: block; width: 100%; text-align: left;
   padding: 12px 24px; background: none; border: none; cursor: pointer;
-  font-size: 0.82rem; color: rgba(245,237,224,0.55);
+  font-size: 0.82rem; color: rgba(245,237,224,0.82);
   transition: all 0.2s; border-left: 3px solid transparent;
 }
-.admin-nav-btn:hover { color: rgba(245,237,224,0.85); background: rgba(255,255,255,0.04); }
-.admin-nav-btn.active { color: #f5ede0; border-left-color: var(--admin-gold); background: rgba(192,154,69,0.1); }
+.admin-nav-btn:hover { color: #f5ede0; background: rgba(255,255,255,0.06); }
+.admin-nav-btn.active { color: #fff; border-left-color: var(--admin-gold); background: rgba(192,154,69,0.14); }
 
 .admin-sidebar-footer {
   padding: 16px 24px;
   border-top: 1px solid rgba(255,255,255,0.08);
   display: flex; flex-direction: column; gap: 8px;
 }
-.admin-back-link { font-size: 0.75rem; color: rgba(245,237,224,0.4); text-decoration: none; transition: color 0.2s; }
+.admin-back-link { font-size: 0.75rem; color: rgba(245,237,224,0.72); text-decoration: none; transition: color 0.2s; }
 .admin-back-link:hover { color: var(--admin-gold); }
-.admin-logout { background: none; border: 1px solid rgba(255,255,255,0.15); color: rgba(245,237,224,0.5); cursor: pointer; padding: 6px 12px; font-size: 0.72rem; transition: all 0.2s; }
+.admin-logout { background: none; border: 1px solid rgba(255,255,255,0.22); color: rgba(245,237,224,0.82); cursor: pointer; padding: 6px 12px; font-size: 0.72rem; transition: all 0.2s; }
 .admin-logout:hover { border-color: var(--admin-danger); color: var(--admin-danger); }
 
 .admin-main {
@@ -345,7 +347,7 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 
 /* EXPORT */
 .export-section { background: var(--admin-card); border: 1px solid var(--admin-border); padding: 32px; max-width: 800px; }
-.export-desc { font-size: 0.88rem; color: var(--admin-muted); margin-bottom: 20px; line-height: 1.7; }
+.export-desc { font-size: 0.88rem; color: #3d3429; margin-bottom: 20px; line-height: 1.7; }
 .export-desc code { background: #f4f0ea; padding: 2px 6px; font-size: 0.85em; }
 .export-output { margin-top: 20px; }
 .export-actions { display: flex; align-items: center; gap: 16px; margin-bottom: 12px; }
