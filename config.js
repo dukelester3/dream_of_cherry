@@ -15,5 +15,5 @@ var VISITOR_COUNT_KEY = 'front_page_pv_v1';
 var VISITOR_COUNT_INCLUDE_PREVIEW = false;
 // true = 同一分頁工作階段只計一次（較接近「造訪」而非每次重新整理）
 var VISITOR_COUNT_ONCE_PER_SESSION = false;
-// 若 CountAPI 無法讀取，可改為自架統計網址（GET 回 JSON，須 CORS，例如 {"value":12345}）
+// 若後台「瀏覽人次」讀不到，可改設自架網址（GET 回 JSON、須允許瀏覽器 CORS，格式如 {"value":12345}）
 // var VISITOR_COUNT_STATS_URL = 'https://你的網域/stats.json';
