@@ -1,9 +1,14 @@
 /**
- * 瀏覽人次（優先順序）
- * 1) config VISITOR_COUNT_STATS_URL（自架 JSON，须 CORS）
- * 2) config VISITOR_COUNTER_WORKER_BASE（Cloudflare Worker，见 worker/）
- * 3) 同網域 visitor-count.json（僅顯示，須手動改檔或發布）
- * 4) CountAPI + 公開代理（常失效，僅作保留）
+ * 瀏覽人次（自動累計，不需手動改檔）
+ *
+ * 優先順序（讀取）：
+ * 1) VISITOR_COUNT_STATS_URL
+ * 2) Supabase（config：SUPABASE_URL + SUPABASE_ANON_KEY，執行 scripts/supabase-page-views.sql）
+ * 3) Cloudflare Worker（VISITOR_COUNTER_WORKER_BASE）
+ * 4) CountAPI + 代理（常失效）
+ * 5) visitor-count.json（僅備援）
+ *
+ * 計次（首頁載入）：Supabase RPC → Worker /hit → CountAPI（同上順位，略過 STATS_URL）
  */
 (function () {
   var CACHE_KEY = 'yuyu_visitor_count_cache';
@@ -25,6 +30,19 @@
     if (typeof VISITOR_COUNTER_WORKER_BASE === 'undefined' || !VISITOR_COUNTER_WORKER_BASE)
       return '';
     return String(VISITOR_COUNTER_WORKER_BASE).replace(/\/+$/, '');
+  }
+
+  function supabaseConfig() {
+    var url =
+      typeof SUPABASE_URL !== 'undefined' && SUPABASE_URL
+        ? String(SUPABASE_URL).trim().replace(/\/+$/, '')
+        : '';
+    var key =
+      typeof SUPABASE_ANON_KEY !== 'undefined' && SUPABASE_ANON_KEY
+        ? String(SUPABASE_ANON_KEY).trim()
+        : '';
+    if (!url || !key) return null;
+    return { url: url, key: key };
   }
 
   function countApiHitUrl(p) {
@@ -53,13 +71,44 @@
     return n;
   }
 
-  /** 後台頁面根目錄的 visitor-count.json（與 admin 同站時必載入成功） */
   function sameOriginStaticCountUrl() {
     try {
       return new URL('../visitor-count.json', location.href).href;
     } catch (e) {
       return null;
     }
+  }
+
+  async function supabaseGetCount(cfg) {
+    var res = await fetch(
+      cfg.url + '/rest/v1/page_views?select=visits&id=eq.main',
+      {
+        headers: {
+          apikey: cfg.key,
+          Authorization: 'Bearer ' + cfg.key,
+        },
+        cache: 'no-store',
+      }
+    );
+    if (!res.ok) throw new Error('supabase get');
+    var rows = await res.json();
+    if (!Array.isArray(rows) || !rows.length) throw new Error('no row');
+    var n = Number(rows[0].visits);
+    if (!Number.isFinite(n)) throw new Error('bad visits');
+    return n;
+  }
+
+  function supabaseIncrementVisit(cfg) {
+    fetch(cfg.url + '/rest/v1/rpc/increment_page_views', {
+      method: 'POST',
+      headers: {
+        apikey: cfg.key,
+        Authorization: 'Bearer ' + cfg.key,
+        'Content-Type': 'application/json',
+      },
+      body: '{}',
+      cache: 'no-store',
+    }).catch(function () {});
   }
 
   window.recordYuyuPageVisit = function recordYuyuPageVisit() {
@@ -74,6 +123,12 @@
         if (sessionStorage.getItem('yuyu_pv_recorded') === '1') return;
         sessionStorage.setItem('yuyu_pv_recorded', '1');
       } catch (e) {}
+    }
+
+    var sb = supabaseConfig();
+    if (sb) {
+      supabaseIncrementVisit(sb);
+      return;
     }
     var base = workerBase();
     if (base) {
@@ -107,22 +162,17 @@
       return parseCountJson(JSON.parse(txt0));
     }
 
+    var sb = supabaseConfig();
+    if (sb) {
+      window._lastVisitorCountSource = 'supabase';
+      return supabaseGetCount(sb);
+    }
+
     var wb = workerBase();
     if (wb) {
       var txtW = await fetchJsonText(wb + '/get');
       window._lastVisitorCountSource = 'worker';
       return parseCountJson(JSON.parse(txtW));
-    }
-
-    var staticU = sameOriginStaticCountUrl();
-    if (staticU) {
-      try {
-        var txtS = await fetchJsonText(staticU);
-        window._lastVisitorCountSource = 'static';
-        return parseCountJson(JSON.parse(txtS));
-      } catch (e) {
-        /* fall through */
-      }
     }
 
     var p = visitorCountParts();
@@ -138,6 +188,18 @@
         lastErr = e;
       }
     }
+
+    var staticU = sameOriginStaticCountUrl();
+    if (staticU) {
+      try {
+        var txtS = await fetchJsonText(staticU);
+        window._lastVisitorCountSource = 'static';
+        return parseCountJson(JSON.parse(txtS));
+      } catch (e) {
+        lastErr = e;
+      }
+    }
+
     throw lastErr || new Error('fetch');
   };
 
@@ -154,9 +216,13 @@
       } catch (e) {}
       el.textContent = n.toLocaleString('zh-TW');
       var src = window._lastVisitorCountSource;
-      if (hint && src === 'static') {
-        hint.textContent =
-          '此數字來自網站根目錄 visitor-count.json（可手動編輯後發布）。自動累計請部署 worker/ 並在 config.js 設定 VISITOR_COUNTER_WORKER_BASE。';
+      if (hint) {
+        if (src === 'static') {
+          hint.textContent =
+            '此為備援靜態檔，不會自動增加。請在 config.js 設定 Supabase（見 scripts/supabase-page-views.sql）或 VISITOR_COUNTER_WORKER_BASE。';
+        } else if (src === 'countapi') {
+          hint.textContent = '來源：舊版 CountAPI（建議改為 Supabase 或 Worker 較穩定）。';
+        }
       }
     } catch (e) {
       var cached = null;
@@ -167,14 +233,14 @@
         el.textContent = Number(cached).toLocaleString('zh-TW');
         if (hint) {
           hint.textContent =
-            '無法連線讀取最新數字，顯示上次快取。請確認已部署 visitor-count.json，或設定 VISITOR_COUNTER_WORKER_BASE。';
+            '無法連線讀取最新數字（顯示快取）。請在 config.js 設定 SUPABASE_URL + SUPABASE_ANON_KEY，或 VISITOR_COUNTER_WORKER_BASE。';
         }
         return;
       }
       el.textContent = '無法載入';
       if (hint) {
         hint.textContent =
-          '請確認同網域已有 visitor-count.json，並已隨網站一併部署。自動計次請設定 VISITOR_COUNTER_WORKER_BASE（見專案 worker/）或 VISITOR_COUNT_STATS_URL。';
+          '請在 config.js 設定 Supabase（執行 scripts/supabase-page-views.sql 後填 URL 與 Anon Key）或 Cloudflare Worker。舊 CountAPI 紀錄可執行：node scripts/fetch-legacy-countapi.mjs 嘗試匯出種子。';
       }
     }
   };

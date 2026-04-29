@@ -152,7 +152,7 @@
           <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
           <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
             <label>瀏覽人次（側欄顯示）</label>
-            <p class="form-hint">側欄數字優先讀取 <code>config.js</code> 的 <code>VISITOR_COUNT_STATS_URL</code> 或 <code>VISITOR_COUNTER_WORKER_BASE</code>；否則讀網站根目錄 <code>visitor-count.json</code>（預設顯示 0，可手動改檔後發布）。自動累計請部署專案內 <code>worker/</code>（Cloudflare Workers + KV）。首頁載入會計次（依設定略過 <code>?preview=1</code>），後台頁面不計次。</p>
+            <p class="form-hint">瀏覽人次會依<strong>真實開站次數</strong>累加（首頁載入計一次；可關掉預覽計次）。請在 <code>config.js</code> 擇一設定：<strong>Supabase</strong>（執行 <code>scripts/supabase-page-views.sql</code> 後填 <code>SUPABASE_URL</code>、<code>SUPABASE_ANON_KEY</code>）或 <strong>Cloudflare Worker</strong>（<code>VISITOR_COUNTER_WORKER_BASE</code>）。舊 CountAPI 紀錄不一定存在，可於本機執行 <code>node scripts/fetch-legacy-countapi.mjs</code> 嘗試取出後當種子寫入 Supabase／KV。</p>
           </div>
           <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
             <label>番號跳號忽略（刻意跳過的範圍／單號）</label>
