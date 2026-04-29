@@ -7,13 +7,20 @@ var ADMIN_AUTO_SYNC_GITHUB_ON_LOGIN = true;
 // Gemini API（用於後台一鍵翻譯，至 https://aistudio.google.com/ 取得 API Key）
 var GEMINI_API_KEY = 'gen-lang-client-0879457781';
 
-// ── 瀏覽人次（CountAPI，免註冊）：首頁載入時計一次，後台側欄顯示累計
-// namespace / key 請改成與他人不重複的英數與底線（勿空格）
+// ── 瀏覽人次 ─────────────────────────────────────────────
+// 後台會依序讀取：自訂 JSON → Cloudflare Worker → 同站 visitor-count.json → CountAPI
+//
+// 最簡必備：根目錄 visitor-count.json（可手動改數字後發布；與網站同網域即可顯示）
+//
+// 自動累計（推薦）：Cloudflare 免費 Workers + KV，部署專案內 worker/ 後填網址：
+// var VISITOR_COUNTER_WORKER_BASE = 'https://你的程式.workers.dev';
+//
+// 或任一 HTTPS：GET 回 JSON、允許 CORS，格式 {"value":12345}
+// var VISITOR_COUNT_STATS_URL = 'https://你的網域/stats.json';
+//
 var VISITOR_COUNT_NAMESPACE = 'yuyu_dream_of_cherry';
 var VISITOR_COUNT_KEY = 'front_page_pv_v1';
 // 後台預覽 ?preview=1 是否也算一次（通常 false，避免自己測試灌流量）
 var VISITOR_COUNT_INCLUDE_PREVIEW = false;
 // true = 同一分頁工作階段只計一次（較接近「造訪」而非每次重新整理）
 var VISITOR_COUNT_ONCE_PER_SESSION = false;
-// 若後台「瀏覽人次」讀不到，可改設自架網址（GET 回 JSON、須允許瀏覽器 CORS，格式如 {"value":12345}）
-// var VISITOR_COUNT_STATS_URL = 'https://你的網域/stats.json';

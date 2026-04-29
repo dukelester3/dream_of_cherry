@@ -152,7 +152,7 @@
           <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
           <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
             <label>瀏覽人次（側欄顯示）</label>
-            <p class="form-hint">由首頁載入時經 CountAPI 累計；後台頁面不計數。請在專案 <code>config.js</code> 調整 <code>VISITOR_COUNT_NAMESPACE</code>／<code>VISITOR_COUNT_KEY</code>。若側欄顯示「無法載入」，可改設 <code>VISITOR_COUNT_STATS_URL</code> 指向自架 JSON（須 CORS，格式如 <code>{"value":12345}</code>）。</p>
+            <p class="form-hint">側欄數字優先讀取 <code>config.js</code> 的 <code>VISITOR_COUNT_STATS_URL</code> 或 <code>VISITOR_COUNTER_WORKER_BASE</code>；否則讀網站根目錄 <code>visitor-count.json</code>（預設顯示 0，可手動改檔後發布）。自動累計請部署專案內 <code>worker/</code>（Cloudflare Workers + KV）。首頁載入會計次（依設定略過 <code>?preview=1</code>），後台頁面不計次。</p>
           </div>
           <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
             <label>番號跳號忽略（刻意跳過的範圍／單號）</label>

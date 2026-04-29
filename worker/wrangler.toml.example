@@ -1,0 +1,8 @@
+# 複製為 wrangler.toml 後改 name / kv id，再於 worker 目錄執行 wrangler deploy
+name = "dream-of-cherry-visitor"
+main = "visitor-counter.js"
+compatibility_date = "2024-09-01"
+
+[[kv_namespaces]]
+binding = "VISITOR_KV"
+id = "在此貼上_wrangler_kv_namespace_create_取得的_id"
