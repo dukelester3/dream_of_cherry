@@ -192,8 +192,7 @@ function showDashboard() {
     refreshAdminVisitorStatsDisplay();
   }
   if (
-    typeof ADMIN_AUTO_SYNC_GITHUB_ON_LOGIN !== 'undefined' &&
-    ADMIN_AUTO_SYNC_GITHUB_ON_LOGIN &&
+    (typeof ADMIN_AUTO_SYNC_GITHUB_ON_LOGIN === 'undefined' || ADMIN_AUTO_SYNC_GITHUB_ON_LOGIN) &&
     localStorage.getItem(GITHUB_TOKEN_STORAGE)
   ) {
     loadFromGitHub({ silent: true });
