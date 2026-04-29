@@ -203,41 +203,6 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 .admin-brand-name { display: block; font-size: 1.1rem; font-weight: 700; color: #f5ede0; }
 .admin-brand-sub { font-size: 0.68rem; color: rgba(245,237,224,0.78); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 2px; display: block; }
 
-.admin-visitor-stats {
-  padding: 14px 20px 18px;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.admin-visitor-stats-row {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 8px;
-}
-.admin-visitor-stats-label {
-  font-size: 0.72rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-  color: rgba(245,237,224,0.88);
-}
-.admin-visitor-stats-value {
-  margin-top: 8px;
-  font-size: 1.35rem; font-weight: 700; font-variant-numeric: tabular-nums;
-  color: #e8c96a;
-  line-height: 1.2;
-  text-shadow: 0 0 1px rgba(0,0,0,0.4);
-}
-.admin-visitor-stats-refresh {
-  flex-shrink: 0;
-  width: 28px; height: 28px; padding: 0;
-  border: 1px solid rgba(255,255,255,0.28); border-radius: 4px;
-  background: rgba(255,255,255,0.1); color: rgba(245,237,224,0.92);
-  cursor: pointer; font-size: 0.95rem; line-height: 1;
-  transition: border-color 0.2s, color 0.2s;
-}
-.admin-visitor-stats-refresh:hover {
-  border-color: var(--admin-gold); color: #f5ede0;
-}
-.admin-visitor-stats-hint {
-  margin-top: 8px; font-size: 0.68rem; line-height: 1.45;
-  color: rgba(245,237,224,0.68);
-}
-
 .admin-nav { padding: 16px 0; flex: 1; }
 .admin-nav-btn {
   display: block; width: 100%; text-align: left;
