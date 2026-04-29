@@ -35,6 +35,14 @@
         <span class="admin-brand-name">夜桜の夢</span>
         <span class="admin-brand-sub">後台管理</span>
       </div>
+      <div class="admin-visitor-stats" id="admin-visitor-stats" aria-live="polite">
+        <div class="admin-visitor-stats-row">
+          <span class="admin-visitor-stats-label">網站瀏覽人次</span>
+          <button type="button" class="admin-visitor-stats-refresh" id="admin-visitor-stats-refresh" title="重新整理">↻</button>
+        </div>
+        <div class="admin-visitor-stats-value" id="admin-visitor-stats-value">—</div>
+        <p class="admin-visitor-stats-hint" id="admin-visitor-stats-hint"></p>
+      </div>
       <nav class="admin-nav">
         <button class="admin-nav-btn active" data-tab="girls">👩 女孩管理</button>
         <button class="admin-nav-btn" data-tab="reviews">💬 客評管理</button>
@@ -143,6 +151,10 @@
           </div>
           <button type="button" class="btn-admin-primary" id="save-github-btn">儲存 GitHub 設定</button>
           <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
+            <label>瀏覽人次（側欄顯示）</label>
+            <p class="form-hint">由首頁載入時經 CountAPI 累計；後台頁面不計數。請在專案 <code>config.js</code> 調整 <code>VISITOR_COUNT_NAMESPACE</code>／<code>VISITOR_COUNT_KEY</code>。若側欄顯示「無法載入」，可改設 <code>VISITOR_COUNT_STATS_URL</code> 指向自架 JSON（須 CORS，格式如 <code>{"value":12345}</code>）。</p>
+          </div>
+          <div class="form-group" style="margin-top:28px;padding-top:24px;border-top:1px solid var(--admin-border)">
             <label>番號跳號忽略（刻意跳過的範圍／單號）</label>
             <textarea id="bangou-skip-spec" rows="5" class="bangou-skip-textarea" placeholder="例：&#10;7201-7499&#10;8000"></textarea>
             <p class="form-hint">「出勤情報」跳號警告會略過這裡列出的號碼。每行一筆，或同一行用逗號、分號分隔。範圍用 <code>7201-7499</code>（半形減號），單號寫數字即可。儲存後會一併寫入 data.js（與網站內容一起發布）。</p>
@@ -225,6 +237,7 @@
   </div>
 
   <script src="../config.js"></script>
+  <script src="../visitor-stats.js"></script>
   <script src="gemini-translate.js"></script>
   <script src="../data.js"></script>
   <script src="../diary-dates.js"></script>

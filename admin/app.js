@@ -170,6 +170,15 @@ function logout() {
   document.body.className = 'login-page';
 }
 
+function bindVisitorStatsRefresh() {
+  const btn = document.getElementById('admin-visitor-stats-refresh');
+  if (!btn || btn.dataset.bound === '1') return;
+  btn.dataset.bound = '1';
+  btn.addEventListener('click', () => {
+    if (typeof refreshAdminVisitorStatsDisplay === 'function') refreshAdminVisitorStatsDisplay();
+  });
+}
+
 function showDashboard() {
   document.getElementById('login-screen').classList.add('hidden');
   document.getElementById('dashboard').classList.remove('hidden');
@@ -178,6 +187,10 @@ function showDashboard() {
   setupTabs();
   setupModals();
   renderAll();
+  bindVisitorStatsRefresh();
+  if (typeof refreshAdminVisitorStatsDisplay === 'function') {
+    refreshAdminVisitorStatsDisplay();
+  }
   if (localStorage.getItem(GITHUB_TOKEN_STORAGE)) {
     loadFromGitHub({ silent: true });
   }

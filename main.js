@@ -608,3 +608,9 @@ document.querySelectorAll('.diary-filter-btn').forEach(btn => {
     console.error('initDynamicContent:', e);
   }
 })();
+
+if (typeof recordYuyuPageVisit === 'function') {
+  try {
+    recordYuyuPageVisit();
+  } catch (e) {}
+}
