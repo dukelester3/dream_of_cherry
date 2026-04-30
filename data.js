@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/4/30 下午1:02:13
+// Generated: 2026/4/30 下午1:10:15
 
 const siteData = {
   "about": {
@@ -300,6 +300,84 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 372,
+      "titleJa": "番号7714",
+      "titleZh": "番號7714",
+      "titleEn": "No. 7714",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "🇯🇵| 店長厳選",
+      "contentZh": "🇯🇵| 店長精選",
+      "contentEn": "🇯🇵| Store Manager's Pick",
+      "category": "出勤情報",
+      "date": "2026.4.30",
+      "createdAt": "2026.4.30 13:05:15",
+      "images": [
+        "https://i.ibb.co/ZR7G37J3/photo-2026-03-06-15-44-26.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ZR7G37J3/photo-2026-03-06-15-44-26.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "C",
+        "age": 25,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 371,
+      "titleJa": "番号7713",
+      "titleZh": "番號7713",
+      "titleEn": "No. 7713",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume: Premium Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "店長厳選",
+      "contentZh": "🇯🇵| 店長精選",
+      "contentEn": "🇯🇵| Manager's Pick",
+      "category": "出勤情報",
+      "date": "2026.4.30",
+      "createdAt": "2026.4.30 13:04:05",
+      "images": [
+        "https://i.ibb.co/SwDfzFG8/photo-2026-03-06-15-37-44.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/SwDfzFG8/photo-2026-03-06-15-37-44.jpg",
+      "stats": {
+        "height": 154,
+        "cup": "D",
+        "age": 21,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 370,
+      "titleJa": "番号7712",
+      "titleZh": "番號7712",
+      "titleEn": "No. 7712",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japanese Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "店長厳選",
+      "contentZh": "🇯🇵| 店長精選",
+      "contentEn": "🇯🇵| Manager's Selection",
+      "category": "出勤情報",
+      "date": "2026.4.30",
+      "createdAt": "2026.4.30 13:02:49",
+      "images": [
+        "https://i.ibb.co/jvx2cwy4/photo-2026-03-06-15-42-57.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/jvx2cwy4/photo-2026-03-06-15-42-57.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "F",
+        "age": 29,
+        "weight": 48
+      },
+      "published": true
+    },
     {
       "id": 369,
       "titleJa": "番号7711",
