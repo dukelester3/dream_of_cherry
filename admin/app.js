@@ -196,7 +196,7 @@ const DEFAULT_ABOUT = {
   p2Zh: '目前通過朋友介紹從事這份工作。',
   p2En: "I started this work through a friend's introduction.",
   moreJa: 'もっと見る →', moreZh: '更多介紹 →', moreEn: 'Learn more →',
-  linkUrl: 'https://t.me/ty556k'
+  linkUrl: 'https://t.me/tk6659'
 };
 
 function loadData() {
@@ -1465,7 +1465,7 @@ function saveAbout() {
     moreJa: document.getElementById('f-about-moreJa')?.value?.trim() || 'もっと見る →',
     moreZh: document.getElementById('f-about-moreZh')?.value?.trim() || '更多介紹 →',
     moreEn: document.getElementById('f-about-moreEn')?.value?.trim() || 'Learn more →',
-    linkUrl: document.getElementById('f-about-linkUrl')?.value?.trim() || 'https://t.me/ty556k'
+    linkUrl: document.getElementById('f-about-linkUrl')?.value?.trim() || 'https://t.me/tk6659'
   };
 }
 

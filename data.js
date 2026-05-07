@@ -21,7 +21,7 @@ const siteData = {
     "moreJa": "もっと見る →",
     "moreZh": "更多介紹 →",
     "moreEn": "Learn more →",
-    "linkUrl": "https://t.me/ty556k"
+    "linkUrl": "https://t.me/tk6659"
   },
   "girls": [
     {
