@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/7 下午2:01:06
+// Generated: 2026/5/7 下午3:24:41
 
 const siteData = {
   "about": {
@@ -426,7 +426,12 @@ const siteData = {
         "https://i.ibb.co/0p5gjGDp/photo-2026-03-19-13-19-10.jpg"
       ],
       "thumbnail": "https://i.ibb.co/0p5gjGDp/photo-2026-03-19-13-19-10.jpg",
-      "stats": null,
+      "stats": {
+        "height": 162,
+        "cup": "E",
+        "age": 25,
+        "weight": 46
+      },
       "published": true
     },
     {
