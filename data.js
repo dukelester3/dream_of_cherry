@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/10 下午1:50:02
+// Generated: 2026/5/10 下午1:53:20
 
 const siteData = {
   "about": {
@@ -300,6 +300,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 454,
+      "titleJa": "大阪のリアルな声",
+      "titleZh": "大阪真實回饋",
+      "titleEn": "Osaka Real Feedback",
+      "excerpt": "ほらね、本当にすごい。",
+      "excerptZh": "我就說嘛 真的很強",
+      "excerptEn": "I told you so, really strong.",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "客戶反饋",
+      "date": "2026.5.10",
+      "createdAt": "2026.5.10 13:52:28",
+      "images": [
+        "https://i.ibb.co/Q3wDV1nP/photo-2025-10-13-22-45-51.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Q3wDV1nP/photo-2025-10-13-22-45-51.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 453,
       "titleJa": "番号7795",
