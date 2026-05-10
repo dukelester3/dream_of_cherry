@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/10 下午2:01:46
+// Generated: 2026/5/10 下午2:04:56
 
 const siteData = {
   "about": {
@@ -300,6 +300,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 458,
+      "titleJa": "盗撮禁止",
+      "titleZh": "本店禁止偷拍！",
+      "titleEn": "No unauthorized photography in this store.",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "特別なサービスやその他のご要望がございましたら、必ず事前にお申し付けください。私が手配いたします。\n\nもし盗撮が発覚した場合、その結果はご自身でご負担ください。\n当店は一切関与いたしません。盗撮が女性に発見された場合、直ちに警察に通報し、前科が残ります。\n日本では盗撮は非常に失礼な行為です。もし撮影をご希望でしたら、堂々とお申し出ください。協力可能な女性は喜んで応じます。\n一時の刺激や衝動で、ご自身にとって不利な行動を取らないでください。",
+      "contentZh": "想要特殊服務 或者其它需求\n一定要提前跟我說 我會處理好\n\n如果是被發現偷拍 後果自己承擔哦\n本店一概不會處理任何事情 偷拍被女孩發現直接會報警 並且留下案底！\n因為在日本偷拍是一件非常不禮貌的行為 想要拍大大方方說出來 能配合的女孩都會願意配合\n不要因為一時的刺激和衝動做出對自己不利的事情哦",
+      "contentEn": "For special services or other requests, please inform me in advance, and I will ensure everything is handled properly.\n\nIf you are caught secretly filming, you will be solely responsible for the consequences. Our establishment will not intervene in any way. If a girl discovers you secretly filming, she will immediately report it to the police, and you will get a criminal record!\n\nSecretly filming in Japan is considered extremely rude. If you wish to take photos, please ask openly and honestly; girls who are able to cooperate will gladly comply.\n\nDo not let a moment of excitement and impulse lead you to do something detrimental to yourself.",
+      "category": "お知らせ",
+      "date": "2026.5.10",
+      "createdAt": "2026.5.10 14:02:52",
+      "images": [
+        "https://i.ibb.co/W4FvQVrT/photo-2025-10-17-20-17-59.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/W4FvQVrT/photo-2025-10-17-20-17-59.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 457,
       "titleJa": "📣【お知らせ｜皆さんと離れ離れにならないよう、Gleezyチャンネルの追加をお願いします】",
