@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/10 下午1:53:59
+// Generated: 2026/5/10 下午1:55:45
 
 const siteData = {
   "about": {
@@ -300,6 +300,28 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 455,
+      "titleJa": "東京リアルフィードバック",
+      "titleZh": "東京真實回饋",
+      "titleEn": "Real Feedback from Tokyo",
+      "excerpt": "はははは、これは秘密です",
+      "excerptZh": "哈哈哈哈 這是秘密 ",
+      "excerptEn": "Hahahaha This is a secret",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "客戶反饋",
+      "date": "2026.5.10",
+      "createdAt": "2026.5.10 13:54:06",
+      "images": [
+        "https://i.ibb.co/zHtmxtsH/photo-2025-10-13-22-49-28.jpg",
+        "https://i.ibb.co/VWd96pv9/photo-2025-10-13-22-49-28-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/zHtmxtsH/photo-2025-10-13-22-49-28.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 454,
       "titleJa": "大阪のリアルな声",
