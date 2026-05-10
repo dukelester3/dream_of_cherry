@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/10 下午1:55:45
+// Generated: 2026/5/10 下午2:01:46
 
 const siteData = {
   "about": {
@@ -300,6 +300,49 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 457,
+      "titleJa": "📣【お知らせ｜皆さんと離れ離れにならないよう、Gleezyチャンネルの追加をお願いします】",
+      "titleZh": "📣【通知｜請大家添加Gleezy頻道 以免和大家走散惹】",
+      "titleEn": "📣 Announcement: Please add the Gleezy channel so we don't lose touch.",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "皆さん、こんばんは！悠悠です^_^\nこちらでは、私本人が女性の紹介・手配サービスを行っております。\n\nこれまでずっとTelegramチャンネルを通じて出勤情報を更新しておりました。\n皆様には日頃からのご支援とご視聴、大変感謝しております❤️😝\n\nしかし最近、本当に多くのTGアカウントが乗っ取られたり、突然消滅したりするケースが多発",
+      "contentZh": "寶寶們晚上好呀 我是悠悠^_^\n這邊是由我本人在做小姐介紹安排的服務\n\n之前一直都是透過 Telegram 頻道更新出勤資訊\n也非常感謝大家一直以來的支持和觀看❤️😝\n\n但最近真的太多 TG 帳號被盜或突然消失了…\n辛苦累積的資料和大家聯絡就中斷了\n所以我已經提早準備好一個新的官方備用頻道（偷笑）\n\n這是我自己也實際使用過一段時間的平台（Gleezy）\n群主穩定、不會像 TG 或 LINE 那樣隨便不見或被盜用\n現在我會兩邊同時更新（電報、Gleezy） 自己用起來比較安心\n\n之後小姐照片、最新出勤、即時空檔等資訊都會「兩邊會同時更新」\n\n⭐悠悠Gleezy ID：jp5560",
+      "contentEn": "Good evening everyone! I'm Youyou ^_^\nI personally manage the escort introduction and arrangement services here.\n\nPreviously, I always updated my availability through my Telegram channel,\nand I'm very grateful for your continuous support and viewership ❤️😝\n\nBut recently, too many Telegram accounts have been hacked or suddenly disappeared...\nMy painstakingly accumulated data and communication with everyone were disrupted.\nSo, I've proactively prepared a new official backup channel (chuckles).\n\nThis is a platform (Gleezy) that I've personally used for a while.\nThe platform is stable and won't just disappear or get hacked like Telegram or LINE.\nNow I'll be updating both platforms simultaneously (Telegram, Gleezy), as I feel more secure using it this way.\n\nGoing forward, information such as escort photos, latest availability, and real-time openings will be updated simultaneously on both platforms.\n\n⭐You",
+      "category": "お知らせ",
+      "date": "2026.5.10",
+      "createdAt": "2026.5.10 13:57:26",
+      "images": [
+        "https://i.ibb.co/3mknStTD/photo-2025-10-17-20-09-59.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/3mknStTD/photo-2025-10-17-20-09-59.jpg",
+      "stats": null,
+      "published": true
+    },
+    {
+      "id": 456,
+      "titleJa": "東京リアルレビュー",
+      "titleZh": "東京真實回饋",
+      "titleEn": "Tokyo Real Rewards",
+      "excerpt": "気品のある美人で、しかも巨乳な子",
+      "excerptZh": "氣質臉蛋漂亮 又大奶的妹子😍",
+      "excerptEn": "Beautiful and classy girl with big boobs 😍",
+      "contentJa": "",
+      "contentZh": "",
+      "contentEn": "",
+      "category": "客戶反饋",
+      "date": "2026.5.10",
+      "createdAt": "2026.5.10 13:56:01",
+      "images": [
+        "https://i.ibb.co/zWP5dQQd/photo-2025-10-13-22-43-18.jpg",
+        "https://i.ibb.co/WNBC59LY/photo-2025-10-13-22-43-18-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/zWP5dQQd/photo-2025-10-13-22-43-18.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 455,
       "titleJa": "東京リアルフィードバック",
