@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/11 下午1:47:30
+// Generated: 2026/5/11 下午1:49:27
 
 const siteData = {
   "about": {
@@ -300,6 +300,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 468,
+      "titleJa": "日本出張デリヘル利用の心得",
+      "titleZh": "日本外約出張須知",
+      "titleEn": "Japan Outcall Service Guide for Business Trips",
+      "excerpt": "❤️ フードデリバリー 7つの【暗黙のルール】",
+      "excerptZh": " ❤️ 外送 7 條【潛規則】",
+      "excerptEn": "❤️ 7 Unspoken Rules for Delivery",
+      "contentJa": "🥛 1️⃣ 事前予約のメリット\n誰を探すにしても、どのお店を選ぶにしても、「事前予約」の習慣をつけることが最も重要です。時間、予算、好みを明確に伝えることで、早く予約すればするほど、シフトの融通が利き、選べる女の子も増え、本当に自分に合った「一杯のお茶」（理想の相手）に出会える可能性",
+      "contentZh": "🥛 1️⃣ 提前預約的好處\n不管找誰或哪一家，養成「提前預約」的習慣最重要。把時間、預算、喜好說清楚，越早預約，排班越有彈性、可選的女孩越多，也越容易約到真正對味的那一杯好茶。\n\n🥛 2️⃣ 長期配合的好處\n價位其實就是市場＋品質的反映，各地都有基本行情，差別在店家的調度能力和配合度。多比較後選定一家值得信任的店，長期配合比到處亂換更划算。從生客變熟客，安排、優惠和照顧都會明顯不一樣。\n\n🥛 3️⃣ 喝茶的目的\n品茶的核心是紓壓與放鬆，在沒有後續責任的前提下，好好釋放情緒與慾望。茶妹的角色，是在有限時間內陪你享受互動、舒緩壓力；配合度與互動越好，體驗就越加分。\n\n🥛 4️⃣ 歡場無真愛\n品茶是娛樂消遣，可以當下投入、盡情享受，但結束就要把心收回來。回到自己的日常生活，保持理性和界線，才能玩得長久又安全。\n\n🥛 5️⃣ 五大原則\n想要進退自如，請記住五個「不」：\n不暈船、不沉船、不失控、不把麻煩帶回家、打死不承認。\n守好這幾點，才能真正體會品茶的樂趣而不惹麻煩。\n\n🥛 6️⃣ 重質不重量\n請量力而為，把重點放在「一次的品質」而不是「次數的多少」。只顧衝場次、不管品質，只會讓每一次都不滿意；把預算用在對的地方，遇到一杯值得回沖的好茶，比亂喝十杯更值得。\n\n🥛 7️⃣ 挑選茶莊\n無論是外約或出張，建議優先選擇：熟識店長、老茶友口碑推薦，或是有評價、有平台背書的店。來源可靠，風險才低、品質才穩定，也比較不會踩雷或遇到麻煩。",
+      "contentEn": "🥛 1️⃣ Benefits of Booking in Advance\nRegardless of who you choose or which establishment, developing the habit of \"booking in advance\" is crucial. Clearly state your time, budget, and preferences. The earlier you book, the more flexible the scheduling, the more girls you can choose from, and the easier it is to find that perfect match.\n\n🥛 2️⃣ Benefits of Long-Term Cooperation\nPrices are essentially a reflection of the market and quality. There are basic market rates everywhere, with differences lying in the establishment's scheduling capabilities and cooperativeness. After comparing, choose a trustworthy establishment. Long-term cooperation is more cost-effective than constantly switching. From a new customer to a regular, the arrangements, discounts, and care will be noticeably different.\n\n🥛 3️⃣ The Purpose of \"Tea Tasting\"\nThe core of \"tea tasting\" is stress relief and relaxation, allowing you to fully release emotions and desires without subsequent responsibilities. The role of the \"tea girl\" is to accompany you to enjoy interaction and relieve stress within a limited time; the better the cooperation and interaction, the more positive the experience.\n\n🥛 4️⃣ No True Love in Pleasure Venues\n\"Tea tasting\" is entertainment and recreation. You can fully immerse yourself and enjoy the moment, but you must withdraw your emotions once it's over. Return to your daily life, maintain rationality and boundaries, to ensure you can enjoy it for a long time and safely.\n\n🥛 5️⃣ Five Key Principles\nTo be able to navigate freely, remember these five \"don'ts\":\nDon't get emotionally attached, don't get deeply entangled, don't lose control, don't bring trouble home, and never admit anything.\nBy adhering to these points, you can truly experience the pleasure of \"tea tasting\" without getting into trouble.\n\n🥛 6️⃣ Focus on Quality, Not Quantity\nPlease act within your means, focusing on \"the quality of a single experience\" rather than \"the number of times.\" Only chasing quantity without regard for quality will only lead to dissatisfaction every time. Use your budget wisely; finding one \"good tea\" worth revisiting is more valuable than randomly \"drinking\" ten.\n\n🥛 7️⃣ Choosing an Establishment\nWhether for an outcall or a business trip, it's recommended to prioritize establishments where you know the manager, are recommended by trusted \"tea friends,\" or have good reviews and platform endorsements. Reliable sources mean lower risk,",
+      "category": "お知らせ",
+      "date": "2026.5.11",
+      "createdAt": "2026.5.11 13:48:20",
+      "images": [
+        "https://i.ibb.co/wZnGbBh9/photo-2020-11-25-01-01-02.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/wZnGbBh9/photo-2020-11-25-01-01-02.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 467,
       "titleJa": "番号7804",
