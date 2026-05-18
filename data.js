@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/18 下午4:35:50
+// Generated: 2026/5/18 下午5:05:39
 
 const siteData = {
   "about": {
@@ -13634,7 +13634,164 @@ const siteData = {
       "published": true
     }
   ],
-  "bangouSkipSpec": "7201-7499"
+  "bangouSkipSpec": "7201-7499",
+  "pricingTiers": {
+    "osaka": [
+      {
+        "min": 37000,
+        "max": null,
+        "above": false,
+        "preset": "s"
+      },
+      {
+        "min": 47000,
+        "max": 67000,
+        "above": false,
+        "preset": "ss"
+      },
+      {
+        "min": 77000,
+        "max": 87000,
+        "above": false,
+        "preset": "sss"
+      },
+      {
+        "min": 100000,
+        "max": null,
+        "above": true,
+        "preset": "svip"
+      }
+    ],
+    "tokyo": [
+      {
+        "min": 30000,
+        "max": null,
+        "above": false,
+        "preset": "s"
+      },
+      {
+        "min": 40000,
+        "max": 60000,
+        "above": false,
+        "preset": "ss"
+      },
+      {
+        "min": 70000,
+        "max": 80000,
+        "above": false,
+        "preset": "sss"
+      },
+      {
+        "min": 90000,
+        "max": null,
+        "above": true,
+        "preset": "svip"
+      }
+    ]
+  },
+  "pricingTransport": {
+    "osaka": [
+      {
+        "fee": 4000,
+        "areas": [
+          "miyakojima",
+          "fukushima",
+          "konohana",
+          "nishi",
+          "minato",
+          "taisho",
+          "tennoji",
+          "naniwa",
+          "higashinari",
+          "ikuno",
+          "joto",
+          "abeno",
+          "kita",
+          "chuo"
+        ]
+      },
+      {
+        "fee": 6000,
+        "areas": [
+          "nishiyodogawa",
+          "higashiyodogawa",
+          "asahi",
+          "sumiyoshi",
+          "higashisumiyoshi",
+          "yodogawa",
+          "tsurumi",
+          "suminoe",
+          "hirano",
+          "higashiosaka"
+        ]
+      }
+    ],
+    "tokyo": [
+      {
+        "fee": 3000,
+        "areas": [
+          "chiyoda",
+          "chuo",
+          "minato",
+          "shinjuku",
+          "bunkyo",
+          "taito",
+          "sumida",
+          "koto",
+          "shinagawa",
+          "meguro",
+          "shibuya",
+          "nakano",
+          "toshima",
+          "kita",
+          "arakawa"
+        ]
+      }
+    ],
+    "osakaServingAreas": [
+      "miyakojima",
+      "fukushima",
+      "konohana",
+      "nishi",
+      "minato",
+      "taisho",
+      "tennoji",
+      "naniwa",
+      "nishiyodogawa",
+      "higashiyodogawa",
+      "higashinari",
+      "ikuno",
+      "asahi",
+      "joto",
+      "abeno",
+      "sumiyoshi",
+      "higashisumiyoshi",
+      "yodogawa",
+      "tsurumi",
+      "suminoe",
+      "hirano",
+      "kita",
+      "chuo",
+      "higashiosaka"
+    ],
+    "tokyoServingAreas": [
+      "chiyoda",
+      "chuo",
+      "minato",
+      "shinjuku",
+      "bunkyo",
+      "taito",
+      "sumida",
+      "koto",
+      "shinagawa",
+      "meguro",
+      "shibuya",
+      "nakano",
+      "toshima",
+      "kita",
+      "arakawa"
+    ]
+  }
 };
 
 if (typeof module !== 'undefined') module.exports = siteData;
