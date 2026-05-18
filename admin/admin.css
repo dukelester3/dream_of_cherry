@@ -334,3 +334,15 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 }
 .toggle input:checked + .toggle-slider { background: var(--admin-gold); }
 .toggle input:checked + .toggle-slider::before { transform: translateX(18px); }
+
+/* 收費編輯 */
+.pricing-lang-btns { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+.pricing-lang-btns .pricing-plang-btn.active {
+  border-color: var(--admin-gold); color: #8b6914; background: rgba(192, 154, 69, 0.12);
+}
+.pricing-key-hint {
+  display: inline-block; margin-left: 6px; font-size: 0.65rem; font-weight: 400;
+  color: var(--admin-muted); letter-spacing: 0; text-transform: none;
+}
+.pricing-plang-panel { max-height: min(68vh, 640px); overflow-y: auto; padding-right: 6px; }
+.admin-modal-box:has(.pricing-lang-btns) { max-width: min(920px, 96vw); }

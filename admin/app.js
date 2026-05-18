@@ -199,6 +199,126 @@ const DEFAULT_ABOUT = {
   linkUrl: 'https://t.me/tk6659'
 };
 
+const PRICING_EDIT_FIELDS = [
+  ['pricing.label', '區塊小標'],
+  ['pricing.title', '主標題'],
+  ['pricing.area.intro', '服務地區說明（地圖上方）'],
+  ['pricing.osaka', '大阪分頁標籤'],
+  ['pricing.tokyo', '東京分頁標籤'],
+  ['pricing.tier.s', '梯次 S 名稱'],
+  ['pricing.tier.ss', '梯次 SS 名稱'],
+  ['pricing.tier.sss', '梯次 SSS 名稱'],
+  ['pricing.tier.svip', '梯次 SVIP 名稱'],
+  ['pricing.osaka.price.s', '大阪 · S 金額（僅數字區間，不含幣別）'],
+  ['pricing.osaka.price.ss', '大阪 · SS 金額'],
+  ['pricing.osaka.price.sss', '大阪 · SSS 金額'],
+  ['pricing.osaka.price.svip', '大阪 · SVIP 金額'],
+  ['pricing.tokyo.price.s', '東京 · S 金額'],
+  ['pricing.tokyo.price.ss', '東京 · SS 金額'],
+  ['pricing.tokyo.price.sss', '東京 · SSS 金額'],
+  ['pricing.tokyo.price.svip', '東京 · SVIP 金額'],
+  ['pricing.yen', '幣別用語'],
+  ['pricing.above', '「以上」用語'],
+  ['pricing.time.title', '服務時間 · 標題'],
+  ['pricing.time.content', '服務時間 · 內容'],
+  ['pricing.payment.title', '付款 · 標題'],
+  ['pricing.payment.content', '付款說明（大阪）'],
+  ['pricing.osaka.areas', '大阪配送 · 標題'],
+  ['pricing.osaka.transport.4000', '大阪 · 交通費 4,000 列'],
+  ['pricing.osaka.areas.4000', '大阪 · 4,000 行政區列表'],
+  ['pricing.osaka.transport.6000', '大阪 · 交通費 6,000 列'],
+  ['pricing.osaka.areas.6000', '大阪 · 6,000 行政區列表'],
+  ['pricing.delivery.note', '配送備註'],
+  ['pricing.addon.osaka.title', '大阪加值 · 標題'],
+  ['pricing.addon.osaka.facial', '大阪加值 · 顏射'],
+  ['pricing.addon.osaka.vibrator', '大阪加值 · 電マ'],
+  ['pricing.addon.osaka.cim', '大阪加值 · 口內'],
+  ['pricing.addon.osaka.ns', '大阪加值 · NS'],
+  ['pricing.addon.osaka.rimming', '大阪加值 · アナル舐め'],
+  ['pricing.addon.osaka.photo', '大阪加值 · 撮影'],
+  ['pricing.addon.osaka.cosplay', '大阪加值 · コスプレ'],
+  ['pricing.addon.osaka.stocking', '大阪加值 · ストッキング'],
+  ['pricing.addon.osaka.golden', '大阪加值 · 圣水'],
+  ['pricing.addon.osaka.nn', '大阪加值 · NN'],
+  ['pricing.addon.osaka.note', '大阪加值 · 備註'],
+  ['pricing.tokyo.transport.fee', '東京 · 交通費（單行強調）'],
+  ['pricing.payment.content.tokyo', '付款說明（東京）'],
+  ['pricing.tokyo.areas', '東京配送 · 標題'],
+  ['pricing.tokyo.areas.list', '東京 · 行政區列表'],
+  ['pricing.addon.tokyo.title', '東京加值 · 標題'],
+  ['pricing.addon.tokyo.facial', '東京加值 · 顏射'],
+  ['pricing.addon.tokyo.vibrator', '東京加值 · 電マ'],
+  ['pricing.addon.tokyo.swallow', '東京加值 · 呑精'],
+  ['pricing.addon.tokyo.ns', '東京加值 · NS'],
+  ['pricing.addon.tokyo.nn', '東京加值 · NN'],
+  ['pricing.addon.tokyo.cim', '東京加值 · 口內'],
+  ['pricing.addon.tokyo.photo', '東京加值 · 撮影'],
+  ['pricing.addon.tokyo.note', '東京加值 · 備註']
+];
+
+function getPricingFieldValue(lang, key) {
+  const o = adminData.pricing?.[lang]?.[key];
+  if (o != null && String(o).trim() !== '') return String(o);
+  return translations?.[lang]?.[key] ?? '';
+}
+
+function buildPricingEditorHTML() {
+  const langs = [
+    { id: 'ja', label: '日文' },
+    { id: 'zh', label: '中文' },
+    { id: 'en', label: '英文' }
+  ];
+  let html = '<p class="export-desc">欄位已帶入目前顯示文案（含站內預設）。若<strong>與預設完全相同</strong>儲存後不會寫入 data.js；要還原內建翻譯請<strong>清空該欄</strong>後儲存。完成後請匯出或發布 data.js。</p>';
+  html += '<div class="pricing-lang-btns">';
+  langs.forEach((L, i) => {
+    html += `<button type="button" class="btn-admin-secondary pricing-plang-btn ${i === 0 ? 'active' : ''}" data-plang="${L.id}">${L.label}</button>`;
+  });
+  html += '</div>';
+  langs.forEach((L, i) => {
+    const taRowsForKey = (key) => {
+      if (['pricing.time.content', 'pricing.payment.content', 'pricing.payment.content.tokyo', 'pricing.osaka.areas.4000', 'pricing.osaka.areas.6000', 'pricing.tokyo.areas.list'].includes(key)) return 5;
+      if (key.includes('.note') || key.includes('addon.')) return 3;
+      return 2;
+    };
+    html += `<div class="pricing-plang-panel ${i === 0 ? '' : 'hidden'}" data-plang-panel="${L.id}">`;
+    for (const [key, label] of PRICING_EDIT_FIELDS) {
+      const val = escapeHtml(getPricingFieldValue(L.id, key));
+      const rows = taRowsForKey(key);
+      html += `<div class="form-group"><label>${label} <span class="pricing-key-hint">${key}</span></label><textarea data-pricing-key="${key}" data-pricing-lang="${L.id}" rows="${rows}" style="min-height:40px;width:100%;box-sizing:border-box">${val}</textarea></div>`;
+    }
+    html += '</div>';
+  });
+  return html;
+}
+
+function setupPricingLangTabs(container) {
+  container.querySelectorAll('.pricing-plang-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lang = btn.getAttribute('data-plang');
+      container.querySelectorAll('.pricing-plang-btn').forEach(b => b.classList.toggle('active', b === btn));
+      container.querySelectorAll('.pricing-plang-panel').forEach(p => {
+        p.classList.toggle('hidden', p.getAttribute('data-plang-panel') !== lang);
+      });
+    });
+  });
+}
+
+function savePricing() {
+  const cleaned = { ja: {}, zh: {}, en: {} };
+  for (const lg of ['ja', 'zh', 'en']) {
+    document.querySelectorAll(`textarea[data-pricing-lang="${lg}"]`).forEach(el => {
+      const key = el.getAttribute('data-pricing-key');
+      const def = translations?.[lg]?.[key] ?? '';
+      const v = el.value != null ? String(el.value).trim() : '';
+      if (!v) return;
+      if (String(def).trim() === v) return;
+      cleaned[lg][key] = v;
+    });
+  }
+  const hasAny = ['ja', 'zh', 'en'].some(lg => Object.keys(cleaned[lg]).length > 0);
+  adminData.pricing = hasAny ? cleaned : undefined;
+}
+
 function loadData() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -406,6 +526,15 @@ function mergeTwoData(dataA, dataB) {
     const photoSet = new Set([...(dataA.about?.photos || []), ...(dataB.about?.photos || [])]);
     merged.about = { ...dataA.about, ...dataB.about, photos: [...photoSet] };
   }
+  if (dataA.pricing || dataB.pricing) {
+    const pr = {};
+    for (const lg of ['ja', 'zh', 'en']) {
+      const layer = { ...(dataB.pricing?.[lg] || {}), ...(dataA.pricing?.[lg] || {}) };
+      if (Object.keys(layer).length) pr[lg] = layer;
+    }
+    if (Object.keys(pr).length) merged.pricing = pr;
+    else delete merged.pricing;
+  }
   const skipA = (dataA.bangouSkipSpec && String(dataA.bangouSkipSpec).trim()) || '';
   const skipB = (dataB.bangouSkipSpec && String(dataB.bangouSkipSpec).trim()) || '';
   merged.bangouSkipSpec = skipA || skipB || '';
@@ -575,6 +704,7 @@ function setupTabs() {
     renderDiaryTable();
   });
   document.getElementById('edit-about-btn')?.addEventListener('click', () => openModal('about', 0));
+  document.getElementById('edit-pricing-btn')?.addEventListener('click', () => openModal('pricing', null));
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
   document.getElementById('save-gemini-btn')?.addEventListener('click', saveGeminiKey);
@@ -993,7 +1123,16 @@ function openModal(type, id) {
     if (type === 'diary') item = adminData.diary.find(d => diaryIdKey(d.id) === diaryIdKey(id));
   }
 
-  if (type === 'girl') {
+  if (type === 'pricing') {
+    if (typeof translations === 'undefined') {
+      title.textContent = '載入錯誤';
+      body.innerHTML = '<p class="export-desc">無法載入 i18n.js，請重新整理頁面。</p>';
+    } else {
+      title.textContent = '編輯收費／價格';
+      body.innerHTML = buildPricingEditorHTML();
+      setupPricingLangTabs(body);
+    }
+  } else if (type === 'girl') {
     title.textContent = id ? '編輯女孩' : '新增女孩';
     body.innerHTML = `
       <div class="form-group">
@@ -1068,9 +1207,7 @@ function openModal(type, id) {
         <div class="form-group"><label>狀態</label><select id="f-active"><option value="true" ${item?.active!==false?'selected':''}>顯示</option><option value="false" ${item?.active===false?'selected':''}>隱藏</option></select></div>
       </div>
     `;
-  }
-
-  if (type === 'review') {
+  } else if (type === 'review') {
     title.textContent = id ? '編輯客評' : '新增客評';
     body.innerHTML = `
       <div class="form-group"><label>標題(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><input id="f-titleZh" value="${item?.titleZh||''}" style="flex:1" placeholder="例：服務很好"><button type="button" class="btn-translate-all" data-ja="f-titleJa" data-zh="f-titleZh" data-en="f-titleEn" data-zh-only="true">翻譯到日英</button></div></div>
@@ -1098,9 +1235,7 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>精選顯示</label><select id="f-featured"><option value="true" ${item?.featured?'selected':''}>是</option><option value="false" ${!item?.featured?'selected':''}>否</option></select></div>
     `;
-  }
-
-  if (type === 'about') {
+  } else if (type === 'about') {
     title.textContent = '編輯個人簡介';
     const a = adminData.about || DEFAULT_ABOUT;
     const photos = a.photos || [...DEFAULT_ABOUT.photos];
@@ -1155,9 +1290,7 @@ function openModal(type, id) {
       <div class="form-group"><label>連結文字(英)</label><input id="f-about-moreEn" value="${(a.moreEn||'').replace(/"/g,'&quot;')}"></div>
       <div class="form-group"><label>連結網址</label><input id="f-about-linkUrl" value="${(a.linkUrl||'').replace(/"/g,'&quot;')}" placeholder="https://t.me/..."></div>
     `;
-  }
-
-  if (type === 'diary') {
+  } else if (type === 'diary') {
     title.textContent = id ? '編輯日記' : '新增日記';
     const stats = item?.stats || {};
     body.innerHTML = `
@@ -1329,6 +1462,7 @@ function saveModal() {
   if (editingType === 'review') saveReview();
   if (editingType === 'diary') saveDiary();
   if (editingType === 'about') saveAbout();
+  if (editingType === 'pricing') savePricing();
   saveData();
   renderAll();
   closeModal();

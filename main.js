@@ -7,6 +7,7 @@
       try {
         const data = JSON.parse(saved);
         Object.assign(siteData, data);
+        if (data.pricing == null) delete siteData.pricing;
       } catch (e) {}
     }
   }
@@ -97,6 +98,13 @@ document.getElementById('admin-pwd-toggle')?.addEventListener('click', () => {
 // ── Language Switch ──
 const allLangButtons = document.querySelectorAll('[data-lang]');
 
+function tLang(lang, key) {
+  if (typeof translations === 'undefined') return undefined;
+  const pack = (typeof siteData !== 'undefined' && siteData.pricing && siteData.pricing[lang]) ? siteData.pricing[lang] : null;
+  if (pack && pack[key] != null && String(pack[key]).trim() !== '') return pack[key];
+  return translations[lang]?.[key];
+}
+
 function setLanguage(lang, rerender) {
   if (typeof translations === 'undefined') return;
   document.documentElement.lang = lang === 'zh' ? 'zh-TW' : lang;
@@ -109,7 +117,8 @@ function setLanguage(lang, rerender) {
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (translations[lang]?.[key]) el.textContent = translations[lang][key];
+    const text = tLang(lang, key);
+    if (text != null && text !== '') el.textContent = text;
   });
 
   document.querySelectorAll('.area-tag[data-area]').forEach(el => {

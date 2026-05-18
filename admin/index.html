@@ -39,6 +39,7 @@
         <button class="admin-nav-btn active" data-tab="girls">👩 女孩管理</button>
         <button class="admin-nav-btn" data-tab="reviews">💬 客評管理</button>
         <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
+      <button class="admin-nav-btn" data-tab="pricing">💴 收費／價格</button>
         <button class="admin-nav-btn" data-tab="about">👤 個人簡介</button>
         <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
         <button class="admin-nav-btn" data-tab="watermark">🖼️ 浮水印工具</button>
@@ -104,6 +105,15 @@
             </thead>
             <tbody id="diary-tbody"></tbody>
           </table>
+        </div>
+      </div>
+
+      <!-- PRICING TAB -->
+      <div class="admin-tab hidden" id="tab-pricing">
+        <div class="tab-header"><h1>收費／價格</h1></div>
+        <div class="export-section">
+          <p class="export-desc">編輯首頁「收費」區塊（大阪／東京梯次、交通、加值與三語文案）。儲存後點「返回網站（預覽）」可即時查看；正式上線請匯出或發布 data.js。</p>
+          <button type="button" class="btn-admin-primary" id="edit-pricing-btn">編輯收費內容</button>
         </div>
       </div>
 
@@ -225,6 +235,7 @@
   </div>
 
   <script src="../config.js"></script>
+  <script src="../i18n.js"></script>
   <script src="gemini-translate.js"></script>
   <script src="../data.js"></script>
   <script src="../diary-dates.js"></script>
