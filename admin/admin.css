@@ -346,3 +346,34 @@ body { font-family: var(--admin-font); background: var(--admin-bg); color: var(-
 }
 .pricing-plang-panel { max-height: min(68vh, 640px); overflow-y: auto; padding-right: 6px; }
 .admin-modal-box:has(.pricing-lang-btns) { max-width: min(920px, 96vw); }
+
+/* 交通費：行政區點選 */
+.pt-transport-city-title {
+  font-size: 0.82rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--admin-muted); margin: 12px 0 10px;
+}
+.pt-transport-tier-list {
+  display: flex; flex-direction: column; gap: 10px; margin-bottom: 12px;
+}
+.pt-transport-tier-row {
+  display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px;
+  padding: 12px 14px; background: #faf8f5; border: 1px solid var(--admin-border); border-radius: 8px;
+}
+.pt-transport-tier-pick {
+  display: inline-flex; align-items: center; gap: 8px; font-size: 0.86rem; cursor: pointer; margin: 0;
+}
+.pt-transport-tier-row .pt-trans-fee {
+  width: 110px; padding: 8px 10px; border: 1px solid var(--admin-border); border-radius: 4px; font-size: 0.9rem;
+}
+.pt-transport-tag-pool {
+  display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; padding-top: 14px; border-top: 1px dashed var(--admin-border);
+}
+.pt-area-tag {
+  font-size: 0.8rem; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--admin-border);
+  background: #fff; color: var(--admin-text); cursor: pointer; transition: background 0.15s, border-color 0.15s;
+}
+.pt-area-tag:hover { border-color: var(--admin-gold); }
+.pt-area-tag.pt-area-assigned {
+  background: rgba(192, 154, 69, 0.2); border-color: var(--admin-gold); font-weight: 600;
+}
+.add-pt-transport-tier { margin-bottom: 6px; }

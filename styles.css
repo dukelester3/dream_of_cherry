@@ -852,6 +852,7 @@ section { padding: 96px 0; }
 .pricing-tier.tier-ss::before { opacity: 0.55; }
 .pricing-tier.tier-sss::before { opacity: 0.75; }
 .pricing-tier.tier-svip::before { opacity: 1; background: linear-gradient(180deg, var(--gold) 0%, var(--gold-light) 100%); }
+.pricing-tier.tier-custom::before { opacity: 0.35; }
 .pricing-tier:hover {
   border-color: var(--gold);
   box-shadow: var(--shadow);

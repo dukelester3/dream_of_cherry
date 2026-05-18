@@ -8,10 +8,247 @@
         const data = JSON.parse(saved);
         Object.assign(siteData, data);
         if (data.pricing == null) delete siteData.pricing;
+        if (data.pricingTiers == null) delete siteData.pricingTiers;
+        if (data.pricingTransport == null) delete siteData.pricingTransport;
       } catch (e) {}
     }
   }
 })();
+
+// ── 收費梯次（後台以數字／區間儲存，可增刪列）──
+const SSS_TIER = 's'.repeat(3);
+const DEFAULT_PRICING_TIERS = {
+  osaka: [
+    { min: 35000, max: null, above: false, preset: 's' },
+    { min: 45000, max: 60000, above: false, preset: 'ss' },
+    { min: 65000, max: 85000, above: false, preset: SSS_TIER },
+    { min: 90000, max: null, above: true, preset: 'svip' }
+  ],
+  tokyo: [
+    { min: 30000, max: null, above: false, preset: 's' },
+    { min: 40000, max: 60000, above: false, preset: 'ss' },
+    { min: 70000, max: 80000, above: false, preset: SSS_TIER },
+    { min: 90000, max: null, above: true, preset: 'svip' }
+  ]
+};
+
+const PRESET_TIER_I18N = {
+  s: 'pricing.tier.s',
+  ss: 'pricing.tier.ss',
+  sss: 'pricing.tier.sss',
+  svip: 'pricing.tier.svip'
+};
+
+const TIER_ROW_ICONS = ['🥉', '🥈', '🥇', '💎'];
+
+function normalizePricingPreset(p) {
+  if (!p || p === 'custom') return 'custom';
+  if (PRESET_TIER_I18N[p]) return p;
+  return 'custom';
+}
+
+function tierCssFromPreset(preset) {
+  const p = normalizePricingPreset(preset);
+  if (p === 's') return 'tier-s';
+  if (p === 'ss') return 'tier-ss';
+  if (p === 'sss') return 'tier-sss';
+  if (p === 'svip') return 'tier-svip';
+  return 'tier-custom';
+}
+
+function formatTierYenAmount(lang, min, max) {
+  const loc = lang === 'en' ? 'en-US' : 'ja-JP';
+  const fmt = (n) => Number(n).toLocaleString(loc);
+  const lo = Number(min);
+  const hi = max == null || max === '' ? null : Number(max);
+  if (hi == null || !Number.isFinite(hi) || hi === lo) return fmt(lo);
+  const sep = lang === 'en' ? '–' : '～';
+  return `${fmt(lo)}${sep}${fmt(hi)}`;
+}
+
+function tierRowLabel(lang, row) {
+  const preset = normalizePricingPreset(row.preset);
+  if (preset !== 'custom' && PRESET_TIER_I18N[preset]) {
+    const k = PRESET_TIER_I18N[preset];
+    return (typeof tLang === 'function' ? tLang(lang, k) : translations[lang]?.[k]) || '';
+  }
+  const zh = row.titleZh || '';
+  const ja = row.titleJa || '';
+  const en = row.titleEn || '';
+  if (lang === 'ja') return ja || zh || en || '—';
+  if (lang === 'en') return en || zh || ja || '—';
+  return zh || ja || en || '—';
+}
+
+function getEffectivePricingTiers(city) {
+  const def = DEFAULT_PRICING_TIERS[city] || [];
+  const raw = typeof siteData !== 'undefined' ? siteData.pricingTiers?.[city] : null;
+  if (Array.isArray(raw) && raw.length > 0) return raw;
+  return def;
+}
+
+function renderPricingTiers(lang) {
+  if (typeof translations === 'undefined') return;
+  ['osaka', 'tokyo'].forEach((city) => {
+    const el = document.getElementById('pricing-tiers-' + city);
+    if (!el) return;
+    const list = getEffectivePricingTiers(city);
+    const yen = tLang(lang, 'pricing.yen') || '';
+    const aboveW = tLang(lang, 'pricing.above') || '';
+    el.innerHTML = list
+      .map((row, i) => {
+        const amountText = formatTierYenAmount(lang, row.min, row.max);
+        const aboveHtml = row.above
+          ? ` <span class="pricing-tier-above">${aboveW.replace(/</g, '&lt;')}</span>`
+          : '';
+        const tierClass = tierCssFromPreset(row.preset);
+        const icon = TIER_ROW_ICONS[i] || '◆';
+        const name = String(tierRowLabel(lang, row)).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        const yenEsc = String(yen).replace(/</g, '&lt;');
+        return `<div class="pricing-tier ${tierClass}"><div class="tier-header"><span class="tier-icon">${icon}</span><span class="tier-name">${name}</span></div><div class="tier-price"><span class="pricing-tier-amount">${amountText}</span> <span data-i18n="pricing.yen">${yenEsc}</span>${aboveHtml}</div></div>`;
+      })
+      .join('');
+    el.querySelectorAll('[data-i18n]').forEach((node) => {
+      const key = node.getAttribute('data-i18n');
+      const text = tLang(lang, key);
+      if (text != null && text !== '') node.textContent = text;
+    });
+  });
+}
+
+// ── 交通費：大阪／東京皆為 [{ fee, areas: [areaId…] }]；可選 id 見 transport-areas.js（PRICING_TRANSPORT_AREA_IDS）──
+const PRICING_TRANSPORT_AREA_IDS =
+  typeof window !== 'undefined' && window.PRICING_TRANSPORT_AREA_IDS
+    ? window.PRICING_TRANSPORT_AREA_IDS
+    : { osaka: [], tokyo: [] };
+
+/** 與 transport-areas.js 內 TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS 一致（未載入設定檔時回退） */
+const TOKYO_DEFAULT_PRICED_FALLBACK = [
+  'shinjuku', 'nakano', 'chiyoda', 'chuo', 'koto', 'shibuya', 'minato', 'meguro',
+  'shinagawa', 'toshima', 'bunkyo', 'taito', 'sumida', 'arakawa', 'kita'
+];
+
+function tokyoDefaultPricedAreas() {
+  if (typeof window !== 'undefined' && window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS && window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS.length) {
+    return [...window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS];
+  }
+  return [...TOKYO_DEFAULT_PRICED_FALLBACK];
+}
+
+const DEFAULT_PRICING_TRANSPORT = {
+  osaka: [
+    {
+      fee: 4000,
+      areas: [
+        'konohana', 'minato', 'taisho', 'nishi', 'abeno', 'fukushima', 'naniwa', 'tennoji', 'ikuno', 'kita', 'chuo',
+        'higashinari', 'miyakojima', 'joto'
+      ]
+    },
+    {
+      fee: 6000,
+      areas: [
+        'nishiyodogawa', 'yodogawa', 'higashiyodogawa', 'asahi', 'tsurumi', 'suminoe', 'sumiyoshi', 'higashisumiyoshi',
+        'hirano', 'higashiosaka'
+      ]
+    }
+  ],
+  tokyo: [
+    {
+      fee: 3000,
+      areas: tokyoDefaultPricedAreas()
+    }
+  ]
+};
+
+function normalizeTransportTiersCity(city, rawValue) {
+  const allowed = new Set(PRICING_TRANSPORT_AREA_IDS[city]);
+  const def = DEFAULT_PRICING_TRANSPORT[city];
+  let rows = rawValue;
+  if (city === 'tokyo' && rows && typeof rows === 'object' && !Array.isArray(rows) && rows.fee != null) {
+    const legacyAreas = tokyoDefaultPricedAreas();
+    rows = [{ fee: rows.fee, areas: legacyAreas }];
+  }
+  if (!Array.isArray(rows) || !rows.length) return JSON.parse(JSON.stringify(def));
+  const out = [];
+  for (const row of rows) {
+    let areas = [];
+    if (Array.isArray(row.areas)) {
+      areas = [...new Set(row.areas.filter((a) => allowed.has(a)))];
+    } else if (row.areasZh != null || row.areasJa != null) {
+      const match = def.find((t) => Number(t.fee) === Number(row.fee));
+      areas = match ? [...match.areas] : [];
+    }
+    const fee = parseInt(row.fee, 10);
+    out.push({ fee: Number.isFinite(fee) ? fee : 0, areas });
+  }
+  if (city === 'tokyo' && out.length === 1 && out[0].fee > 0 && (!out[0].areas || !out[0].areas.length)) {
+    out[0].areas = tokyoDefaultPricedAreas();
+  }
+  return out.length ? out : JSON.parse(JSON.stringify(def));
+}
+
+function clonePricingTransport(obj) {
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function getEffectivePricingTransport() {
+  const raw = typeof siteData !== 'undefined' ? siteData.pricingTransport : null;
+  if (!raw || typeof raw !== 'object') {
+    return {
+      osaka: clonePricingTransport(DEFAULT_PRICING_TRANSPORT.osaka),
+      tokyo: clonePricingTransport(DEFAULT_PRICING_TRANSPORT.tokyo)
+    };
+  }
+  return {
+    osaka: normalizeTransportTiersCity('osaka', raw.osaka),
+    tokyo: normalizeTransportTiersCity('tokyo', raw.tokyo)
+  };
+}
+
+function formatTransportYenAmount(lang, n) {
+  const loc = lang === 'en' ? 'en-US' : lang === 'ja' ? 'ja-JP' : 'zh-TW';
+  return Number(n).toLocaleString(loc);
+}
+
+function transportFeeLineFromTemplate(lang, templateKey, amountNum) {
+  const amt = formatTransportYenAmount(lang, amountNum);
+  const tpl = typeof tLang === 'function' ? tLang(lang, templateKey) : translations[lang]?.[templateKey];
+  if (tpl != null && String(tpl).includes('{amount}')) return String(tpl).replace(/\{amount\}/g, amt);
+  const yen = typeof tLang === 'function' ? tLang(lang, 'pricing.yen') : '';
+  if (lang === 'en') return 'Transport ' + amt + (yen ? ' ' + yen : ' JPY');
+  if (lang === 'ja') return '交通費 ' + amt + '円';
+  return '交通費 ' + amt + ' 日圓';
+}
+
+function formatTransportAreaList(lang, areaIds) {
+  if (!areaIds || !areaIds.length) return '—';
+  const sep = lang === 'en' ? ', ' : lang === 'ja' ? '・' : '｜';
+  return areaIds
+    .map((id) => {
+      const key = 'area.' + id;
+      const t = typeof tLang === 'function' ? tLang(lang, key) : translations[lang]?.[key];
+      return String(t || id).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    })
+    .join(sep);
+}
+
+function renderPricingTransport(lang) {
+  if (typeof translations === 'undefined') return;
+  const data = getEffectivePricingTransport();
+  ['osaka', 'tokyo'].forEach((city) => {
+    const el = document.getElementById('pricing-transport-' + city);
+    if (!el) return;
+    const tiers = data[city] || [];
+    el.innerHTML = tiers
+      .map((z) => {
+        const feeText = transportFeeLineFromTemplate(lang, 'pricing.transport.zoneLine', z.fee);
+        const areas = formatTransportAreaList(lang, z.areas || []);
+        const feeEsc = String(feeText).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return `<div class="pricing-zone"><span class="pricing-zone-fee">${feeEsc}</span><span class="pricing-areas-list">${areas}</span></div>`;
+      })
+      .join('');
+  });
+}
 
 // ── Theme (Dark / Light) ──
 const THEME_KEY = 'yuyu-theme';
@@ -125,6 +362,9 @@ function setLanguage(lang, rerender) {
     const key = 'area.' + el.getAttribute('data-area');
     if (translations[lang]?.[key]) el.textContent = translations[lang][key];
   });
+
+  if (typeof renderPricingTiers === 'function') renderPricingTiers(lang);
+  if (typeof renderPricingTransport === 'function') renderPricingTransport(lang);
 
   localStorage.setItem('yuyu-lang', lang);
 

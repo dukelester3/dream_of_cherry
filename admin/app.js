@@ -199,124 +199,394 @@ const DEFAULT_ABOUT = {
   linkUrl: 'https://t.me/tk6659'
 };
 
-const PRICING_EDIT_FIELDS = [
-  ['pricing.label', '區塊小標'],
-  ['pricing.title', '主標題'],
-  ['pricing.area.intro', '服務地區說明（地圖上方）'],
-  ['pricing.osaka', '大阪分頁標籤'],
-  ['pricing.tokyo', '東京分頁標籤'],
-  ['pricing.tier.s', '梯次 S 名稱'],
-  ['pricing.tier.ss', '梯次 SS 名稱'],
-  ['pricing.tier.sss', '梯次 SSS 名稱'],
-  ['pricing.tier.svip', '梯次 SVIP 名稱'],
-  ['pricing.osaka.price.s', '大阪 · S 金額（僅數字區間，不含幣別）'],
-  ['pricing.osaka.price.ss', '大阪 · SS 金額'],
-  ['pricing.osaka.price.sss', '大阪 · SSS 金額'],
-  ['pricing.osaka.price.svip', '大阪 · SVIP 金額'],
-  ['pricing.tokyo.price.s', '東京 · S 金額'],
-  ['pricing.tokyo.price.ss', '東京 · SS 金額'],
-  ['pricing.tokyo.price.sss', '東京 · SSS 金額'],
-  ['pricing.tokyo.price.svip', '東京 · SVIP 金額'],
-  ['pricing.yen', '幣別用語'],
-  ['pricing.above', '「以上」用語'],
-  ['pricing.time.title', '服務時間 · 標題'],
-  ['pricing.time.content', '服務時間 · 內容'],
-  ['pricing.payment.title', '付款 · 標題'],
-  ['pricing.payment.content', '付款說明（大阪）'],
-  ['pricing.osaka.areas', '大阪配送 · 標題'],
-  ['pricing.osaka.transport.4000', '大阪 · 交通費 4,000 列'],
-  ['pricing.osaka.areas.4000', '大阪 · 4,000 行政區列表'],
-  ['pricing.osaka.transport.6000', '大阪 · 交通費 6,000 列'],
-  ['pricing.osaka.areas.6000', '大阪 · 6,000 行政區列表'],
-  ['pricing.delivery.note', '配送備註'],
-  ['pricing.addon.osaka.title', '大阪加值 · 標題'],
-  ['pricing.addon.osaka.facial', '大阪加值 · 顏射'],
-  ['pricing.addon.osaka.vibrator', '大阪加值 · 電マ'],
-  ['pricing.addon.osaka.cim', '大阪加值 · 口內'],
-  ['pricing.addon.osaka.ns', '大阪加值 · NS'],
-  ['pricing.addon.osaka.rimming', '大阪加值 · アナル舐め'],
-  ['pricing.addon.osaka.photo', '大阪加值 · 撮影'],
-  ['pricing.addon.osaka.cosplay', '大阪加值 · コスプレ'],
-  ['pricing.addon.osaka.stocking', '大阪加值 · ストッキング'],
-  ['pricing.addon.osaka.golden', '大阪加值 · 圣水'],
-  ['pricing.addon.osaka.nn', '大阪加值 · NN'],
-  ['pricing.addon.osaka.note', '大阪加值 · 備註'],
-  ['pricing.tokyo.transport.fee', '東京 · 交通費（單行強調）'],
-  ['pricing.payment.content.tokyo', '付款說明（東京）'],
-  ['pricing.tokyo.areas', '東京配送 · 標題'],
-  ['pricing.tokyo.areas.list', '東京 · 行政區列表'],
-  ['pricing.addon.tokyo.title', '東京加值 · 標題'],
-  ['pricing.addon.tokyo.facial', '東京加值 · 顏射'],
-  ['pricing.addon.tokyo.vibrator', '東京加值 · 電マ'],
-  ['pricing.addon.tokyo.swallow', '東京加值 · 呑精'],
-  ['pricing.addon.tokyo.ns', '東京加值 · NS'],
-  ['pricing.addon.tokyo.nn', '東京加值 · NN'],
-  ['pricing.addon.tokyo.cim', '東京加值 · 口內'],
-  ['pricing.addon.tokyo.photo', '東京加值 · 撮影'],
-  ['pricing.addon.tokyo.note', '東京加值 · 備註']
-];
+const SSS = 's'.repeat(3);
 
-function getPricingFieldValue(lang, key) {
-  const o = adminData.pricing?.[lang]?.[key];
-  if (o != null && String(o).trim() !== '') return String(o);
-  return translations?.[lang]?.[key] ?? '';
-}
+const PRICING_TRANSPORT_AREA_IDS =
+  typeof window !== 'undefined' && window.PRICING_TRANSPORT_AREA_IDS
+    ? window.PRICING_TRANSPORT_AREA_IDS
+    : { osaka: [], tokyo: [] };
 
-function buildPricingEditorHTML() {
-  const langs = [
-    { id: 'ja', label: '日文' },
-    { id: 'zh', label: '中文' },
-    { id: 'en', label: '英文' }
-  ];
-  let html = '<p class="export-desc">欄位已帶入目前顯示文案（含站內預設）。若<strong>與預設完全相同</strong>儲存後不會寫入 data.js；要還原內建翻譯請<strong>清空該欄</strong>後儲存。完成後請匯出或發布 data.js。</p>';
-  html += '<div class="pricing-lang-btns">';
-  langs.forEach((L, i) => {
-    html += `<button type="button" class="btn-admin-secondary pricing-plang-btn ${i === 0 ? 'active' : ''}" data-plang="${L.id}">${L.label}</button>`;
-  });
-  html += '</div>';
-  langs.forEach((L, i) => {
-    const taRowsForKey = (key) => {
-      if (['pricing.time.content', 'pricing.payment.content', 'pricing.payment.content.tokyo', 'pricing.osaka.areas.4000', 'pricing.osaka.areas.6000', 'pricing.tokyo.areas.list'].includes(key)) return 5;
-      if (key.includes('.note') || key.includes('addon.')) return 3;
-      return 2;
-    };
-    html += `<div class="pricing-plang-panel ${i === 0 ? '' : 'hidden'}" data-plang-panel="${L.id}">`;
-    for (const [key, label] of PRICING_EDIT_FIELDS) {
-      const val = escapeHtml(getPricingFieldValue(L.id, key));
-      const rows = taRowsForKey(key);
-      html += `<div class="form-group"><label>${label} <span class="pricing-key-hint">${key}</span></label><textarea data-pricing-key="${key}" data-pricing-lang="${L.id}" rows="${rows}" style="min-height:40px;width:100%;box-sizing:border-box">${val}</textarea></div>`;
+const DEFAULT_PRICING_TRANSPORT_ADMIN = {
+  osaka: [
+    {
+      fee: 4000,
+      areas: [
+        'konohana', 'minato', 'taisho', 'nishi', 'abeno', 'fukushima', 'naniwa', 'tennoji', 'ikuno', 'kita', 'chuo',
+        'higashinari', 'miyakojima', 'joto'
+      ]
+    },
+    {
+      fee: 6000,
+      areas: [
+        'nishiyodogawa', 'yodogawa', 'higashiyodogawa', 'asahi', 'tsurumi', 'suminoe', 'sumiyoshi', 'higashisumiyoshi',
+        'hirano', 'higashiosaka'
+      ]
     }
-    html += '</div>';
-  });
-  return html;
+  ],
+  tokyo: [
+    {
+      fee: 3000,
+      areas: [
+        'shinjuku', 'nakano', 'chiyoda', 'chuo', 'koto', 'shibuya', 'minato', 'meguro',
+        'shinagawa', 'toshima', 'bunkyo', 'taito', 'sumida', 'arakawa', 'kita'
+      ]
+    }
+  ]
+};
+
+function transportAreaLabelForAdmin(id) {
+  if (typeof translations !== 'undefined' && translations.zh && translations.zh['area.' + id]) {
+    return translations.zh['area.' + id];
+  }
+  return id;
 }
 
-function setupPricingLangTabs(container) {
-  container.querySelectorAll('.pricing-plang-btn').forEach(btn => {
+function normalizeTransportTiersCity(city, rawValue) {
+  const allowed = new Set(PRICING_TRANSPORT_AREA_IDS[city]);
+  const def = DEFAULT_PRICING_TRANSPORT_ADMIN[city];
+  let rows = rawValue;
+  if (city === 'tokyo' && rows && typeof rows === 'object' && !Array.isArray(rows) && rows.fee != null) {
+    const legacyAreas =
+      typeof window !== 'undefined' && window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS
+        ? [...window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS]
+        : [...DEFAULT_PRICING_TRANSPORT_ADMIN.tokyo[0].areas];
+    rows = [{ fee: rows.fee, areas: legacyAreas }];
+  }
+  if (!Array.isArray(rows) || !rows.length) return JSON.parse(JSON.stringify(def));
+  const out = [];
+  for (const row of rows) {
+    let areas = [];
+    if (Array.isArray(row.areas)) {
+      areas = [...new Set(row.areas.filter((a) => allowed.has(a)))];
+    } else if (row.areasZh != null || row.areasJa != null) {
+      const match = def.find((t) => Number(t.fee) === Number(row.fee));
+      areas = match ? [...match.areas] : [];
+    }
+    const fee = parseInt(row.fee, 10);
+    out.push({ fee: Number.isFinite(fee) ? fee : 0, areas });
+  }
+  if (city === 'tokyo' && out.length === 1 && out[0].fee > 0 && (!out[0].areas || !out[0].areas.length)) {
+    out[0].areas =
+      typeof window !== 'undefined' && window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS
+        ? [...window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS]
+        : [...DEFAULT_PRICING_TRANSPORT_ADMIN.tokyo[0].areas];
+  }
+  return out.length ? out : JSON.parse(JSON.stringify(def));
+}
+
+function ensurePricingTransportAdmin() {
+  if (!adminData.pricingTransport || typeof adminData.pricingTransport !== 'object') {
+    adminData.pricingTransport = { osaka: [], tokyo: [] };
+  }
+  const fromSite = typeof siteData !== 'undefined' ? siteData.pricingTransport : null;
+  let osakaSrc = adminData.pricingTransport.osaka;
+  if (!Array.isArray(osakaSrc) || !osakaSrc.length) {
+    osakaSrc = fromSite && fromSite.osaka != null ? fromSite.osaka : DEFAULT_PRICING_TRANSPORT_ADMIN.osaka;
+  }
+  let tokyoSrc = adminData.pricingTransport.tokyo;
+  if (!Array.isArray(tokyoSrc) || !tokyoSrc.length) {
+    tokyoSrc = fromSite && fromSite.tokyo != null ? fromSite.tokyo : DEFAULT_PRICING_TRANSPORT_ADMIN.tokyo;
+  }
+  adminData.pricingTransport = {
+    osaka: normalizeTransportTiersCity('osaka', osakaSrc),
+    tokyo: normalizeTransportTiersCity('tokyo', tokyoSrc)
+  };
+}
+
+function nextPtTierId(city) {
+  return `${city}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 5)}`;
+}
+
+function createPtTierRow(city, tierId, fee) {
+  const row = document.createElement('div');
+  row.className = 'pt-transport-tier-row';
+  row.dataset.tierId = tierId;
+  row.innerHTML = `
+    <label class="pt-transport-tier-pick"><input type="radio" name="pt-active-${city}" value="${tierId}"> 編輯此價格</label>
+    <input type="number" class="pt-trans-fee" min="0" step="100" value="${Number(fee) || 0}">
+    <button type="button" class="btn-admin-secondary pt-transport-tier-remove">刪除此欄</button>`;
+  row.querySelector('.pt-transport-tier-remove').addEventListener('click', () => {
+    const block = row.closest('.pt-transport-city-block');
+    const tid = row.dataset.tierId;
+    if (block && block.querySelectorAll('.pt-transport-tier-row').length <= 1) {
+      alert('至少保留一個價格欄位');
+      return;
+    }
+    block.querySelectorAll(`.pt-area-tag[data-assigned-to="${tid}"]`).forEach((btn) => {
+      btn.dataset.assignedTo = '';
+    });
+    row.remove();
+    refreshPtAreaVisual(block);
+    const first = block?.querySelector(`input[name="pt-active-${city}"]`);
+    if (first) first.checked = true;
+  });
+  return row;
+}
+
+function fillPtTagPool(block, city) {
+  const pool = block.querySelector('.pt-transport-tag-pool');
+  if (!pool) return;
+  pool.innerHTML = PRICING_TRANSPORT_AREA_IDS[city]
+    .map((id) => `<button type="button" class="pt-area-tag" data-area="${id}" data-assigned-to="">${escapeHtml(transportAreaLabelForAdmin(id))}</button>`)
+    .join('');
+  delete pool.dataset.ptBound;
+}
+
+function applyAssignmentsFromTiers(block, tiers) {
+  const list = block.querySelector('.pt-transport-tier-list');
+  const rows = list ? [...list.querySelectorAll('.pt-transport-tier-row')] : [];
+  rows.forEach((row, i) => {
+    const tid = row.dataset.tierId;
+    const tier = tiers[i];
+    if (!tier || !tier.areas) return;
+    tier.areas.forEach((areaId) => {
+      const btn = block.querySelector(`.pt-area-tag[data-area="${areaId}"]`);
+      if (btn) btn.dataset.assignedTo = tid;
+    });
+  });
+}
+
+function refreshPtAreaVisual(block) {
+  block.querySelectorAll('.pt-area-tag').forEach((btn) => {
+    btn.classList.toggle('pt-area-assigned', !!btn.dataset.assignedTo);
+  });
+}
+
+function bindPtTransportBlock(block, city) {
+  const pool = block.querySelector('.pt-transport-tag-pool');
+  if (!pool || pool.dataset.ptBound === '1') return;
+  pool.dataset.ptBound = '1';
+  pool.addEventListener('click', (ev) => {
+    const btn = ev.target.closest('.pt-area-tag');
+    if (!btn || !pool.contains(btn)) return;
+    const radio = block.querySelector(`input[name="pt-active-${city}"]:checked`);
+    if (!radio) {
+      alert('請先選取一個價格欄（左側圓鈕）');
+      return;
+    }
+    const activeTid = radio.value;
+    const cur = btn.dataset.assignedTo || '';
+    if (cur === activeTid) btn.dataset.assignedTo = '';
+    else btn.dataset.assignedTo = activeTid;
+    refreshPtAreaVisual(block);
+  });
+}
+
+function hydratePricingTransportEditor() {
+  ensurePricingTransportAdmin();
+  document.querySelectorAll('.pt-transport-city-block').forEach((block) => {
+    const city = block.dataset.city;
+    if (!city || !PRICING_TRANSPORT_AREA_IDS[city]) return;
+    const tiers = adminData.pricingTransport[city] || [];
+    const list = block.querySelector('.pt-transport-tier-list');
+    if (!list) return;
+    list.innerHTML = '';
+    if (!tiers.length) {
+      list.appendChild(createPtTierRow(city, nextPtTierId(city), city === 'tokyo' ? 3000 : 4000));
+    } else {
+      tiers.forEach((t) => list.appendChild(createPtTierRow(city, nextPtTierId(city), t.fee)));
+    }
+    fillPtTagPool(block, city);
+    applyAssignmentsFromTiers(block, tiers);
+    refreshPtAreaVisual(block);
+    bindPtTransportBlock(block, city);
+    const r = list.querySelector('input[type="radio"]');
+    if (r) r.checked = true;
+  });
+}
+
+const DEFAULT_PRICING_TIERS_ADMIN = {
+  osaka: [
+    { min: 35000, max: null, above: false, preset: 's' },
+    { min: 45000, max: 60000, above: false, preset: 'ss' },
+    { min: 65000, max: 85000, above: false, preset: SSS },
+    { min: 90000, max: null, above: true, preset: 'svip' }
+  ],
+  tokyo: [
+    { min: 30000, max: null, above: false, preset: 's' },
+    { min: 40000, max: 60000, above: false, preset: 'ss' },
+    { min: 70000, max: 80000, above: false, preset: SSS },
+    { min: 90000, max: null, above: true, preset: 'svip' }
+  ]
+};
+
+function pricingTierPresetOptions(selected) {
+  const o = (v, label) => '<option value="' + v + '"' + (selected === v ? ' selected' : '') + '>' + label + '</option>';
+  return [
+    o('s', 'S（站內顯示名）'),
+    o('ss', 'SS'),
+    o(SSS, 'SSS'),
+    o('svip', 'SVIP'),
+    o('custom', '自訂名稱')
+  ].join('');
+}
+
+function ensurePricingTiersAdmin() {
+  if (!adminData.pricingTiers || !Array.isArray(adminData.pricingTiers.osaka) || !adminData.pricingTiers.osaka.length) {
+    const fromSite = typeof siteData !== 'undefined' && siteData.pricingTiers?.osaka?.length
+      ? JSON.parse(JSON.stringify(siteData.pricingTiers))
+      : JSON.parse(JSON.stringify(DEFAULT_PRICING_TIERS_ADMIN));
+    adminData.pricingTiers = fromSite;
+  }
+}
+
+function togglePricingTierCustomCells(tr) {
+  const preset = tr.querySelector('.pt-preset')?.value;
+  const cell = tr.querySelector('.pt-titles');
+  if (!cell) return;
+  const show = preset === 'custom';
+  cell.style.display = show ? '' : 'none';
+}
+
+function createPricingTierRowTr(city, row) {
+  const r = row || { min: 0, max: null, above: false, preset: 's', titleZh: '', titleJa: '', titleEn: '' };
+  const maxVal = r.max != null && r.max !== '' ? r.max : '';
+  const tr = document.createElement('tr');
+  tr.innerHTML = `
+    <td><select class="pt-preset"></select></td>
+    <td><input type="number" class="pt-min" min="0" step="500" value="${Number(r.min) || 0}"></td>
+    <td><input type="number" class="pt-max" min="0" step="500" placeholder="區間上限" value="${maxVal === '' ? '' : maxVal}"></td>
+    <td style="text-align:center"><label><input type="checkbox" class="pt-above" ${r.above ? 'checked' : ''}> 以上</label></td>
+    <td class="pt-titles">
+      <input type="text" class="pt-title-zh" placeholder="中文名稱" value="${escapeHtml(r.titleZh || '')}">
+      <input type="text" class="pt-title-ja" placeholder="日文" value="${escapeHtml(r.titleJa || '')}" style="margin-top:6px">
+      <input type="text" class="pt-title-en" placeholder="英文" value="${escapeHtml(r.titleEn || '')}" style="margin-top:6px">
+    </td>
+    <td><button type="button" class="btn-admin-secondary pt-remove">刪除</button></td>
+  `;
+  const sel = tr.querySelector('.pt-preset');
+  sel.innerHTML = pricingTierPresetOptions(r.preset || 's');
+  tr.querySelector('.pt-preset').addEventListener('change', () => togglePricingTierCustomCells(tr));
+  tr.querySelector('.pt-remove').addEventListener('click', () => {
+    const tb = tr.closest('tbody');
+    if (tb && tb.querySelectorAll('tr').length <= 1) {
+      alert('至少保留一列');
+      return;
+    }
+    tr.remove();
+  });
+  togglePricingTierCustomCells(tr);
+  return tr;
+}
+
+function hydratePricingTierTables() {
+  ensurePricingTiersAdmin();
+  ['osaka', 'tokyo'].forEach((city) => {
+    const tb = document.getElementById('pricing-tier-rows-' + city);
+    if (!tb) return;
+    tb.innerHTML = '';
+    const rows = adminData.pricingTiers[city] || [];
+    if (!rows.length) {
+      tb.appendChild(createPricingTierRowTr(city, { min: 10000, max: null, above: false, preset: 's' }));
+      return;
+    }
+    rows.forEach((row) => tb.appendChild(createPricingTierRowTr(city, row)));
+  });
+  hydratePricingTransportEditor();
+}
+
+function buildPricingTierEditorHTML() {
+  return `
+    <p class="export-desc">以<strong>數字（日圓）</strong>設定價格；可「新增列」。單價只填低價，區間請填低／高。選 S～SVIP 時名稱沿用站內翻譯；選自訂請填名稱。儲存寫入 <code>pricingTiers</code>、<code>pricingTransport</code>，並移除舊的 <code>pricing</code> 文案覆寫。</p>
+    <div class="pricing-tier-editor-block">
+      <h4 class="pricing-block-title">大阪</h4>
+      <div class="admin-table-wrap" style="margin-bottom:8px">
+        <table class="admin-table pricing-tier-table">
+          <thead><tr><th>類型</th><th>低價 ¥</th><th>高價 ¥</th><th>以上</th><th>自訂名稱</th><th></th></tr></thead>
+          <tbody id="pricing-tier-rows-osaka"></tbody>
+        </table>
+      </div>
+      <button type="button" class="btn-admin-secondary add-pricing-tier" data-pricing-city="osaka">+ 新增大阪列</button>
+    </div>
+    <div class="pricing-tier-editor-block" style="margin-top:20px">
+      <h4 class="pricing-block-title">東京</h4>
+      <div class="admin-table-wrap" style="margin-bottom:8px">
+        <table class="admin-table pricing-tier-table">
+          <thead><tr><th>類型</th><th>低價 ¥</th><th>高價 ¥</th><th>以上</th><th>自訂名稱</th><th></th></tr></thead>
+          <tbody id="pricing-tier-rows-tokyo"></tbody>
+        </table>
+      </div>
+      <button type="button" class="btn-admin-secondary add-pricing-tier" data-pricing-city="tokyo">+ 新增東京列</button>
+    </div>
+    <div class="pricing-tier-editor-block" style="margin-top:24px">
+      <h4 class="pricing-block-title">交通費（點選行政區）</h4>
+      <p class="export-desc" style="margin-bottom:12px">大阪與<strong>東京</strong>使用相同方式：先<strong>選取一列價格</strong>（圓鈕），再點下方行政區加入該價格；再點一次可移除。同一區只會屬於一種價格。可「新增價格欄」做分級。前台顯示依語系使用 i18n 的 <code>area.*</code> 名稱。</p>
+      <div class="pt-transport-city-block" data-city="osaka">
+        <h5 class="pt-transport-city-title">大阪</h5>
+        <div class="pt-transport-tier-list"></div>
+        <button type="button" class="btn-admin-secondary add-pt-transport-tier" data-pt-city="osaka">+ 新增大阪價格欄</button>
+        <div class="pt-transport-tag-pool" data-city="osaka"></div>
+      </div>
+      <div class="pt-transport-city-block" data-city="tokyo" style="margin-top:20px">
+        <h5 class="pt-transport-city-title">東京</h5>
+        <div class="pt-transport-tier-list"></div>
+        <button type="button" class="btn-admin-secondary add-pt-transport-tier" data-pt-city="tokyo">+ 新增東京價格欄</button>
+        <div class="pt-transport-tag-pool" data-city="tokyo"></div>
+      </div>
+    </div>
+  `;
+}
+
+function bindPricingTierEditor(root) {
+  root.querySelectorAll('.add-pricing-tier').forEach((btn) => {
     btn.addEventListener('click', () => {
-      const lang = btn.getAttribute('data-plang');
-      container.querySelectorAll('.pricing-plang-btn').forEach(b => b.classList.toggle('active', b === btn));
-      container.querySelectorAll('.pricing-plang-panel').forEach(p => {
-        p.classList.toggle('hidden', p.getAttribute('data-plang-panel') !== lang);
-      });
+      const city = btn.getAttribute('data-pricing-city');
+      const tb = document.getElementById('pricing-tier-rows-' + city);
+      if (!tb) return;
+      tb.appendChild(createPricingTierRowTr(city, { min: 10000, max: null, above: false, preset: 'custom', titleZh: '', titleJa: '', titleEn: '' }));
+    });
+  });
+  root.querySelectorAll('.add-pt-transport-tier').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const city = btn.getAttribute('data-pt-city');
+      const block = root.querySelector(`.pt-transport-city-block[data-city="${city}"]`);
+      if (!block) return;
+      const list = block.querySelector('.pt-transport-tier-list');
+      const defFee = city === 'tokyo' ? 3000 : 5000;
+      list.appendChild(createPtTierRow(city, nextPtTierId(city), defFee));
+      const radios = list.querySelectorAll('input[type="radio"]');
+      if (radios.length) radios[radios.length - 1].checked = true;
     });
   });
 }
 
 function savePricing() {
-  const cleaned = { ja: {}, zh: {}, en: {} };
-  for (const lg of ['ja', 'zh', 'en']) {
-    document.querySelectorAll(`textarea[data-pricing-lang="${lg}"]`).forEach(el => {
-      const key = el.getAttribute('data-pricing-key');
-      const def = translations?.[lg]?.[key] ?? '';
-      const v = el.value != null ? String(el.value).trim() : '';
-      if (!v) return;
-      if (String(def).trim() === v) return;
-      cleaned[lg][key] = v;
+  const sss = 's'.repeat(3);
+  const out = { osaka: [], tokyo: [] };
+  ['osaka', 'tokyo'].forEach((city) => {
+    document.querySelectorAll('#pricing-tier-rows-' + city + ' tr').forEach((tr) => {
+      let preset = tr.querySelector('.pt-preset')?.value || 's';
+      if (preset !== 'custom' && preset !== 's' && preset !== 'ss' && preset !== 'svip' && preset !== sss) preset = 'custom';
+      const min = parseInt(tr.querySelector('.pt-min')?.value, 10) || 0;
+      const maxRaw = tr.querySelector('.pt-max')?.value?.trim() || '';
+      const max = maxRaw === '' ? null : parseInt(maxRaw, 10);
+      const above = tr.querySelector('.pt-above')?.checked || false;
+      const o = { min, max: Number.isFinite(max) ? max : null, above, preset };
+      if (preset === 'custom') {
+        o.titleZh = tr.querySelector('.pt-title-zh')?.value?.trim() || '';
+        o.titleJa = tr.querySelector('.pt-title-ja')?.value?.trim() || '';
+        o.titleEn = tr.querySelector('.pt-title-en')?.value?.trim() || '';
+      }
+      out[city].push(o);
     });
-  }
-  const hasAny = ['ja', 'zh', 'en'].some(lg => Object.keys(cleaned[lg]).length > 0);
-  adminData.pricing = hasAny ? cleaned : undefined;
+  });
+  adminData.pricingTiers = out;
+  delete adminData.pricing;
+
+  const pt = { osaka: [], tokyo: [] };
+  ['osaka', 'tokyo'].forEach((city) => {
+    const block = document.querySelector(`.pt-transport-city-block[data-city="${city}"]`);
+    if (!block) return;
+    block.querySelectorAll('.pt-transport-tier-row').forEach((row) => {
+      const tid = row.dataset.tierId;
+      const fee = parseInt(row.querySelector('.pt-trans-fee')?.value, 10) || 0;
+      const areas = [...block.querySelectorAll(`.pt-area-tag[data-assigned-to="${tid}"]`)].map((b) => b.dataset.area);
+      pt[city].push({ fee, areas });
+    });
+  });
+  if (!pt.osaka.length) pt.osaka = JSON.parse(JSON.stringify(DEFAULT_PRICING_TRANSPORT_ADMIN.osaka));
+  if (!pt.tokyo.length) pt.tokyo = JSON.parse(JSON.stringify(DEFAULT_PRICING_TRANSPORT_ADMIN.tokyo));
+  adminData.pricingTransport = pt;
 }
 
 function loadData() {
@@ -334,6 +604,8 @@ function loadData() {
       ? String(siteData.bangouSkipSpec)
       : '';
   }
+  ensurePricingTiersAdmin();
+  ensurePricingTransportAdmin();
 }
 
 function saveData() {
@@ -534,6 +806,26 @@ function mergeTwoData(dataA, dataB) {
     }
     if (Object.keys(pr).length) merged.pricing = pr;
     else delete merged.pricing;
+  }
+  if (dataA.pricingTiers || dataB.pricingTiers) {
+    merged.pricingTiers = {
+      osaka: (dataA.pricingTiers?.osaka?.length ? dataA.pricingTiers.osaka : dataB.pricingTiers?.osaka) || [],
+      tokyo: (dataA.pricingTiers?.tokyo?.length ? dataA.pricingTiers.tokyo : dataB.pricingTiers?.tokyo) || []
+    };
+    if (!merged.pricingTiers.osaka.length && !merged.pricingTiers.tokyo.length) delete merged.pricingTiers;
+  }
+  if (dataA.pricingTransport || dataB.pricingTransport) {
+    const a = dataA.pricingTransport || {};
+    const b = dataB.pricingTransport || {};
+    const pickArr = (x) => (Array.isArray(x) ? x : (x && typeof x === 'object' && x.fee != null && !Array.isArray(x) ? [{ fee: x.fee, areas: [] }] : []));
+    const osakaA = pickArr(a.osaka);
+    const osakaB = pickArr(b.osaka);
+    const tokyoA = pickArr(a.tokyo);
+    const tokyoB = pickArr(b.tokyo);
+    merged.pricingTransport = {
+      osaka: normalizeTransportTiersCity('osaka', osakaA.length ? osakaA : osakaB),
+      tokyo: normalizeTransportTiersCity('tokyo', tokyoA.length ? tokyoA : tokyoB)
+    };
   }
   const skipA = (dataA.bangouSkipSpec && String(dataA.bangouSkipSpec).trim()) || '';
   const skipB = (dataB.bangouSkipSpec && String(dataB.bangouSkipSpec).trim()) || '';
@@ -1129,8 +1421,9 @@ function openModal(type, id) {
       body.innerHTML = '<p class="export-desc">無法載入 i18n.js，請重新整理頁面。</p>';
     } else {
       title.textContent = '編輯收費／價格';
-      body.innerHTML = buildPricingEditorHTML();
-      setupPricingLangTabs(body);
+      body.innerHTML = buildPricingTierEditorHTML();
+      hydratePricingTierTables();
+      bindPricingTierEditor(body);
     }
   } else if (type === 'girl') {
     title.textContent = id ? '編輯女孩' : '新增女孩';
