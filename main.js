@@ -191,6 +191,53 @@ function clonePricingTransport(obj) {
   return JSON.parse(JSON.stringify(obj));
 }
 
+function getTransportServingSet(city) {
+  const raw = typeof siteData !== 'undefined' ? siteData.pricingTransport : null;
+  if (!raw || typeof raw !== 'object') return null;
+  const key = city === 'osaka' ? 'osakaServingAreas' : 'tokyoServingAreas';
+  if (!Object.prototype.hasOwnProperty.call(raw, key)) return null;
+  const arr = raw[key];
+  if (!Array.isArray(arr)) return null;
+  const all = typeof PRICING_TRANSPORT_AREA_IDS !== 'undefined' ? (PRICING_TRANSPORT_AREA_IDS[city] || []) : [];
+  return new Set(arr.filter((id) => all.includes(id)));
+}
+
+/** 首頁服務地區：依 pricingTransport.*ServingAreas 標示尚未開通之行政區（與後台一致） */
+function refreshHomepageAreaServiceState(lang) {
+  const legend = document.querySelector('.area-service-legend');
+  let anyPending = false;
+  document.querySelectorAll('.area-tags[data-area-city]').forEach((wrap) => {
+    const city = wrap.getAttribute('data-area-city');
+    if (city !== 'osaka' && city !== 'tokyo') return;
+    const servingSet = getTransportServingSet(city);
+    wrap.querySelectorAll('.area-tag[data-area]').forEach((el) => {
+      const id = el.getAttribute('data-area');
+      if (!id) return;
+      if (servingSet == null) {
+        el.classList.remove('area-tag--pending-service');
+        el.removeAttribute('title');
+        return;
+      }
+      if (servingSet.has(id)) {
+        el.classList.remove('area-tag--pending-service');
+        el.removeAttribute('title');
+      } else {
+        el.classList.add('area-tag--pending-service');
+        const tip = tLang(lang, 'services.area.pendingTooltip');
+        if (tip != null && String(tip).trim() !== '') el.setAttribute('title', String(tip));
+        else el.removeAttribute('title');
+        anyPending = true;
+      }
+    });
+  });
+  if (legend) {
+    const leg = tLang(lang, 'services.area.legend');
+    legend.textContent = leg != null && String(leg).trim() !== '' ? String(leg) : '';
+    if (anyPending && legend.textContent) legend.removeAttribute('hidden');
+    else legend.setAttribute('hidden', '');
+  }
+}
+
 function getEffectivePricingTransport() {
   const raw = typeof siteData !== 'undefined' ? siteData.pricingTransport : null;
   if (!raw || typeof raw !== 'object') {
@@ -239,10 +286,13 @@ function renderPricingTransport(lang) {
     const el = document.getElementById('pricing-transport-' + city);
     if (!el) return;
     const tiers = data[city] || [];
+    const servingSet = getTransportServingSet(city);
     el.innerHTML = tiers
       .map((z) => {
         const feeText = transportFeeLineFromTemplate(lang, 'pricing.transport.zoneLine', z.fee);
-        const areas = formatTransportAreaList(lang, z.areas || []);
+        let areaIds = z.areas || [];
+        if (servingSet) areaIds = areaIds.filter((a) => servingSet.has(a));
+        const areas = formatTransportAreaList(lang, areaIds);
         const feeEsc = String(feeText).replace(/</g, '&lt;').replace(/>/g, '&gt;');
         return `<div class="pricing-zone"><span class="pricing-zone-fee">${feeEsc}</span><span class="pricing-areas-list">${areas}</span></div>`;
       })
@@ -362,6 +412,8 @@ function setLanguage(lang, rerender) {
     const key = 'area.' + el.getAttribute('data-area');
     if (translations[lang]?.[key]) el.textContent = translations[lang][key];
   });
+
+  refreshHomepageAreaServiceState(lang);
 
   if (typeof renderPricingTiers === 'function') renderPricingTiers(lang);
   if (typeof renderPricingTransport === 'function') renderPricingTransport(lang);

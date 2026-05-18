@@ -1,16 +1,29 @@
 /**
  * 交通費／服務地區可選的行政區 id（與 i18n 鍵 area.<id>、首頁 #services…
  *
- * 東京：23 特別區（全列出；是否在收費頁掛價格由後台 pricingTransport 決定）
- * 大阪：大阪市 24 區 + 東大阪市（東大阪為府內單一市，非大阪市辖区）
+ * ── 東京 23 特別區（與陣列 tokyo 順序一致）──
+ * • 預設「交通費價格列」有掛到金額的區：見下方 TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS（共 15 區）。
+ * • 其餘 8 區預設未出現在交通費列，但仍在總清單內，後台可開通服務並勾進價格：
+ *   ota, setagaya, suginami, itabashi, nerima, adachi, katsushika, edogawa
+ *   （＝ TRANSPORT_TOKYO_EXTENDED_AREA_IDS）
+ * • 實際「有服務」以 pricingTransport.tokyoServingAreas 為準；價格分區以 pricingTransport.tokyo 各列 areas 為準。
+ *
+ * ── 大阪（osaka 陣列：市轄 24 區 + higashiosaka）──
+ * • 無舊站資料時，admin 內建 DEFAULT_PRICING_TRANSPORT_ADMIN 預設為兩檔交通費：
+ *   - ¥4000：konohana, minato, taisho, nishi, abeno, fukushima, naniwa, tennoji, ikuno, kita, chuo,
+ *            higashinari, miyakojima, joto（14 區）
+ *   - ¥6000：nishiyodogawa, yodogawa, higashiyodogawa, asahi, tsurumi, suminoe, sumiyoshi,
+ *            higashisumiyoshi, hirano, higashiosaka（10 區）
+ * • 清單中的 nishinari（西成）預設未列入上兩檔之列，需在後台「服務區域」開通並在價格列指定。
  *
  * 之後若要「增加」區域：
  *   1. 在此檔對應城市的陣列尾端加入英文小寫 id（建議沿用郵便／官方拼字習慣，勿與另一城市重複 key）。
  *   2. 在 i18n.js 的 ja / zh / en 區塊各加一筆 'area.<id>': '…'。
  *   3. 在 index.html「服務地區」區塊加上 <span class="area-tag" data-area="<id>">…</span>
- *   4. 到後台「收費」→ 交通費，把新區域點選進適當的價格列，再儲存／匯出。
+ *   4. 到後台「收費」→ 交通費：先在「服務區域」開通該 id，再在價格列底下勾選納入，儲存／匯出。
  *
- * 若要「刪除」區域：見以下反向操作；已發佈的 data.js 內舊 id 會在載入時被 normalize 濾除。
+ * 首頁 #services 的行政區標籤若 data.js 含 osakaServingAreas／tokyoServingAreas，
+ *   會將「未開通」者以淡色顯示（與後台服務區域開關一致）。
  */
 window.PRICING_TRANSPORT_AREA_IDS = {
   osaka: [
@@ -27,8 +40,13 @@ window.PRICING_TRANSPORT_AREA_IDS = {
   ]
 };
 
-/** 無自訂資料時「東京」交通費預設列僅掛這些區；其餘 23 區可後台點選後再納入 */
+/** 無自訂資料時「東京」交通費預設列僅掛這 15 區；其餘 8 區見 TRANSPORT_TOKYO_EXTENDED_AREA_IDS */
 window.TRANSPORT_TOKYO_DEFAULT_PRICED_AREA_IDS = [
   'shinjuku', 'nakano', 'chiyoda', 'chuo', 'koto', 'shibuya', 'minato', 'meguro',
   'shinagawa', 'toshima', 'bunkyo', 'taito', 'sumida', 'arakawa', 'kita'
+];
+
+/** 東京 23 區中，預設未含在交通費價格列之 8 區（大田・世田谷・杉並・板橋・練馬・足立・葛飾・江戸川） */
+window.TRANSPORT_TOKYO_EXTENDED_AREA_IDS = [
+  'ota', 'setagaya', 'suginami', 'itabashi', 'nerima', 'adachi', 'katsushika', 'edogawa'
 ];

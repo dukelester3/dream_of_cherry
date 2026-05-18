@@ -768,6 +768,22 @@ section { padding: 96px 0; }
   transition: all var(--transition);
 }
 .area-tag:hover { border-color: var(--gold); color: var(--gold); }
+.area-tag.area-tag--pending-service {
+  opacity: 0.5;
+  border-style: dashed;
+  color: var(--text-muted);
+}
+.area-tag.area-tag--pending-service:hover {
+  border-color: var(--border-strong);
+  color: var(--text-muted);
+}
+.area-service-legend {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+  margin: 0 0 14px;
+  max-width: 44em;
+}
 .area-intro { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 12px; }
 .area-groups { display: flex; flex-direction: column; gap: 24px; margin-top: 16px; }
 .area-group { display: flex; flex-direction: column; gap: 8px; }
