@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/19 下午7:00:10
+// Generated: 2026/5/19 下午11:19:29
 
 const siteData = {
   "about": {
@@ -300,6 +300,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 532,
+      "titleJa": "皆さん、ご注意ください！これは詐欺です！",
+      "titleZh": "請大家注意！這是詐騙！",
+      "titleEn": "Attention, everyone! This is a scam!",
+      "excerpt": "",
+      "excerptZh": "",
+      "excerptEn": "",
+      "contentJa": "最近、悠悠本人を装って営業する詐欺グループが出現しています。\nまた、お客様にオンライン決済を要求し、米ドル、WeChat Pay、Alipayを使用させる行為は、すべて詐欺です！\n皆様、どうぞご注意いただき、嘘に惑わされないでください！\n当店の全ての女の子は、日本円のみを受け付けております！\nそして、女の子本人に会ってご満足いただいてから、現金でのお取引となります！！！",
+      "contentZh": "最近有出現一組詐騙冒充悠悠本人營業\n並且要求客戶線上支付，使用美金，微信，支付寶 這些都是詐騙！\n請大家一定要擦亮眼睛 不要被謊言蒙蔽！\n本店所有的女孩都只接受 日圓！ 並且是見到女孩本人滿意才進行現金交易！！！",
+      "contentEn": "Recently, a scam group has appeared, impersonating Yoyo herself and her business operations. They demand customers make online payments using US dollars, WeChat, or Alipay. These are all scams! Please everyone, stay vigilant and do not be deceived by these lies! All girls at our establishment only accept Japanese Yen! Furthermore, cash transactions are only processed after you have met the girl in person and are satisfied.",
+      "category": "お知らせ",
+      "date": "2026.5.19",
+      "createdAt": "2026.5.19 23:04:33",
+      "images": [
+        "https://i.ibb.co/TM8w5mrd/photo-2026-05-19-23-00-14.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/TM8w5mrd/photo-2026-05-19-23-00-14.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 531,
       "titleJa": "番号7867",
