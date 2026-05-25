@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/25 下午2:45:27
+// Generated: 2026/5/25 下午2:53:03
 
 const siteData = {
   "about": {
@@ -300,6 +300,107 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 567,
+      "titleJa": "番号7901",
+      "titleZh": "番號7901",
+      "titleEn": "No. 7901",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "🇯🇵長時間 | オールナイトで割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Extended stay | Overnight package discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:52:15",
+      "images": [
+        "https://i.ibb.co/bMTNg837/photo-2026-04-24-13-21-51.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/bMTNg837/photo-2026-04-24-13-21-51.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "E",
+        "age": 23,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 566,
+      "titleJa": "番号7900",
+      "titleZh": "番號7900",
+      "titleEn": "No. 7900",
+      "excerpt": "夜桜の夢 日本高級出張サービス【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "🇯🇵長時間|オールナイト割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Extended hours | Overnight discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:49:20",
+      "images": [
+        "https://i.ibb.co/ynNM12SW/photo-2026-04-24-13-20-35.jpg",
+        "https://i.ibb.co/RWQ8q2Y/photo-2026-04-24-13-20-36.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/ynNM12SW/photo-2026-04-24-13-20-35.jpg",
+      "stats": {
+        "height": 155,
+        "cup": "D",
+        "age": 19,
+        "weight": 41
+      },
+      "published": true
+    },
+    {
+      "id": 565,
+      "titleJa": "番号7899",
+      "titleZh": "番號7899",
+      "titleEn": "No. 7899",
+      "excerpt": "夜桜の夢 日本の高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [Open to all nationalities]",
+      "contentJa": "🇯🇵長時間|包夜割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Japanese long sessions | Overnight packages with discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:48:24",
+      "images": [
+        "https://i.ibb.co/p6rPXSFG/photo-2026-04-24-13-18-54-2.jpg",
+        "https://i.ibb.co/3Y4KXycG/photo-2026-04-24-13-18-54.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/p6rPXSFG/photo-2026-04-24-13-18-54-2.jpg",
+      "stats": {
+        "height": 164,
+        "cup": "E",
+        "age": 24,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 564,
+      "titleJa": "日本でのデートの心得",
+      "titleZh": "#日本外約須知 ",
+      "titleEn": "#JapanEscortGuide",
+      "excerpt": "斡旋者は性取引において重要な役割を果たす。",
+      "excerptZh": "經紀人在性交易中扮演著重要的角色",
+      "excerptEn": "Brokers play an important role in sex trade.",
+      "contentJa": "悠悠がまとめた、かなり詳細な内容ですので、皆さんの参考になれば幸いです。\n\nブローカーは性取引において重要な役割を果たします。\n\n1.  情報提供：ブローカーは通常、アルバイトの女性や専門的な問題についてより詳細な知識を持っており、顧客の要望に応じて、それに合った女性を探します。これには、容姿、",
+      "contentZh": "悠悠整理的比較詳細分享給大家參考\n經紀人在性交易中扮演著重要的角色\n1. 提供資訊：介紹人通常對兼職的小姐或專業問題有更加詳細的了解，會以顧客提供的需求找對應的女孩，其中包括相貌、身材、服務內容、學歷、談吐、價格、衛生等，幫助顧客做出選擇。\n\n2. 建立聯繫：介紹人與各行各業兼職女孩或組織、經紀人、模特公司、航空公司等...有聯繫，他們可以為顧客打通關係，安排會面或交易。\n\n3. 確保安全：介紹人能夠在一定程度上確保顧客的安全。\n會對每一位小姐進行一些健康檢查或篩選，降低性病或不安全性行為的風險。\n\n4. 保護隱私：有些顧客不希望暴露自己的身份，介紹人可以幫助顧客保密，確保他們的隱私不會泄露。\n\n5. 提供指導：對於初次涉足性交易的顧客，介紹人可以提供指導和建議，讓他們瞭解性交易的規範和禮儀，避免在過程中犯下錯誤。\n\n6. 維持關係：介紹人可以幫助顧客與女孩快速建立親密關係，為顧客提供更加個人化和貼心的服務。\n\n7. 避免法律風險：在性交易非法或受管制的地區，介紹人可以幫助顧客避免法律風險，為他們提供更安全和私密的交易方式。",
+      "contentEn": "Here's a detailed compilation by Youyou for your reference.\nBrokers play an important role in the sex trade.\n1. Providing Information: Brokers usually have a more detailed understanding of part-time escorts or professional issues. They will find suitable girls based on the customer's requirements, including appearance, physique, service content, education, demeanor, price, hygiene, etc., helping customers make choices.\n\n2. Establishing Connections: Brokers have connections with part-time girls or organizations, agents, modeling agencies, airlines, etc., from various industries. They can facilitate connections for customers and arrange meetings or transactions.\n\n3. Ensuring Safety: Brokers can, to a certain extent, ensure the safety of customers. They will conduct some health checks or screenings for each escort, reducing the risk of STDs or unsafe sexual practices.\n\n4. Protecting Privacy: Some customers do not wish to reveal their identity. Brokers can help customers maintain confidentiality, ensuring their privacy is not leaked.\n\n5. Providing Guidance: For customers new to sex transactions, brokers can provide guidance and advice, helping them understand the norms and etiquette of sex transactions to avoid making mistakes during the process.\n\n6. Maintaining Relationships: Brokers can help customers quickly establish intimate relationships with the girls, providing customers with more personalized and attentive services.\n\n7. Avoiding Legal Risks: In regions where sex transactions are illegal or regulated, brokers can help customers avoid legal risks, providing them with safer and more private transaction methods.",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:47:11",
+      "images": [
+        "https://i.ibb.co/4gKqnKyH/photo-2026-04-23-13-56-46.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/4gKqnKyH/photo-2026-04-23-13-56-46.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 563,
       "titleJa": "番号7898",
