@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/24 下午3:23:47
+// Generated: 2026/5/25 下午2:45:27
 
 const siteData = {
   "about": {
@@ -300,6 +300,110 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 563,
+      "titleJa": "番号7898",
+      "titleZh": "番號7898",
+      "titleEn": "No. 7898",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Luxury Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "🇯🇵長時間|オールナイト割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Longer sessions | Overnight stay with discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:43:17",
+      "images": [
+        "https://i.ibb.co/C3dbZcR8/photo-2026-04-22-12-33-09.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/C3dbZcR8/photo-2026-04-22-12-33-09.jpg",
+      "stats": {
+        "height": 158,
+        "cup": "E",
+        "age": 22,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 562,
+      "titleJa": "番号7897",
+      "titleZh": "番號7897",
+      "titleEn": "No. 7897",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Japanese Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "🇯🇵長時間利用、泊まりで割引あり。",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Extended hours | Overnight stay with discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:42:29",
+      "images": [
+        "https://i.ibb.co/mVzcsP2W/photo-2026-04-22-12-32-02.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/mVzcsP2W/photo-2026-04-22-12-32-02.jpg",
+      "stats": {
+        "height": 161,
+        "cup": "D",
+        "age": 24,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 561,
+      "titleJa": "番号7896",
+      "titleZh": "番號7896",
+      "titleEn": "No. 7896",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Japanese Luxury Delivery [Open to all nationalities]",
+      "contentJa": "🇯🇵長時間|一晩 割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Longer sessions | Overnight stay with discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:38:26",
+      "images": [
+        "https://i.ibb.co/1JdG70g0/photo-2026-04-22-12-30-57.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/1JdG70g0/photo-2026-04-22-12-30-57.jpg",
+      "stats": {
+        "height": 153,
+        "cup": "D",
+        "age": 20,
+        "weight": 40
+      },
+      "published": true
+    },
+    {
+      "id": 560,
+      "titleJa": "番号7895",
+      "titleZh": "番號7895",
+      "titleEn": "No. 7895",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Premium Japanese Delivery [Open to All Nationalities]",
+      "contentJa": "🇯🇵長時間|一晩割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "🇯🇵 Extended Stay | Overnight Discount",
+      "category": "出勤情報",
+      "date": "2026.5.25",
+      "createdAt": "2026.5.25 14:37:10",
+      "images": [
+        "https://i.ibb.co/jksqcYyJ/photo-2026-04-22-12-29-33.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/jksqcYyJ/photo-2026-04-22-12-29-33.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "H",
+        "age": 25,
+        "weight": 48
+      },
+      "published": true
+    },
     {
       "id": 559,
       "titleJa": "番号7894",
