@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/5/26 下午6:36:34
+// Generated: 2026/5/27 下午2:21:40
 
 const siteData = {
   "about": {
@@ -300,6 +300,27 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 577,
+      "titleJa": "👍初心者向け！デートのコツ【経験が少ない？童貞？】",
+      "titleZh": "👍新手約妹小貼士【經驗少？處男？】",
+      "titleEn": "👍 Newbie Tips for Picking Up Girls [Inexperienced? Virgin?]",
+      "excerpt": "純情な童貞くんや、経験が少なく女の子をどう誘えばいいか分からない人がたくさんいるので、悠悠が皆さんにちょっとしたアドバイスをまとめました。",
+      "excerptZh": "鑒於有很多純情小處男和經驗不多不知道如何約妹 悠悠來總結一下 給大家一點點小建議：",
+      "excerptEn": "Given that there are many innocent young virgins and inexperienced guys who don't know how to ask girls out, I, YuuYuu, will summarize and offer a few small tips:",
+      "contentJa": "経験が少なく、童貞には3つの欠点がある。\n①一つ目は、緊張して勃たないこと。\n②二つ目は、自慰に慣れていて、スムーズに射精できないこと。\n③三つ目は、一番マシと言えるかもしれないが、緊張するとすぐにイってしまうこと。\n三つ目のタイプは、少なくとも気持ちよさを味わえるが、他の",
+      "contentZh": "#經驗少、處男有三個缺點\n①第一種是緊張軟杆\n②第二種是習慣自己來 導致無法順利出水\n③第三個可以算是最好的 一緊張就被秒殺\n第三種人 至少有爽到 其他兩種都比較坎坷\n\n#建議一：\n若經濟允許的話，第一次適合兩小或以上玩，因為大多數的第一次都射很快 \n導致一種錯覺 還沒有開始  就已經結束惹 或者緊張到一直很難射 \n因為擔心時間的部分最後很可能還是會變成手排 \n所以建議拉長時間培養感覺  這樣才會有一次破處的美好回憶\n\n#建議二：\n縱使你喜歡的小蘿莉、可愛學生妹，年輕初下海的，也請你先鍛煉好自己的技術與耐力之後再跟自己喜歡的類型大戰三百回合   \n強烈建議：第一次約，要明確跟經紀人說  \n經紀人幫你選擇比較有經驗的、會帶動的妹帶你上車  享受技術服務時順便偷學老濕姬的輕功愛撫技巧 \n\n#建議三：\n新手疑問多 但是必須要問清楚 搞明白 \n這時候就可以多跟經紀人溝通 任何不懂的 \n悠悠都可以在線回答到你懂為止 不要不好意思  \n放心大膽的過來詢問我  懂了才能開始愉快的開啓你的破處之旅！😏",
+      "contentEn": "# Inexperienced Virgins Have Three Disadvantages\n① The first is a nervous soft erection.\n② The second is being accustomed to self-stimulation, which makes it difficult to ejaculate smoothly.\n③ The third, arguably the best, is getting 'finished' instantly due to nervousness.\nAt least the third type gets some satisfaction; the other two have a more difficult experience.\n\n# Tip 1:\nIf your budget allows, it's recommended to book for two hours or more for your first time, as most first times end very quickly. This can create the illusion that it's over before it even began, or you might be too nervous to ejaculate at all. Worrying about time might ultimately lead to resorting to manual stimulation. Therefore, it's suggested to extend the duration to cultivate the feeling, ensuring a beautiful memory of losing your virginity.\n\n# Tip 2:\nEven if you fancy lolis, cute schoolgirls, or young newcomers to the scene, please ensure you've honed your skills and stamina before engaging in a 'three-hundred-round battle' with your preferred type.\nStrongly recommended: For your first appointment, clearly communicate with your agent. Have the agent select a more experienced and engaging girl to guide you. While enjoying the skilled service, discreetly learn the nimble fondling techniques from the experienced professional.\n\n# Tip 3:\nNewbies often have many questions, but it's crucial to ask clearly and understand thoroughly. This is the time to communicate extensively with your agent about anything you don't understand. Yoyo can answer all your questions online until you fully grasp them. Don't be shy. Feel free to boldly come and ask me. Only when you understand can you happily embark on your virginity-losing journey! 😏",
+      "category": "日記",
+      "date": "2026.5.27",
+      "createdAt": "2026.5.27 14:16:20",
+      "images": [
+        "https://i.ibb.co/cSgyDTPF/photo-2026-04-25-21-39-06.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/cSgyDTPF/photo-2026-04-25-21-39-06.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 576,
       "titleJa": "番号7910",
