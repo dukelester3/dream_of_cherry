@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/6/3 上午1:18:10
+// Generated: 2026/6/3 上午1:31:34
 
 const siteData = {
   "about": {
@@ -300,6 +300,60 @@ const siteData = {
     228
   ],
   "diary": [
+    {
+      "id": 631,
+      "titleJa": "番号7964",
+      "titleZh": "番號7964",
+      "titleEn": "No. 7964",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery [Open to All Nationalities]",
+      "contentJa": "長時間またはオールナイトで割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Long hours | Overnight discount",
+      "category": "出勤情報",
+      "date": "2026.6.3",
+      "createdAt": "2026.6.3 01:30:30",
+      "images": [
+        "https://i.ibb.co/xKmBTxTG/photo-2026-05-11-13-08-11.jpg",
+        "https://i.ibb.co/Kx3Kcwmv/photo-2026-05-11-13-08-11-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/xKmBTxTG/photo-2026-05-11-13-08-11.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "G",
+        "age": 24,
+        "weight": 49
+      },
+      "published": true
+    },
+    {
+      "id": 630,
+      "titleJa": "番号7963",
+      "titleZh": "番號7963",
+      "titleEn": "No. 7963",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "🇯🇵長時間|オールナイト割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Long hours | Overnight discount available",
+      "category": "出勤情報",
+      "date": "2026.6.3",
+      "createdAt": "2026.6.3 01:27:12",
+      "images": [
+        "https://i.ibb.co/PzcRTpGZ/photo-2026-05-08-13-20-30.jpg",
+        "https://i.ibb.co/Sw5mHb1H/photo-2026-05-08-13-20-30-2.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/PzcRTpGZ/photo-2026-05-08-13-20-30.jpg",
+      "stats": {
+        "height": 158,
+        "cup": "D",
+        "age": 24,
+        "weight": 45
+      },
+      "published": true
+    },
     {
       "id": 629,
       "titleJa": "番号7962",
