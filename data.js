@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/6/4 下午4:09:49
+// Generated: 2026/6/5 下午2:40:38
 
 const siteData = {
   "about": {
@@ -16737,7 +16737,7 @@ const siteData = {
     ],
     "tokyo": [
       {
-        "min": 37000,
+        "min": 35000,
         "max": null,
         "above": false,
         "preset": "s"
