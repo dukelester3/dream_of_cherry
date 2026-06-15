@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/6/14 下午1:34:04
+// Generated: 2026/6/15 下午4:39:44
 
 const siteData = {
   "about": {
@@ -305,13 +305,13 @@ const siteData = {
       "titleJa": "重大なお知らせ！",
       "titleZh": "🚨重大通知！",
       "titleEn": "🚨 Major Announcement!",
-      "excerpt": "",
-      "excerptZh": "",
-      "excerptEn": "",
+      "excerpt": "日本の東横INNホテルでは、フロントが最近、頻繁に訪問客の入館を拒否しているため",
+      "excerptZh": "由於日本東橫INN酒店前台近期頻繁攔截訪客",
+      "excerptEn": "Due to the frequent interception of visitors by the front desk of Toyoko Inn hotels in Japan recently",
       "contentJa": "日本東横INNホテルのフロントが最近頻繁に訪問客の入館を拒否しているため、\n当店では、東横INNホテルをご利用のお客様には一切、女性の手配はいたしません！\n東京、大阪問わず、東横INNホテルをご予約された場合、当店では一切のリラックスサービスを提供いたしません。\n出張やご旅行で安心してお寛ぎになりたいお客様は、東横INNホテルのご利用は必ずお避けください。\n手配後に拒否され、ご不便をおかけする事態を避けるため、ホテルご予約の際は事前に当店にご確認ください。\n皆様のご協力とご理解に感謝いたします！",
       "contentZh": "由於日本東橫INN酒店前台近期頻繁攔截訪客\n\n本店決定 凡是選擇東橫INN酒店 一律不安排小姐！\n無論東京、大阪，只要您預訂的是東橫INN酒店 本店將不提供任何放鬆安排\n\n出差或旅遊的哥哥們若需要安心放鬆 請務必避開東橫INN酒店\n\n建議您在預約酒店時先與本悠確認\n避免安排後被拒絕，造成不便，感謝各位哥哥的配合與理解！🙏",
       "contentEn": "Due to Toyoko Inn hotels in Japan's front desks frequently intercepting visitors recently, our establishment has decided that for any booking at a Toyoko Inn hotel, we will not arrange ladies.\n\nWhether in Tokyo or Osaka, as long as you book a Toyoko Inn hotel, our establishment will not provide any relaxation arrangements.\n\nGentlemen traveling for business or leisure who wish for a worry-free relaxation, please be sure to avoid Toyoko Inn hotels.\n\nWe recommend that you confirm with us first when booking your hotel to avoid arrangements being rejected later, causing inconvenience. Thank you, gentlemen, for your cooperation and understanding! 🙏",
-      "category": "出勤情報",
+      "category": "お知らせ",
       "date": "2026.6.13",
       "createdAt": "2026.6.13 19:17:11",
       "images": [
