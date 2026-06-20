@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/6/20 下午2:17:39
+// Generated: 2026/6/20 下午2:45:31
 
 const siteData = {
   "about": {
@@ -301,6 +301,58 @@ const siteData = {
   ],
   "diary": [
     {
+      "id": 742,
+      "titleJa": "番号8074",
+      "titleZh": "番號8074",
+      "titleEn": "No. 8074",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Premium Japanese Delivery (All Nationalities Welcome)",
+      "contentJa": "🇯🇵長時間|夜通し割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Extended hours | Overnight discount available",
+      "category": "出勤情報",
+      "date": "2026.6.20",
+      "createdAt": "2026.6.20 14:44:42",
+      "images": [
+        "https://i.ibb.co/jkzDpvNY/photo-2026-06-13-11-57-23.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/jkzDpvNY/photo-2026-06-13-11-57-23.jpg",
+      "stats": {
+        "height": 157,
+        "cup": "E",
+        "age": 28,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 741,
+      "titleJa": "番号8073",
+      "titleZh": "番號8073",
+      "titleEn": "No. 8073",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "🇯🇵長時間 | 夜通し割引",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Extended stay | Overnight discount",
+      "category": "出勤情報",
+      "date": "2026.6.20",
+      "createdAt": "2026.6.20 14:43:54",
+      "images": [
+        "https://i.ibb.co/Dg1Ry1D7/photo-2026-06-13-11-55-49.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Dg1Ry1D7/photo-2026-06-13-11-55-49.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "D",
+        "age": 23,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
       "id": 740,
       "titleJa": "番号8072",
       "titleZh": "番號8072",
@@ -314,6 +366,10 @@ const siteData = {
       "category": "出勤情報",
       "date": "2026.6.20",
       "createdAt": "2026.6.20 14:16:42",
+      "images": [
+        "https://i.ibb.co/tPQdmWb6/photo-2026-06-13-11-54-04.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/tPQdmWb6/photo-2026-06-13-11-54-04.jpg",
       "stats": {
         "height": 163,
         "cup": "D",
