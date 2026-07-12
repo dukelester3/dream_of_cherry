@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/7/12 下午4:04:01
+// Generated: 2026/7/12 下午4:06:10
 
 const siteData = {
   "about": {
@@ -301,6 +301,60 @@ const siteData = {
     767
   ],
   "diary": [
+    {
+      "id": 781,
+      "titleJa": "番号8113",
+      "titleZh": "番號8113",
+      "titleEn": "No. 8113",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [Open to All Nationalities]",
+      "contentJa": "🇯🇵長時間|一泊割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Long hours | Overnight discount",
+      "category": "出勤情報",
+      "date": "2026.7.12",
+      "createdAt": "2026.7.12 16:05:35",
+      "images": [
+        "https://i.ibb.co/pBGmRzM1/photo-2026-06-24-14-49-23.jpg",
+        "https://i.ibb.co/Rky9FFfp/photo-2026-06-24-14-49-24.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/pBGmRzM1/photo-2026-06-24-14-49-23.jpg",
+      "stats": {
+        "height": 165,
+        "cup": "E",
+        "age": 21,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 780,
+      "titleJa": "番号8112",
+      "titleZh": "番號8112",
+      "titleEn": "No. 8112",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura no Yume Japan Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "🇯🇵長時間|オールナイト割引あり",
+      "contentZh": "🇯🇵長時間|包夜有折扣",
+      "contentEn": "Long hours | Overnight discount",
+      "category": "出勤情報",
+      "date": "2026.7.12",
+      "createdAt": "2026.7.12 16:04:27",
+      "images": [
+        "https://i.ibb.co/S7KCN1Z2/photo-2026-06-24-14-48-21-2.jpg",
+        "https://i.ibb.co/f7K1vm6/photo-2026-06-24-14-48-21.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/S7KCN1Z2/photo-2026-06-24-14-48-21-2.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "D",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 779,
       "titleJa": "番号8111",
