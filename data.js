@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/7/20 下午4:37:07
+// Generated: 2026/7/23 下午3:28:23
 
 const siteData = {
   "about": {
@@ -65,7 +65,7 @@ const siteData = {
       "nameEn": "Mia",
       "height": 162,
       "age": 25,
-      "cup": "D",
+      "cup": "H",
       "weight": 47,
       "badge": "NEW",
       "badgeZh": "新人",
@@ -155,7 +155,7 @@ const siteData = {
       "nameEn": "yuuha",
       "height": 165,
       "age": 26,
-      "cup": "H",
+      "cup": "G",
       "weight": 50,
       "badge": "HOT",
       "badgeZh": "HOT",
