@@ -25,79 +25,9 @@ const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
 const WATERMARK_LOGO = '../logo/logo3d.png';
 
-// ── 裁切 + 浮水印：先裁成 2:3（top center）再疊 logo，確保顯示時浮水印不被裁掉 ──
-const CROP_ASPECT = 2 / 3; // 與 Gallery、日記顯示比例一致
-
+// ── 裁切 + 浮水印：邏輯見 ../watermark.js ──
 async function applyWatermarkToFile(file) {
-  return new Promise((resolve) => {
-    const img = new Image();
-    const objectUrl = URL.createObjectURL(file);
-    img.onload = () => {
-      const imgRatio = img.width / img.height;
-      let outW, outH, sx, sy, sw, sh;
-      if (imgRatio > CROP_ASPECT) {
-        // 橫圖：裁左右，保留上方置中
-        outH = img.height;
-        outW = Math.round(img.height * CROP_ASPECT);
-        sx = Math.round((img.width - outW) / 2);
-        sy = 0;
-        sw = outW;
-        sh = img.height;
-      } else if (imgRatio < CROP_ASPECT) {
-        // 直圖：裁下方，保留上方
-        outW = img.width;
-        outH = Math.round(img.width / CROP_ASPECT);
-        sx = 0;
-        sy = 0;
-        sw = img.width;
-        sh = outH;
-      } else {
-        outW = img.width;
-        outH = img.height;
-        sx = sy = 0;
-        sw = img.width;
-        sh = img.height;
-      }
-      const canvas = document.createElement('canvas');
-      canvas.width = outW;
-      canvas.height = outH;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
-      const logoImg = new Image();
-      logoImg.crossOrigin = 'anonymous';
-      logoImg.onload = () => {
-        const cellW = outW / 4;
-        const cellH = outH / 4;
-        let logoW, logoH;
-        if (logoImg.width / logoImg.height >= cellW / cellH) {
-          logoW = cellW;
-          logoH = (logoImg.height / logoImg.width) * logoW;
-        } else {
-          logoH = cellH;
-          logoW = (logoImg.width / logoImg.height) * logoH;
-        }
-        const pad = 4;
-        const leftOffset = outW * 0.08;
-        const x = outW - logoW - pad - leftOffset;
-        const y = outH - logoH - pad;
-        ctx.globalAlpha = 1;
-        ctx.drawImage(logoImg, x, y, logoW, logoH);
-        ctx.globalAlpha = 1;
-        const outMime = file.type && file.type.startsWith('image/') ? file.type : 'image/jpeg';
-        canvas.toBlob(blob => {
-          URL.revokeObjectURL(objectUrl);
-          if (blob && blob.size > 0) {
-            const mime = blob.type || outMime;
-            resolve(new File([blob], file.name, { type: mime }));
-          } else resolve(file);
-        }, outMime, 0.92);
-      };
-      logoImg.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
-      logoImg.src = WATERMARK_LOGO;
-    };
-    img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
-    img.src = objectUrl;
-  });
+  return applyWatermarkToImage(file, WATERMARK_LOGO);
 }
 
 // ── State ──

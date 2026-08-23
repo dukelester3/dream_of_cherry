@@ -3,54 +3,87 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>浮水印示範</title>
+  <title>浮水印預覽</title>
   <style>
     * { box-sizing: border-box; }
-    body { font-family: system-ui, sans-serif; padding: 24px; max-width: 900px; margin: 0 auto; background: #1a1a1a; color: #eee; }
+    body { font-family: system-ui, sans-serif; padding: 24px; max-width: 960px; margin: 0 auto; background: #1a1a1a; color: #eee; }
     h1 { font-size: 1.5rem; margin-bottom: 8px; }
-    p { color: #999; font-size: 0.9rem; margin-bottom: 20px; }
-    .demo-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 20px; }
-    @media (max-width: 600px) { .demo-area { grid-template-columns: 1fr; } }
+    p { color: #999; font-size: 0.9rem; margin-bottom: 16px; line-height: 1.6; }
+    .controls {
+      background: #2a2a2a; border-radius: 12px; padding: 16px 18px; margin-bottom: 20px;
+      display: grid; gap: 14px;
+    }
+    .control-row { display: grid; grid-template-columns: 120px 1fr 64px; gap: 12px; align-items: center; }
+    .control-row label { font-size: 0.85rem; color: #ccc; }
+    .control-row output { font-size: 0.8rem; color: #888; text-align: right; }
+    input[type="range"] { width: 100%; accent-color: #c9a227; }
+    input[type="file"] { margin-bottom: 4px; }
+    .demo-area { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 12px; }
+    @media (max-width: 700px) { .demo-area { grid-template-columns: 1fr; } .control-row { grid-template-columns: 1fr; } }
     .box { background: #2a2a2a; border-radius: 12px; padding: 16px; }
     .box h3 { margin: 0 0 12px; font-size: 0.9rem; color: #ccc; }
-    .box img { width: 100%; height: auto; max-height: 280px; object-fit: contain; display: block; border-radius: 8px; background: #111; cursor: zoom-in; }
-    .box .placeholder { aspect-ratio: 4/3; background: #222; border: 2px dashed #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 0.85rem; }
-    .box .placeholder:has(img) { flex-direction: column; align-items: stretch; border-style: solid; border-color: #333; }
+    .box img { width: 100%; height: auto; max-height: 420px; object-fit: contain; display: block; border-radius: 8px; background: #111; cursor: zoom-in; }
+    .box .placeholder { aspect-ratio: 2/3; background: #222; border: 2px dashed #444; border-radius: 8px; display: flex; align-items: center; justify-content: center; color: #666; font-size: 0.85rem; padding: 12px; text-align: center; }
     .zoom-hint { font-size: 0.75rem; color: #666; margin-top: 6px; }
     .lightbox { position: fixed; inset: 0; background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 9999; cursor: zoom-out; padding: 20px; }
     .lightbox.open { display: flex; }
     .lightbox img { max-width: 95vw; max-height: 95vh; object-fit: contain; }
-    input[type="file"] { margin-bottom: 12px; }
-    .spec { font-size: 0.8rem; color: #888; margin-top: 12px; line-height: 1.6; }
+    .spec { font-size: 0.8rem; color: #888; margin-top: 16px; line-height: 1.7; }
+    .hint { color: #c9a227; font-size: 0.85rem; margin-top: 8px; }
+    .btn-reset { background: #333; color: #eee; border: 1px solid #555; border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 0.85rem; width: fit-content; }
+    .btn-reset:hover { border-color: #c9a227; color: #c9a227; }
   </style>
 </head>
 <body>
-  <h1>浮水印示範</h1>
-  <p>選擇一張圖片，左邊顯示原圖，右邊顯示加上浮水印後的效果。<strong>點擊圖片可放大</strong>。</p>
+  <h1>浮水印預覽</h1>
+  <p>選一張圖，左原圖、右加浮水印。拖曳滑桿可<strong>即時調整</strong>大小與邊距，滿意後後台會用相同設定（見 <code>watermark.js</code>）。<strong>點圖可放大。</strong></p>
+
   <input type="file" id="fileInput" accept="image/*">
+
+  <div class="controls">
+    <div class="control-row">
+      <label for="sizeDivisor">Logo 大小</label>
+      <input type="range" id="sizeDivisor" min="2.4" max="5" step="0.1">
+      <output id="sizeDivisorOut"></output>
+    </div>
+    <div class="control-row">
+      <label for="padRightRatio">右側距離</label>
+      <input type="range" id="padRightRatio" min="0.005" max="0.08" step="0.001">
+      <output id="padRightRatioOut"></output>
+    </div>
+    <div class="control-row">
+      <label for="padBottomRatio">底部距離</label>
+      <input type="range" id="padBottomRatio" min="0.01" max="0.12" step="0.001">
+      <output id="padBottomRatioOut"></output>
+    </div>
+    <button type="button" class="btn-reset" id="resetBtn">還原預設值</button>
+  </div>
+  <p class="hint">💡 2:3 直式圖右側留白通常較多，底部距離建議略大於右側，視覺較協調。</p>
+
   <div class="demo-area">
     <div class="box">
-      <h3>原圖</h3>
+      <h3>原圖（裁切前）</h3>
       <div id="original" class="placeholder">尚未選擇圖片</div>
     </div>
     <div class="box">
-      <h3>加浮水印後</h3>
+      <h3>加浮水印後（2:3 裁切）</h3>
       <div id="watermarked" class="placeholder">選擇圖片後顯示</div>
     </div>
   </div>
+
   <div id="lightbox" class="lightbox">
     <img id="lightboxImg" src="" alt="放大預覽">
   </div>
+
   <div class="spec">
-    <strong>浮水印設定：</strong><br>
-    • 先裁切為 2:3（與 Gallery、日記顯示比例一致），再上浮水印<br>
-    • 裁切邏輯：橫圖裁左右置中、直圖裁下方保留上方<br>
-    • 浮水印位置：右下角<br>
-    • 大小：約 1/16 面積，略偏左<br>
-    • 透明度：100%（不透明）<br>
-    • Logo 路徑：<code>logo/logo3d.png</code>
+    <strong>目前設定：</strong><br>
+    • 位置：右下角（已移除左偏）<br>
+    • 先裁切 2:3 再上浮水印（與 Gallery／日記一致）<br>
+    • Logo：<code>logo/logo3d.png</code><br>
+    • 後台「浮水印工具」與此頁共用 <code>watermark.js</code>
   </div>
 
+  <script src="watermark.js"></script>
   <script>
     const LOGO = './logo/logo3d.png';
     const fileInput = document.getElementById('fileInput');
@@ -59,6 +92,41 @@
     const lightbox = document.getElementById('lightbox');
     const lightboxImg = document.getElementById('lightboxImg');
 
+    const sliders = {
+      sizeDivisor: document.getElementById('sizeDivisor'),
+      padRightRatio: document.getElementById('padRightRatio'),
+      padBottomRatio: document.getElementById('padBottomRatio')
+    };
+    const outputs = {
+      sizeDivisor: document.getElementById('sizeDivisorOut'),
+      padRightRatio: document.getElementById('padRightRatioOut'),
+      padBottomRatio: document.getElementById('padBottomRatioOut')
+    };
+
+    let currentFile = null;
+    let previewUrl = null;
+
+    function syncSlidersFromDefaults() {
+      sliders.sizeDivisor.value = WATERMARK_DEFAULTS.sizeDivisor;
+      sliders.padRightRatio.value = WATERMARK_DEFAULTS.padRightRatio;
+      sliders.padBottomRatio.value = WATERMARK_DEFAULTS.padBottomRatio;
+      updateSliderLabels();
+    }
+
+    function getOptionsFromSliders() {
+      return {
+        sizeDivisor: parseFloat(sliders.sizeDivisor.value),
+        padRightRatio: parseFloat(sliders.padRightRatio.value),
+        padBottomRatio: parseFloat(sliders.padBottomRatio.value)
+      };
+    }
+
+    function updateSliderLabels() {
+      outputs.sizeDivisor.textContent = parseFloat(sliders.sizeDivisor.value).toFixed(1);
+      outputs.padRightRatio.textContent = (parseFloat(sliders.padRightRatio.value) * 100).toFixed(1) + '%';
+      outputs.padBottomRatio.textContent = (parseFloat(sliders.padBottomRatio.value) * 100).toFixed(1) + '%';
+    }
+
     function setupZoom(img) {
       img.onclick = (e) => { e.stopPropagation(); lightboxImg.src = img.src; lightbox.classList.add('open'); };
     }
@@ -66,9 +134,31 @@
     lightboxImg.onclick = (e) => e.stopPropagation();
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
 
+    async function renderWatermark() {
+      if (!currentFile) return;
+      watermarkedEl.innerHTML = '<span style="color:#888">處理中...</span>';
+      try {
+        const result = await applyWatermarkToImage(currentFile, LOGO, getOptionsFromSliders());
+        if (previewUrl) URL.revokeObjectURL(previewUrl);
+        previewUrl = URL.createObjectURL(result);
+        watermarkedEl.innerHTML = '';
+        const img = document.createElement('img');
+        img.src = previewUrl;
+        img.alt = '浮水印';
+        img.title = '點擊放大';
+        watermarkedEl.appendChild(img);
+        watermarkedEl.appendChild(document.createElement('div')).className = 'zoom-hint';
+        watermarkedEl.lastChild.textContent = '點擊圖片放大 · 調整滑桿可即時更新';
+        setupZoom(img);
+      } catch (err) {
+        watermarkedEl.innerHTML = '<span style="color:#e55">失敗：' + err.message + '</span>';
+      }
+    }
+
     fileInput.onchange = async (e) => {
       const file = e.target.files[0];
       if (!file) return;
+      currentFile = file;
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -84,89 +174,22 @@
       };
       reader.readAsDataURL(file);
 
-      watermarkedEl.innerHTML = '<span style="color:#888">處理中...</span>';
-      try {
-        const result = await addWatermark(file);
-        const url = URL.createObjectURL(result);
-        watermarkedEl.innerHTML = '';
-        const img = document.createElement('img');
-        img.src = url;
-        img.alt = '浮水印';
-        img.title = '點擊放大';
-        watermarkedEl.appendChild(img);
-        watermarkedEl.appendChild(document.createElement('div')).className = 'zoom-hint';
-        watermarkedEl.lastChild.textContent = '點擊圖片放大';
-        setupZoom(img);
-      } catch (err) {
-        watermarkedEl.innerHTML = '<span style="color:#e55">失敗：' + err.message + '</span>';
-      }
+      await renderWatermark();
     };
 
-    const CROP_ASPECT = 2 / 3;
-    async function addWatermark(file) {
-      return new Promise((resolve) => {
-        const img = new Image();
-        const objectUrl = URL.createObjectURL(file);
-        img.onload = () => {
-          const imgRatio = img.width / img.height;
-          let outW, outH, sx, sy, sw, sh;
-          if (imgRatio > CROP_ASPECT) {
-            outH = img.height;
-            outW = Math.round(img.height * CROP_ASPECT);
-            sx = Math.round((img.width - outW) / 2);
-            sy = 0;
-            sw = outW;
-            sh = img.height;
-          } else if (imgRatio < CROP_ASPECT) {
-            outW = img.width;
-            outH = Math.round(img.width / CROP_ASPECT);
-            sx = sy = 0;
-            sw = img.width;
-            sh = outH;
-          } else {
-            outW = img.width;
-            outH = img.height;
-            sx = sy = 0;
-            sw = img.width;
-            sh = img.height;
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = outW;
-          canvas.height = outH;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, sx, sy, sw, sh, 0, 0, outW, outH);
-          const logoImg = new Image();
-          logoImg.crossOrigin = 'anonymous';
-          logoImg.onload = () => {
-            const cellW = outW / 4;
-            const cellH = outH / 4;
-            let logoW, logoH;
-            if (logoImg.width / logoImg.height >= cellW / cellH) {
-              logoW = cellW;
-              logoH = (logoImg.height / logoImg.width) * logoW;
-            } else {
-              logoH = cellH;
-              logoW = (logoImg.width / logoImg.height) * logoH;
-            }
-            const pad = 4;
-            const leftOffset = outW * 0.08;
-            const x = outW - logoW - pad - leftOffset;
-            const y = outH - logoH - pad;
-            ctx.globalAlpha = 1;
-            ctx.drawImage(logoImg, x, y, logoW, logoH);
-            ctx.globalAlpha = 1;
-            canvas.toBlob(blob => {
-              URL.revokeObjectURL(objectUrl);
-              resolve(blob ? new File([blob], file.name, { type: file.type }) : file);
-            }, file.type || 'image/jpeg', 0.92);
-          };
-          logoImg.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
-          logoImg.src = LOGO;
-        };
-        img.onerror = () => { URL.revokeObjectURL(objectUrl); resolve(file); };
-        img.src = objectUrl;
+    Object.values(sliders).forEach(slider => {
+      slider.addEventListener('input', () => {
+        updateSliderLabels();
+        renderWatermark();
       });
-    }
+    });
+
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      syncSlidersFromDefaults();
+      renderWatermark();
+    });
+
+    syncSlidersFromDefaults();
   </script>
 </body>
 </html>
