@@ -50,8 +50,8 @@ html { scroll-behavior: smooth; }
   top: 72px;
   right: 20px;
   z-index: 100;
-  width: 72px;
-  max-width: 15vw;
+  width: 112px;
+  max-width: 20vw;
   height: auto;
   pointer-events: none;
 }
@@ -66,8 +66,8 @@ html { scroll-behavior: smooth; }
   .site-corner-logo {
     top: 60px;
     right: 16px;
-    width: 35px;
-    max-width: 12vw;
+    width: 56px;
+    max-width: 16vw;
   }
 }
 
