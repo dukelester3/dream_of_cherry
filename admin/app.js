@@ -23,7 +23,7 @@ const GIRL_TYPE_OPTIONS = [
 ];
 const GITHUB_TOKEN_STORAGE = 'yuyu_github_token';
 const GITHUB_REPO_STORAGE = 'yuyu_github_repo';
-const WATERMARK_LOGO = '../logo/logo-trimmed.png';
+const WATERMARK_LOGO = '../logo/logo3d.png';
 
 // ── 裁切 + 浮水印：先裁成 2:3（top center）再疊 logo，確保顯示時浮水印不被裁掉 ──
 const CROP_ASPECT = 2 / 3; // 與 Gallery、日記顯示比例一致
