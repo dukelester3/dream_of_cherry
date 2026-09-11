@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/9/11 下午12:27:24
+// Generated: 2026/9/11 下午12:32:33
 
 const siteData = {
   "about": {
@@ -301,6 +301,53 @@ const siteData = {
     767
   ],
   "diary": [
+    {
+      "id": 923,
+      "titleJa": "番号8254",
+      "titleZh": "番號8254",
+      "titleEn": "No. 8254",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560｜Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Got your eye on a girl? Please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.11",
+      "createdAt": "2026.9.11 12:31:51",
+      "images": [
+        "https://i.ibb.co/gL6FXZnn/photo-2026-08-04-13-42-48.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/gL6FXZnn/photo-2026-08-04-13-42-48.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "E",
+        "age": 24,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 922,
+      "titleJa": "番号8253",
+      "titleZh": "番號8253",
+      "titleEn": "No. 8253",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you like, please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.11",
+      "createdAt": "2026.9.11 12:29:30",
+      "images": [
+        "https://i.ibb.co/hxRRqZ1s/photo-2026-08-10-21-43-06.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/hxRRqZ1s/photo-2026-08-10-21-43-06.jpg",
+      "stats": null,
+      "published": true
+    },
     {
       "id": 921,
       "titleJa": "番号8252",
