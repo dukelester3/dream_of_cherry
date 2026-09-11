@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/9/11 下午12:32:33
+// Generated: 2026/9/11 下午12:36:38
 
 const siteData = {
   "about": {
@@ -301,6 +301,58 @@ const siteData = {
     767
   ],
   "diary": [
+    {
+      "id": 925,
+      "titleJa": "番号8256",
+      "titleZh": "番號8256",
+      "titleEn": "No. 8256",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Premium Japanese Delivery [No Nationality Restrictions]",
+      "contentJa": "気になる女の子は店長にご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested in a girl? Place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.11",
+      "createdAt": "2026.9.11 12:35:30",
+      "images": [
+        "https://i.ibb.co/5WtMhrq6/photo-2026-08-04-13-46-36.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/5WtMhrq6/photo-2026-08-04-13-46-36.jpg",
+      "stats": {
+        "height": 153,
+        "cup": "C",
+        "age": 21,
+        "weight": 38
+      },
+      "published": true
+    },
+    {
+      "id": 924,
+      "titleJa": "番号8255",
+      "titleZh": "番號8255",
+      "titleEn": "No. 8255",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子がいましたら、店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested girls, please place your order with the store manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.11",
+      "createdAt": "2026.9.11 12:34:06",
+      "images": [
+        "https://i.ibb.co/LzgjD6FT/photo-2026-08-04-13-45-04.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/LzgjD6FT/photo-2026-08-04-13-45-04.jpg",
+      "stats": {
+        "height": 158,
+        "cup": "F",
+        "age": 25,
+        "weight": 47
+      },
+      "published": true
+    },
     {
       "id": 923,
       "titleJa": "番号8254",
