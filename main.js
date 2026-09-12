@@ -427,6 +427,7 @@ function setLanguage(lang, rerender) {
     renderReviews(lang);
     renderDiary(lang);
     renderAbout(lang);
+    renderBookingNotice(lang);
     if (currentOpenDiaryId) openDiaryModal(currentOpenDiaryId, lang);
   }
 }
@@ -556,7 +557,7 @@ document.querySelectorAll('.section-tab')?.forEach(tab => {
 });
 
 // ── Scroll Spy ──
-const spySections = ['services', 'pricing', 'booking', 'gallery', 'reviews'];
+const spySections = ['gallery', 'services', 'pricing', 'booking', 'reviews'];
 const navLinks = document.querySelectorAll('.nav-center-link');
 
 const spyObserver = new IntersectionObserver(entries => {
@@ -576,8 +577,18 @@ spySections.forEach(id => {
 
 // ── Render About from siteData ──
 function renderAbout(lang) {
-  if (typeof siteData === 'undefined' || !siteData.about) return;
+  const section = document.getElementById('about');
+  if (typeof siteData === 'undefined' || !siteData.about) {
+    if (section) section.classList.remove('is-section-hidden');
+    return;
+  }
   const a = siteData.about;
+  const showAbout = a.visible !== false;
+  if (section) {
+    section.classList.toggle('is-section-hidden', !showAbout);
+    section.setAttribute('aria-hidden', showAbout ? 'false' : 'true');
+  }
+  if (!showAbout) return;
   const photos = a.photos || [];
   const order = [0, 2, 1, 3];
   order.forEach((photoIdx, domIdx) => {
@@ -589,6 +600,48 @@ function renderAbout(lang) {
   const p2 = lang === 'zh' ? a.p2Zh : lang === 'en' ? a.p2En : a.p2Ja;
   if (document.getElementById('about-p1') && p1) document.getElementById('about-p1').textContent = p1;
   if (document.getElementById('about-p2') && p2) document.getElementById('about-p2').textContent = p2;
+}
+
+function renderBookingNotice(lang) {
+  const titleEl = document.getElementById('warning-title');
+  const contentEl = document.getElementById('warning-content');
+  const mediaEl = document.getElementById('warning-media');
+  const imgEl = document.getElementById('warning-img');
+  if (!titleEl || !contentEl) return;
+
+  const w = typeof siteData !== 'undefined' ? siteData.warning : null;
+  if (w) {
+    const title = lang === 'zh' ? w.titleZh : lang === 'en' ? w.titleEn : w.titleJa;
+    const content = lang === 'zh' ? w.contentZh : lang === 'en' ? w.contentEn : w.contentJa;
+    if (title) titleEl.textContent = title;
+    if (content) contentEl.textContent = content;
+    const imageUrl = (w.image || '').trim();
+    if (imgEl && mediaEl) {
+      if (imageUrl) {
+        imgEl.src = resolveImgUrl(imageUrl);
+        imgEl.alt = title || '';
+        mediaEl.classList.remove('hidden');
+        mediaEl.setAttribute('aria-hidden', 'false');
+      } else {
+        imgEl.removeAttribute('src');
+        mediaEl.classList.add('hidden');
+        mediaEl.setAttribute('aria-hidden', 'true');
+      }
+    }
+    return;
+  }
+
+  const fallbackTitle = tLang(lang, 'warning.title');
+  const fallbackContent = tLang(lang, 'warning.content');
+  if (fallbackTitle) titleEl.textContent = fallbackTitle;
+  if (fallbackContent) contentEl.textContent = fallbackContent;
+  const fallbackImage = './picture/warning-no-secret-recording.jpg';
+  if (imgEl && mediaEl && fallbackImage) {
+    imgEl.src = resolveImgUrl(fallbackImage);
+    imgEl.alt = fallbackTitle || '禁止偷拍行為';
+    mediaEl.classList.remove('hidden');
+    mediaEl.setAttribute('aria-hidden', 'false');
+  }
 }
 
 // ── 圖片路徑解析（確保 GitHub Pages 正確載入）──
@@ -905,6 +958,7 @@ document.querySelectorAll('.diary-filter-btn').forEach(btn => {
     renderReviews(lang);
     renderDiary(lang);
     renderAbout(lang);
+    renderBookingNotice(lang);
   } catch (e) {
     console.error('initDynamicContent:', e);
   }

@@ -204,42 +204,20 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
-  <section class="about" id="about">
+  <!-- GALLERY (熱門出勤) -->
+  <section class="gallery-section hot" id="gallery">
     <div class="container">
-      <div class="about-inner">
-        <div class="about-img-side">
-          <div class="about-collage">
-            <div class="about-collage-col about-collage-left">
-              <div class="about-photo about-photo-small-top">
-                <img id="about-img-0" src="https://i.ibb.co/d0jHqV4k/yuyu-1.jpg" alt="悠悠生活照 1" loading="lazy">
-              </div>
-              <div class="about-photo about-photo-tall">
-                <img id="about-img-1" src="https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg" alt="悠悠生活照 2" loading="lazy">
-              </div>
-            </div>
-            <div class="about-collage-col about-collage-right">
-              <div class="about-photo about-photo-large">
-                <img id="about-img-2" src="https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg" alt="悠悠生活照 3" loading="lazy">
-              </div>
-              <div class="about-photo about-photo-small-bottom">
-                <img id="about-img-3" src="https://i.ibb.co/bTkVcn3/S-28147830-0.jpg" alt="悠悠生活照 4" loading="lazy">
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="about-text-side">
-          <span class="section-label" data-i18n="about.label">Profile</span>
-          <h2 class="section-title" style="text-align:left; margin-bottom:24px;" data-i18n="about.title">私について</h2>
-          <p id="about-p1">はじめまして、ゆうゆうと申します。台湾出身です。昔から日本の文化や礼儀作法に憧れていて、卒業を機に、ついに夢だった日本での生活をスタートさせました。</p>
-          <p id="about-p2">友人の紹介でこのお仕事を始めましたが、日本語はまだ勉強中です。翻訳アプリにも助けてもらいながら、一生懸命がんばっています。もし表現に不自然なところがあったら、やさしく教えてくれるとうれしいです。</p>
-          <div class="about-links">
-            <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="link-line">LINE</a>
-            <a href="https://t.me/tk6659" target="_blank" rel="noopener" class="link-telegram">Telegram</a>
-            <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="link-gleezy">Gleezy</a>
-          </div>
-        </div>
-      </div>
+      <span class="section-label" data-i18n="gallery.label">Lineup</span>
+      <div class="section-rule"><span class="section-rule-text" data-i18n="gallery.title">人気出勤</span></div>
+      <div class="gallery-grid hot" id="gallery-grid-dynamic"></div>
+      <p class="gallery-cta">
+        <span data-i18n="gallery.cta">更多美女請透過 LINE / Telegram 詢問</span>
+        <span class="gallery-cta-links">
+          <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="link-line">LINE</a>
+          <a href="https://t.me/tk6659" target="_blank" rel="noopener" class="link-telegram">Telegram</a>
+          <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="link-gleezy">Gleezy</a>
+        </span>
+      </p>
     </div>
   </section>
 
@@ -289,6 +267,29 @@
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BOOKING NOTICE (服務介紹與收費之間) -->
+  <section class="warning" id="booking-notice">
+    <div class="container">
+      <div class="warning-inner">
+        <figure class="warning-media" id="warning-media" aria-hidden="false">
+          <img id="warning-img" src="./picture/warning-no-secret-recording.jpg" alt="禁止偷拍行為" loading="lazy">
+        </figure>
+        <div class="warning-text">
+          <h3 id="warning-title" data-i18n="warning.title">⚠️ 約會時請務必特別注意：</h3>
+          <p id="warning-content" class="warning-content" data-i18n="warning.content">若有攜帶以下設備
+
+攝影、錄音或可疑拍攝設備，包含相機、手機支架、針孔攝影機、智慧眼鏡、智慧手錶、攝像筆...等專業拍攝設備  請大家提前收好或放入保險箱
+
+若女孩發現房內有未事先告知的拍攝設備，將一律視為偷拍行為處理並沒收拍攝器材
+
+只要被女孩發現無論是否有拍，將需支付 20 萬日圓賠償金，並可能終止本次服務。
+
+如您有拍攝需求，請務必在預約前提前告知，我們可協助事先確認女孩是否願意配合。感謝您的理解與配合。</p>
         </div>
       </div>
     </div>
@@ -379,23 +380,6 @@
     </div>
   </section>
 
-  <!-- GALLERY (熱門出勤) -->
-  <section class="gallery-section hot" id="gallery">
-    <div class="container">
-      <span class="section-label" data-i18n="gallery.label">Lineup</span>
-      <div class="section-rule"><span class="section-rule-text" data-i18n="gallery.title">人気出勤</span></div>
-      <div class="gallery-grid hot" id="gallery-grid-dynamic"></div>
-      <p class="gallery-cta">
-        <span data-i18n="gallery.cta">更多美女請透過 LINE / Telegram 詢問</span>
-        <span class="gallery-cta-links">
-          <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="link-line">LINE</a>
-          <a href="https://t.me/tk6659" target="_blank" rel="noopener" class="link-telegram">Telegram</a>
-          <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="link-gleezy">Gleezy</a>
-        </span>
-      </p>
-    </div>
-  </section>
-
   <!-- DIARY (日記・出勤情報) -->
   <section class="diary-section" id="diary">
     <div class="container">
@@ -460,20 +444,47 @@
     </div>
   </section>
 
-  <!-- WARNING -->
-  <section class="warning">
+  <!-- ABOUT (個人簡介 · 聯絡我們上方) -->
+  <section class="about" id="about">
     <div class="container">
-      <div class="warning-inner">
-        <div>
-          <h3 data-i18n="warning.title">⚠ 關於偷拍</h3>
-          <p data-i18n="warning.content">偷偷拍攝會讓女孩很受傷，日本法律對這方面非常嚴格。萬一被發現可能要支付50萬日元罰款，還會影響您以後的預約資格。只要提前溝通，很多小姐姐都會給出讓您滿意的方案～</p>
+      <div class="about-inner">
+        <div class="about-img-side">
+          <div class="about-collage">
+            <div class="about-collage-col about-collage-left">
+              <div class="about-photo about-photo-small-top">
+                <img id="about-img-0" src="https://i.ibb.co/d0jHqV4k/yuyu-1.jpg" alt="悠悠生活照 1" loading="lazy">
+              </div>
+              <div class="about-photo about-photo-tall">
+                <img id="about-img-1" src="https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg" alt="悠悠生活照 2" loading="lazy">
+              </div>
+            </div>
+            <div class="about-collage-col about-collage-right">
+              <div class="about-photo about-photo-large">
+                <img id="about-img-2" src="https://i.ibb.co/Gv90mv5x/photo-2025-06-03-16-32-54.jpg" alt="悠悠生活照 3" loading="lazy">
+              </div>
+              <div class="about-photo about-photo-small-bottom">
+                <img id="about-img-3" src="https://i.ibb.co/bTkVcn3/S-28147830-0.jpg" alt="悠悠生活照 4" loading="lazy">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="about-text-side">
+          <span class="section-label" data-i18n="about.label">Profile</span>
+          <h2 class="section-title" style="text-align:left; margin-bottom:24px;" data-i18n="about.title">私について</h2>
+          <p id="about-p1">はじめまして、ゆうゆうと申します。台湾出身です。昔から日本の文化や礼儀作法に憧れていて、卒業を機に、ついに夢だった日本での生活をスタートさせました。</p>
+          <p id="about-p2">友人の紹介でこのお仕事を始めましたが、日本語はまだ勉強中です。翻訳アプリにも助けてもらいながら、一生懸命がんばっています。もし表現に不自然なところがあったら、やさしく教えてくれるとうれしいです。</p>
+          <div class="about-links">
+            <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="link-line">LINE</a>
+            <a href="https://t.me/tk6659" target="_blank" rel="noopener" class="link-telegram">Telegram</a>
+            <a href="https://gleezy.net/qyitqw" target="_blank" rel="noopener" class="link-gleezy">Gleezy</a>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="cta-section">
+  <section class="cta-section" id="contact">
     <div class="container">
       <span class="section-label" style="color: var(--gold);" data-i18n="cta.label">Contact</span>
       <h2 data-i18n="cta.title">ご予約はこちら</h2>

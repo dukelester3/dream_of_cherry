@@ -21,7 +21,17 @@ const siteData = {
     "moreJa": "もっと見る →",
     "moreZh": "更多介紹 →",
     "moreEn": "Learn more →",
-    "linkUrl": "https://t.me/tk6659"
+    "linkUrl": "https://t.me/tk6659",
+    "visible": true
+  },
+  "warning": {
+    "image": "./picture/warning-no-secret-recording.jpg",
+    "titleZh": "⚠️ 約會時請務必特別注意：",
+    "titleJa": "⚠️ ご利用時の重要なお知らせ",
+    "titleEn": "⚠️ Important Notice for Your Appointment",
+    "contentZh": "若有攜帶以下設備\n\n攝影、錄音或可疑拍攝設備，包含相機、手機支架、針孔攝影機、智慧眼鏡、智慧手錶、攝像筆...等專業拍攝設備  請大家提前收好或放入保險箱\n\n若女孩發現房內有未事先告知的拍攝設備，將一律視為偷拍行為處理並沒收拍攝器材\n\n只要被女孩發現無論是否有拍，將需支付 20 萬日圓賠償金，並可能終止本次服務。\n\n如您有拍攝需求，請務必在預約前提前告知，我們可協助事先確認女孩是否願意配合。感謝您的理解與配合。",
+    "contentJa": "以下の機器をお持ちの場合\n\n撮影・録音・不審な撮影機器（カメラ、スマホ用三脚、盗撮カメラ、スマートグラス、スマートウォッチ、ボイスレコーダー等の専門撮影機器）は、事前に片付けるかセーフティボックスに入れてください。\n\n事前のご連絡なく室内に撮影機器があると判明した場合、盗撮行為とみなし機器を没収します。\n\n女性に発見された場合、撮影の有無にかかわらず20万円の賠償金をお支払いいただき、サービスを中断する場合があります。\n\n撮影をご希望の場合は、必ず事前予約時にお知らせください。女性の了承可否を事前に確認いたします。ご理解とご協力をお願いいたします。",
+    "contentEn": "If you bring any of the following devices\n\nCameras, audio recorders, or suspicious recording equipment—including cameras, phone mounts, hidden cameras, smart glasses, smart watches, pen recorders, and similar professional recording gear—please store them away or put them in the safe before the session.\n\nIf recording equipment is found in the room without prior notice, it will be treated as secret recording and confiscated.\n\nIf the lady discovers it, whether or not anything was recorded, a compensation fee of 200,000 JPY applies and the session may be terminated.\n\nIf you wish to take photos or videos, please inform us when booking so we can confirm with the lady in advance. Thank you for your understanding and cooperation."
   },
   "girls": [
     {

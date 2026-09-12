@@ -126,7 +126,21 @@ const DEFAULT_ABOUT = {
   p2Zh: '目前通過朋友介紹從事這份工作。',
   p2En: "I started this work through a friend's introduction.",
   moreJa: 'もっと見る →', moreZh: '更多介紹 →', moreEn: 'Learn more →',
-  linkUrl: 'https://t.me/tk6659'
+  linkUrl: 'https://t.me/tk6659',
+  visible: true
+};
+
+const DEFAULT_WARNING = {
+  image: './picture/warning-no-secret-recording.jpg',
+  titleZh: '⚠️ 約會時請務必特別注意：',
+  titleJa: '⚠️ ご利用時の重要なお知らせ',
+  titleEn: '⚠️ Important Notice for Your Appointment',
+  contentZh:
+    '若有攜帶以下設備\n\n攝影、錄音或可疑拍攝設備，包含相機、手機支架、針孔攝影機、智慧眼鏡、智慧手錶、攝像筆...等專業拍攝設備  請大家提前收好或放入保險箱\n\n若女孩發現房內有未事先告知的拍攝設備，將一律視為偷拍行為處理並沒收拍攝器材\n\n只要被女孩發現無論是否有拍，將需支付 20 萬日圓賠償金，並可能終止本次服務。\n\n如您有拍攝需求，請務必在預約前提前告知，我們可協助事先確認女孩是否願意配合。感謝您的理解與配合。',
+  contentJa:
+    '以下の機器をお持ちの場合\n\n撮影・録音・不審な撮影機器（カメラ、スマホ用三脚、盗撮カメラ、スマートグラス、スマートウォッチ、ボイスレコーダー等の専門撮影機器）は、事前に片付けるかセーフティボックスに入れてください。\n\n事前のご連絡なく室内に撮影機器があると判明した場合、盗撮行為とみなし機器を没収します。\n\n女性に発見された場合、撮影の有無にかかわらず20万円の賠償金をお支払いいただき、サービスを中断する場合があります。\n\n撮影をご希望の場合は、必ず事前予約時にお知らせください。女性の了承可否を事前に確認いたします。ご理解とご協力をお願いいたします。',
+  contentEn:
+    'If you bring any of the following devices\n\nCameras, audio recorders, or suspicious recording equipment—including cameras, phone mounts, hidden cameras, smart glasses, smart watches, pen recorders, and similar professional recording gear—please store them away or put them in the safe before the session.\n\nIf recording equipment is found in the room without prior notice, it will be treated as secret recording and confiscated.\n\nIf the lady discovers it, whether or not anything was recorded, a compensation fee of 200,000 JPY applies and the session may be terminated.\n\nIf you wish to take photos or videos, please inform us when booking so we can confirm with the lady in advance. Thank you for your understanding and cooperation.'
 };
 
 const SSS = 's'.repeat(3);
@@ -686,6 +700,15 @@ function savePricing() {
   adminData.pricingTransport = pt;
 }
 
+function ensureWarningAdmin() {
+  if (!adminData) return;
+  if (!adminData.warning || typeof adminData.warning !== 'object') {
+    adminData.warning = siteData?.warning
+      ? JSON.parse(JSON.stringify(siteData.warning))
+      : JSON.parse(JSON.stringify(DEFAULT_WARNING));
+  }
+}
+
 function loadData() {
   const saved = localStorage.getItem(STORAGE_KEY);
   if (saved) {
@@ -696,6 +719,7 @@ function loadData() {
     adminData = { girls: [], reviews: [], diary: [] };
   }
   if (!adminData.about) adminData.about = (siteData?.about ? { ...siteData.about } : { ...DEFAULT_ABOUT });
+  ensureWarningAdmin();
   if (adminData.bangouSkipSpec === undefined) {
     adminData.bangouSkipSpec = (typeof siteData !== 'undefined' && siteData.bangouSkipSpec != null)
       ? String(siteData.bangouSkipSpec)
@@ -894,6 +918,9 @@ function mergeTwoData(dataA, dataB) {
   if (dataB.about) {
     const photoSet = new Set([...(dataA.about?.photos || []), ...(dataB.about?.photos || [])]);
     merged.about = { ...dataA.about, ...dataB.about, photos: [...photoSet] };
+  }
+  if (dataA.warning || dataB.warning) {
+    merged.warning = { ...(dataB.warning || {}), ...(dataA.warning || {}) };
   }
   if (dataA.pricing || dataB.pricing) {
     const pr = {};
@@ -1121,6 +1148,7 @@ function setupTabs() {
     renderDiaryTable();
   });
   document.getElementById('edit-about-btn')?.addEventListener('click', () => openModal('about', 0));
+  document.getElementById('edit-warning-btn')?.addEventListener('click', () => openModal('warning', 0));
   document.getElementById('edit-pricing-btn')?.addEventListener('click', () => openModal('pricing', null));
   document.getElementById('export-btn').addEventListener('click', generateExport);
   document.getElementById('save-imgbb-btn')?.addEventListener('click', saveImgbbKey);
@@ -1659,6 +1687,9 @@ function openModal(type, id) {
     const photos = a.photos || [...DEFAULT_ABOUT.photos];
     const ph = (i) => (photos[i] || '').replace(/"/g, '&quot;');
     body.innerHTML = `
+      <div class="form-group">
+        <label class="checkbox-label"><input type="checkbox" id="f-about-visible" ${a.visible !== false ? 'checked' : ''}> 在首頁顯示「個人簡介」區塊（位於聯絡我們上方）</label>
+      </div>
       <div class="form-group"><label>照片 1（左上小圖）</label>
         <div class="img-upload-box" data-target="f-about-photo-0">
           <label class="img-slot-watermark-wrap"><input type="checkbox" class="img-slot-watermark" checked> 此張加水印</label>
@@ -1707,6 +1738,28 @@ function openModal(type, id) {
       </div>
       <div class="form-group"><label>連結文字(英)</label><input id="f-about-moreEn" value="${(a.moreEn||'').replace(/"/g,'&quot;')}"></div>
       <div class="form-group"><label>連結網址</label><input id="f-about-linkUrl" value="${(a.linkUrl||'').replace(/"/g,'&quot;')}" placeholder="https://t.me/..."></div>
+    `;
+  } else if (type === 'warning') {
+    ensureWarningAdmin();
+    title.textContent = '編輯約會提醒';
+    const w = adminData.warning || DEFAULT_WARNING;
+    const imgUrl = (w.image || '').replace(/"/g, '&quot;');
+    body.innerHTML = `
+      <p class="form-hint">顯示於首頁「服務介紹」與「收費」之間。內文支援換行；選填圖片會顯示在文字右側（手機版在下方）。</p>
+      <div class="form-group"><label>標題(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><input id="f-warning-titleZh" value="${escapeHtml(w.titleZh || '')}" style="flex:1"><button type="button" class="btn-translate-all" data-ja="f-warning-titleJa" data-zh="f-warning-titleZh" data-en="f-warning-titleEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>標題(日)</label><input id="f-warning-titleJa" value="${escapeHtml(w.titleJa || '')}"></div>
+      <div class="form-group"><label>標題(英)</label><input id="f-warning-titleEn" value="${escapeHtml(w.titleEn || '')}"></div>
+      <div class="form-group"><label>內容(中)（必填，填寫後點「翻譯」自動產生日英文）</label><div class="input-row"><textarea id="f-warning-contentZh" style="min-height:160px;flex:1">${escapeHtml(w.contentZh || '')}</textarea><button type="button" class="btn-translate-all" data-ja="f-warning-contentJa" data-zh="f-warning-contentZh" data-en="f-warning-contentEn" data-zh-only="true">翻譯到日英</button></div></div>
+      <div class="form-group"><label>內容(日)</label><textarea id="f-warning-contentJa" style="min-height:160px">${escapeHtml(w.contentJa || '')}</textarea></div>
+      <div class="form-group"><label>內容(英)</label><textarea id="f-warning-contentEn" style="min-height:160px">${escapeHtml(w.contentEn || '')}</textarea></div>
+      <div class="form-group"><label>提醒圖片（選填）</label>
+        <div class="img-upload-box" data-target="f-warning-image">
+          <label class="img-upload-area" for="f-warning-image-file"><span class="img-upload-icon">📷</span><span class="img-upload-text">上傳或拖曳</span></label>
+          <input type="file" id="f-warning-image-file" accept="image/*" class="img-file-input">
+          <div class="img-upload-preview" id="f-warning-image-preview"></div>
+          <input id="f-warning-image" value="${imgUrl}" class="img-url-input" placeholder="圖片網址（上傳後自動填入）">
+        </div>
+      </div>
     `;
   } else if (type === 'diary') {
     title.textContent = id ? '編輯日記' : '新增日記';
@@ -1880,6 +1933,7 @@ function saveModal() {
   if (editingType === 'review') saveReview();
   if (editingType === 'diary') saveDiary();
   if (editingType === 'about') saveAbout();
+  if (editingType === 'warning') saveWarning();
   if (editingType === 'pricing') savePricing();
   saveData();
   renderAll();
@@ -2000,6 +2054,18 @@ function saveDiary() {
   }
 }
 
+function saveWarning() {
+  adminData.warning = {
+    image: document.getElementById('f-warning-image')?.value?.trim() || '',
+    titleZh: document.getElementById('f-warning-titleZh')?.value?.trim() || '',
+    titleJa: document.getElementById('f-warning-titleJa')?.value?.trim() || '',
+    titleEn: document.getElementById('f-warning-titleEn')?.value?.trim() || '',
+    contentZh: document.getElementById('f-warning-contentZh')?.value?.trim() || '',
+    contentJa: document.getElementById('f-warning-contentJa')?.value?.trim() || '',
+    contentEn: document.getElementById('f-warning-contentEn')?.value?.trim() || ''
+  };
+}
+
 function saveAbout() {
   adminData.about = {
     photos: [
@@ -2017,7 +2083,8 @@ function saveAbout() {
     moreJa: document.getElementById('f-about-moreJa')?.value?.trim() || 'もっと見る →',
     moreZh: document.getElementById('f-about-moreZh')?.value?.trim() || '更多介紹 →',
     moreEn: document.getElementById('f-about-moreEn')?.value?.trim() || 'Learn more →',
-    linkUrl: document.getElementById('f-about-linkUrl')?.value?.trim() || 'https://t.me/tk6659'
+    linkUrl: document.getElementById('f-about-linkUrl')?.value?.trim() || 'https://t.me/tk6659',
+    visible: document.getElementById('f-about-visible')?.checked !== false
   };
 }
 

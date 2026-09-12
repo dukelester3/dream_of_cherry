@@ -41,6 +41,7 @@
         <button class="admin-nav-btn" data-tab="diary">📔 日記管理</button>
       <button class="admin-nav-btn" data-tab="pricing">💴 收費／價格</button>
         <button class="admin-nav-btn" data-tab="about">👤 個人簡介</button>
+        <button class="admin-nav-btn" data-tab="warning">⚠️ 約會提醒</button>
         <button class="admin-nav-btn" data-tab="export">📦 匯出資料</button>
         <button class="admin-nav-btn" data-tab="watermark">🖼️ 浮水印工具</button>
         <button class="admin-nav-btn" data-tab="settings">⚙️ 設定</button>
@@ -121,8 +122,17 @@
       <div class="admin-tab hidden" id="tab-about">
         <div class="tab-header"><h1>個人簡介</h1></div>
         <div class="export-section">
-          <p class="export-desc">編輯首頁「關於悠悠」區塊的照片與文字。儲存後點左側「返回網站（預覽）」即時查看；正式發布請至「匯出資料」生成 data.js 並推送到 GitHub。</p>
+          <p class="export-desc">編輯首頁「個人簡介」區塊（位於聯絡我們上方）的照片與文字；可勾選關閉整段顯示。儲存後點「返回網站（預覽）」查看；正式發布請發布 data.js。</p>
           <button type="button" class="btn-admin-primary" id="edit-about-btn">編輯個人簡介</button>
+        </div>
+      </div>
+
+      <!-- BOOKING NOTICE TAB -->
+      <div class="admin-tab hidden" id="tab-warning">
+        <div class="tab-header"><h1>約會提醒</h1></div>
+        <div class="export-section">
+          <p class="export-desc">編輯首頁「服務介紹」與「收費」之間的約會注意事項（標題、內文三語、選填圖片）。儲存後預覽；正式上線請發布 data.js。</p>
+          <button type="button" class="btn-admin-primary" id="edit-warning-btn">編輯約會提醒</button>
         </div>
       </div>
 
