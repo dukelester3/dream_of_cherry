@@ -1344,21 +1344,30 @@ section { padding: 96px 0; }
 .warning-media {
   flex: 0 0 auto;
   margin: 0;
-  max-width: min(100%, 360px);
-  width: min(100%, 360px);
+  max-width: min(100%, 240px);
+  width: min(100%, 240px);
 }
 .warning-media img {
   display: block;
   width: 100%;
   height: auto;
+  max-height: min(320px, 42vh);
+  object-fit: contain;
   border-radius: 8px;
   border: 1px solid rgba(192, 154, 69, 0.35);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
 }
 .warning-media.hidden { display: none; }
 @media (max-width: 720px) {
-  .warning-inner { flex-direction: column; }
-  .warning-media { max-width: 100%; }
+  .warning-inner { flex-direction: column; align-items: center; }
+  .warning-text { width: 100%; order: 1; }
+  .warning-media {
+    order: 2;
+    max-width: min(88vw, 220px);
+    width: min(88vw, 220px);
+    margin: 16px auto 0;
+  }
+  .warning-media img { max-height: min(280px, 38vh); }
 }
 
 /* ── CTA SECTION ── */
