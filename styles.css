@@ -365,7 +365,7 @@ html:not([data-theme]) .theme-icon-moon { display: inline; }
   position: absolute;
   bottom: 0; left: 0; right: 0;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
 }
 .hero-tab-btn {
   padding: 18px 12px;
@@ -1971,9 +1971,40 @@ section { padding: 96px 0; }
   .footer-grid { grid-template-columns: 1fr; gap: 24px; }
   .footer-bottom { flex-direction: column; gap: 8px; }
 
-  section { padding: 64px 0; }
-  .hero-tab-strip { grid-template-columns: 1fr 1fr 1fr 1fr; }
-  .hero-tab-btn { font-size: 0.78rem; padding: 14px 6px; }
+  section { padding: 56px 0; }
+  .container { padding: 0 18px; }
+
+  .hero-tab-strip { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  .hero-tab-btn { font-size: 0.62rem; padding: 12px 4px; letter-spacing: 0.06em; line-height: 1.25; }
+
+  .cta-section-promo { padding: 40px 0; }
+  .cta-section-promo h2 { font-size: 1.65rem; line-height: 1.35; }
+  .cta-section-promo .cta-buttons {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 300px;
+    margin: 28px auto 0;
+    gap: 10px;
+  }
+  .cta-section-promo .btn-lg { width: 100%; justify-content: center; }
+
+  .warning-content { font-size: 0.92rem; line-height: 1.75; }
+  .warning h3 { font-size: 0.88rem; }
+  .booking-note, .steps .step { font-size: 0.92rem; line-height: 1.65; }
+
+  .diary-filter {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    margin-bottom: 28px;
+  }
+  .diary-filter::-webkit-scrollbar { display: none; }
+  .diary-filter-btn { flex-shrink: 0; padding: 10px 14px; font-size: 0.68rem; }
+
+  .diary-title { font-size: 1.05rem; line-height: 1.45; }
+  .diary-excerpt { font-size: 0.9rem; line-height: 1.65; }
 
   .diary-grid { grid-template-columns: 1fr; }
   .diary-modal { padding: 12px; }

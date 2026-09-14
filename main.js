@@ -557,7 +557,7 @@ document.querySelectorAll('.section-tab')?.forEach(tab => {
 });
 
 // ── Scroll Spy ──
-const spySections = ['gallery', 'services', 'pricing', 'booking', 'reviews'];
+const spySections = ['gallery', 'diary', 'services', 'pricing', 'booking', 'reviews', 'contact'];
 const navLinks = document.querySelectorAll('.nav-center-link');
 
 const spyObserver = new IntersectionObserver(entries => {
@@ -941,6 +941,19 @@ function closeDiaryModal() {
   document.body.style.overflow = '';
 }
 
+function activateDiaryCheckinFilter() {
+  const btn = document.querySelector('.diary-filter-btn[data-cat="出勤情報"]');
+  if (!btn || btn.classList.contains('active')) return;
+  btn.click();
+}
+
+document.querySelectorAll('.diary-jump-checkin').forEach((link) => {
+  link.addEventListener('click', () => {
+    window.setTimeout(activateDiaryCheckinFilter, 0);
+    window.setTimeout(activateDiaryCheckinFilter, 120);
+  });
+});
+
 document.querySelectorAll('.diary-filter-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.diary-filter-btn').forEach(b => b.classList.remove('active'));
@@ -948,6 +961,13 @@ document.querySelectorAll('.diary-filter-btn').forEach(btn => {
     const lang = localStorage.getItem('yuyu-lang') || 'ja';
     renderDiary(lang, btn.dataset.cat, 1);
   });
+});
+
+if (location.hash === '#diary') {
+  window.setTimeout(activateDiaryCheckinFilter, 200);
+}
+window.addEventListener('hashchange', () => {
+  if (location.hash === '#diary') activateDiaryCheckinFilter();
 });
 
 // ── Initial Render ──
