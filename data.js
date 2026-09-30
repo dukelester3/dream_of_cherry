@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/9/29 下午1:24:52
+// Generated: 2026/9/30 下午2:34:12
 
 const siteData = {
   "about": {
@@ -312,6 +312,110 @@ const siteData = {
     955
   ],
   "diary": [
+    {
+      "id": 974,
+      "titleJa": "番号8304",
+      "titleZh": "番號8304",
+      "titleEn": "No. 8304",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery (All Nationalities Welcome)",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested in a girl? Please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.30",
+      "createdAt": "2026.9.30 14:32:25",
+      "images": [
+        "https://i.ibb.co/mr2xvdnj/photo-2026-08-13-13-56-30.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/mr2xvdnj/photo-2026-08-13-13-56-30.jpg",
+      "stats": {
+        "height": 161,
+        "cup": "E",
+        "age": 23,
+        "weight": 44
+      },
+      "published": true
+    },
+    {
+      "id": 973,
+      "titleJa": "番号8303",
+      "titleZh": "番號8303",
+      "titleEn": "No. 8303",
+      "excerpt": "夜桜の夢 日本高級デリバリー【國籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Premium Japanese Delivery [Open to all nationalities]",
+      "contentJa": "気になる女の子は店長にご注文ください。\nGleezy：jp5560｜Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested girls, please contact the store manager to place an order.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.30",
+      "createdAt": "2026.9.30 14:29:30",
+      "images": [
+        "https://i.ibb.co/bRMYLQSW/photo-2026-08-13-13-55-11.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/bRMYLQSW/photo-2026-08-13-13-55-11.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "D",
+        "age": 22,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 972,
+      "titleJa": "番号8302",
+      "titleZh": "番號8302",
+      "titleEn": "No. 8302",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Yozakura Dream: Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子のご注文は店長まで。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested girls, please place your order with the store manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.30",
+      "createdAt": "2026.9.30 14:27:17",
+      "images": [
+        "https://i.ibb.co/hxJNx9Bp/photo-2026-08-13-13-53-17.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/hxJNx9Bp/photo-2026-08-13-13-53-17.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "E",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 971,
+      "titleJa": "番号8301",
+      "titleZh": "番號8301",
+      "titleEn": "No. 8301",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Dream of Night Cherry Blossoms Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 ｜ Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.9.30",
+      "createdAt": "2026.9.30 14:26:12",
+      "images": [
+        "https://i.ibb.co/B5XhwJZr/photo-2026-08-13-13-51-20.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/B5XhwJZr/photo-2026-08-13-13-51-20.jpg",
+      "stats": {
+        "height": 155,
+        "cup": "D",
+        "age": 20,
+        "weight": 42
+      },
+      "published": true
+    },
     {
       "id": 970,
       "titleJa": "番号8300",
