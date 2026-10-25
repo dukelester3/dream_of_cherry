@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/10/25 下午6:20:35
+// Generated: 2026/10/25 下午6:27:31
 
 const siteData = {
   "about": {
@@ -312,6 +312,110 @@ const siteData = {
     955
   ],
   "diary": [
+    {
+      "id": 1023,
+      "titleJa": "番号8353",
+      "titleZh": "番號8353",
+      "titleEn": "No. 8353",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place an order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.10.25",
+      "createdAt": "2026.10.25 18:25:32",
+      "images": [
+        "https://i.ibb.co/MyyLZ0w0/photo-2026-08-30-12-09-43.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/MyyLZ0w0/photo-2026-08-30-12-09-43.jpg",
+      "stats": {
+        "height": 158,
+        "cup": "E",
+        "age": 25,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 1022,
+      "titleJa": "番号8352",
+      "titleZh": "番號8352",
+      "titleEn": "No. 8352",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "If you like a girl, please order from the store manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.10.25",
+      "createdAt": "2026.10.25 18:24:25",
+      "images": [
+        "https://i.ibb.co/pj7JbqbT/photo-2026-08-30-12-07-05.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/pj7JbqbT/photo-2026-08-30-12-07-05.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "F",
+        "age": 24,
+        "weight": 51
+      },
+      "published": true
+    },
+    {
+      "id": 1021,
+      "titleJa": "番号8351",
+      "titleZh": "番號8351",
+      "titleEn": "No. 8351",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream - Premium Japanese Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長にご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you have in mind, please place your order with the manager\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.10.25",
+      "createdAt": "2026.10.25 18:22:02",
+      "images": [
+        "https://i.ibb.co/tTMCdrvQ/photo-2026-08-27-15-08-13.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/tTMCdrvQ/photo-2026-08-27-15-08-13.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "F",
+        "age": 24,
+        "weight": 45
+      },
+      "published": true
+    },
+    {
+      "id": 1020,
+      "titleJa": "番号8350",
+      "titleZh": "番號8350",
+      "titleEn": "No. 8350",
+      "excerpt": "夜桜の夢 日本 高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "",
+      "category": "出勤情報",
+      "date": "2026.10.25",
+      "createdAt": "2026.10.25 18:21:05",
+      "images": [
+        "https://i.ibb.co/pBNjkq2r/photo-2026-08-27-15-06-22.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/pBNjkq2r/photo-2026-08-27-15-06-22.jpg",
+      "stats": {
+        "height": 155,
+        "cup": "D",
+        "age": 19,
+        "weight": 41
+      },
+      "published": true
+    },
     {
       "id": 1019,
       "titleJa": "番号8349",
