@@ -1,9 +1,13 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/10/28 下午8:01:09
+// Generated: 2026/10/30 下午2:38:43
 
 const siteData = {
   "about": {
     "photos": [
+      "https://i.ibb.co/3PMpM6p/1040g2sg31deg53ovh67g49vmksgkd2nvdj8vbn0.jpg",
+      "https://i.ibb.co/GQNBsCkQ/im2025-11-29-4-5.jpg",
+      "https://i.ibb.co/yF8kYDmg/image-1114.jpg",
+      "https://i.ibb.co/z3b9K6Z/image-89.jpg",
       "https://i.ibb.co/Q3zXpzBx/b9mage-4.jpg",
       "https://i.ibb.co/mFgWKSxj/S-28147831-0.jpg",
       "https://i.ibb.co/JWxz2kK5/image-5-1.jpg",
