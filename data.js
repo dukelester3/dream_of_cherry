@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/8 下午4:00:11
+// Generated: 2026/11/8 下午4:07:26
 
 const siteData = {
   "about": {
@@ -317,6 +317,58 @@ const siteData = {
   ],
   "diary": [
     {
+      "id": 1041,
+      "titleJa": "番号8371",
+      "titleZh": "番號8371",
+      "titleEn": "No. 8371",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Dream of Night Cherry Blossoms Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "If there's a girl you're interested in, please contact the manager to place an order.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.8",
+      "createdAt": "2026.11.8 16:06:30",
+      "images": [
+        "https://i.ibb.co/4wm0P0cP/photo-2026-09-04-13-33-25.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/4wm0P0cP/photo-2026-09-04-13-33-25.jpg",
+      "stats": {
+        "height": 163,
+        "cup": "D",
+        "age": 23,
+        "weight": 42
+      },
+      "published": true
+    },
+    {
+      "id": 1040,
+      "titleJa": "番号8370",
+      "titleZh": "番號8370",
+      "titleEn": "No. 8370",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Premium Delivery [No Nationality Restrictions]",
+      "contentJa": "気になる女の子がいれば、店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.8",
+      "createdAt": "2026.11.8 16:02:36",
+      "images": [
+        "https://i.ibb.co/R4MbKCsn/photo-2026-09-04-13-31-48.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/R4MbKCsn/photo-2026-09-04-13-31-48.jpg",
+      "stats": {
+        "height": 162,
+        "cup": "D",
+        "age": 24,
+        "weight": 40
+      },
+      "published": true
+    },
+    {
       "id": 1039,
       "titleJa": "番号8369",
       "titleZh": "番號8369",
@@ -330,6 +382,10 @@ const siteData = {
       "category": "出勤情報",
       "date": "2026.11.8",
       "createdAt": "2026.11.8 15:59:12",
+      "images": [
+        "https://i.ibb.co/vvsZM4d1/photo-2026-09-04-13-30-19.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/vvsZM4d1/photo-2026-09-04-13-30-19.jpg",
       "stats": {
         "height": 156,
         "cup": "E",
