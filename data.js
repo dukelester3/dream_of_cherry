@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/12 下午3:23:42
+// Generated: 2026/11/12 下午3:26:51
 
 const siteData = {
   "about": {
@@ -230,6 +230,20 @@ const siteData = {
   ],
   "reviews": [
     {
+      "id": 9,
+      "titleJa": "#レッドカードその1 番号3767",
+      "titleZh": "#紅牌之一  番號3767",
+      "titleEn": "#OneOfTheRedCards Item No. 3767",
+      "contentJa": "#人気サービスの一つ\nUUに大切な信頼をお寄せいただき、誠にありがとうございます。\nUUはこの信頼に必ずお応えいたします。\n今回のデートが、あなたの旅路の中で一番甘い思い出となりますように💕",
+      "contentZh": "#紅牌之一\n謝謝你願意把寶貴的信任交給 UU \n這份信任 UU不會辜負✨\n希望這次的約會 也成為你旅途中最甜的一段回憶💕",
+      "contentEn": "#APremiumExperience\nThank you for entrusting your precious trust to UU.\nWe will not let this trust down ✨\nMay this date also become the sweetest memory of your journey 💕",
+      "girlName": "",
+      "date": "",
+      "featured": true,
+      "rating": 5,
+      "image": "https://i.ibb.co/RGjBwPXH/photo-2025-07-01-15-08-31.jpg"
+    },
+    {
       "id": 8,
       "titleJa": "ロリのフィードバック来たぞ！！！品番3783",
       "titleZh": "蘿莉反饋來啦！！！番號3783",
@@ -239,7 +253,7 @@ const siteData = {
       "contentEn": "Guys who like cute things should get this!\nI do this part-time myself. #RealPhotos",
       "girlName": "",
       "date": "",
-      "featured": false,
+      "featured": true,
       "rating": 5,
       "image": "https://i.ibb.co/BHwS98wQ/photo-2025-06-30-23-22-29.jpg"
     },
