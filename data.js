@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/12 下午2:55:03
+// Generated: 2026/11/12 下午2:55:51
 
 const siteData = {
   "about": {
@@ -229,48 +229,6 @@ const siteData = {
     }
   ],
   "reviews": [
-    {
-      "id": 9,
-      "titleJa": "#レッドカードの一つ",
-      "titleZh": "#紅牌之一",
-      "titleEn": "One of the red cards",
-      "contentJa": "UUに大切な信頼を寄せてくださり、ありがとうございます。\nその信頼にUUは必ず応えます。\n今回のデートが、あなたの旅路の中で最高に甘い思い出となることを願っています。",
-      "contentZh": "謝謝你願意把寶貴的信任交給 UU \n這份信任 UU不會辜負✨\n希望這次的約會 也成為你旅途中最甜的一段回憶💕",
-      "contentEn": "Thank you for entrusting your valuable trust to UU.\nUU will not let this trust down.\nWe hope this date also becomes the sweetest memory along your journey.",
-      "girlName": "",
-      "date": "",
-      "featured": false,
-      "rating": 5,
-      "image": "https://i.ibb.co/RGjBwPXH/photo-2025-07-01-15-08-31.jpg"
-    },
-    {
-      "id": 8,
-      "titleJa": "ロリフィードバック来たー！",
-      "titleZh": "蘿莉反饋來啦！！！",
-      "titleEn": "Loli feedback is here!!!",
-      "contentJa": "可愛い系がお好きなお兄さん、ぜひどうぞ！\n全て本人による副業です。写真は全て本物です。",
-      "contentZh": "喜歡可愛系列的哥哥可以入手喔\n都是本人兼職 #無假照",
-      "contentEn": "For guys who like cute styles, you can get them! I do all of this part-time, #NoFakePhotos",
-      "girlName": "",
-      "date": "",
-      "featured": false,
-      "rating": 5,
-      "image": "https://i.ibb.co/DPPNPqCt/photo-2025-06-30-23-22-29.jpg"
-    },
-    {
-      "id": 7,
-      "titleJa": "ご信頼いただきありがとうございます。",
-      "titleZh": "#謝謝信任UU",
-      "titleEn": "Thanks for your trust, UU.",
-      "contentJa": "お兄さん、友達を紹介してくれて本当にありがとう！\nおかげさまで、あなたの推薦を無駄にせずに済んだし、お友達にもがっかりさせずに済んだみたいだよ😉",
-      "contentZh": "真的非常感謝哥哥介紹朋友過來～\n幸好沒有辜負你的推薦\n也沒有讓你朋友失望😉",
-      "contentEn": "Thank you so much, brother, for introducing your friend. Fortunately, I lived up to your recommendation and didn't disappoint your friend.",
-      "girlName": "",
-      "date": "",
-      "featured": false,
-      "rating": 5,
-      "image": "https://i.ibb.co/yc1d50Vb/photo-2025-06-30-22-35-25.jpg"
-    },
     {
       "id": 6,
       "titleJa": "🍒 お兄さん、初めてのコラボを評価してくださり、ありがとうございます。",
