@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/12 下午2:55:51
+// Generated: 2026/11/12 下午3:16:47
 
 const siteData = {
   "about": {
@@ -229,6 +229,20 @@ const siteData = {
     }
   ],
   "reviews": [
+    {
+      "id": 7,
+      "titleJa": "悠悠さん、信頼ありがとうございます。",
+      "titleZh": "#謝謝信任悠悠",
+      "titleEn": "Thanks for trusting Youyou",
+      "contentJa": "お兄さん、友達を紹介してくれて本当にありがとうございます！\n幸い、あなたの推薦を無駄にすることなく、お友達にも喜んでいただけたようで良かったです😉",
+      "contentZh": "真的非常感謝哥哥介紹朋友過來～\n幸好沒有辜負你的推薦\n也沒有讓你朋友失望😉",
+      "contentEn": "I'm really grateful to you, brother, for introducing your friend. Fortunately, I didn't let your recommendation down, and didn't disappoint your friend either.",
+      "girlName": "",
+      "date": "",
+      "featured": true,
+      "rating": 5,
+      "image": "https://i.ibb.co/yc1d50Vb/photo-2025-06-30-22-35-25.jpg"
+    },
     {
       "id": 6,
       "titleJa": "🍒 お兄さん、初めてのコラボを評価してくださり、ありがとうございます。",
