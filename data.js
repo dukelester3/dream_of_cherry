@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/12 下午3:16:47
+// Generated: 2026/11/12 下午3:23:42
 
 const siteData = {
   "about": {
@@ -229,6 +229,20 @@ const siteData = {
     }
   ],
   "reviews": [
+    {
+      "id": 8,
+      "titleJa": "ロリのフィードバック来たぞ！！！品番3783",
+      "titleZh": "蘿莉反饋來啦！！！番號3783",
+      "titleEn": "Loli feedback is here!!! Code 3783",
+      "contentJa": "可愛いものが好きな男性の方、ぜひどうぞ！\n兼業で、写真は全て本人です。偽造写真ではありません。",
+      "contentZh": "喜歡可愛系列的哥哥可以入手喔\n都是本人兼職 #無假照",
+      "contentEn": "Guys who like cute things should get this!\nI do this part-time myself. #RealPhotos",
+      "girlName": "",
+      "date": "",
+      "featured": false,
+      "rating": 5,
+      "image": "https://i.ibb.co/BHwS98wQ/photo-2025-06-30-23-22-29.jpg"
+    },
     {
       "id": 7,
       "titleJa": "悠悠さん、信頼ありがとうございます。",
