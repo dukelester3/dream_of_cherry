@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/12 下午2:18:06
+// Generated: 2026/11/12 下午2:41:37
 
 const siteData = {
   "about": {
@@ -316,6 +316,84 @@ const siteData = {
     955
   ],
   "diary": [
+    {
+      "id": 1056,
+      "titleJa": "番号8386",
+      "titleZh": "番號8386",
+      "titleEn": "No. 8386",
+      "excerpt": "夜桜の夢 日本高級宅配【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place an order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.12",
+      "createdAt": "2026.11.12 14:40:23",
+      "images": [
+        "https://i.ibb.co/99Ttv5d7/photo-2026-09-11-13-34-04.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/99Ttv5d7/photo-2026-09-11-13-34-04.jpg",
+      "stats": {
+        "height": 153,
+        "cup": "D",
+        "age": 21,
+        "weight": 42
+      },
+      "published": true
+    },
+    {
+      "id": 1055,
+      "titleJa": "番号8385",
+      "titleZh": "番號8385",
+      "titleEn": "No. 8385",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Premium Delivery [No Nationality Restrictions]",
+      "contentJa": "気になる女の子は店長までご注文ください\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.12",
+      "createdAt": "2026.11.12 14:39:20",
+      "images": [
+        "https://i.ibb.co/HmZHBct/photo-2026-09-11-13-31-49.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/HmZHBct/photo-2026-09-11-13-31-49.jpg",
+      "stats": {
+        "height": 160,
+        "cup": "D",
+        "age": 24,
+        "weight": 43
+      },
+      "published": true
+    },
+    {
+      "id": 1054,
+      "titleJa": "番号8384",
+      "titleZh": "番號8384",
+      "titleEn": "No. 8384",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japanese Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長にご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "If you're interested in a girl, please place an order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.12",
+      "createdAt": "2026.11.12 14:36:58",
+      "images": [
+        "https://i.ibb.co/1VwBJGb/photo-2026-09-09-12-42-56.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/1VwBJGb/photo-2026-09-09-12-42-56.jpg",
+      "stats": {
+        "height": 166,
+        "cup": "E",
+        "age": 24,
+        "weight": 46
+      },
+      "published": true
+    },
     {
       "id": 1053,
       "titleJa": "番号8383",
