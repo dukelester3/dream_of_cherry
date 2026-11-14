@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/14 下午4:35:34
+// Generated: 2026/11/14 下午4:41:07
 
 const siteData = {
   "about": {
@@ -27869,7 +27869,7 @@ const siteData = {
       "published": true
     }
   ],
-  "bangouSkipSpec": "7201-7499",
+  "bangouSkipSpec": "3000-9000",
   "pricingTiers": {
     "osaka": [
       {
