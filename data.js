@@ -1,5 +1,5 @@
 // ===== 夜桜の夢 — Site Content Database =====
-// Generated: 2026/11/14 下午4:19:23
+// Generated: 2026/11/14 下午4:25:43
 
 const siteData = {
   "about": {
@@ -358,6 +358,110 @@ const siteData = {
     955
   ],
   "diary": [
+    {
+      "id": 1062,
+      "titleJa": "番号3596",
+      "titleZh": "番號3596",
+      "titleEn": "No. 3596",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子については、店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "If you have a girl in mind, please place your order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.14",
+      "createdAt": "2026.11.14 16:24:08",
+      "images": [
+        "https://i.ibb.co/fYpr6DhV/photo-2026-09-12-12-49-07.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/fYpr6DhV/photo-2026-09-12-12-49-07.jpg",
+      "stats": {
+        "height": 169,
+        "cup": "D",
+        "age": 22,
+        "weight": 47
+      },
+      "published": true
+    },
+    {
+      "id": 1061,
+      "titleJa": "番号8389",
+      "titleZh": "番號3595",
+      "titleEn": "No. 8389",
+      "excerpt": "夜桜の夢 日本の高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream: Japan Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "If you're interested in a girl, please place an order with the store manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.14",
+      "createdAt": "2026.11.14 16:22:36",
+      "images": [
+        "https://i.ibb.co/Fvr1JRY/photo-2026-09-11-13-48-19.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/Fvr1JRY/photo-2026-09-11-13-48-19.jpg",
+      "stats": {
+        "height": 159,
+        "cup": "E",
+        "age": 24,
+        "weight": 48
+      },
+      "published": true
+    },
+    {
+      "id": 1060,
+      "titleJa": "番号3594",
+      "titleZh": "番號3594",
+      "titleEn": "No. 3594",
+      "excerpt": "夜桜の夢 日本高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japan Luxury Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子がいらっしゃいましたら、店長までご注文ください。\nGleezy：jp5560 | Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "For the girl you're interested in, please place an order with the manager.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.14",
+      "createdAt": "2026.11.14 16:21:34",
+      "images": [
+        "https://i.ibb.co/prLDgqMy/photo-2026-09-11-13-46-44.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/prLDgqMy/photo-2026-09-11-13-46-44.jpg",
+      "stats": {
+        "height": 157,
+        "cup": "D",
+        "age": 25,
+        "weight": 46
+      },
+      "published": true
+    },
+    {
+      "id": 1059,
+      "titleJa": "番号3593",
+      "titleZh": "番號3593",
+      "titleEn": "Number 3593",
+      "excerpt": "夜桜の夢 日本の高級デリバリー【国籍不問】",
+      "excerptZh": "夜桜の夢日本高級外送【不限國籍】",
+      "excerptEn": "Night Cherry Blossom Dream Japanese Premium Delivery [All Nationalities Welcome]",
+      "contentJa": "気になる女の子は店長までご注文ください。\nGleezy：jp5560 ｜ Telegram：tk6659",
+      "contentZh": "在意的女孩請找店長下單\nGleezy：jp5560 | Telegram：tk6659",
+      "contentEn": "Interested girls, please contact the store manager to order.\nGleezy: jp5560 | Telegram: tk6659",
+      "category": "出勤情報",
+      "date": "2026.11.14",
+      "createdAt": "2026.11.14 16:19:51",
+      "images": [
+        "https://i.ibb.co/1JT8tTNx/photo-2026-09-11-13-45-47.jpg"
+      ],
+      "thumbnail": "https://i.ibb.co/1JT8tTNx/photo-2026-09-11-13-45-47.jpg",
+      "stats": {
+        "height": 165,
+        "cup": "F",
+        "age": 23,
+        "weight": 48
+      },
+      "published": true
+    },
     {
       "id": 1058,
       "titleJa": "番号8388",
