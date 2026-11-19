@@ -73,13 +73,31 @@
     </div>
     <div class="nav-right">
       <button class="theme-toggle" id="theme-toggle" type="button" aria-label="切換深色/淺色模式" title="切換深色/淺色模式">
-        <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
-        <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
+        <span class="theme-orbit" aria-hidden="true">
+          <span class="theme-icon theme-icon-sun">
+            <svg class="theme-svg theme-svg-sun" viewBox="0 0 24 24" aria-hidden="true">
+              <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+              <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+                <path d="M12 2v2.4M12 19.6V22M4.22 4.22l1.7 1.7M18.08 18.08l1.7 1.7M2 12h2.4M19.6 12H22M4.22 19.78l1.7-1.7M18.08 5.92l1.7-1.7"/>
+              </g>
+            </svg>
+          </span>
+          <span class="theme-icon theme-icon-moon">
+            <img class="theme-moon-img" src="icon/moon-rabbit-v2.jpg" width="36" height="36" alt="" decoding="async">
+          </span>
+        </span>
       </button>
-      <div class="nav-lang">
-        <button data-lang="ja" class="active">JP</button>
-        <button data-lang="zh">ZH</button>
-        <button data-lang="en">EN</button>
+      <div class="nav-lang nav-lang-noren" id="nav-lang-switcher" role="group" aria-label="Language">
+        <div class="nav-lang-noren-stage">
+          <div class="noren-gate">
+            <button type="button" class="noren-panel noren-panel--l" data-lang="ja" aria-label="日本語"><span class="noren-glyph noren-glyph--ja">日</span></button>
+            <button type="button" class="noren-panel noren-panel--r" data-lang="en" aria-label="English"><span class="noren-glyph noren-glyph--latin">EN</span></button>
+          </div>
+        </div>
+        <span class="nav-lang-steam" aria-hidden="true">
+          <i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i>
+          <i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i>
+        </span>
       </div>
       <button type="button" class="nav-brand nav-brand-btn" id="admin-login-trigger" title="後台登入">夜桜の夢</button>
     </div>
@@ -120,13 +138,31 @@
       <li><a href="#reviews" data-i18n="nav.reviews">口コミ</a></li>
     </ul>
     <button class="theme-toggle sidebar-theme-toggle" id="sidebar-theme-toggle" type="button" aria-label="切換深色/淺色模式">
-      <span class="theme-icon theme-icon-sun" aria-hidden="true">☀</span>
-      <span class="theme-icon theme-icon-moon" aria-hidden="true">🌙</span>
+      <span class="theme-orbit" aria-hidden="true">
+        <span class="theme-icon theme-icon-sun">
+          <svg class="theme-svg theme-svg-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4.5" fill="currentColor"/>
+            <g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+              <path d="M12 2v2.4M12 19.6V22M4.22 4.22l1.7 1.7M18.08 18.08l1.7 1.7M2 12h2.4M19.6 12H22M4.22 19.78l1.7-1.7M18.08 5.92l1.7-1.7"/>
+            </g>
+          </svg>
+        </span>
+        <span class="theme-icon theme-icon-moon">
+          <img class="theme-moon-img" src="icon/moon-rabbit-v2.jpg" width="36" height="36" alt="" decoding="async">
+        </span>
+      </span>
     </button>
-    <div class="sidebar-lang">
-      <button data-lang="ja" class="active">JP</button>
-      <button data-lang="zh">ZH</button>
-      <button data-lang="en">EN</button>
+    <div class="sidebar-lang nav-lang-noren nav-lang-noren--sidebar" role="group" aria-label="Language">
+      <div class="nav-lang-noren-stage">
+        <div class="noren-gate">
+          <button type="button" class="noren-panel noren-panel--l" data-lang="ja" aria-label="日本語"><span class="noren-glyph noren-glyph--ja">日</span></button>
+          <button type="button" class="noren-panel noren-panel--r" data-lang="en" aria-label="English"><span class="noren-glyph noren-glyph--latin">EN</span></button>
+        </div>
+      </div>
+      <span class="nav-lang-steam" aria-hidden="true">
+        <i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i>
+        <i class="steam-wisp"></i><i class="steam-wisp"></i><i class="steam-wisp"></i>
+      </span>
     </div>
     <div class="sidebar-contacts">
       <a href="https://line.me/ti/p/DOkOg7eOhy" target="_blank" rel="noopener" class="sidebar-contact-btn sc-line">LINE</a>

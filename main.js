@@ -305,9 +305,14 @@ const THEME_KEY = 'yuyu-theme';
 let currentOpenDiaryId = null;
 
 function setTheme(theme) {
-  const next = theme || (document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
-  document.documentElement.setAttribute('data-theme', next);
+  const root = document.documentElement;
+  const current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+  const next = theme || (current === 'dark' ? 'light' : 'dark');
+  if (next === current) return;
+  root.classList.add('theme-transitioning');
+  root.setAttribute('data-theme', next);
   localStorage.setItem(THEME_KEY, next);
+  window.setTimeout(() => root.classList.remove('theme-transitioning'), 700);
 }
 
 function initTheme() {
@@ -384,6 +389,43 @@ document.getElementById('admin-pwd-toggle')?.addEventListener('click', () => {
 
 // ── Language Switch ──
 const allLangButtons = document.querySelectorAll('[data-lang]');
+/** 暖簾左右為「可切換的另兩語」：中→日|EN、日→中|EN、EN→日|中 */
+const NOREN_SIDES = {
+  zh: {
+    left: { lang: 'ja', text: '日', label: '日本語' },
+    right: { lang: 'en', text: 'EN', label: 'English' },
+  },
+  ja: {
+    left: { lang: 'zh', text: '中', label: '中文' },
+    right: { lang: 'en', text: 'EN', label: 'English' },
+  },
+  en: {
+    left: { lang: 'ja', text: '日', label: '日本語' },
+    right: { lang: 'zh', text: '中', label: '中文' },
+  },
+};
+
+function syncNorenLangUI(lang) {
+  const sides = NOREN_SIDES[lang] || NOREN_SIDES.ja;
+  document.querySelectorAll('.nav-lang-noren').forEach((root) => {
+    const lPanel = root.querySelector('.noren-panel--l');
+    const rPanel = root.querySelector('.noren-panel--r');
+    const syncGlyph = (panel, side) => {
+      if (!panel) return;
+      panel.dataset.lang = side.lang;
+      panel.setAttribute('aria-label', side.label);
+      const g = panel.querySelector('.noren-glyph');
+      if (!g) return;
+      g.textContent = side.text;
+      g.classList.remove('noren-glyph--ja', 'noren-glyph--zh', 'noren-glyph--latin');
+      if (side.lang === 'en') g.classList.add('noren-glyph--latin');
+      else if (side.lang === 'zh') g.classList.add('noren-glyph--zh');
+      else g.classList.add('noren-glyph--ja');
+    };
+    syncGlyph(lPanel, sides.left);
+    syncGlyph(rPanel, sides.right);
+  });
+}
 
 function tLang(lang, key) {
   if (typeof translations === 'undefined') return undefined;
@@ -399,8 +441,10 @@ function setLanguage(lang, rerender) {
   document.body.classList.add('lang-' + lang);
 
   allLangButtons.forEach(btn => {
+    if (btn.classList.contains('noren-panel')) return;
     btn.classList.toggle('active', btn.dataset.lang === lang);
   });
+  syncNorenLangUI(lang);
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
