@@ -530,8 +530,36 @@ function initAgeGate() {
 }
 
 allLangButtons.forEach(btn => {
-  btn.addEventListener('click', () => setLanguage(btn.dataset.lang, true));
+  btn.addEventListener('click', () => {
+    setLanguage(btn.dataset.lang, true);
+    document.querySelectorAll('.nav-lang-noren--open').forEach((el) => el.classList.remove('nav-lang-noren--open'));
+  });
 });
+
+/** 手機無 hover：點暖簾時播放開簾＋蒸氣 */
+function initNorenTouch() {
+  if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  document.querySelectorAll('.nav-lang-noren').forEach((root) => {
+    let closeTimer = null;
+    const openBrief = () => {
+      root.classList.add('nav-lang-noren--open');
+      clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(() => root.classList.remove('nav-lang-noren--open'), 2600);
+    };
+    root.querySelectorAll('.noren-panel').forEach((panel) => {
+      panel.addEventListener('pointerdown', openBrief, { passive: true });
+    });
+    root.querySelector('.nav-lang-noren-stage')?.addEventListener('click', (e) => {
+      if (e.target.closest('.noren-panel')) return;
+      root.classList.toggle('nav-lang-noren--open');
+      if (root.classList.contains('nav-lang-noren--open')) openBrief();
+    });
+    document.addEventListener('pointerdown', (e) => {
+      if (!root.contains(e.target)) root.classList.remove('nav-lang-noren--open');
+    });
+  });
+}
+initNorenTouch();
 
 // 語言優先順序：URL 參數 > 已儲存 > 瀏覽器語言 > 預設日文（永不預設英文）
 function getInitialLang() {

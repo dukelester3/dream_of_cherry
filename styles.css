@@ -472,11 +472,32 @@ body.lang-en { font-family: var(--font-mono); }
 }
 
 @media (hover: none) {
-  .nav-lang-steam { display: none; }
-  .nav-lang-noren:hover .noren-panel--l,
-  .nav-lang-noren:hover .noren-panel--r {
-    transform: none;
+  .nav-lang-noren--open .nav-lang-noren-stage::before {
+    width: 88px;
   }
+  .nav-lang-noren--open .noren-panel--l {
+    transform: translateX(-14px) rotate(-11deg);
+    box-shadow: -4px 3px 8px rgba(0, 0, 0, 0.22);
+  }
+  .nav-lang-noren--open .noren-panel--r {
+    transform: translateX(14px) rotate(11deg);
+    box-shadow: 4px 3px 8px rgba(0, 0, 0, 0.22);
+  }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp {
+    animation: nav-lang-steam-burst 1.15s ease-out infinite;
+    background: radial-gradient(
+      circle at 40% 60%,
+      rgba(255, 255, 255, 1) 0%,
+      rgba(255, 255, 255, 0.58) 42%,
+      transparent 72%
+    );
+    filter: blur(2.5px);
+  }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp:nth-child(2) { animation-delay: 0.12s; animation-duration: 1.25s; }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp:nth-child(4) { animation-delay: 0.08s; animation-duration: 1.3s; }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp:nth-child(3) { animation-delay: 0.24s; }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp:nth-child(5) { animation-delay: 0.2s; }
+  .nav-lang-noren--open .nav-lang-steam .steam-wisp:nth-child(6) { animation-delay: 0.32s; animation-duration: 1.2s; }
 }
 
 /* Theme Toggle — 太陽上升／月亮下降 */
